@@ -901,6 +901,12 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-decoder=mjpeg \
 		--enable-decoder=vorbis \
 		--enable-decoder=flac \
+		--enable-protocol=file \
+		--enable-encoder=mpeg2video \
+		--enable-muxer=mpeg2video \
+		--enable-parser=mjpeg \
+		--enable-demuxer=mjpeg \
+		--enable-small \
 		--enable-decoder=dvbsub \
 		--enable-decoder=iff_byterun1 \
 		--enable-small \
@@ -913,7 +919,8 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--arch=sh4 \
 		--extra-cflags=-fno-strict-aliasing \
 		--enable-stripping \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-ffmpeg $(DEPDIR)/std-ffmpeg $(DEPDIR)/max-ffmpeg \

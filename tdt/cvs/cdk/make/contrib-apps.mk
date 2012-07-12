@@ -16,7 +16,7 @@ $(DEPDIR)/bzip2: \
 $(DEPDIR)/%bzip2: $(DEPDIR)/bzip2.do_compile
 	cd @DIR_bzip2@ && \
 		@INSTALL_bzip2@
-#	@DISTCLEANUP_bzip2@
+	@DISTCLEANUP_bzip2@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -43,7 +43,7 @@ $(DEPDIR)/%module_init_tools: $(DEPDIR)/%lsb $(MODULE_INIT_TOOLS:%=root/etc/%) $
 		@INSTALL_module_init_tools@
 	$(call adapted-etc-files,$(MODULE_INIT_TOOLS_ADAPTED_ETC_FILES))
 	$(call initdconfig,module-init-tools)
-#	@DISTCLEANUP_module_init_tools@
+	@DISTCLEANUP_module_init_tools@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -75,7 +75,7 @@ $(DEPDIR)/grep: \
 $(DEPDIR)/%grep: $(DEPDIR)/grep.do_compile
 	cd @DIR_grep@ && \
 		@INSTALL_grep@
-#	@DISTCLEANUP_grep@
+	@DISTCLEANUP_grep@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -93,7 +93,7 @@ $(DEPDIR)/lsb: \
 $(DEPDIR)/%lsb: $(DEPDIR)/lsb.do_compile
 	cd @DIR_lsb@ && \
 		@INSTALL_lsb@
-#	@DISTCLEANUP_lsb@
+	@DISTCLEANUP_lsb@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -120,7 +120,7 @@ $(DEPDIR)/%portmap: $(DEPDIR)/%lsb $(PORTMAP_ADAPTED_ETC_FILES:%=root/etc/%) $(D
 		@INSTALL_portmap@
 	$(call adapted-etc-files,$(PORTMAP_ADAPTED_ETC_FILES))
 	$(call initdconfig,portmap)
-#	@DISTCLEANUP_portmap@
+	@DISTCLEANUP_portmap@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -128,7 +128,6 @@ $(DEPDIR)/%portmap: $(DEPDIR)/%lsb $(PORTMAP_ADAPTED_ETC_FILES:%=root/etc/%) $(D
 #
 $(DEPDIR)/openrdate.do_prepare: bootstrap @DEPENDS_openrdate@
 	@PREPARE_openrdate@
-	cd @DIR_openrdate@
 	touch $@
 
 $(DEPDIR)/openrdate.do_compile: $(DEPDIR)/openrdate.do_prepare
@@ -155,7 +154,7 @@ $(DEPDIR)/%openrdate: $(OPENRDATE_ADAPTED_ETC_FILES:%=root/etc/%) \
 		for s in rdate.sh ; do \
 			$(hostprefix)/bin/target-initdconfig --add $$s || \
 			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
-#	@DISTCLEANUP_openrdate@
+	@DISTCLEANUP_openrdate@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -225,7 +224,7 @@ $(DEPDIR)/e2fsprogs: $(DEPDIR)/e2fsprogs.do_compile
 		LDCONFIG=true \
 		DESTDIR=$(targetprefix) && \
 	$(INSTALL) e2fsck/e2fsck.static $(targetprefix)/sbin
-#	@DISTCLEANUP_e2fsprogs@
+	@DISTCLEANUP_e2fsprogs@
 	touch $@
 else !STM24
 $(DEPDIR)/min-e2fsprogs $(DEPDIR)/std-e2fsprogs $(DEPDIR)/max-e2fsprogs \
@@ -236,7 +235,7 @@ $(DEPDIR)/%e2fsprogs: $(DEPDIR)/e2fsprogs.do_compile
 	[ "x$*" = "x" ] && ( cd @DIR_e2fsprogs@ && \
 		$(MAKE) install -C lib/uuid DESTDIR=$(targetprefix) && \
 		$(MAKE) install -C lib/blkid DESTDIR=$(targetprefix) ) || true
-#	@DISTCLEANUP_e2fsprogs@
+	@DISTCLEANUP_e2fsprogs@
 	[ "x$*" = "x" ] && touch $@ || true
 endif !STM24
 
@@ -275,7 +274,7 @@ $(DEPDIR)/%xfsprogs: $(DEPDIR)/xfsprogs.do_compile
 	cd @DIR_xfsprogs@ && \
 		export top_builddir=`pwd` && \
 		@INSTALL_xfsprogs@
-#	@DISTCLEANUP_xfsprogs@
+	@DISTCLEANUP_xfsprogs@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -305,7 +304,7 @@ $(DEPDIR)/%mc: %glib2 $(DEPDIR)/mc.do_compile
 		@INSTALL_mc@
 #		export top_builddir=`pwd` && \
 #		$(MAKE) install DESTDIR=$(prefix)/$*cdkroot
-#	@DISTCLEANUP_mc@
+	@DISTCLEANUP_mc@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -337,7 +336,7 @@ $(DEPDIR)/%sdparm: $(DEPDIR)/sdparm.do_compile
 		@INSTALL_sdparm@
 	@( cd $(prefix)/$*cdkroot/usr/share/man/man8 && \
 		gzip -v9 sdparm.8 )
-#	@DISTCLEANUP_sdparm@
+	@DISTCLEANUP_sdparm@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -375,7 +374,7 @@ $(DEPDIR)/%sg3_utils: $(DEPDIR)/sg3_utils.do_compile
 		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done ) && \
 	$(INSTALL) -m755 root/usr/sbin/sg_down.sh $(prefix)/$*cdkroot/usr/sbin
-#	@DISTCLEANUP_sg3_utils@
+	@DISTCLEANUP_sg3_utils@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -405,7 +404,7 @@ $(DEPDIR)/%ipkg: $(DEPDIR)/ipkg.do_compile
 	$(INSTALL) -d $(prefix)/$*cdkroot/etc/ipkg
 	$(INSTALL) -d $(prefix)/$*cdkroot/usr/lib/ipkg
 	$(INSTALL) -m 644 root/usr/lib/ipkg/status.initial $(prefix)/$*cdkroot/usr/lib/ipkg/status
-#	@DISTCLEANUP_ipkg@
+	@DISTCLEANUP_ipkg@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -433,7 +432,7 @@ $(DEPDIR)/%zd1211: $(DEPDIR)/zd1211.do_compile
 			INSTALL_MOD_PATH=$(targetprefix) \
 			install
 	$(DEPMOD) -ae -b $(targetprefix) -r $(KERNELVERSION)
-#	@DISTCLEANUP_zd1211@
+	@DISTCLEANUP_zd1211@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -461,7 +460,7 @@ $(DEPDIR)/nano: \
 $(DEPDIR)/%nano: $(DEPDIR)/nano.do_compile
 	cd @DIR_nano@ && \
 		@INSTALL_nano@
-#	@DISTCLEANUP_nano@
+	@DISTCLEANUP_nano@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -488,7 +487,7 @@ $(DEPDIR)/rsync: \
 $(DEPDIR)/%rsync: $(DEPDIR)/rsync.do_compile
 	cd @DIR_rsync@ && \
 		@INSTALL_rsync@
-#	@DISTCLEANUP_rsync@
+	@DISTCLEANUP_rsync@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -514,7 +513,7 @@ $(DEPDIR)/%lm_sensors: $(DEPDIR)/lm_sensors.do_compile
 		rm $(prefix)/$*cdkroot/usr/share/man/man8/sensors-detect.8 && \
 		rm $(prefix)/$*cdkroot/usr/include/linux/i2c-dev.h && \
 		rm $(prefix)/$*cdkroot/usr/bin/ddcmon
-#	@DISTCLEANUP_lm_sensors@
+	@DISTCLEANUP_lm_sensors@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -552,7 +551,7 @@ $(DEPDIR)/%fuse: %curl %glib2 $(DEPDIR)/fuse.do_compile
 		for s in fuse ; do \
 			$(hostprefix)/bin/target-initdconfig --add $$s || \
 			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
-#	@DISTCLEANUP_fuse@
+	@DISTCLEANUP_fuse@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -579,7 +578,7 @@ $(DEPDIR)/curlftpfs: \
 $(DEPDIR)/%curlftpfs: %fuse $(DEPDIR)/curlftpfs.do_compile
 	cd @DIR_curlftpfs@ && \
 		@INSTALL_curlftpfs@
-#	@DISTCLEANUP_curlftpfs@
+	@DISTCLEANUP_curlftpfs@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -599,7 +598,7 @@ $(DEPDIR)/fbset: \
 $(DEPDIR)/%fbset: fbset.do_compile
 	cd @DIR_fbset@ && \
 		@INSTALL_fbset@
-#	@DISTCLEANUP_fbset@
+	@DISTCLEANUP_fbset@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -619,7 +618,7 @@ $(DEPDIR)/pngquant: \
 $(DEPDIR)/%pngquant: $(DEPDIR)/pngquant.do_compile
 	cd @DIR_pngquant@ && \
 		@INSTALL_pngquant@
-#	@DISTCLEANUP_pngquant@
+	@DISTCLEANUP_pngquant@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -646,7 +645,7 @@ $(DEPDIR)/mplayer: \
 $(DEPDIR)/%mplayer: $(DEPDIR)/mplayer.do_compile
 	cd @DIR_mplayer@ && \
 		@INSTALL_mplayer@
-#	@DISTCLEANUP_mplayer@
+	@DISTCLEANUP_mplayer@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -698,7 +697,7 @@ $(DEPDIR)/mencoder: \
 $(DEPDIR)/%mencoder: $(DEPDIR)/mencoder.do_compile
 	cd @DIR_mencoder@ && \
 		@INSTALL_mencoder@
-#	@DISTCLEANUP_mencoder@
+	@DISTCLEANUP_mencoder@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -743,7 +742,7 @@ $(DEPDIR)/%util-linux: util-linux.do_compile
 #		install -m 755 debian/hwclock.sh $(targetprefix)/etc/init.d/hwclock.sh && \
 #		( cd po && make install DESTDIR=$(targetprefix) )
 #		@INSTALL_util_linux@
-#	@DISTCLEANUP_util_linux@
+	@DISTCLEANUP_util_linux@
 	[ "x$*" = "x" ] && touch $@ || true
 endif !STM24
 
@@ -770,7 +769,7 @@ $(DEPDIR)/jfsutils: \
 $(DEPDIR)/%jfsutils: $(DEPDIR)/jfsutils.do_compile
 	cd @DIR_jfsutils@ && \
 		@INSTALL_jfsutils@
-#	@DISTCLEANUP_jfsutils@
+	@DISTCLEANUP_jfsutils@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -798,7 +797,7 @@ $(DEPDIR)/opkg: \
 $(DEPDIR)/%opkg: $(DEPDIR)/opkg.do_compile
 	cd @DIR_opkg@ && \
 		@INSTALL_opkg@
-#	@DISTCLEANUP_opkg@
+	@DISTCLEANUP_opkg@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -846,7 +845,7 @@ $(DEPDIR)/hotplug_e2: \
 $(DEPDIR)/%hotplug_e2: $(DEPDIR)/hotplug_e2.do_compile
 	cd @DIR_hotplug_e2@ && \
 		@INSTALL_hotplug_e2@
-#	@DISTCLEANUP_hotplug_e2@
+	@DISTCLEANUP_hotplug_e2@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -873,7 +872,7 @@ $(DEPDIR)/autofs: \
 $(DEPDIR)/%autofs: $(DEPDIR)/autofs.do_compile
 	cd @DIR_autofs@ && \
 		@INSTALL_autofs@
-#	@DISTCLEANUP_autofs@
+	@DISTCLEANUP_autofs@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -914,5 +913,5 @@ $(DEPDIR)/imagemagick: \
 $(DEPDIR)/%imagemagick: $(DEPDIR)/imagemagick.do_compile
 	cd @DIR_imagemagick@ && \
 		@INSTALL_imagemagick@
-#	@DISTCLEANUP_imagemagick@
+	@DISTCLEANUP_imagemagick@
 	[ "x$*" = "x" ] && touch $@ || true

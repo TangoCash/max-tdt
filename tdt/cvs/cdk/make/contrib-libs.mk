@@ -1959,7 +1959,8 @@ $(DEPDIR)/libgd2.do_compile: $(DEPDIR)/libgd2.do_prepare
 		--build=$(build) \
 		--host=$(target) \
 		--prefix=/usr && \
-		$(MAKE)
+	$(MAKE)
+	touch $@
 
 $(DEPDIR)/min-libgd2 $(DEPDIR)/std-libgd2 $(DEPDIR)/max-libgd2 \
 $(DEPDIR)/libgd2: \
@@ -1983,7 +1984,8 @@ $(DEPDIR)/libusb2.do_compile: $(DEPDIR)/libusb2.do_prepare
 		--build=$(build) \
 		--host=$(target) \
 		--prefix=/usr && \
-		$(MAKE) all
+	$(MAKE) all
+	touch $@
 
 $(DEPDIR)/min-libusb2 $(DEPDIR)/std-libusb2 $(DEPDIR)/max-libusb2 \
 $(DEPDIR)/libusb2: \
@@ -2007,7 +2009,8 @@ $(DEPDIR)/libusbcompat.do_compile: $(DEPDIR)/libusbcompat.do_prepare
 		--build=$(build) \
 		--host=$(target) \
 		--prefix=/usr && \
-		$(MAKE)
+	$(MAKE)
+	touch $@
 
 $(DEPDIR)/min-libusbcompat $(DEPDIR)/std-libusbcompat $(DEPDIR)/max-libusbcompat \
 $(DEPDIR)/libusbcompat: \

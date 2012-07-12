@@ -127,6 +127,7 @@ REWRITE_LIBDEP = sed -i -e "s,\(^dependency_libs='\| \|-L\|^dependency_libs='\)/
 REWRITE_PKGCONF = sed -i "s,^prefix=.*,prefix='$(targetprefix)/usr',"
 
 BUILDENV := \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	CC=$(target)-gcc \
 	CXX=$(target)-g++ \
 	LD=$(target)-ld \

@@ -248,7 +248,6 @@ $(DEPDIR)/xfsprogs.do_prepare: bootstrap $(DEPDIR)/e2fsprogs $(DEPDIR)/libreadli
 	touch $@
 
 $(DEPDIR)/xfsprogs.do_compile: $(DEPDIR)/xfsprogs.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_xfsprogs@ && \
 		export DEBUG=-DNDEBUG && export OPTIMIZER=-O2 && \
 		mv -f aclocal.m4 aclocal.m4.orig && mv Makefile Makefile.sgi || true && chmod 644 Makefile.sgi && \
@@ -349,7 +348,6 @@ $(DEPDIR)/sg3_utils.do_prepare: bootstrap @DEPENDS_sg3_utils@
 	touch $@
 
 $(DEPDIR)/sg3_utils.do_compile: $(DEPDIR)/sg3_utils.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sg3_utils@ && \
 		$(MAKE) clean || true && \
 		aclocal -I $(hostprefix)/share/aclocal && \
@@ -808,7 +806,6 @@ $(DEPDIR)/%opkg: $(DEPDIR)/opkg.do_compile
 #
 $(DEPDIR)/sysstat: bootstrap @DEPENDS_sysstat@
 	@PREPARE_sysstat@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sysstat@ && \
 	$(BUILDENV) \
 	./configure \

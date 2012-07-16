@@ -9,11 +9,11 @@ min-prepare-yaud std-prepare-yaud max-prepare-yaud: \
 #
 $(DEPDIR)/min-bootstrap $(DEPDIR)/std-bootstrap $(DEPDIR)/max-bootstrap $(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
-		%libtool \
 		%$(FILESYSTEM) \
 		| %$(GLIBC) \
 		%$(CROSS_LIBGCC) \
-		%$(LIBSTDC)
+		%$(LIBSTDC) \
+		%$(LIBSTDC_DEV)
 	@[ "x$*" = "x" ] && touch -r RPMS/sh4/$(STLINUX)-sh4-$(LIBSTDC)-$(GCC_VERSION).sh4.rpm $@ || true
 
 #
@@ -39,12 +39,8 @@ min-bare-os std-bare-os max-bare-os bare-os: \
 		%$(SYSVINIT) \
 		%$(DISTRIBUTIONUTILS) \
 		\
-		%e2fsprogs \
 		%u-boot-utils \
 		%diverse-tools
-#		%$(RELEASE) \
-#		%$(FINDUTILS) \
-#
 
 min-net-utils std-net-utils max-net-utils net-utils: \
 %net-utils: \
@@ -60,6 +56,7 @@ min-net-utils std-net-utils max-net-utils net-utils: \
 
 min-disk-utils std-disk-utils max-disk-utils disk-utils: \
 %disk-utils: \
+		%e2fsprogs \
 		%$(XFSPROGS) \
 		%util-linux \
 		%jfsutils \
@@ -100,12 +97,16 @@ yaud-neutrino-static: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino release_neutrino_static
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-neutrino-beta: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino-beta release_neutrino_nightly
+yaud-neutrino-single: yaud-none lirc stslave \
+		boot-elf remote firstboot neutrino-single release_neutrino_nightly
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-twin: yaud-none lirc stslave \
+		boot-elf remote firstboot neutrino-twin release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-hd2: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino-hd2 release_neutrino
+		boot-elf remote firstboot neutrino-hd2 release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 if STM22
@@ -144,9 +145,6 @@ yaud-enigma2-pli-nightly: yaud-none host_python lirc \
 
 yaud-none: \
 		bare-os \
-		libdvdcss \
-		libdvdread \
-		libdvdnav \
 		linux-kernel \
 		net-utils \
 		disk-utils \

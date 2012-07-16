@@ -21,11 +21,12 @@ $(DEPDIR)/libz.do_prepare: bootstrap @DEPENDS_libz@ $(if $(LIBZ_ORDER),| $(LIBZ_
 
 $(DEPDIR)/libz.do_compile: $(DEPDIR)/libz.do_prepare
 	cd @DIR_libz@ && \
+		ln -sf /bin/true ./ldconfig; \
 		$(BUILDENV) \
 		./configure \
 			--prefix=/usr \
 			--shared && \
-		$(MAKE) all libz.a AR="$(target)-ar rc" CFLAGS="-fpic -O2"
+		$(MAKE) all
 	touch $@
 
 $(DEPDIR)/min-libz $(DEPDIR)/std-libz $(DEPDIR)/max-libz \
@@ -814,7 +815,7 @@ $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
 			--enable-static \
 			--enable-shared \
 			--prefix=/usr && \
-		$(MAKE) all
+		$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libdvdread $(DEPDIR)/std-libdvdread $(DEPDIR)/max-libdvdread \
@@ -946,7 +947,8 @@ $(DEPDIR)/libass.do_compile: $(DEPDIR)/libass.do_prepare
 		--host=$(target) \
 		--disable-fontconfig \
 		--disable-enca \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libass $(DEPDIR)/std-libass $(DEPDIR)/max-libass \
@@ -1111,7 +1113,8 @@ $(DEPDIR)/sqlite.do_compile: $(DEPDIR)/sqlite.do_prepare
 		--host=$(target) \
 		--prefix=/usr \
 		--disable-tcl \
-		--disable-debug
+		--disable-debug && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-sqlite $(DEPDIR)/std-sqlite $(DEPDIR)/max-sqlite \
@@ -1216,7 +1219,8 @@ $(DEPDIR)/libogg.do_compile: $(DEPDIR)/libogg.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libogg $(DEPDIR)/std-libogg $(DEPDIR)/max-libogg \
@@ -1251,7 +1255,8 @@ $(DEPDIR)/libflac.do_compile: $(DEPDIR)/libflac.do_prepare
 		--without-libiconv-prefix \
 		--without-id3lib \
 		--with-ogg-includes=. \
-		--disable-cpplibs
+		--disable-cpplibs && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libflac $(DEPDIR)/std-libflac $(DEPDIR)/max-libflac \
@@ -1637,7 +1642,8 @@ $(DEPDIR)/gstreamer.do_compile: $(DEPDIR)/gstreamer.do_prepare
 		--disable-docs-build \
 		--disable-dependency-tracking \
 		--with-check=no \
-		ac_cv_func_register_printf_function=no
+		ac_cv_func_register_printf_function=no && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gstreamer $(DEPDIR)/std-gstreamer $(DEPDIR)/max-gstreamer \
@@ -1647,7 +1653,8 @@ $(DEPDIR)/%gstreamer: $(DEPDIR)/gstreamer.do_compile
 		@INSTALL_gstreamer@
 	@DISTCLEANUP_gstreamer@
 	[ "x$*" = "x" ] && touch $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/gstreamer-0.10/*.la
+	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/gstreamer-0.10/*.la
 
 #
 # GST-PLUGINS-BASE
@@ -1663,11 +1670,13 @@ $(DEPDIR)/gst_plugins_base.do_compile: $(DEPDIR)/gst_plugins_base.do_prepare
 		--host=$(target) \
 		--prefix=/usr \
 		--disable-theora \
+		--disable-gnome_vfs \
 		--disable-pango \
 		--disable-vorbis \
 		--disable-x \
-		--with-audioresample-format=int \
-		--with-check=no
+		--disable-examples \
+		--with-audioresample-format=int && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugins_base $(DEPDIR)/std-gst_plugins_base $(DEPDIR)/max-gst_plugins_base \
@@ -1693,10 +1702,12 @@ $(DEPDIR)/gst_plugins_good.do_compile: $(DEPDIR)/gst_plugins_good.do_prepare
 		--prefix=/usr \
 		--disable-esd \
 		--disable-esdtest \
+		--disable-aalib \
 		--disable-shout2 \
 		--disable-shout2test \
 		--disable-x \
-		--with-check=no
+		--with-check=no && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugins_good $(DEPDIR)/std-gst_plugins_good $(DEPDIR)/max-gst_plugins_good \
@@ -1720,9 +1731,9 @@ $(DEPDIR)/gst_plugins_bad.do_compile: $(DEPDIR)/gst_plugins_bad.do_prepare
 	./configure \
 		--host=$(target) \
 		--prefix=/usr \
-		ac_cv_openssldir=no \
-		--with-check=no \
-		--disable-sdl
+		--disable-sdl \
+		ac_cv_openssldir=no && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugins_bad $(DEPDIR)/std-gst_plugins_bad $(DEPDIR)/max-gst_plugins_bad \
@@ -1746,7 +1757,8 @@ $(DEPDIR)/gst_plugins_ugly.do_compile: $(DEPDIR)/gst_plugins_ugly.do_prepare
 	./configure \
 		--host=$(target) \
 		--prefix=/usr \
-		--with-check=no
+		--disable-x && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugins_ugly $(DEPDIR)/std-gst_plugins_ugly $(DEPDIR)/max-gst_plugins_ugly \
@@ -1830,7 +1842,9 @@ $(DEPDIR)/gst_plugins_fluendo_mpegdemux.do_compile: $(DEPDIR)/gst_plugins_fluend
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr --with-check=no
+		--prefix=/usr \
+		--with-check=no && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugins_fluendo_mpegdemux $(DEPDIR)/std-gst_plugins_fluendo_mpegdemux $(DEPDIR)/max-gst_plugins_fluendo_mpegdemux \
@@ -1858,7 +1872,8 @@ $(DEPDIR)/gst_plugin_subsink.do_compile: $(DEPDIR)/gst_plugin_subsink.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugin_subsink $(DEPDIR)/std-gst_plugin_subsink $(DEPDIR)/max-gst_plugin_subsink \
@@ -1886,7 +1901,8 @@ $(DEPDIR)/gst_plugins_dvbmediasink.do_compile: $(DEPDIR)/gst_plugins_dvbmediasin
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-gst_plugins_dvbmediasink $(DEPDIR)/std-gst_plugins_dvbmediasink $(DEPDIR)/max-gst_plugins_dvbmediasink \
@@ -1928,7 +1944,7 @@ $(DEPDIR)/%libusb: $(DEPDIR)/libusb.do_compile
 #
 # graphlcd
 #
-$(DEPDIR)/graphlcd.do_prepare: bootstrap libusb @DEPENDS_graphlcd@
+$(DEPDIR)/graphlcd.do_prepare: bootstrap fontconfig libusb @DEPENDS_graphlcd@
 	@PREPARE_graphlcd@
 	touch $@
 
@@ -1947,6 +1963,80 @@ $(DEPDIR)/%graphlcd: $(DEPDIR)/graphlcd.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 ##############################   LCD4LINUX   ###################################
+
+#
+# LCD4LINUX
+#--with-python
+$(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb2 libdpf @DEPENDS_lcd4_linux@
+	@PREPARE_lcd4_linux@
+	touch $@
+
+$(DEPDIR)/lcd4_linux.do_compile: $(DEPDIR)/lcd4_linux.do_prepare
+	cd @DIR_lcd4_linux@ && \
+	cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
+	aclocal && \
+	libtoolize -f -c && \
+	autoheader && \
+	automake --foreign && \
+	autoconf && \
+	$(BUILDENV) \
+	./configure \
+		--build=$(build) \
+		--host=$(target) \
+		--libdir=$(targetprefix)/usr/lib \
+		--includedir=$(targetprefix)/usr/include \
+		--oldincludedir=$(targetprefix)/usr/include \
+		--prefix=/usr \
+		--with-drivers='DPF,SamsungSPF' \
+		--with-plugins='all,!dbus,!mpris_dbus,!asterisk,!isdn,!pop3,!ppp,!seti,!huawei,!imon,!kvv,!sample,!w1retap,!wireless,!xmms,!gps,!mpd,!mysql,!qnaplog' \
+		--without-ncurses && \
+	$(MAKE) all
+	touch $@
+
+$(DEPDIR)/min-lcd4_linux $(DEPDIR)/std-lcd4_linux $(DEPDIR)/max-lcd4_linux \
+$(DEPDIR)/lcd4_linux: \
+$(DEPDIR)/%lcd4_linux: $(DEPDIR)/lcd4_linux.do_compile
+	cd @DIR_lcd4_linux@ && \
+		@INSTALL_lcd4_linux@
+	@DISTCLEANUP_lcd4_linux@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# libdpfax
+#
+$(DEPDIR)/libdpfax.do_prepare: bootstrap libusbcompat @DEPENDS_libdpfax@
+	@PREPARE_libdpfax@
+	touch $@
+
+$(DEPDIR)/libdpfax.do_compile: $(DEPDIR)/libdpfax.do_prepare
+	cd @DIR_libdpfax@ && \
+	$(BUILDENV) \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/min-libdpfax $(DEPDIR)/std-libdpfax $(DEPDIR)/max-libdpfax \
+$(DEPDIR)/libdpfax: \
+$(DEPDIR)/%libdpfax: $(DEPDIR)/libdpfax.do_compile
+	cd @DIR_libdpfax@ && \
+		@INSTALL_libdpfax@
+	@DISTCLEANUP_libdpfax@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# DPFAX
+#
+$(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
+	@PREPARE_libdpf@
+	cd @DIR_libdpf@ && \
+	$(BUILDENV) \
+		$(MAKE) && \
+		cp dpf.h $(targetprefix)/usr/include/ && \
+		cp sglib.h $(targetprefix)/usr/include/ && \
+		cp usbuser.h $(targetprefix)/usr/include/ && \
+		cp libdpf.a $(targetprefix)/usr/lib/
+	@DISTCLEANUP_libdpf@
+	@touch $@
+	@TUXBOX_YAUD_CUSTOMIZE@
 
 #
 #
@@ -2150,6 +2240,35 @@ $(DEPDIR)/%libalsa: $(DEPDIR)/libalsa.do_compile
 	cd @DIR_libalsa@ && \
 		@INSTALL_libalsa@
 	@DISTCLEANUP_libalsa@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# libopenthreads
+#
+$(DEPDIR)/libopenthreads.do_prepare: bootstrap @DEPENDS_libopenthreads@
+	@PREPARE_libopenthreads@
+#	git clone --recurse-submodules git://c00lstreamtech.de/cst-public-libraries-openthreads.git
+	touch $@
+
+$(DEPDIR)/libopenthreads.do_compile: $(DEPDIR)/libopenthreads.do_prepare
+	cd @DIR_libopenthreads@ && \
+	rm CMakeFiles/* -rf CMakeCache.txt cmake_install.cmake && \
+	cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_SYSTEM_NAME="Linux" \
+		-DCMAKE_INSTALL_PREFIX="" \
+		-DCMAKE_C_COMPILER="$(target)-gcc" \
+		-DCMAKE_CXX_COMPILER="$(target)-g++" \
+		-D_OPENTHREADS_ATOMIC_USE_GCC_BUILTINS_EXITCODE=1 && \
+		find . -name cmake_install.cmake -print0 | xargs -0 \
+		sed -i 's@SET(CMAKE_INSTALL_PREFIX "/usr/local")@SET(CMAKE_INSTALL_PREFIX "")@' && \
+		$(MAKE)
+	touch $@
+
+$(DEPDIR)/min-libopenthreads $(DEPDIR)/std-libopenthreads $(DEPDIR)/max-libopenthreads \
+$(DEPDIR)/libopenthreads: \
+$(DEPDIR)/%libopenthreads: $(DEPDIR)/libopenthreads.do_compile
+	cd @DIR_libopenthreads@ && \
+		@INSTALL_libopenthreads@
+	@DISTCLEANUP_libopenthreads@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -2479,7 +2598,7 @@ $(DEPDIR)/%tiff: $(DEPDIR)/tiff.do_compile
 #
 # lzo
 #
-$(DEPDIR)/lzo.do_prepare: @DEPENDS_lzo@
+$(DEPDIR)/lzo.do_prepare: bootstrap @DEPENDS_lzo@
 	@PREPARE_lzo@
 	touch $@
 

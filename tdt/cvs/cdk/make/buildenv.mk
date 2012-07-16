@@ -6,6 +6,9 @@ export CXXFLAGS
 export DRPM
 export DRPMBUILD
 
+LIBTOOL_PREFIX_BASE=$(targetprefix)
+export LIBTOOL_PREFIX_BASE
+
 AUTOMAKE_OPTIONS = -Wno-portability
 
 #######################################      #########################################
@@ -119,12 +122,9 @@ MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
 ADAPTED_ETC_FILES =
 ETC_RW_FILES =
 
-# rpm helper-"functions":
-TARGETLIB = $(targetprefix)/usr/lib
-PKG_CONFIG_PATH = $(targetprefix)/usr/lib/pkgconfig
-REWRITE_LIBDIR = sed -i "s,^libdir=.*,libdir='$(targetprefix)/usr/lib'," $(targetprefix)/usr/lib
-REWRITE_LIBDEP = sed -i -e "s,\(^dependency_libs='\| \|-L\|^dependency_libs='\)/usr/lib,\$(targetprefix)/usr/lib," $(targetprefix)/usr/lib
-REWRITE_PKGCONF = sed -i "s,^prefix=.*,prefix='$(targetprefix)/usr',"
+if OLD_GCC_STM24
+OLDSTM24 = YES
+endif
 
 BUILDENV := \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
@@ -143,6 +143,8 @@ BUILDENV := \
 	CXXFLAGS="$(TARGET_CFLAGS)" \
 	LDFLAGS="$(TARGET_LDFLAGS)" \
 	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig"
+
+#	LDFLAGS="$(TARGET_LDFLAGS) -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/lib -L$(targetprefix)/usr/lib"
 
 MAKE_OPTS := \
 	CC=$(target)-gcc \

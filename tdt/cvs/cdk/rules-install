@@ -26,10 +26,10 @@ module_init_tools;make:INSTALL=install:install:sbin_PROGRAMS="depmod modinfo":bi
 #
 # contrib apps
 #
-bzip2;make:install:PREFIX=TARGET/usr
+bzip2;make:install:PREFIX=TARGETS/usr
 grep;make:install:DESTDIR=TARGETS
 openrdate;make:install:DESTDIR=TARGETS
-e2fsprogs;rewrite-pkgconfig:lib/e2p/e2p.pc:lib/et/com_err.pc:lib/uuid/uuid.pc:lib/blkid/blkid.pc:lib/ss/ss.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libuuid.la
+e2fsprogs;rewrite-pkgconfig:lib/e2p/e2p.pc:lib/et/com_err.pc:lib/uuid/uuid.pc:lib/blkid/blkid.pc:lib/ss/ss.pc;make:install:DESTDIR=TARGETS
 xfsprogs;make:install:prefix=TARGETS
 mc;make:install:DESTDIR=TARGETS
 sdparm;make:install:DESTDIR=TARGETS
@@ -41,20 +41,22 @@ lm_sensors;make:user_install:MACHINE=sh:PREFIX=/usr:MANDIR=/usr/share/man:DESTDI
 fuse;rewrite-pkgconfig:fuse.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libfuse.la
 curlftpfs;make:install:DESTDIR=TARGETS
 fbset;install:-d:-m755:TARGETS/{usr/sbin,etc};install:-m755:fbset:TARGETS/usr/sbin;install:-m755:con2fbmap:TARGETS/usr/sbin;install:-m644:etc/fb.modes.ATI:TARGETS/etc/fb.modes
+utillinux;rewrite-pkgconfig:libblkid/blkid.pc:libuuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libuuid.la
 pngquant;install:-m755:pngquant:TARGETS/usr/bin
 mplayer;make:install INSTALLSTRIP="":DESTDIR=TARGETS
 mencoder;make:install INSTALLSTRIP="":DESTDIR=TARGETS
-jfsutils;make:install:mandir=/usr/share/man:DESTDIR=TARGET
+jfsutils;make:install:mandir=/usr/share/man:DESTDIR=TARGETS
 opkg;rewrite-pkgconfig:libopkg.pc;make:install:DESTDIR=TARGETS;link:/usr/bin/opkg-cl:TARGETS/usr/bin/opkg;mkdir:TARGETS/var/opkg;rewrite-libtool:TARGETS/usr/lib/libopkg.la
 sysstat;make:install:DESTDIR=TARGETS
-imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/MagickWand.pc:wand/Wand.pc:Magick++/lib/ImageMagick++.pc:Magick++/lib/Magick++.pc;make:install:prefix=/usr:DESTDIR=TARGET;rewrite-libtool:TARGET/usr/lib/libMagickCore.la:TARGET/usr/lib/libMagickWand.la:TARGET/usr/lib/libMagick++.la
+imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/MagickWand.pc:wand/Wand.pc:Magick++/lib/ImageMagick++.pc:Magick++/lib/Magick++.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libMagickCore.la:TARGETS/usr/lib/libMagickWand.la:TARGETS/usr/lib/libMagick++.la
 
 #
 # contrib libs
 #
+libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la
 libboost;remove:TARGETS/include/boost;move:boost:TARGETS/usr/include/boost
 ncurses;
-libz;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
+libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
 libreadline;make:install:DESTDIR=TARGETS
 freetype_old;make:install:DESTDIR=BUILD/freetype-2.1.4/install_dir
 freetype;rewrite-pkgconfig:builds/unix/freetype2.pc;make:install:libdir=TARGETS/usr/lib:includedir=TARGETS/usr/include:bindir=TARGETS/usr/bin:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libfreetype.la
@@ -84,13 +86,13 @@ sqlite;rewrite-pkgconfig:sqlite3.pc;make:install:DESTDIR=TARGETS;rewrite-libtool
 libsoup;rewrite-pkgconfig:libsoup-2.4.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libsoup-2.4.la;rewrite-dependency:TARGETS/usr/lib/libsoup-2.4.la
 pixman;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libpixman-1.la;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/pixman-1.pc
 cairo;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libcairo.la;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/cairo.pc:TARGETS/usr/lib/pkgconfig/cairo-directfb.pc:TARGETS/usr/lib/pkgconfig/cairo-ft.pc:TARGETS/usr/lib/pkgconfig/cairo-png.pc
-expat;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libexpat.la
+expat;rewrite-pkgconfig:expat.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libexpat.la
 libxmlccwrap;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxmlccwrap.la
 a52dec;make:install:DESTDIR=TARGETS
 libdvdcss;rewrite-pkgconfig:src/libdvdcss.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvdcss.la
 libdvdnav;rewrite-pkgconfig:misc/dvdnav.pc:misc/dvdnavmini.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvdnav.la:TARGETS/usr/lib/libdvdnavmini.la
 libdvdread;rewrite-pkgconfig:misc/dvdread.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvdread.la
-ffmpeg;rewrite-pkgconfig:libavcodec/libavcodec.pc:libavdevice/libavdevice.pc:libavformat/libavformat.pc:libavutil/libavutil.pc:libswscale/libswscale.pc;make:install:DESTDIR=TARGETS
+ffmpeg;rewrite-pkgconfig:libavcodec/libavcodec.pc:libavdevice/libavdevice.pc:libavfilter/libavfilter.pc:libavformat/libavformat.pc:libavresample/libavresample.pc:libavutil/libavutil.pc:libswresample/libswresample.pc:libswscale/libswscale.pc;make:install:DESTDIR=TARGETS
 libass;rewrite-pkgconfig:libass.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libass.la
 libcap;make:install:DESTDIR=TARGETS
 libogg;rewrite-pkgconfig:ogg.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libogg.la
@@ -98,11 +100,10 @@ libflac;rewrite-pkgconfig:src/libFLAC/flac.pc;make:install:DESTDIR=TARGETS;rewri
 evebrowser;make:install:DESTDIR=TARGETS
 brofs;make:install:DESTDIR=TARGETS/usr/bin
 libalsa;rewrite-pkgconfig:utils/alsa.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libasound.la
-rtmpdump;rewrite-pkgconfig:librtmp/librtmp.pc;make:install:prefix=/usr:DESTDIR=TARGETS
+rtmpdump;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-pkgconfig::TARGETS/usr/lib/pkgconfig/librtmp.pc
 libdvbsipp;rewrite-pkgconfig:libdvbsi++.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvbsi++.la
 libdreamdvd;rewrite-pkgconfig:libdreamdvd.pc;make:install:prefix=/usr:DESTDIR=TARGETS
 libdreamdvd2;rewrite-pkgconfig:libdreamdvd.pc;make:install:prefix=/usr:DESTDIR=TARGETS
-hotplug_e2;make:install:prefix=/usr:DESTDIR=TARGETS
 libpcre;rewrite-pkgconfig:libpcre.pc:libpcrecpp.pc:libpcreposix.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libpcre.la:TARGETS/usr/lib/libpcreposix.la
 libmpeg2;make:install:prefix=/usr:DESTDIR=TARGETS
 libsamplerate;make:install:prefix=/usr:DESTDIR=TARGETS
@@ -118,7 +119,7 @@ libexif;make:install:prefix=/usr:DESTDIR=TARGETS
 minidlna;make:install:prefix=/usr:DESTDIR=TARGETS
 vlc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libvlc.la:TARGETS/usr/lib/libvlccore.la
 djmount;make:install:DESTDIR=TARGETS
-libupnp;rewrite-pkgconfig:libupnp.pc;make:install:DESTDIR=TARGET;rewrite-libtool:TARGETS/usr/lib/libupnp.la:TARGETS/usr/lib/libixml.la:TARGETS/usr/lib/libthreadutil.la
+libupnp;rewrite-pkgconfig:libupnp.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libupnp.la:TARGETS/usr/lib/libixml.la:TARGETS/usr/lib/libthreadutil.la
 rarfs;make:install:DESTDIR=TARGETS
 sshfs;make:install:DESTDIR=TARGETS
 gmediarender;make:install:DESTDIR=TARGETS
@@ -151,15 +152,19 @@ tuxtxtlib;rewrite-pkgconfig:tuxbox-tuxtxt.pc;make:install:prefix=/usr:DESTDIR=TA
 tuxtxt32bpp;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libtuxtxt32bpp.la
 enigma2_networkbrowser;make:install:DESTDIR=TARGETS
 enigma2_openwebif;make:install:DESTDIR=TARGETS
+hotplug_e2;make:install:prefix=/usr:DESTDIR=TARGETS
 
 #
 # EXTERNAL_LCD
 #
 graphlcd;make:install:DESTDIR=TARGETS
+lcd4_linux;make:install:DESTDIR=TARGETS
 libusb;rewrite-pkgconfig:libusb.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libusb.la;rewrite-libtool:TARGETS/usr/lib/libusbpp.la
 libusb2;rewrite-pkgconfig:libusb-1.0.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libusb-1.0.la
 libusbcompat;rewrite-pkgconfig:libusb.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libusb.la
 libgd2;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgd.la
+libdpfax;make:install:DESTDIR=TARGETS
+libdpf;make:install:DESTDIR=TARGETS
 
 #
 # net apps

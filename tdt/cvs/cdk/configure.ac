@@ -916,10 +916,10 @@ TUXBOX_RULES_MAKE(pngquant)
 TUXBOX_RULES_MAKE(mplayer)
 TUXBOX_RULES_MAKE(mencoder)
 TUXBOX_RULES_MAKE(util_linux)
+TUXBOX_RULES_MAKE(utillinux)
 TUXBOX_RULES_MAKE(jfsutils)
 TUXBOX_RULES_MAKE(opkg)
 TUXBOX_RULES_MAKE(sysstat)
-TUXBOX_RULES_MAKE(hotplug_e2)
 TUXBOX_RULES_MAKE(autofs)
 TUXBOX_RULES_MAKE(imagemagick)
 
@@ -1038,6 +1038,7 @@ TUXBOX_RULES_MAKE(tuxtxtlib)
 TUXBOX_RULES_MAKE(tuxtxt32bpp)
 TUXBOX_RULES_MAKE(enigma2_networkbrowser)
 TUXBOX_RULES_MAKE(enigma2_openwebif)
+TUXBOX_RULES_MAKE(hotplug_e2)
 
 #
 # external lcd

@@ -4,8 +4,16 @@ AC_PREREQ(2.59)
 AC_CANONICAL_HOST
 host_arch=`which arch > /dev/null 2>&1 && arch || uname -m`
 AC_SUBST(host_arch)
+
 AC_CANONICAL_BUILD
 AC_SUBST(build)
+
+AC_ARG_WITH(toolchain,
+	[  --with-toolchain=PATH   do not build a toolchain but use the one at PATH],
+	[TOOLCHAIN_PATH="$withval"],[TOOLCHAIN_PATH="notset"])
+AM_CONDITIONAL(USE_FOREIGN_TOOLCHAIN,test "$TOOLCHAIN_PATH" != "notset")
+AC_SUBST(TOOLCHAIN_PATH)
+
 if test "$target_alias" = "" ; then
 	target_alias="sh4-linux"
 fi
@@ -167,10 +175,10 @@ AC_ARG_ENABLE(debug,
 	,[enable_debug=no])
 AM_CONDITIONAL(DEBUG,test "$enable_debug" = "yes")
 
-AC_ARG_ENABLE(enable_vdr1711,
-	AS_HELP_STRING(--enable-vdr1711,	set up the CDK to use vdr 1.7.11),
-	,[enable_vdr1711=no])
-AM_CONDITIONAL(ENABLE_VDR1711,test "$enable_vdr1711" = "yes")
+AC_ARG_ENABLE(old_gcc_stm24,
+	AS_HELP_STRING(--enable-old-gcc-stm24,  compile image stm24 using gcc 4.3.4),
+	,[enable_old_gcc_stm24=no])
+AM_CONDITIONAL(OLD_GCC_STM24,test "$enable_old_gcc_stm24" = "yes")
 
 AC_ARG_WITH(cpu,
 	[  --with-cpu=MODEL        cpu model [[sh4]]],
@@ -200,13 +208,17 @@ if test -z "$CFLAGS" ; then
 fi
 # CFLAGS="-g -O2 -fno-strict-aliasing"
 if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
-	TARGET_CFLAGS="-O2"
-	if test "$enable_flashrules" != "yes"; then
-		TARGET_CFLAGS="$TARGET_CFLAGS"
+	TARGET_CFLAGS="-pipe"
+	if test "$enable_debug" = "yes"; then
+		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
 		TARGET_LDFLAGS=""
 	else
-		TARGET_CFLAGS="$TARGET_CFLAGS"
-		TARGET_LDFLAGS=""
+		TARGET_CFLAGS="$TARGET_CFLAGS -O2"
+		TARGET_LDFLAGS="-Wl,-O1"
+	fi
+	if test "$TOOLCHAIN_PATH" != "notset"; then
+		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/lib"
+		TARGET_CFLAGS="$TARGET_CFLAGS -I\$(targetprefix)/include"
 	fi
 	TARGET_CXXFLAGS="$TARGET_CFLAGS"
 fi
@@ -508,6 +520,11 @@ AC_ARG_ENABLE(ipbox55,
 AM_CONDITIONAL(ENABLE_IPBOX55,test "$enable_ipbox55" = "yes")
 AC_SUBST(IPBOX55)
 
+AC_ARG_ENABLE(enable_vdr1711,
+	AS_HELP_STRING(--enable-vdr1711,	set up the CDK to use vdr 1.7.11),
+	,[enable_vdr1711=no])
+AM_CONDITIONAL(ENABLE_VDR1711,test "$enable_vdr1711" = "yes")
+
 AC_ARG_ENABLE(vdr1722,
 	AS_HELP_STRING(--enable-vdr1722,    enable vdr-1.7.22 stuff),
 	[case "${enableval}" in
@@ -515,6 +532,14 @@ AC_ARG_ENABLE(vdr1722,
 	esac],[enable_vdr1722=no])
 AM_CONDITIONAL(ENABLE_VDR1722,test "$enable_vdr1722" = "yes")
 AC_SUBST(VDR1722)
+
+AC_ARG_ENABLE(vdr1727,
+	AS_HELP_STRING(--enable-vdr1727,    enable vdr-1.7.27 stuff),
+	[case "${enableval}" in
+		yes) VDR1722=vdr1727 ;;
+	esac],[enable_vdr1727=no])
+AM_CONDITIONAL(ENABLE_VDR1727,test "$enable_vdr1727" = "yes")
+AC_SUBST(VDR1727)
 
 AC_SUBST(CFLAGS)
 AC_SUBST(TARGET_CFLAGS)
@@ -840,6 +865,8 @@ fi
 TUXBOX_RULES_MAKE(squashfs)
 TUXBOX_RULES_MAKE(ccache)
 TUXBOX_RULES_MAKE(cramfs)
+TUXBOX_RULES_MAKE(ipkg_utils)
+TUXBOX_RULES_MAKE(ipkg_host)
 TUXBOX_RULES_MAKE(host_python)
 TUXBOX_RULES_MAKE(libtool)
 
@@ -899,6 +926,7 @@ TUXBOX_RULES_MAKE(imagemagick)
 #
 # contrib libs
 #
+TUXBOX_RULES_MAKE(libopenthreads)
 TUXBOX_RULES_MAKE(libboost)
 TUXBOX_RULES_MAKE(ncurses)
 TUXBOX_RULES_MAKE(libz)
@@ -1015,10 +1043,13 @@ TUXBOX_RULES_MAKE(enigma2_openwebif)
 # external lcd
 #
 TUXBOX_RULES_MAKE(graphlcd)
+TUXBOX_RULES_MAKE(lcd4_linux)
 TUXBOX_RULES_MAKE(libusb)
 TUXBOX_RULES_MAKE(libusb2)
 TUXBOX_RULES_MAKE(libusbcompat)
 TUXBOX_RULES_MAKE(libgd2)
+TUXBOX_RULES_MAKE(libdpfax)
+TUXBOX_RULES_MAKE(libdpf)
 
 #
 # RPM stuff
@@ -1126,6 +1157,7 @@ Patchlevel P0210            : $enable_p0210
 HAVANA Patchlevel P0207_5   : $enable_havana_p0207_5
 vdr VDR 1.7.11              : $enable_vdr1711
 vdr VDR 1.7.22              : $enable_vdr1722
+vdr VDR 1.7.27              : $enable_vdr1727
 ccache                      : $enable_ccache
 target prefix               : $targetprefix
 boot prefix                 : $bootprefix

@@ -167,6 +167,7 @@ $(DEPDIR)/e2fsprogs.do_prepare: bootstrap @DEPENDS_e2fsprogs@
 if STM24
 $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 	cd @DIR_e2fsprogs@ && \
+	ln -sf /bin/true ./ldconfig; \
 	$(BUILDENV) \
 	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	cc=$(target)-gcc \
@@ -174,15 +175,17 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 		--build=$(build) \
 		--host=$(target) \
 		--target=$(target) \
-		--with-linker=$(target)-ld \
+		--disable-rpath \
+		--disable-quota \
+		--disable-testio-debug \
+		--disable-defrag \
+		--disable-nls \
 		--enable-elf-shlibs \
-		--with-root-prefix= \
 		--enable-verbose-makecmds \
 		--enable-symlink-install \
-		--enable-compression \
-		--disable-libblkid \
-		--disable-libuuid \
-		--disable-uuidd && \
+		--without-libintl-prefix \
+		--without-libiconv-prefix \
+		--with-root-prefix= && \
 	$(MAKE) all && \
 	$(MAKE) -C e2fsck e2fsck.static
 	touch $@

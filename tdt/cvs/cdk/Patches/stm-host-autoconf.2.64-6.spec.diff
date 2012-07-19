@@ -4,7 +4,7 @@
  Patch0   : autoconf-2.64-nodefault_path.patch
  Patch1   : autoconf-2.64-m4_detection_not_portable.patch
  Patch2   : autoconf-2.64-m4_detection_not_portable2.patch
-+Patch3   : stm-host-autoconf.%{version}-%{release}.patch
++Patch3   : stm-host-autoconf.%{version}-%{release}.diff
  Requires : %{_stm_pkg_prefix}-host-filesystem
  Buildroot: %(mktemp -ud %{_tmppath}/%{name}-%{version}-%{release}-XXXXXX)
  Prefix   : %{_stm_install_prefix}

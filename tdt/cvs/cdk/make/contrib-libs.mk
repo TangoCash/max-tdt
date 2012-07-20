@@ -370,12 +370,12 @@ $(DEPDIR)/libmad.do_prepare: bootstrap @DEPENDS_libmad@
 
 $(DEPDIR)/libmad.do_compile: $(DEPDIR)/libmad.do_prepare
 	cd @DIR_libmad@ && \
+		$(BUILDENV) \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoconf && \
 		autoheader && \
 		automake --foreign && \
 		libtoolize --force && \
-		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \

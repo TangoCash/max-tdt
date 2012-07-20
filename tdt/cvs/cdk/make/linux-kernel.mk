@@ -462,6 +462,7 @@ STM24_DVB_PATCH = linux-sh4-linuxdvb_stm24$(PATCH_STR).patch
 
 COMMONPATCHES_24 = \
 		$(STM24_DVB_PATCH) \
+		$(if $(P0209),linux-sh4-makefile_stm24$(PATCH_STR).patch) \
 		linux-sh4-sound_stm24$(PATCH_STR).patch \
 		linux-sh4-time_stm24$(PATCH_STR).patch \
 		linux-sh4-init_mm_stm24$(PATCH_STR).patch \

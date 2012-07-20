@@ -1166,6 +1166,7 @@ endif
 #
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/udhcpc
 	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release_neutrino/usr/share/udhcpc/
+
 #
 #
 #
@@ -1175,30 +1176,35 @@ endif
 	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/local/sbin
 	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
-#
-# zapit
-#
-	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/zapit
 
 #
 # channellist
 #
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config
 	cp -aR $(targetprefix)/var/tuxbox/config/* $(prefix)/release_neutrino/var/tuxbox/config
+
+#
+# zapit
+#
+	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/zapit
+
 #
 # zoneinfo
 #
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/zoneinfo
 	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release_neutrino/usr/share/zoneinfo/
+
 #
 # fonts
 #
 	$(INSTALL_DIR) $(prefix)/release_neutrino/share/fonts
 	cp -aR $(targetprefix)/share/fonts $(prefix)/release_neutrino/share/
+
 #
 # iso-codes
 #
 	cp -aR $(targetprefix)/usr/local/share/iso-codes $(prefix)/release_neutrino/share/
+
 #
 # httpd/icons/locale/themes
 #

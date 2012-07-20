@@ -20,19 +20,77 @@ N_CONFIG_OPTS += --enable-graphlcd
 endif
 
 #
-# NEUTRINO BETA
+# NEUTRINO TWIN
 #
-$(DEPDIR)/neutrino-beta.do_prepare:
-	svn co http://109.75.98.228/coolstream_public_svn/THIRDPARTY/applications/neutrino-beta/ --username coolstream --password coolstream $(appsdir)/neutrino-beta
-	rm -rf $(appsdir)/neutrino-beta/lib/libcoolstream/*.*
-	cp -ra $(appsdir)/neutrino-beta $(appsdir)/neutrino-beta.org
-	cd $(appsdir)/neutrino-beta && patch -p1 < "$(buildprefix)/Patches/neutrino.beta.diff"
-	cd $(appsdir)/neutrino-beta && patch -p1 < "$(buildprefix)/Patches/neutrino.libcool.beta.diff"
+$(DEPDIR)/neutrino-twin.do_prepare:
+	git clone -b dvbsi++ git://c00lstreamtech.de/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin
+	rm -rf $(appsdir)/neutrino-twin/lib/libcoolstream/*.*
+	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
+	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.diff"
+	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-beta/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libgif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
+$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp freetype jpeg libpng libungif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd $(appsdir)/neutrino-beta && \
+	cd $(appsdir)/neutrino-twin && \
+		$(BUILDENV) \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		./configure \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/share/tuxbox \
+			--with-fontdir=/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/usr/lib/tuxbox/plugins \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)" \
+			CXXFLAGS="$(TARGET_CFLAGS) -Os"
+
+$(DEPDIR)/neutrino-twin.do_compile: $(appsdir)/neutrino-twin/config.status
+	cd $(appsdir)/neutrino-twin && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/neutrino-twin: neutrino-twin.do_prepare neutrino-twin.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-twin install DESTDIR=$(targetprefix) && \
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-twin-clean:
+	rm -f $(DEPDIR)/neutrino-twin
+	cd $(appsdir)/neutrino-twin && \
+		$(MAKE) distclean
+
+neutrino-twin-distclean:
+	rm -f $(DEPDIR)/neutrino-twin
+	rm -f $(DEPDIR)/neutrino-twin.do_compile
+	rm -f $(DEPDIR)/neutrino-twin.do_prepare
+	rm -rf $(appsdir)/neutrino-twin.org
+	rm -rf $(appsdir)/neutrino-twin
+
+#
+# NEUTRINO SINGLE
+#
+$(DEPDIR)/neutrino-single.do_prepare:
+	git clone -b single git://c00lstreamtech.de/cst-public-gui-neutrino.git $(appsdir)/neutrino-single
+	rm -rf $(appsdir)/neutrino-single/lib/libcoolstream/*.*
+	cp -ra $(appsdir)/neutrino-single $(appsdir)/neutrino-single.org
+	cd $(appsdir)/neutrino-single && patch -p1 < "$(buildprefix)/Patches/neutrino.single.diff"
+	cd $(appsdir)/neutrino-single && patch -p1 < "$(buildprefix)/Patches/neutrino.single.libcool.diff"
+	touch $@
+
+$(appsdir)/neutrino-single/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libungif libgif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/neutrino-single && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
@@ -50,31 +108,92 @@ $(appsdir)/neutrino-beta/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jp
 			$(PLATFORM_CPPFLAGS) \
 			CPPFLAGS="$(N_CPPFLAGS)"
 
-
-$(DEPDIR)/neutrino-beta.do_compile: $(appsdir)/neutrino-beta/config.status
-	cd $(appsdir)/neutrino-beta && \
+$(DEPDIR)/neutrino-single.do_compile: $(appsdir)/neutrino-single/config.status
+	cd $(appsdir)/neutrino-single && \
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/neutrino-beta: neutrino-beta.do_prepare neutrino-beta.do_compile
-	$(MAKE) -C $(appsdir)/neutrino-beta install DESTDIR=$(targetprefix) && \
+$(DEPDIR)/neutrino-single: neutrino-single.do_prepare neutrino-single.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-single install DESTDIR=$(targetprefix) && \
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-single-clean:
+	rm -f $(DEPDIR)/neutrino-single
+	cd $(appsdir)/neutrino-single && \
+		$(MAKE) distclean
+
+neutrino-single-distclean:
+	rm -f $(DEPDIR)/neutrino-single
+	rm -f $(DEPDIR)/neutrino-single.do_compile
+	rm -f $(DEPDIR)/neutrino-single.do_prepare
+	rm -rf $(appsdir)/neutrino-single.org
+	rm -rf $(appsdir)/neutrino-single
+
+#
+# NEUTRINO HD2
+#
+$(DEPDIR)/neutrino-hd2.do_prepare:
+	svn co http://neutrinohd2.googlecode.com/svn/trunk/neutrino-hd $(appsdir)/neutrino-hd2
+	cp -ra $(appsdir)/neutrino-hd2 $(appsdir)/neutrino-hd2.org
+	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.diff"
+	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.vfd.diff"
+	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.eventlist.diff"
+	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.infoviewer.diff"
+	touch $@
+
+$(appsdir)/neutrino-hd2/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libgif libid3tag curl libmad libvorbisidec libboost libflac openssl sdparm
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/neutrino-hd2 && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--enable-libeplayer3 \
+			--with-boxtype=duckbox \
+			--enable-pcmsoftdecoder \
+			--with-tremor \
+			--enable-libass \
+			--with-libdir=/usr/lib \
+			--with-datadir=/share/tuxbox \
+			--with-fontdir=/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/usr/lib/tuxbox/plugins \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/neutrino-hd2.do_compile: $(appsdir)/neutrino-hd2/config.status
+	cd $(appsdir)/neutrino-hd2 && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/neutrino-hd2: neutrino-hd2.do_prepare neutrino-hd2.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-hd2 install DESTDIR=$(targetprefix) && \
 	make $(targetprefix)/var/etc/.version
 	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
 	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
 	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
 	touch $@
 
-neutrino-beta-clean:
-	rm -f $(DEPDIR)/neutrino-beta
-	cd $(appsdir)/neutrino-beta && \
+neutrino-hd2-clean:
+	rm -f $(DEPDIR)/neutrino-hd2
+	cd $(appsdir)/neutrino-hd2 && \
 		$(MAKE) distclean
 
-neutrino-beta-distclean:
-	rm -f $(DEPDIR)/neutrino-beta
-	rm -f $(DEPDIR)/neutrino-beta.do_compile
-	rm -f $(DEPDIR)/neutrino-beta.do_prepare
-	rm -rf $(appsdir)/neutrino-nightly.org
-	rm -rf $(appsdir)/neutrino-nightly
+neutrino-hd2-distclean:
+	rm -f $(DEPDIR)/neutrino-hd2
+	rm -f $(DEPDIR)/neutrino-hd2.do_compile
+	rm -f $(DEPDIR)/neutrino-hd2.do_prepare
+	rm -rf $(appsdir)/neutrino-hd2.org
+	rm -rf $(appsdir)/neutrino-hd2
 
 #
 #NORMAL

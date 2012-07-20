@@ -180,6 +180,8 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 		--disable-testio-debug \
 		--disable-defrag \
 		--disable-nls \
+		--disable-libuuid \
+		--disable-libblkid \
 		--enable-elf-shlibs \
 		--enable-verbose-makecmds \
 		--enable-symlink-install \

@@ -655,6 +655,7 @@ $(DEPDIR)/fontconfig.do_prepare: bootstrap libz expat freetype @DEPENDS_fontconf
 
 $(DEPDIR)/fontconfig.do_compile: $(DEPDIR)/fontconfig.do_prepare
 	cd @DIR_fontconfig@ && \
+		$(BUILDENV) \
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \

@@ -11,9 +11,13 @@ $(targetprefix)/var/etc/.version:
 	echo "version=0100`date +%Y%m%d%H%M`" >> $@
 	echo "git =`git describe`" >> $@
 
-N_CPPFLAGS =-DNEW_LIBCURL
+N_CPPFLAGS = -DNEW_LIBCURL -DFB_BLIT -DBGP_JPG
 
 N_CONFIG_OPTS = --enable-silent-rules
+
+if ENABLE_EXTERNALLCD
+N_CONFIG_OPTS += --enable-graphlcd
+endif
 
 #
 # NEUTRINO BETA

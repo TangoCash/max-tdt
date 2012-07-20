@@ -217,8 +217,8 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 		TARGET_LDFLAGS="-Wl,-O1"
 	fi
 	if test "$TOOLCHAIN_PATH" != "notset"; then
-		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/lib"
-		TARGET_CFLAGS="$TARGET_CFLAGS -I\$(targetprefix)/include"
+		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/usr/lib -L\$(targetprefix)/lib"
+		TARGET_CFLAGS="$TARGET_CFLAGS -I\$(targetprefix)/usr/include"
 	fi
 	TARGET_CXXFLAGS="$TARGET_CFLAGS"
 fi
@@ -834,16 +834,17 @@ else
 fi
 fi
 
-AC_SUBST(EXTERNALLCD_DEP)
+AC_ARG_ENABLE(externallcd,
+	AS_HELP_STRING(--enable-externallcd, enable GraphLCD support),
+	,[enable_externallcd=no])
+AM_CONDITIONAL(ENABLE_EXTERNALLCD,test "$enable_externallcd" = "yes")
 
 if test "$enable_externallcd" == "yes"; then
 	EXTERNALLCD_DEP="graphlcd"
 else
 	EXTERNALLCD_DEP=""
 fi
-
-AC_SUBST(MEDIAFW)
-AC_SUBST(MEDIAFW_DEP)
+AC_SUBST(EXTERNALLCD_DEP)
 
 if test "$enable_mediafwgstreamer" == "yes"; then
 	MEDIAFW="gstreamer"
@@ -852,6 +853,9 @@ else
 	MEDIAFW="eplayer3"
 	MEDIAFW_DEP="ffmpeg"
 fi
+AC_SUBST(MEDIAFW)
+AC_SUBST(MEDIAFW_DEP)
+
 
 #TUXBOX_RULES_MAKE_EXDIR(binutils)
 #TUXBOX_RULES_MAKE_EXDIR(bootstrap_gcc)

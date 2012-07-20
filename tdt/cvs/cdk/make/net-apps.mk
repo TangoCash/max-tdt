@@ -37,7 +37,7 @@ $(DEPDIR)/%nfs-utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) \
 	( cd root/etc && for i in $(NFS_UTILS_ADAPTED_ETC_FILES); do \
 		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done )
-#	@DISTCLEANUP_nfs_utils@
+	@DISTCLEANUP_nfs_utils@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -59,7 +59,7 @@ $(DEPDIR)/%vsftpd: $(DEPDIR)/vsftpd.do_compile
 	cd @DIR_vsftpd@ && \
 		@INSTALL_vsftpd@
 		cp $(buildprefix)/root/etc/vsftpd.conf $(targetprefix)/etc
-#	@DISTCLEANUP_vsftpd@
+	@DISTCLEANUP_vsftpd@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -85,7 +85,7 @@ $(DEPDIR)/ethtool: \
 $(DEPDIR)/%ethtool: $(DEPDIR)/ethtool.do_compile
 	cd @DIR_ethtool@  && \
 		@INSTALL_ethtool@
-#	@DISTCLEANUP_ethtool@
+	@DISTCLEANUP_ethtool@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -151,7 +151,7 @@ $(DEPDIR)/%netio: $(DEPDIR)/netio.do_compile
 	cd @DIR_netio@ && \
 		$(INSTALL) -d $(prefix)/$*cdkroot/usr/bin && \
 		@INSTALL_netio@
-#	@DISTCLEANUP_netio@
+	@DISTCLEANUP_netio@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -185,7 +185,7 @@ $(DEPDIR)/%lighttpd: $(DEPDIR)/lighttpd.do_compile
 		$(INSTALL) -c -m644 doc/rc.lighttpd.redhat $(prefix)/$*cdkroot/etc/init.d/lighttpd
 	$(INSTALL) -d $(prefix)/$*cdkroot/etc/lighttpd && $(INSTALL) -m755 root/etc/lighttpd/lighttpd.conf $(prefix)/$*cdkroot/etc/lighttpd
 	$(INSTALL) -d $(prefix)/$*cdkroot/etc/init.d && $(INSTALL) -m755 root/etc/init.d/lighttpd $(prefix)/$*cdkroot/etc/init.d
-#	@DISTCLEANUP_lighttpd@
+	@DISTCLEANUP_lighttpd@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -210,7 +210,7 @@ $(DEPDIR)/netkit_ftp: \
 $(DEPDIR)/%netkit_ftp: $(DEPDIR)/netkit_ftp.do_compile
 	cd @DIR_netkit_ftp@  && \
 		@INSTALL_netkit_ftp@
-#	@DISTCLEANUP_netkit_ftp@
+	@DISTCLEANUP_netkit_ftp@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -230,7 +230,7 @@ $(DEPDIR)/wireless_tools: \
 $(DEPDIR)/%wireless_tools: $(DEPDIR)/wireless_tools.do_compile
 	cd @DIR_wireless_tools@  && \
 		@INSTALL_wireless_tools@
-#	@DISTCLEANUP_wireless_tools@
+	@DISTCLEANUP_wireless_tools@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -251,5 +251,5 @@ $(DEPDIR)/wpa_supplicant: \
 $(DEPDIR)/%wpa_supplicant: $(DEPDIR)/wpa_supplicant.do_compile
 	cd @DIR_wpa_supplicant@  && \
 		@INSTALL_wpa_supplicant@
-#	@DISTCLEANUP_wpa_supplicant@
+	@DISTCLEANUP_wpa_supplicant@
 	@[ "x$*" = "x" ] && touch $@ || true

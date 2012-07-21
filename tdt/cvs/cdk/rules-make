@@ -85,7 +85,7 @@ libboost;boost-1.49.0;boost_1_49_0;boost_1_49_0.tar.bz2;extract:boost_1_49_0.tar
 ncurses;5.5;ncurses-5.5;ncurses-5.5.tar.gz;extract:ncurses-5.5.tar.gz
 #libz;1.2.3;zlib-1.2.3;zlib-1.2.3.tar.bz2;extract:zlib-1.2.3.tar.bz2
 libz;1.2.7;zlib-1.2.7;zlib-1.2.7.tar.bz2;extract:zlib-1.2.7.tar.bz2;patch:zlib-1.2.7.patch
-libreadline;5.2;readline-5.2;readline-5.2.tar.gz;extract:readline-5.2.tar.gz
+libreadline;5.2;readline-5.2;readline-5.2.tar.gz;extract:readline-5.2.tar.gz;patch:readline-5.2-termcap_shlibs.patch
 freetype_old;2.1.4;freetype-2.1.4;freetype-2.1.4.tar.bz2:libfreetype.diff;extract:freetype-2.1.4.tar.bz2;patch:libfreetype.diff
 freetype;2.3.5;freetype-2.3.5;freetype-2.3.5.tar.bz2;extract:freetype-2.3.5.tar.bz2
 #freetype;2.4.8;freetype-2.4.8;freetype-2.4.8.tar.bz2;extract:freetype-2.4.8.tar.bz2

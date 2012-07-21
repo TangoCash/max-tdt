@@ -216,7 +216,7 @@ $(appsdir)/neutrino/config.status: bootstrap $(EXTERNALLCD_DEP) freetype libpng 
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS)
 
-$(DEPDIR)/neutrino.do_prepare: Patches/neutrino.patch
+$(DEPDIR)/neutrino.do_prepare:
 	touch $@
 
 $(DEPDIR)/neutrino.do_compile: $(appsdir)/neutrino/config.status

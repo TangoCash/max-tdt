@@ -582,6 +582,8 @@ $(DEPDIR)/directfb.do_prepare: bootstrap freetype @DEPENDS_directfb@
 $(DEPDIR)/directfb.do_compile: $(DEPDIR)/directfb.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_directfb@ && \
+		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
+		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
@@ -636,6 +638,36 @@ $(DEPDIR)/%dfbpp: $(DEPDIR)/dfbpp.do_compile
 	cd @DIR_dfbpp@ && \
 		@INSTALL_dfbpp@
 	@DISTCLEANUP_dfbpp@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# LIBSTGLES
+#
+$(DEPDIR)/libstgles.do_prepare: bootstrap directfb @DEPENDS_libstgles@
+	@PREPARE_libstgles@
+	touch $@
+
+$(DEPDIR)/libstgles.do_compile: $(DEPDIR)/libstgles.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd @DIR_libstgles@ && \
+	cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
+	aclocal -I $(hostprefix)/share/aclocal && \
+	autoconf && \
+	automake --foreign --add-missing && \
+	libtoolize --force && \
+	$(BUILDENV) \
+	./configure \
+		--host=$(target) \
+		--prefix=/usr && \
+	$(MAKE)
+	touch $@
+
+$(DEPDIR)/min-libstgles $(DEPDIR)/std-libstgles $(DEPDIR)/max-libstgles \
+$(DEPDIR)/libstgles: \
+$(DEPDIR)/%libstgles: $(DEPDIR)/libstgles.do_compile
+	cd @DIR_libstgles@ && \
+		@INSTALL_libstgles@
+#	@DISTCLEANUP_libstgles@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #

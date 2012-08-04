@@ -12,7 +12,7 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 # libz
 #
 if !STM22
-LIBZ_ORDER = binutils-dev
+LIBZ_ORDER = binutils binutils-dev
 endif !STM22
 
 $(DEPDIR)/libz.do_prepare: bootstrap @DEPENDS_libz@ $(if $(LIBZ_ORDER),| $(LIBZ_ORDER))
@@ -286,8 +286,10 @@ $(DEPDIR)/curl.do_prepare: bootstrap openssl rtmpdump libz @DEPENDS_curl@
 	touch $@
 
 $(DEPDIR)/curl.do_compile: $(DEPDIR)/curl.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_curl@ && \
 		$(BUILDENV) \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
@@ -543,6 +545,14 @@ $(DEPDIR)/libmng.do_compile: $(DEPDIR)/libmng.do_prepare
 		$(MAKE)
 	touch $@
 
+$(DEPDIR)/min-libmng $(DEPDIR)/std-libmng $(DEPDIR)/max-libmng \
+$(DEPDIR)/libmng: \
+$(DEPDIR)/%libmng: $(DEPDIR)/libmng.do_compile
+	cd @DIR_libmng@ && \
+		@INSTALL_libmng@
+	@DISTCLEANUP_libmng@
+	[ "x$*" = "x" ] && touch $@ || true	
+
 #
 # lcms
 #
@@ -636,7 +646,9 @@ $(DEPDIR)/expat.do_prepare: bootstrap @DEPENDS_expat@
 	touch $@
 
 $(DEPDIR)/expat.do_compile: $(DEPDIR)/expat.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_expat@ && \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -711,7 +723,7 @@ $(DEPDIR)/libxmlccwrap.do_compile: $(DEPDIR)/libxmlccwrap.do_prepare
 
 $(DEPDIR)/min-libxmlccwrap $(DEPDIR)/std-libxmlccwrap $(DEPDIR)/max-libxmlccwrap \
 $(DEPDIR)/libxmlccwrap: \
-$(DEPDIR)/%libxmlccwrap: libxmlccwrap.do_compile
+$(DEPDIR)/%libxmlccwrap: $(DEPDIR)/libxmlccwrap.do_compile
 	cd @DIR_libxmlccwrap@ && \
 		@INSTALL_libxmlccwrap@ && \
 		sed -e "/^dependency_libs/ s,-L/usr/lib,-L$(targetprefix)/usr/lib,g" -i $(targetprefix)/usr/lib/libxmlccwrap.la && \
@@ -738,7 +750,7 @@ $(DEPDIR)/a52dec.do_compile: $(DEPDIR)/a52dec.do_prepare
 
 $(DEPDIR)/min-a52dec $(DEPDIR)/std-a52dec $(DEPDIR)/max-a52dec \
 $(DEPDIR)/a52dec: \
-$(DEPDIR)/%a52dec: a52dec.do_compile
+$(DEPDIR)/%a52dec: $(DEPDIR)/a52dec.do_compile
 	cd @DIR_a52dec@ && \
 		@INSTALL_a52dec@
 	@DISTCLEANUP_a52dec@
@@ -764,7 +776,7 @@ $(DEPDIR)/libdvdcss.do_compile: $(DEPDIR)/libdvdcss.do_prepare
 
 $(DEPDIR)/min-libdvdcss $(DEPDIR)/std-libdvdcss $(DEPDIR)/max-libdvdcss \
 $(DEPDIR)/libdvdcss: \
-$(DEPDIR)/%libdvdcss: libdvdcss.do_compile
+$(DEPDIR)/%libdvdcss: $(DEPDIR)/libdvdcss.do_compile
 	cd @DIR_libdvdcss@ && \
 		@INSTALL_libdvdcss@
 	@DISTCLEANUP_libdvdcss@
@@ -796,7 +808,7 @@ $(DEPDIR)/libdvdnav.do_compile: $(DEPDIR)/libdvdnav.do_prepare
 
 $(DEPDIR)/min-libdvdnav $(DEPDIR)/std-libdvdnav $(DEPDIR)/max-libdvdnav \
 $(DEPDIR)/libdvdnav: \
-$(DEPDIR)/%libdvdnav: libdvdnav.do_compile
+$(DEPDIR)/%libdvdnav: $(DEPDIR)/libdvdnav.do_compile
 	cd @DIR_libdvdnav@ && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < misc/dvdnav-config > $(crossprefix)/bin/dvdnav-config && \
 		chmod 755 $(crossprefix)/bin/dvdnav-config && \
@@ -831,7 +843,7 @@ $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
 
 $(DEPDIR)/min-libdvdread $(DEPDIR)/std-libdvdread $(DEPDIR)/max-libdvdread \
 $(DEPDIR)/libdvdread: \
-$(DEPDIR)/%libdvdread: libdvdread.do_compile
+$(DEPDIR)/%libdvdread: $(DEPDIR)/libdvdread.do_compile
 	cd @DIR_libdvdread@ && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < misc/dvdread-config > $(crossprefix)/bin/dvdread-config && \
 		chmod 755 $(crossprefix)/bin/dvdread-config && \
@@ -1077,7 +1089,7 @@ $(DEPDIR)/enchant.do_compile: $(DEPDIR)/enchant.do_prepare
 		--disable-ispell \
 		--disable-myspell \
 		--disable-zemberek && \
-	$(MAKE)
+	$(MAKE) LD=$(target)-ld
 	touch $@
 
 $(DEPDIR)/min-enchant $(DEPDIR)/std-enchant $(DEPDIR)/max-enchant \
@@ -1140,7 +1152,7 @@ $(DEPDIR)/sqlite: \
 $(DEPDIR)/%sqlite: $(DEPDIR)/sqlite.do_compile
 	cd @DIR_sqlite@ && \
 		@INSTALL_sqlite@
-#	@DISTCLEANUP_sqlite@
+	@DISTCLEANUP_sqlite@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -1305,7 +1317,7 @@ $(DEPDIR)/elementtree.do_compile: $(DEPDIR)/elementtree.do_prepare
 
 $(DEPDIR)/min-elementtree $(DEPDIR)/std-elementtree $(DEPDIR)/max-elementtree \
 $(DEPDIR)/elementtree: \
-$(DEPDIR)/%elementtree: %python elementtree.do_compile
+$(DEPDIR)/%elementtree: %python $(DEPDIR)/elementtree.do_compile
 	cd @DIR_elementtree@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
@@ -1320,6 +1332,7 @@ $(DEPDIR)/libxml2.do_prepare: bootstrap @DEPENDS_libxml2@
 	touch $@
 
 $(DEPDIR)/libxml2.do_compile: $(DEPDIR)/libxml2.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxml2@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1336,7 +1349,7 @@ $(DEPDIR)/libxml2.do_compile: $(DEPDIR)/libxml2.do_prepare
 
 $(DEPDIR)/min-libxml2 $(DEPDIR)/std-libxml2 $(DEPDIR)/max-libxml2 \
 $(DEPDIR)/libxml2: \
-$(DEPDIR)/%libxml2: libxml2.do_compile
+$(DEPDIR)/%libxml2: $(DEPDIR)/libxml2.do_compile
 	cd @DIR_libxml2@ && \
 		@INSTALL_libxml2@; \
 		[ -f "$(targetprefix)/usr/lib/python2.6/site-packages/libxml2mod.la" ] && \
@@ -1376,7 +1389,7 @@ $(DEPDIR)/libxslt.do_compile: $(DEPDIR)/libxslt.do_prepare
 
 $(DEPDIR)/min-libxslt $(DEPDIR)/std-libxslt $(DEPDIR)/max-libxslt \
 $(DEPDIR)/libxslt: \
-$(DEPDIR)/%libxslt: %libxml2 libxslt.do_compile
+$(DEPDIR)/%libxslt: %libxml2 $(DEPDIR)/libxslt.do_compile
 	cd @DIR_libxslt@ && \
 		@INSTALL_libxslt@ && \
 		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)/usr/lib/python2.6/site-packages/libxsltmod.la && \
@@ -1407,7 +1420,7 @@ $(DEPDIR)/lxml.do_compile: $(DEPDIR)/lxml.do_prepare
 
 $(DEPDIR)/min-lxml $(DEPDIR)/std-lxml $(DEPDIR)/max-lxml \
 $(DEPDIR)/lxml: \
-$(DEPDIR)/%lxml: lxml.do_compile
+$(DEPDIR)/%lxml: $(DEPDIR)/lxml.do_compile
 	cd @DIR_lxml@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
@@ -1429,7 +1442,7 @@ $(DEPDIR)/setuptools.do_compile: $(DEPDIR)/setuptools.do_prepare
 
 $(DEPDIR)/min-setuptools $(DEPDIR)/std-setuptools $(DEPDIR)/max-setuptools \
 $(DEPDIR)/setuptools: \
-$(DEPDIR)/%setuptools: setuptools.do_compile
+$(DEPDIR)/%setuptools: $(DEPDIR)/setuptools.do_compile
 	cd @DIR_setuptools@ && \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_setuptools@
@@ -1451,7 +1464,7 @@ $(DEPDIR)/twisted.do_compile: $(DEPDIR)/twisted.do_prepare
 
 $(DEPDIR)/min-twisted $(DEPDIR)/std-twisted $(DEPDIR)/max-twisted \
 $(DEPDIR)/twisted: \
-$(DEPDIR)/%twisted: twisted.do_compile
+$(DEPDIR)/%twisted: $(DEPDIR)/twisted.do_compile
 	cd @DIR_twisted@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
@@ -1475,7 +1488,7 @@ $(DEPDIR)/twistedweb2.do_compile: $(DEPDIR)/twistedweb2.do_prepare
 
 $(DEPDIR)/min-twistedweb2 $(DEPDIR)/std-twistedweb2 $(DEPDIR)/max-twistedweb2 \
 $(DEPDIR)/twistedweb2: \
-$(DEPDIR)/%twistedweb2: twistedweb2.do_compile
+$(DEPDIR)/%twistedweb2: $(DEPDIR)/twistedweb2.do_compile
 	cd @DIR_twistedweb2@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
@@ -1517,7 +1530,7 @@ $(DEPDIR)/pyopenssl.do_compile: $(DEPDIR)/pyopenssl.do_prepare
 
 $(DEPDIR)/min-pyopenssl $(DEPDIR)/std-pyopenssl $(DEPDIR)/max-pyopenssl \
 $(DEPDIR)/pyopenssl: \
-$(DEPDIR)/%pyopenssl: pyopenssl.do_compile
+$(DEPDIR)/%pyopenssl: $(DEPDIR)/pyopenssl.do_compile
 	cd @DIR_pyopenssl@ && \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
@@ -1566,7 +1579,7 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 
 $(DEPDIR)/min-python $(DEPDIR)/std-python $(DEPDIR)/max-python \
 $(DEPDIR)/python: \
-$(DEPDIR)/%python: python.do_compile
+$(DEPDIR)/%python: $(DEPDIR)/python.do_compile
 	( cd @DIR_python@ && \
 		$(MAKE) $(MAKE_ARGS) \
 			TARGET_OS=$(target) \
@@ -1593,7 +1606,7 @@ $(DEPDIR)/pythonwifi.do_compile: $(DEPDIR)/pythonwifi.do_prepare
 
 $(DEPDIR)/min-pythonwifi $(DEPDIR)/std-pythonwifi $(DEPDIR)/max-pythonwifi \
 $(DEPDIR)/pythonwifi: \
-$(DEPDIR)/%pythonwifi: pythonwifi.do_compile
+$(DEPDIR)/%pythonwifi: $(DEPDIR)/pythonwifi.do_compile
 	cd @DIR_pythonwifi@ && \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
@@ -1616,7 +1629,7 @@ $(DEPDIR)/pythoncheetah.do_compile: $(DEPDIR)/pythoncheetah.do_prepare
 
 $(DEPDIR)/min-pythoncheetah $(DEPDIR)/std-pythoncheetah $(DEPDIR)/max-pythoncheetah \
 $(DEPDIR)/pythoncheetah: \
-$(DEPDIR)/%pythoncheetah: pythoncheetah.do_compile
+$(DEPDIR)/%pythoncheetah: $(DEPDIR)/pythoncheetah.do_compile
 	cd @DIR_pythoncheetah@ && \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
@@ -1639,7 +1652,7 @@ $(DEPDIR)/zope_interface.do_compile: $(DEPDIR)/zope_interface.do_prepare
 
 $(DEPDIR)/min-zope_interface $(DEPDIR)/std-zope_interface $(DEPDIR)/max-zope_interface \
 $(DEPDIR)/zope_interface: \
-$(DEPDIR)/%zope_interface: zope_interface.do_compile
+$(DEPDIR)/%zope_interface: $(DEPDIR)/zope_interface.do_compile
 	cd @DIR_zope_interface@ && \
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
@@ -1660,13 +1673,13 @@ $(DEPDIR)/gstreamer.do_prepare: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 $(DEPDIR)/gstreamer.do_compile: $(DEPDIR)/gstreamer.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gstreamer@ && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr \
-		--disable-docs-build \
 		--disable-dependency-tracking \
-		--with-check=no \
+		--disable-check \
 		ac_cv_func_register_printf_function=no && \
 	$(MAKE)
 	touch $@
@@ -1691,6 +1704,7 @@ $(DEPDIR)/gst_plugins_base.do_prepare: bootstrap glib2 gstreamer libogg libalsa 
 $(DEPDIR)/gst_plugins_base.do_compile: $(DEPDIR)/gst_plugins_base.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1785,8 +1799,7 @@ $(DEPDIR)/gst_plugins_ugly.do_compile: $(DEPDIR)/gst_plugins_ugly.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr \
-		--disable-x && \
+		--prefix=/usr && \
 	$(MAKE)
 	touch $@
 
@@ -2302,7 +2315,7 @@ $(DEPDIR)/libopenthreads.do_compile: $(DEPDIR)/libopenthreads.do_prepare
 		-D_OPENTHREADS_ATOMIC_USE_GCC_BUILTINS_EXITCODE=1 && \
 		find . -name cmake_install.cmake -print0 | xargs -0 \
 		sed -i 's@SET(CMAKE_INSTALL_PREFIX "/usr/local")@SET(CMAKE_INSTALL_PREFIX "")@' && \
-		$(MAKE)
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libopenthreads $(DEPDIR)/std-libopenthreads $(DEPDIR)/max-libopenthreads \
@@ -2988,9 +3001,11 @@ $(DEPDIR)/rarfs.do_compile: $(DEPDIR)/rarfs.do_prepare
 	cd @DIR_rarfs@ && \
 	export PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
+	CFLAGS="$(TARGET_CFLAGS) -Os -D_FILE_OFFSET_BITS=64" \
 	./configure \
 		--host=$(target) \
+		--disable-option-checking \
+		--includedir=/usr/include/fuse \
 		--prefix=/usr && \
 	$(MAKE) all
 	touch $@
@@ -3112,4 +3127,3 @@ $(DEPDIR)/%tinyxml: $(DEPDIR)/tinyxml.do_compile
 		@INSTALL_tinyxml@
 	@DISTCLEANUP_tinyxml@
 	[ "x$*" = "x" ] && touch $@ || true
-

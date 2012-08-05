@@ -14,7 +14,7 @@ fi
 
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
-export PATH=/usr/sbin:/sbin:$PATH
+#export PATH=/usr/sbin:/sbin:$PATH
 
 CONFIGPARAM=" \
  --enable-maintainer-mode \
@@ -470,6 +470,29 @@ CONFIGPARAM="$CONFIGPARAM $VDR"
 
 ##############################################
 
+echo -e "\nGraphic Framework:"
+echo "   1) Framebuffer (Enigma1/2, Neutrino1/HD, VDR)"
+echo "   2) DirectFB    (XBMC)"
+case $9 in
+        [1-2]) REPLY=$9
+        echo -e "\nSelected Graphic Framework: $REPLY\n"
+        ;;
+        *)
+        read -p "Select Graphic Framework (1-2)? ";;
+esac
+
+case "$REPLY" in
+	1) GFW="";;
+	2) GFW="--enable-graphicfwdirectfb";;
+	*) GFW="";;
+esac
+
+##############################################
+
+CONFIGPARAM="$CONFIGPARAM $GFW"
+
+##############################################
+
 echo && \
 echo "Performing autogen.sh..." && \
 echo "------------------------" && \
@@ -493,4 +516,5 @@ echo "make yaud-neutrino"
 echo "make yaud-vdr"
 echo "make yaud-vdrdev2"
 echo "make yaud-enigma1-hd"
+echo "make yaud-xbmc-nightly"
 echo "-----------------------"

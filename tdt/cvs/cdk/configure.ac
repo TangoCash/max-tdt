@@ -204,6 +204,12 @@ AC_ARG_ENABLE(mediafwgstreamer,
 AM_CONDITIONAL(ENABLE_MEDIAFWGSTREAMER,test "$enable_mediafwgstreamer" = "yes")
 AC_SUBST(MEDIAFWGSTREAMER)
 
+AC_ARG_ENABLE(graphicfwdirectfb,
+	AS_HELP_STRING(--enable-graphicfwdirectfb,	set up the CDK to use graphicfw directfb),
+	,[enable_graphicfwdirectfb=no])
+AM_CONDITIONAL(ENABLE_GRAPHICFWDIRECTFB,test "$enable_graphicfwdirectfb" = "yes")
+AC_SUBST(GRAPHICFWDIRECTFB)
+
 AC_ARG_ENABLE(externallcd,
 	AS_HELP_STRING(--enable-externallcd,	set up the CDK to use graphlcd),
 	,[enable_externallcd=no])
@@ -870,6 +876,19 @@ AC_SUBST(MEDIAFW)
 AC_SUBST(MEDIAFW_DEP)
 
 
+AC_SUBST(GRAPHICFW)
+AC_SUBST(GRAPHICFW_DEP)
+
+if test "$enable_graphicfwdirectfb" == "yes"; then
+	GRAPHICFW="directfb"
+	GRAPHICFW_DEP="directfb"
+else
+	GRAPHICFW="framebuffer"
+	GRAPHICFW_DEP=""
+fi
+
+
+
 #TUXBOX_RULES_MAKE_EXDIR(binutils)
 #TUXBOX_RULES_MAKE_EXDIR(bootstrap_gcc)
 #TUXBOX_RULES_MAKE_EXDIR(glibc)
@@ -1237,6 +1256,9 @@ Multicom324                 : $enable_multicom324
 MediaFw Gstreamer           : $enable_mediafwgstreamer
 MediaFw                     : $MEDIAFW
 MediaFw Dep                 : $MEDIAFW_DEP
+GraphicFw DirectFB          : $enable_graphicfwdirectfb
+GraphicFw                   : $GRAPHICFW
+GraphicFw Dep               : $GRAPHICFW_DEP
 EXTERNALLCD                 : $enable_externallcd
 EXTERNALLCD_DEP             : $EXTERNALLCD_DEP
 ])

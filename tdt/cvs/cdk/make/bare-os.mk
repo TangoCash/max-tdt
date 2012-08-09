@@ -14,16 +14,16 @@ $(DEPDIR)/%filesystem: bootstrap-cross
 	$(INSTALL) -d $(targetprefix)/var/{backups,cache,lib,local,lock,log,mail,opt,run,spool}
 	ln -sf $(targetprefix)/lib $(targetprefix)/lib64
 	ln -sf $(targetprefix)/usr/lib $(targetprefix)/usr/lib64
-	ln -s /tmp $(targetprefix)/var/tmp
+#	ln -s /tmp $(targetprefix)/var/tmp
 	$(INSTALL) -d $(targetprefix)/var/lib/misc
 	$(INSTALL) -d $(targetprefix)/var/lock/subsys
 #	$(LN_S) ../mail $(targetprefix)/var/spool/mail
-	ln -sf ../mail $(targetprefix)/var/spool/mail
+#	ln -sf ../mail $(targetprefix)/var/spool/mail
 	$(INSTALL) -d $(targetprefix)/etc/{init.d,rc.d,samba}
 	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
 	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
 	$(INSTALL) -d $(targetprefix)/etc/samba/private
-	$(INSTALL) -d $(targetprefix)/jffs
+#	$(INSTALL) -d $(targetprefix)/jffs
 	$(INSTALL) -d $(targetprefix)/media
 #	$(INSTALL) -d $(targetprefix)/include
 #	$(INSTALL) -d $(targetprefix)/ram
@@ -66,13 +66,12 @@ GLIBC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIBC)-$(GLIBC_VERSION).sh4.rpm
 GLIBC_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIBC_DEV)-$(GLIBC_VERSION).sh4.rpm
 
 $(GLIBC_RPM) $(GLIBC_DEV_RPM): \
-		$(if $(GLIBC_SPEC_PATCH),Patches/$(GLIBC_SPEC_PATCH)) \
-		$(if $(GLIBC_PATCHES),$(GLIBC_PATCHES:%=Patches/%)) \
+		$(addprefix Patches/,$(GLIBC_SPEC_PATCH) $(GLIBC_PATCHES)) \
 		$(archivedir)/$(STLINUX)-target-$(GLIBC)-$(GLIBC_VERSION).src.rpm \
 		| filesystem
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(GLIBC_SPEC_PATCH),( cd SPECS && patch -p1 $(GLIBC_SPEC) < $(buildprefix)/Patches/$(GLIBC_SPEC_PATCH) ) &&) \
-	$(if $(GLIBC_PATCHES),cp $(GLIBC_PATCHES:%=Patches/%) SOURCES/ &&) \
+	$(if $(GLIBC_PATCHES),cp $(addprefix Patches/,$(GLIBC_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(GLIBC_SPEC)
 
@@ -364,7 +363,6 @@ $(GLIB2_RPM) $(GLIB2_DEV_RPM): \
 	rpm $(DRPM) --nosignature -ihv $(lastword $^) && \
 	$(if $(GLIB2_SPEC_PATCH),( cd SPECS && patch -p1 $(GLIB2_SPEC) < $(buildprefix)/Patches/$(GLIB2_SPEC_PATCH) ) &&) \
 	$(if $(GLIB2_PATCHES),cp $(GLIB2_PATCHES:%=Patches/%) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(GLIB2_SPEC)
 
@@ -689,6 +687,7 @@ UDEV_PATCHES :=
 endif !STM23
 endif !STM22
 UDEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV)-$(UDEV_VERSION).sh4.rpm
+UDEV_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV_DEV)-$(UDEV_VERSION).sh4.rpm
 
 $(UDEV_RPM): \
 		$(if $(UDEV_SPEC_PATCH),Patches/$(UDEV_SPEC_PATCH)) \

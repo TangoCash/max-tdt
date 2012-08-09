@@ -252,7 +252,7 @@ $(DEPDIR)/wpa_supplicant.do_compile: bootstrap Patches/wpa_supplicant.config $(D
 $(DEPDIR)/min-wpa_supplicant $(DEPDIR)/std-wpa_supplicant $(DEPDIR)/max-wpa_supplicant \
 $(DEPDIR)/wpa_supplicant: \
 $(DEPDIR)/%wpa_supplicant: $(DEPDIR)/wpa_supplicant.do_compile
-	cd @DIR_wpa_supplicant@/wpa_supplicant  && \
+	cd @DIR_wpa_supplicant@/wpa_supplicant && \
 		@INSTALL_wpa_supplicant@
 	@DISTCLEANUP_wpa_supplicant@
 	[ "x$*" = "x" ] && touch $@ || true

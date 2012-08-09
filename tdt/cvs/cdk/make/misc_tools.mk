@@ -1,6 +1,6 @@
+#
 # misc/tools
-
-#$(appsdir)/misc/tools/config.status: bootstrap libpng
+#
 $(appsdir)/misc/tools/config.status: bootstrap
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/misc/tools && \
@@ -9,7 +9,7 @@ $(appsdir)/misc/tools/config.status: bootstrap
 	$(if $(MULTICOM322), --enable-multicom322) $(if $(MULTICOM324), --enable-multicom324)
 
 $(DEPDIR)/min-misc-tools $(DEPDIR)/std-misc-tools $(DEPDIR)/max-misc-tools $(DEPDIR)/misc-tools: \
-$(DEPDIR)/%misc-tools: driver libstdc++-dev libdvdnav libdvdcss libpng jpeg ffmpeg $(appsdir)/misc/tools/config.status
+$(DEPDIR)/%misc-tools: driver libstdc++-dev libdvdnav libdvdcss freetype expat fontconfig bzip2 libpng jpeg ffmpeg $(appsdir)/misc/tools/config.status
 	$(MAKE) -C $(appsdir)/misc/tools all install DESTDIR=$(prefix)/$*cdkroot \
 	CPPFLAGS="\
 	$(if $(UFS910), -DPLATFORM_UFS910) \

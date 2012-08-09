@@ -19,7 +19,8 @@ libeplayer3_la_SOURCES =  \
 AM_CFLAGS = -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 \
 -D_LARGEFILE64_SOURCE
 
-libeplayer3_la_LIBADD = -lpthread -lavformat -lavcodec -lavutil -lz -lass -lm -lpng
+#libeplayer3_la_LIBADD = -lpthread -lavformat -lavcodec -lavutil -lz -lass -lm -lpng
+libeplayer3_la_LIBADD = -lpthread -lavformat -lavcodec -lavutil -lz -lfreetype -lexpat -lfontconfig -lbz2 -lass -lm -lpng
 
 bin_PROGRAMS = eplayer3 meta
 eplayer3_SOURCES = tools/eplayer2.c

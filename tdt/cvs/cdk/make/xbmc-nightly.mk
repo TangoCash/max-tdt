@@ -7,8 +7,6 @@ $(DEPDIR)/xbmc-nightly.do_prepare:
 	REPO="git://github.com/xbmc/xbmc.git"; \
 	rm -rf $(appsdir)/xbmc-nightly; \
 	rm -rf $(appsdir)/xbmc-nightly.org; \
-	rm -rf $(appsdir)/xbmc-nightly.newest; \
-	rm -rf $(appsdir)/xbmc-nightly.patched; \
 	clear; \
 	echo "Choose between the following revisions:"; \
 	echo " 0) Newest (Can fail due to outdated patch)"; \
@@ -26,13 +24,10 @@ $(DEPDIR)/xbmc-nightly.do_prepare:
 	git pull $(appsdir)/xbmc-nightly $$HEAD;\
 	[ -d "$(appsdir)/xbmc-nightly" ] || \
 	git clone -b $$HEAD $$REPO $(appsdir)/xbmc-nightly; \
-	cp -ra $(appsdir)/xbmc-nightly $(appsdir)/xbmc-nightly.newest; \
 	[ "$$REVISION" == "" ] || (cd $(appsdir)/xbmc-nightly; git checkout "$$REVISION"; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/xbmc-nightly $(appsdir)/xbmc-nightly.org; \
-	cd $(appsdir)/xbmc-nightly && patch -p1 < "../../cdk/Patches/xbmc-nightly.$$DIFF.diff"; \
-	cp -ra $(appsdir)/xbmc-nightly $(appsdir)/xbmc-nightly.patched
+	cd $(appsdir)/xbmc-nightly && patch -p1 < "../../cdk/Patches/xbmc-nightly.$$DIFF.diff"
 	touch $@
-
 
 #			PYTHON_LDFLAGS='-L$(targetprefix)/usr/include/python2.6 -lpython2.6' \
 #			PYTHON_VERSION='2.6' \

@@ -289,7 +289,7 @@ $(DEPDIR)/curl.do_compile: $(DEPDIR)/curl.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_curl@ && \
 		$(BUILDENV) \
-		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
@@ -474,6 +474,7 @@ $(DEPDIR)/glib2.do_compile: $(DEPDIR)/glib2.do_prepare
 	cd @DIR_glib2@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
+		PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 		./configure \
 			--cache-file=config.cache \
 			--disable-gtk-doc \
@@ -572,6 +573,14 @@ $(DEPDIR)/lcms.do_compile: $(DEPDIR)/lcms.do_prepare
 		$(MAKE)
 	touch $@
 
+$(DEPDIR)/min-lcms $(DEPDIR)/std-lcms $(DEPDIR)/max-lcms \
+$(DEPDIR)/lcms: \
+$(DEPDIR)/%lcms: $(DEPDIR)/lcms.do_compile
+	cd @DIR_lcms@ && \
+		@INSTALL_lcms@
+	@DISTCLEANUP_lcms@
+	[ "x$*" = "x" ] && touch $@ || true
+
 #
 # directfb
 #
@@ -585,7 +594,7 @@ $(DEPDIR)/directfb.do_compile: $(DEPDIR)/directfb.do_prepare
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 		libtoolize -f -c && \
-		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -680,7 +689,7 @@ $(DEPDIR)/expat.do_prepare: bootstrap @DEPENDS_expat@
 $(DEPDIR)/expat.do_compile: $(DEPDIR)/expat.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_expat@ && \
-		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -709,7 +718,7 @@ $(DEPDIR)/fontconfig.do_compile: $(DEPDIR)/fontconfig.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_fontconfig@ && \
 		libtoolize -f -c && \
-		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -1109,7 +1118,7 @@ $(DEPDIR)/enchant.do_compile: $(DEPDIR)/enchant.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_enchant@ && \
 	libtoolize -f -c && \
-	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+	autoreconf -vif -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--build=$(build) \
@@ -1143,7 +1152,7 @@ $(DEPDIR)/lite.do_compile: $(DEPDIR)/lite.do_prepare
 	cd @DIR_lite@ && \
 	cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 	libtoolize -f -c && \
-	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+	autoreconf -vif -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1170,7 +1179,7 @@ $(DEPDIR)/sqlite.do_compile: $(DEPDIR)/sqlite.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sqlite@ && \
 	libtoolize -f -c && \
-	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+	autoreconf -vif -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1704,7 +1713,7 @@ $(DEPDIR)/gstreamer.do_prepare: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 $(DEPDIR)/gstreamer.do_compile: $(DEPDIR)/gstreamer.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gstreamer@ && \
-	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+	autoreconf -vif -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1735,7 +1744,7 @@ $(DEPDIR)/gst_plugins_base.do_prepare: bootstrap glib2 gstreamer libogg libalsa 
 $(DEPDIR)/gst_plugins_base.do_compile: $(DEPDIR)/gst_plugins_base.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
-	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+	autoreconf -vif -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \

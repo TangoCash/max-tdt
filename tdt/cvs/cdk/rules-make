@@ -44,8 +44,8 @@ libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;pa
 busybox;1.20.2;busybox-1.20.2;busybox-1.20.2.tar.bz2;extract:busybox-1.20.2.tar.bz2
 lsb;3.2-20;lsb-3.2;lsb_3.2-20.tar.gz;extract:lsb_3.2-20.tar.gz
 ipkg;0.99.163;ipkg-0.99.163;ipkg-0.99.163.tar.gz;extract:ipkg-0.99.163.tar.gz
-module_init_tools;3.3-pre1;module-init-tools-3.3-pre1;module-init-tools-3.3-pre1.tar.bz2;extract:module-init-tools-3.3-pre1.tar.bz2
-sysvinit;2.86;sysvinit-2.86;sysvinit-2.86.tar.gz:sysvinit_2.86.ds1-38.diff.gz;extract:sysvinit-2.86.tar.gz
+module_init_tools;3.16;module-init-tools-3.16;module-init-tools-3.16.tar.bz2;extract:module-init-tools-3.16.tar.bz2;patch:module-init-tools-no-man.patch
+#sysvinit;2.86;sysvinit-2.86;sysvinit-2.86.tar.gz:sysvinit_2.86.ds1-38.diff.gz;extract:sysvinit-2.86.tar.gz
 
 #
 # contrib apps

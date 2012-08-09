@@ -6,6 +6,7 @@ $(DEPDIR)/bzip2.do_prepare: bootstrap @DEPENDS_bzip2@
 	touch $@
 
 $(DEPDIR)/bzip2.do_compile: $(DEPDIR)/bzip2.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_bzip2@ && \
 		mv Makefile-libbz2_so Makefile && \
 		$(MAKE) all CC=$(target)-gcc
@@ -27,11 +28,13 @@ $(DEPDIR)/module_init_tools.do_prepare: bootstrap @DEPENDS_module_init_tools@
 	touch $@
 
 $(DEPDIR)/module_init_tools.do_compile: $(DEPDIR)/module_init_tools.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_module_init_tools@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
+			--disable-builddir \
 			--prefix= && \
 		$(MAKE)
 	touch $@
@@ -57,6 +60,7 @@ $(DEPDIR)/grep.do_prepare: bootstrap @DEPENDS_grep@
 	touch $@
 
 $(DEPDIR)/grep.do_compile: $(DEPDIR)/grep.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_grep@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
@@ -108,6 +112,7 @@ $(DEPDIR)/portmap.do_prepare: bootstrap @DEPENDS_portmap@
 	touch $@
 
 $(DEPDIR)/portmap.do_compile: $(DEPDIR)/portmap.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_portmap@ && \
 		$(BUILDENV) \
 		$(MAKE)
@@ -131,6 +136,7 @@ $(DEPDIR)/openrdate.do_prepare: bootstrap @DEPENDS_openrdate@
 	touch $@
 
 $(DEPDIR)/openrdate.do_compile: $(DEPDIR)/openrdate.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_openrdate@ && \
 		$(BUILDENV) \
 		./configure \
@@ -166,6 +172,7 @@ $(DEPDIR)/e2fsprogs.do_prepare: bootstrap @DEPENDS_e2fsprogs@
 
 if STM24
 $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_e2fsprogs@ && \
 	ln -sf /bin/true ./ldconfig; \
 	$(BUILDENV) \
@@ -175,6 +182,8 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 		--build=$(build) \
 		--host=$(target) \
 		--target=$(target) \
+		--prefix=/usr \
+		--libdir=/usr/lib \
 		--disable-rpath \
 		--disable-quota \
 		--disable-testio-debug \
@@ -193,6 +202,7 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 	touch $@
 else !STM24
 $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_e2fsprogs@ && \
 	$(BUILDENV) \
 	cc=$(target)-gcc \
@@ -252,6 +262,7 @@ $(DEPDIR)/xfsprogs.do_prepare: bootstrap $(DEPDIR)/e2fsprogs $(DEPDIR)/libreadli
 	touch $@
 
 $(DEPDIR)/xfsprogs.do_compile: $(DEPDIR)/xfsprogs.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_xfsprogs@ && \
 		export DEBUG=-DNDEBUG && export OPTIMIZER=-O2 && \
 		mv -f aclocal.m4 aclocal.m4.orig && mv Makefile Makefile.sgi || true && chmod 644 Makefile.sgi && \
@@ -290,6 +301,7 @@ $(DEPDIR)/mc.do_prepare: bootstrap glib2 @DEPENDS_mc@
 	touch $@
 
 $(DEPDIR)/mc.do_compile: $(DEPDIR)/mc.do_prepare | $(NCURSES_DEV)
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_mc@ && \
 		$(BUILDENV) \
 		./configure \
@@ -352,6 +364,7 @@ $(DEPDIR)/sg3_utils.do_prepare: bootstrap @DEPENDS_sg3_utils@
 	touch $@
 
 $(DEPDIR)/sg3_utils.do_compile: $(DEPDIR)/sg3_utils.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sg3_utils@ && \
 		$(MAKE) clean || true && \
 		aclocal -I $(hostprefix)/share/aclocal && \
@@ -503,6 +516,7 @@ $(DEPDIR)/lm_sensors.do_prepare: bootstrap @DEPENDS_lm_sensors@
 	touch $@
 
 $(DEPDIR)/lm_sensors.do_compile: $(DEPDIR)/lm_sensors.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_lm_sensors@ && \
 		$(MAKE) $(MAKE_OPTS) MACHINE=sh PREFIX=/usr user
 	touch $@
@@ -529,6 +543,7 @@ $(DEPDIR)/fuse.do_prepare: bootstrap curl glib2 @DEPENDS_fuse@
 	touch $@
 
 $(DEPDIR)/fuse.do_compile: $(DEPDIR)/fuse.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_fuse@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -I$(buildprefix)/linux/arch/sh" \
@@ -759,6 +774,7 @@ $(DEPDIR)/jfsutils.do_prepare: bootstrap @DEPENDS_jfsutils@
 	touch $@
 
 $(DEPDIR)/jfsutils.do_compile: $(DEPDIR)/jfsutils.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_jfsutils@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
@@ -810,6 +826,7 @@ $(DEPDIR)/%opkg: $(DEPDIR)/opkg.do_compile
 #
 $(DEPDIR)/sysstat: bootstrap @DEPENDS_sysstat@
 	@PREPARE_sysstat@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sysstat@ && \
 	$(BUILDENV) \
 	./configure \
@@ -861,6 +878,7 @@ $(DEPDIR)/autofs.do_prepare: bootstrap @DEPENDS_autofs@
 	touch $@
 
 $(DEPDIR)/autofs.do_compile: $(DEPDIR)/autofs.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_autofs@ && \
 		cp aclocal.m4 acinclude.m4 && \
 		autoconf && \
@@ -888,6 +906,7 @@ $(DEPDIR)/imagemagick.do_prepare: bootstrap @DEPENDS_imagemagick@
 	touch $@
 
 $(DEPDIR)/imagemagick.do_compile: $(DEPDIR)/imagemagick.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_imagemagick@ && \
 	$(BUILDENV) \
 	CFLAGS="-O1" \

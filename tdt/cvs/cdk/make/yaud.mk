@@ -14,7 +14,7 @@ $(DEPDIR)/%bootstrap: \
 		%$(CROSS_LIBGCC) \
 		%$(LIBSTDC) \
 		%$(LIBSTDC_DEV)
-	@[ "x$*" = "x" ] && touch -r RPMS/sh4/$(STLINUX)-sh4-$(LIBSTDC)-$(GCC_VERSION).sh4.rpm $@ || true
+	@[ "x$*" = "x" ] && touch $@ || true
 
 #
 # BARE-OS
@@ -32,11 +32,12 @@ min-bare-os std-bare-os max-bare-os bare-os: \
 		%busybox \
 		\
 		%libz \
+		%$(SYSVINIT) \
+		%$(SYSVINITTOOLS) \
 		%$(INITSCRIPTS) \
 		%openrdate \
 		%$(NETBASE) \
 		%$(BC) \
-		%$(SYSVINIT) \
 		%$(DISTRIBUTIONUTILS) \
 		\
 		%u-boot-utils \

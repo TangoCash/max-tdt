@@ -457,21 +457,22 @@ endif STM24
 # BOOTSTRAP-HOST
 #
 $(DEPDIR)/bootstrap-host: | \
+		host-filesystem \
 		$(CCACHE_BIN) \
 		libtool \
 		host-rpmconfig \
 		$(HOST_M4) \
 		host-base-passwd \
 		host-distributionutils \
-		host-filesystem \
 		host-autotools \
-		$(HOST_AUTOMAKE) \
 		$(HOST_AUTOCONF) \
 		$(HOST_PKGCONFIG) \
+		$(HOST_AUTOMAKE) \
 		$(HOST_FLEX) \
 		$(HOST_MTD_UTILS)
 	$(if $(HOST_MTD_UTILS_RPM),[ "x$*" = "x" ] && touch -r $(HOST_MTD_UTILS_RPM) $@ || true)
 #		$(HOST_GLIB2)
+
 ##############################   BOOTSTRAP-CROSS   #############################
 #
 # CROSS_FILESYSTEM
@@ -808,7 +809,7 @@ $(DEPDIR)/bootstrap-cross: | \
 		cross-sh4-gcc \
 		cross-sh4-g++ \
 		cross-sh4-libgcc
-	[ "x$*" = "x" ] && touch -r $(CROSS_G++_RPM) $@ || true
+	[ "x$*" = "x" ] && touch $@ || true
 
 $(DEPDIR)/setup-cross-doc: \
 	cross-binutils-doc \

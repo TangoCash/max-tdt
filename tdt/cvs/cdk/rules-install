@@ -21,7 +21,7 @@ libtool;make:install
 busybox;make:install:CONFIG_PREFIX=TARGETS;shellconfigadd:/bin/ash:5
 lsb;install:-d:TARGETS/lib/lsb;install:-m644:init-functions:TARGETS/lib/lsb
 ipkg;make:install:DESTDIR=TARGETS
-module_init_tools;make:INSTALL=install:install:sbin_PROGRAMS="depmod modinfo":bin_PROGRAMS=:mandir=/usr/share/man:DESTDIR=TARGETS
+module_init_tools;make:INSTALL=install:install:sbin_PROGRAMS="depmod modinfo":bin_PROGRAMS=:DESTDIR=TARGETS
 
 #
 # contrib apps
@@ -56,7 +56,8 @@ imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/Ma
 libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la
 libboost;remove:TARGETS/include/boost;move:boost:TARGETS/usr/include/boost
 ncurses;
-libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
+#libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
+libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;archive:TARGET/usr/lib/libz_pic.a:*.o
 libreadline;make:install:DESTDIR=TARGETS
 freetype_old;make:install:DESTDIR=BUILD/freetype-2.1.4/install_dir
 freetype;rewrite-pkgconfig:builds/unix/freetype2.pc;make:install:libdir=TARGETS/usr/lib:includedir=TARGETS/usr/include:bindir=TARGETS/usr/bin:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libfreetype.la
@@ -110,7 +111,7 @@ libdreamdvd2;rewrite-pkgconfig:libdreamdvd.pc;make:install:prefix=/usr:DESTDIR=T
 libpcre;rewrite-pkgconfig:libpcre.pc:libpcrecpp.pc:libpcreposix.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libpcre.la:TARGETS/usr/lib/libpcreposix.la
 libmpeg2;make:install:prefix=/usr:DESTDIR=TARGETS
 libsamplerate;make:install:prefix=/usr:DESTDIR=TARGETS
-libvorbis;make:install:prefix=/usr:DESTDIR=TARGETS
+libvorbis;rewrite-pkgconfig:vorbis.pc:vorbisenc.pc:vorbisfile.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libvorbis.la:TARGETS/usr/lib/libvorbisenc.la:TARGETS/usr/lib/libvorbisfile.la
 libmodplug;make:install:prefix=/usr:DESTDIR=TARGETS
 tiff;make:install:prefix=/usr:DESTDIR=TARGETS
 lzo;make:install:prefix=/usr:DESTDIR=TARGETS

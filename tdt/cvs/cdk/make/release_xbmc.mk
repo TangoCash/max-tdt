@@ -467,17 +467,17 @@ endif
 	rm -rf $(prefix)/release/usr/lib/xbmc/system/shaders
 
 #
-# FOR YOUR OWN CHANGES use these folder in cdk/own_build/xbmc
-#
-	cp -RP $(buildprefix)/own_build/xbmc/* $(prefix)/release/
-
-#
 # The main target depends on the model.
 # IMPORTANT: it is assumed that only one variable is set. Otherwise the target name won't be resolved.
 #
 $(DEPDIR)/min-release_xbmc $(DEPDIR)/std-release_xbmc $(DEPDIR)/max-release_xbmc $(DEPDIR)/release_xbmc: \
 $(DEPDIR)/%release_xbmc: release_xbmc_base release_xbmc_$(TF7700)$(HL101)$(VIP1_V2)$(VIP2_V1)$(UFS910)$(UFS912)$(UFS913)$(SPARK)$(SPARK7162)$(UFS922)$(OCTAGON1008)$(FORTIS_HDBOX)$(ATEVIO7500)$(HS7810A)$(HS7110)$(WHITEBOX)$(CUBEREVO)$(CUBEREVO_MINI)$(CUBEREVO_MINI2)$(CUBEREVO_MINI_FTA)$(CUBEREVO_250HD)$(CUBEREVO_2000HD)$(CUBEREVO_9500HD)$(HOMECAST5101)$(IPBOX9900)$(IPBOX99)$(IPBOX55)$(ADB_BOX)
 	touch $@
+
+#
+# FOR YOUR OWN CHANGES use these folder in cdk/own_build/xbmc
+#
+	cp -RP $(buildprefix)/own_build/xbmc/* $(prefix)/release/
 
 #
 # release-clean

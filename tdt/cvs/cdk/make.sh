@@ -378,8 +378,8 @@ esac
 ##############################################
 
 echo -e "\nMedia Framework:"
-echo "   1) eplayer3  (Recommended)"
-echo "   2) gstreamer"
+echo "   1) eplayer3  (Recommended for Enigma1/2, Neutrino/HD, VDR)"
+echo "   2) gstreamer (Recommended for Enigma2 / PLI, XBMC)"
 case $6 in
         [1-2]) REPLY=$6
         echo -e "\nSelected media framwork: $REPLY\n"
@@ -460,7 +460,7 @@ esac
 
 echo -e "\nGraphic Framework:"
 echo "   1) Framebuffer (Enigma1/2, Neutrino1/HD, VDR)"
-echo "   2) DirectFB    (XBMC)"
+echo "   2) DirectFB    (XBMC for UFS912, UFS913, Atevio7500)"
 case $9 in
         [1-2]) REPLY=$9
         echo -e "\nSelected Graphic Framework: $REPLY\n"

@@ -180,8 +180,6 @@ if STM24
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release/sbin/
 endif
 
-
-
 #
 # Player
 #
@@ -465,7 +463,7 @@ endif
 	cp -ra $(targetprefix)/usr/share/xbmc/*          $(prefix)/release/usr/share/xbmc/
 	ln -sf /usr/share/xbmc/language/German $(prefix)/release/usr/share/xbmc/language/English
 	rm -rf $(prefix)/release/usr/lib/xbmc/system/players/paplayer
-#rm -rf $(prefix)/release/usr/lib/xbmc/system/players/dvdplayer
+#	rm -rf $(prefix)/release/usr/lib/xbmc/system/players/dvdplayer
 	rm -rf $(prefix)/release/usr/lib/xbmc/system/shaders
 
 #

@@ -85,9 +85,6 @@ $(DEPDIR)/xbmc-nightly: xbmc-nightly.do_prepare xbmc-nightly.do_compile
 	$(MAKE) -C $(appsdir)/xbmc-nightly install DESTDIR=$(targetprefix)
 	if [ -e $(targetprefix)/usr/lib/xbmc/xbmc.bin ]; then \
 		$(target)-strip $(targetprefix)/usr/lib/xbmc/xbmc.bin; \
-		$(target)-strip $(targetprefix)/usr/lib/xbmc/system/*; \
-		$(target)-strip $(targetprefix)/usr/lib/xbmc/system/players/dvdplayer/*; \
-		$(target)-strip $(targetprefix)/usr/lib/xbmc/system/players/paplayer/*; \
 	fi
 	touch $@
 

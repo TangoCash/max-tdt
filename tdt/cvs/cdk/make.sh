@@ -389,7 +389,7 @@ case $6 in
 esac
 
 case "$REPLY" in
-	1) MEDIAFW="";;
+	1) MEDIAFW="--enable-eplayer3";;
 	2) MEDIAFW="--enable-mediafwgstreamer";;
 	*) MEDIAFW="";;
 esac

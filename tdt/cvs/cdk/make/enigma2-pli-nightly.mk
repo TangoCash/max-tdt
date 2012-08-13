@@ -28,11 +28,11 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo "4) Sat, 11 Aug 2012 21:50 - E2 OpenPli gstreamer / eplayer b67f9debd524873e77e8a3e87c1e8ddee79b810d"; \
 	read -p "Select: "; \
 	echo "Selection: " $$REPLY; \
-	[ "$$REPLY" == "0" ] && DIFF="5"; \
+	[ "$$REPLY" == "0" ] && DIFF="4"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="839e96b79600aba73f743fd39628f32bc1628f4c"; \
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="a3b233a2545a5de7ed1b798137ee1da597856b9e"; \
-	[ "$$REPLY" == "4" ] && DIFF="5" && REVISION="b67f9debd524873e77e8a3e87c1e8ddee79b810d"; \
+	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="b67f9debd524873e77e8a3e87c1e8ddee79b810d"; \
 	echo "Revision: " $$REVISION; \
 	[ -d "$(appsdir)/enigma2-nightly" ] && \
 	git pull $(appsdir)/enigma2-nightly $$HEAD;\

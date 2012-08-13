@@ -865,6 +865,11 @@ else
 fi
 AC_SUBST(EXTERNALLCD_DEP)
 
+AC_ARG_ENABLE(eplayer3,
+	AS_HELP_STRING(--enable-eplayer3, enable eplayer3 support),
+	,[enable_eplayer3=no])
+AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
+
 if test "$enable_mediafwgstreamer" == "yes"; then
 	MEDIAFW="gstreamer"
 	MEDIAFW_DEP="gst_plugins_dvbmediasink"

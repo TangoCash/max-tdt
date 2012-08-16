@@ -219,12 +219,12 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) freetype
 			--enable-pcmsoftdecoder \
 			--with-tremor \
 			--enable-libass \
-			--with-datadir=/usr/local/share \
 			--with-libdir=/usr/lib \
+			--with-datadir=/share/tuxbox \
+			--with-fontdir=/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/usr/lib/tuxbox/plugins \
-			--with-fontdir=/usr/local/share/fonts \
-			--with-configdir=/usr/local/share/config \
-			--with-gamesdir=/usr/local/share/games \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \

@@ -3,7 +3,7 @@
 #
 
 if ENABLE_EPLAYER3
-E_CONFIG_OPTS = --enable-eplayer
+E_CONFIG_OPTS = --enable-libeplayer3
 endif
 
 $(DEPDIR)/enigma2-pli-nightly.do_prepare:
@@ -18,21 +18,19 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	clear; \
 	echo ""; \
 	echo "Choose between the following revisions:"; \
-	echo "----------------------------------------------------------------------------------------------------"; \
-	echo "0) Newest (Can fail due to outdated patch)"; \
-	echo "1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer            945aeb939308b3652b56bc6c577853369d54a537"; \
-	echo "2) Sat, 18 May 2012 15:26 - E2 OpenPli gstreamer            839e96b79600aba73f743fd39628f32bc1628f4c"; \
-	echo "3) Sat,  8 Aug 2012 19:30 - E2 OpenPli gstreamer / eplayer3 a3b233a2545a5de7ed1b798137ee1da597856b9e"; \
-	echo "4) Sat, 11 Aug 2012 21:50 - E2 OpenPli gstreamer / eplayer3 b67f9debd524873e77e8a3e87c1e8ddee79b810d"; \
-	echo "----------------------------------------------------------------------------------------------------"; \
+	echo "--------------------------------------------------------------------------------------------------------"; \
+	echo " 0) Newest (Can fail due to outdated patch)"; \
+	echo " 1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer              945aeb939308b3652b56bc6c577853369d54a537"; \
+	echo " 2) Sat, 18 May 2012 15:26 - E2 OpenPli gstreamer              839e96b79600aba73f743fd39628f32bc1628f4c"; \
+	echo " 2) Sat, 14 Aug 2012 17:51 - E2 OpenPli gstreamer / libplayer3 2087ee84171de9c51f84dd7b15ac28e7c1e2a281"; \
+	echo "--------------------------------------------------------------------------------------------------------"; \
 	echo "Media Framwork: $(MEDIAFW)"; \
 	echo ""; \
 	read -p "Select: "; \
-	[ "$$REPLY" == "0" ] && DIFF="4"; \
+	[ "$$REPLY" == "0" ] && DIFF="0"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="839e96b79600aba73f743fd39628f32bc1628f4c"; \
-	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="a3b233a2545a5de7ed1b798137ee1da597856b9e"; \
-	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="b67f9debd524873e77e8a3e87c1e8ddee79b810d"; \
+	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="2087ee84171de9c51f84dd7b15ac28e7c1e2a281"; \
 	echo "Revision: " $$REVISION; \
 	echo ""; \
 	[ -d "$(appsdir)/enigma2-nightly" ] && \

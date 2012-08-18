@@ -1,9 +1,18 @@
 #
-# tuxbox/enigma2
+# enigma2-pli-nightly
 #
 
+#
+#
+#
+E_CONFIG_OPTS =
+
+if ENABLE_EXTERNALLCD
+E_CONFIG_OPTS += --with-graphlcd
+endif
+
 if ENABLE_EPLAYER3
-E_CONFIG_OPTS = --enable-libeplayer3
+E_CONFIG_OPTS += --enable-libeplayer3
 endif
 
 $(DEPDIR)/enigma2-pli-nightly.do_prepare:

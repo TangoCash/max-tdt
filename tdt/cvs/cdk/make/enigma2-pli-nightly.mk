@@ -1,10 +1,7 @@
 #
-# enigma2-pli-nightly
+# tuxbox/enigma2
 #
 
-#
-#
-#
 E_CONFIG_OPTS =
 
 if ENABLE_EXTERNALLCD
@@ -28,10 +25,10 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo ""; \
 	echo "Choose between the following revisions:"; \
 	echo "--------------------------------------------------------------------------------------------------------"; \
-	echo " 0) Newest (Can fail due to outdated patch)"; \
+	echo " 0) Newest                 - E2 OpenPli gstreamer / libplayer3    (Can fail due to outdated patch)     "; \
 	echo " 1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer              945aeb939308b3652b56bc6c577853369d54a537"; \
 	echo " 2) Sat, 18 May 2012 15:26 - E2 OpenPli gstreamer              839e96b79600aba73f743fd39628f32bc1628f4c"; \
-	echo " 2) Sat, 14 Aug 2012 17:51 - E2 OpenPli gstreamer / libplayer3 2087ee84171de9c51f84dd7b15ac28e7c1e2a281"; \
+	echo " 3) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	echo "--------------------------------------------------------------------------------------------------------"; \
 	echo "Media Framwork: $(MEDIAFW)"; \
 	echo ""; \
@@ -39,7 +36,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	[ "$$REPLY" == "0" ] && DIFF="0"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="839e96b79600aba73f743fd39628f32bc1628f4c"; \
-	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="2087ee84171de9c51f84dd7b15ac28e7c1e2a281"; \
+	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	echo "Revision: " $$REVISION; \
 	echo ""; \
 	[ -d "$(appsdir)/enigma2-nightly" ] && \

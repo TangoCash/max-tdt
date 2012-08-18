@@ -11,6 +11,9 @@ $(targetprefix)/var/etc/.version:
 	echo "version=0100`date +%Y%m%d%H%M`" >> $@
 	echo "git =`git describe`" >> $@
 
+#
+#
+#
 N_CPPFLAGS = -DNEW_LIBCURL -DFB_BLIT -DBGP_JPG
 
 N_CONFIG_OPTS = --enable-silent-rules
@@ -48,7 +51,7 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/usr/lib/tuxbox/plugins \
+			--with-plugindir=/var/tuxbox/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -106,7 +109,7 @@ $(appsdir)/neutrino-single/config.status: bootstrap $(EXTERNALLCD_DEP) freetype 
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/usr/lib/tuxbox/plugins \
+			--with-plugindir=/var/tuxbox/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -167,7 +170,7 @@ $(appsdir)/neutrino-hd2/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpe
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/usr/lib/tuxbox/plugins \
+			--with-plugindir=/var/tuxbox/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -224,7 +227,7 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) freetype
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/usr/lib/tuxbox/plugins \
+			--with-plugindir=/var/tuxbox/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -264,12 +267,12 @@ $(appsdir)/neutrino/config.status: bootstrap $(EXTERNALLCD_DEP) freetype libpng 
 		./configure \
 			--host=$(target) \
 			--without-libsdl \
-			--with-datadir=/usr/local/share \
 			--with-libdir=/usr/lib \
-			--with-plugindir=/usr/lib/tuxbox/plugins \
+			--with-datadir=/usr/local/share \
 			--with-fontdir=/usr/local/share/fonts \
 			--with-configdir=/usr/local/share/config \
 			--with-gamesdir=/usr/local/share/games \
+			--with-plugindir=/usr/lib/tuxbox/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS)

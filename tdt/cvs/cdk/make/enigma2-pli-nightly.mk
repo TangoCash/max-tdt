@@ -59,9 +59,6 @@ $(appsdir)/enigma2-pli-nightly/config.status: bootstrap freetype expat fontconfi
 		./configure \
 			--host=$(target) \
 			--without-libsdl \
-			--with-datadir=/usr/local/share \
-			--with-libdir=/usr/lib \
-			--with-plugindir=/usr/lib/tuxbox/plugins \
 			--prefix=/usr \
 			--datadir=/usr/local/share \
 			--sysconfdir=/etc \

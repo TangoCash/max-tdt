@@ -47,8 +47,16 @@ then
 	poweroff=""
 fi
 
-#halt -d -f -n -i $poweroff $hddown
+#green green off
+/bin/fp_control -l 2 0
 
+#green red on
+/bin/fp_control -l 3 1
+   
+#led brightness
+/bin/fp_control -led 5
+
+#halt -d -f -n -i $poweroff $hddown
 /bin/fp_control -e
 
 : exit 0

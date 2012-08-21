@@ -27,16 +27,16 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo "--------------------------------------------------------------------------------------------------------"; \
 	echo " 0) Newest                 - E2 OpenPli gstreamer / libplayer3    (Can fail due to outdated patch)     "; \
 	echo " 1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer              945aeb939308b3652b56bc6c577853369d54a537"; \
-	echo " 2) Sat, 18 May 2012 15:26 - E2 OpenPli gstreamer              839e96b79600aba73f743fd39628f32bc1628f4c"; \
-	echo " 3) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
+	echo " 2) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
+	echo " 3) Sat, 20 Aug 2012 19:08 - E2 OpenPli gstreamer / libplayer3 51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	echo "--------------------------------------------------------------------------------------------------------"; \
 	echo "Media Framwork: $(MEDIAFW)"; \
 	echo ""; \
 	read -p "Select: "; \
 	[ "$$REPLY" == "0" ] && DIFF="0"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
-	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="839e96b79600aba73f743fd39628f32bc1628f4c"; \
-	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
+	[ "$$REPLY" == "2" ] && DIFF="3" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
+	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	echo "Revision: " $$REVISION; \
 	echo ""; \
 	[ -d "$(appsdir)/enigma2-nightly" ] && \
@@ -47,7 +47,6 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	[ "$$REVISION" == "" ] || (cd $(appsdir)/enigma2-nightly; git checkout "$$REVISION"; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.org; \
 	cd $(appsdir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.diff"; \
-	[ "$(EXTERNALLCD_DEP)" == "" ] || (cd $(appsdir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.graphlcd.diff" ); \
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.patched
 	touch $@
 

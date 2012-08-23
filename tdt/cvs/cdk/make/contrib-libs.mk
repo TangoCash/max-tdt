@@ -1588,8 +1588,9 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	( cd @DIR_python@ && \
 		CONFIG_SITE= \
-		autoconf && \
 		$(BUILDENV) \
+		autoreconf -Wcross --verbose --install --force Modules/_ctypes/libffi && \
+		autoconf && \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \

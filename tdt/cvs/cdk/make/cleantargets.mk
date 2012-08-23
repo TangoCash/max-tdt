@@ -19,6 +19,7 @@ mostlyclean-local: cdk-clean
 
 # Clean tuxbox source directories
 cdk-clean:
+	-$(MAKE) -C linux-sh4 clean
 	-$(MAKE) -C $(driverdir) KERNEL_LOCATION=$(buildprefix)/linux-sh4 \
 		BIN_DEST=$(targetprefix)/bin \
 		INSTALL_MOD_PATH=$(targetprefix) clean

@@ -6,9 +6,7 @@ export CXXFLAGS
 export DRPM
 export DRPMBUILD
 
-LIBTOOL_PREFIX_BASE=$(targetprefix)
-export LIBTOOL_PREFIX_BASE
-
+export LIBTOOL_PREFIX_BASE=$(targetprefix)
 AUTOMAKE_OPTIONS = -Wno-portability
 
 #######################################      #########################################
@@ -131,7 +129,6 @@ OLDSTM24 = YES
 endif
 
 BUILDENV := \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	CC=$(target)-gcc \
 	CXX=$(target)-g++ \
 	LD=$(target)-ld \
@@ -146,7 +143,8 @@ BUILDENV := \
 	CFLAGS="$(TARGET_CFLAGS)" \
 	CXXFLAGS="$(TARGET_CFLAGS)" \
 	LDFLAGS="$(TARGET_LDFLAGS)" \
-	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig"
+	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig" \
+	PKG_CONFIG_LIBDIR="$(targetprefix)/usr/lib/pkgconfig"
 
 #	LDFLAGS="$(TARGET_LDFLAGS) -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/lib -L$(targetprefix)/usr/lib"
 

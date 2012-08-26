@@ -29,14 +29,16 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo " 1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer              945aeb939308b3652b56bc6c577853369d54a537"; \
 	echo " 2) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	echo " 3) Sat, 20 Aug 2012 19:08 - E2 OpenPli gstreamer / libplayer3 51a7b9349070830b5c75feddc52e97a1109e381e"; \
+	echo " 4) Sat, 24 Aug 2012 23:42 - E2 OpenPli gstreamer / libplayer3 002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
 	echo "--------------------------------------------------------------------------------------------------------"; \
 	echo "Media Framwork: $(MEDIAFW)"; \
 	echo ""; \
 	read -p "Select: "; \
 	[ "$$REPLY" == "0" ] && DIFF="0"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
-	[ "$$REPLY" == "2" ] && DIFF="3" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
+	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
+	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
 	echo "Revision: " $$REVISION; \
 	echo ""; \
 	[ -d "$(appsdir)/enigma2-nightly" ] && \

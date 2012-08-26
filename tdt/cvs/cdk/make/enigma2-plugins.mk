@@ -19,7 +19,7 @@ $(DEPDIR)/enigma2_openwebif.do_compile: $(DEPDIR)/enigma2_openwebif.do_prepare
 $(DEPDIR)/min-enigma2_openwebif $(DEPDIR)/std-enigma2_openwebif $(DEPDIR)/max-enigma2_openwebif \
 $(DEPDIR)/enigma2_openwebif: \
 $(DEPDIR)/%enigma2_openwebif: $(DEPDIR)/enigma2_openwebif.do_compile
-#	@DISTCLEANUP_enigma2_openwebif@
+	@DISTCLEANUP_enigma2_openwebif@
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -63,5 +63,5 @@ $(DEPDIR)/enigma2_networkbrowser.do_compile: $(DEPDIR)/enigma2_networkbrowser.do
 $(DEPDIR)/min-enigma2_networkbrowser $(DEPDIR)/std-enigma2_networkbrowser $(DEPDIR)/max-enigma2_networkbrowser \
 $(DEPDIR)/enigma2_networkbrowser: \
 $(DEPDIR)/%enigma2_networkbrowser: $(DEPDIR)/enigma2_networkbrowser.do_compile
-#	@DISTCLEANUP_enigma2_networkbrowser@
+	@DISTCLEANUP_enigma2_networkbrowser@
 	[ "x$*" = "x" ] && touch $@ || true

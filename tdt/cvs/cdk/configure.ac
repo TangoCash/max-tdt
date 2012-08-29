@@ -216,6 +216,11 @@ AC_ARG_ENABLE(externallcd,
 AM_CONDITIONAL(ENABLE_EXTERNALLCD,test "$enable_externallcd" = "yes")
 AC_SUBST(EXTERNALLCD)
 
+AC_ARG_ENABLE(eplayer3,
+	AS_HELP_STRING(--enable-eplayer3, enable eplayer3 support),
+	,[enable_eplayer3=no])
+AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
+AC_SUBST(EPLAYER3)
 
 if test -z "$CFLAGS" ; then
 	CFLAGS="-g -O2"
@@ -853,22 +858,16 @@ else
 fi
 fi
 
-AC_ARG_ENABLE(externallcd,
-	AS_HELP_STRING(--enable-externallcd, enable GraphLCD support),
-	,[enable_externallcd=no])
-AM_CONDITIONAL(ENABLE_EXTERNALLCD,test "$enable_externallcd" = "yes")
+AC_SUBST(EXTERNALLCD_DEP)
 
 if test "$enable_externallcd" == "yes"; then
 	EXTERNALLCD_DEP="graphlcd"
 else
 	EXTERNALLCD_DEP=""
 fi
-AC_SUBST(EXTERNALLCD_DEP)
 
-AC_ARG_ENABLE(eplayer3,
-	AS_HELP_STRING(--enable-eplayer3, enable eplayer3 support),
-	,[enable_eplayer3=no])
-AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
+AC_SUBST(MEDIAFW)
+AC_SUBST(MEDIAFW_DEP)
 
 if test "$enable_mediafwgstreamer" == "yes"; then
 	MEDIAFW="gstreamer"
@@ -877,9 +876,6 @@ else
 	MEDIAFW="eplayer3"
 	MEDIAFW_DEP="ffmpeg"
 fi
-AC_SUBST(MEDIAFW)
-AC_SUBST(MEDIAFW_DEP)
-
 
 AC_SUBST(GRAPHICFW)
 AC_SUBST(GRAPHICFW_DEP)
@@ -906,8 +902,6 @@ fi
 TUXBOX_RULES_MAKE(squashfs)
 TUXBOX_RULES_MAKE(ccache)
 TUXBOX_RULES_MAKE(cramfs)
-TUXBOX_RULES_MAKE(ipkg_utils)
-TUXBOX_RULES_MAKE(ipkg_host)
 TUXBOX_RULES_MAKE(host_python)
 TUXBOX_RULES_MAKE(libtool)
 

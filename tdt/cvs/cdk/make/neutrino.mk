@@ -255,6 +255,8 @@ neutrino-hd2-exp-distclean:
 	rm -f $(DEPDIR)/neutrino-hd2-exp
 	rm -f $(DEPDIR)/neutrino-hd2-exp.do_compile
 	rm -f $(DEPDIR)/neutrino-hd2-exp.do_prepare
+	rm -rf $(appsdir)/neutrino-hd2-exp.org
+	rm -rf $(appsdir)/neutrino-hd2-exp
 
 #
 #NORMAL

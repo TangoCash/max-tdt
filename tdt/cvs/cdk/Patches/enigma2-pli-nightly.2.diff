@@ -6219,7 +6219,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp
  {
  	ptr=this;
 +#ifdef ENABLE_LIBEPLAYER3
-+	m_event((iPlayableService*)this, evSeekableStatusChanged);
++//	m_event((iPlayableService*)this, evSeekableStatusChanged);
 +	m_event((iPlayableService*)this, evUpdatedInfo);
 +#endif
  	return 0;
@@ -6275,8 +6275,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp
 +		int result = 0;
 +		if (ratio > 1)
 +			result = player->playback->Command(player, PLAYBACK_SLOWMOTION, (void*)&speed);
-+			if (result != 0)
-+				return -1;
++		if (result != 0)
++			return -1;
 +	}
 +	return 0;
 +#endif

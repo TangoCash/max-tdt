@@ -109,7 +109,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/data/skin_display.xml
  			<convert type="ClockToText"></convert>
  		</widget>
 -		<widget source="session.RecordState" render="FixedLabel" text="Rec" position="4,12" size="24,12" font="FdLcD;12" zPosition="1" noWrap="1">
-+		<widget source="session.RecordState" render="FixedLabel" text="Rec" position="145,40" size="40,25" foregroundColor="#0000ff" font="FdLcD;25" zPosition="1" noWrap="1">
++		<widget source="session.RecordState" render="FixedLabel" text="Rec" position="140,20" size="60,36" foregroundColor="#f23d21" font="FdLcD;35" zPosition="1" noWrap="1">
  			<convert type="ConditionalShowHide">Blink</convert>
  		</widget>
  	</screen>
@@ -247,12 +247,12 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/data/skin_display.xml
  <!-- standby -->
  	<screen name="StandbySummary" position="fill">
 -		<widget source="global.CurrentTime" render="Label" position="center,0" size="120,64" font="FdLcD;48" halign="center" valign="center" noWrap="1">
-+		<widget source="global.CurrentTime" render="Label" position="center,center" size="220,70" font="FdLcD;68" halign="center" valign="center" noWrap="1">
++		<widget source="global.CurrentTime" render="Label" position="center,center" size="320,121" font="FdLcD;120" halign="center" valign="center" noWrap="1">
  			<convert type="ClockToText"></convert>
  		</widget>
 -		<widget source="session.RecordState" render="FixedLabel" text="Recording" position="4,50" size="120,12" font="FdLcD;12" zPosition="2" valign="bottom" halign="left" noWrap="1">
 -			<convert type="ConditionalShowHide"></convert>
-+		<widget source="session.RecordState" render="FixedLabel" text="Recording" position="center,150" size="190,22" font="FdLcD;22" zPosition="2" valign="bottom" halign="center" noWrap="1" foregroundColor="#0000ff" >
++		<widget source="session.RecordState" render="FixedLabel" text="Recording" position="center,180" size="190,42" font="FdLcD;40" zPosition="2" valign="bottom" halign="center" noWrap="1" foregroundColor="#0000ff" >
 +			<convert type="ConditionalShowHide">Blink</convert>
  		</widget>
  	</screen>
@@ -282,7 +282,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/data/skin_display.xml
  
  	<screen name="ChoiceBox_summary" position="fill">
 -		<widget source="parent.summary_list" render="Label" position="fill" font="FdLcD;11" />
-+		<widget source="parent.summary_list" render="Label" position="top" size="*,181" font="FdLcD;25" halign="left" />
++		<widget source="parent.summary_list" render="Label" position="top" size="*,240" font="FdLcD;30" halign="left" noWrap="1"/>
  	</screen>	
  
  	<screen name="MessageBox_summary" position="fill">
@@ -5785,7 +5785,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/In
  from Components.ServiceEventTracker import ServiceEventTracker
  from Components.Sources.Boolean import Boolean
 -from Components.config import config, ConfigBoolean, ConfigClock
-+from Components.config import config, ConfigBoolean, ConfigClock, ConfigSubsection, ConfigSubsection, ConfigYesNo, ConfigText
++from Components.config import config, ConfigBoolean, ConfigClock, ConfigSubsection, ConfigYesNo, ConfigText
  from Components.SystemInfo import SystemInfo
  from Components.UsageConfig import preferredInstantRecordPath, defaultMoviePath, ConfigSelection
  from EpgSelection import EPGSelection
@@ -6780,7 +6780,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp
  {
  	ptr=this;
 +#ifdef ENABLE_LIBEPLAYER3
-+	m_event((iPlayableService*)this, evSeekableStatusChanged);
++//	m_event((iPlayableService*)this, evSeekableStatusChanged);
 +	m_event((iPlayableService*)this, evUpdatedInfo);
 +#endif
  	return 0;
@@ -6836,8 +6836,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp
 +		int result = 0;
 +		if (ratio > 1)
 +			result = player->playback->Command(player, PLAYBACK_SLOWMOTION, (void*)&speed);
-+			if (result != 0)
-+				return -1;
++		if (result != 0)
++			return -1;
 +	}
 +	return 0;
 +#endif

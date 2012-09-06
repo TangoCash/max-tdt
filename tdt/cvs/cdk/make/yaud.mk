@@ -116,7 +116,7 @@ yaud-neutrino-hd2-exp: yaud-none lirc stslave \
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-hd2-exp: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino-hd2-exp release_neutrino
+		boot-elf remote firstboot neutrino-hd2-exp release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 if STM22

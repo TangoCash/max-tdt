@@ -861,8 +861,10 @@ fi
 AC_SUBST(EXTERNALLCD_DEP)
 
 if test "$enable_externallcd" == "yes"; then
+	EXTERNALLCD="yes"
 	EXTERNALLCD_DEP="graphlcd"
 else
+	EXTERNALLCD="no"
 	EXTERNALLCD_DEP=""
 fi
 

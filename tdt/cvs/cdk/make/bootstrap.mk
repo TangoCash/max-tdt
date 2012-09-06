@@ -459,7 +459,6 @@ endif STM24
 $(DEPDIR)/bootstrap-host: | \
 		host-filesystem \
 		$(CCACHE_BIN) \
-		libtool \
 		host-rpmconfig \
 		$(HOST_M4) \
 		host-base-passwd \

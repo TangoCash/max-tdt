@@ -24,31 +24,34 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	clear; \
 	echo ""; \
 	echo "Choose between the following revisions:"; \
-	echo "--------------------------------------------------------------------------------------------------------"; \
+	echo "========================================================================================================"; \
 	echo " 0) Newest                 - E2 OpenPli gstreamer / libplayer3    (Can fail due to outdated patch)     "; \
 	echo " 1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer              945aeb939308b3652b56bc6c577853369d54a537"; \
 	echo " 2) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	echo " 3) Sat, 20 Aug 2012 19:08 - E2 OpenPli gstreamer / libplayer3 51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	echo " 4) Sat, 24 Aug 2012 23:42 - E2 OpenPli gstreamer / libplayer3 002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	echo "--------------------------------------------------------------------------------------------------------"; \
-	echo "Media Framwork: $(MEDIAFW)"; \
-	echo ""; \
-	read -p "Select: "; \
+	echo " 5) Sat, 31 Aug 2012 22:19 - E2 OpenPli gstreamer / libplayer3 dac44307bb144bd5062ee8abaa8ca65cebf4d87c"; \
+	echo "========================================================================================================"; \
+	echo " 9) Sat, 04 Sep 2012 20:19 - E2 OpenAAF gstreamer / libplayer3 da889c777d5d3a144eab1a0cbabf8b15d44f082f"; \
+	echo "========================================================================================================"; \
+	echo "Media Framwork : $(MEDIAFW)"; \
+	echo "External LCD   : $(EXTERNALLCD)"; \
+	read -p "Select         : "; \
 	[ "$$REPLY" == "0" ] && DIFF="0"; \
 	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	echo "Revision: " $$REVISION; \
+	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="dac44307bb144bd5062ee8abaa8ca65cebf4d87c"; \
+	[ "$$REPLY" == "9" ] && DIFF="9" && REVISION="da889c777d5d3a144eab1a0cbabf8b15d44f082f" && REPO="git://github.com/openaaf/enigma2.git"; \
+	echo "Revision       : "$$REVISION; \
 	echo ""; \
-	[ -d "$(appsdir)/enigma2-nightly" ] && \
-	git pull $(appsdir)/enigma2-nightly $$HEAD;\
 	[ -d "$(appsdir)/enigma2-nightly" ] || \
 	git clone -b $$HEAD $$REPO $(appsdir)/enigma2-nightly; \
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.newest; \
 	[ "$$REVISION" == "" ] || (cd $(appsdir)/enigma2-nightly; git checkout "$$REVISION"; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.org; \
-	cd $(appsdir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.diff"; \
+	cd $(appsdir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.diff"
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.patched
 	touch $@
 
@@ -58,10 +61,14 @@ $(appsdir)/enigma2-pli-nightly/config.status: bootstrap freetype expat fontconfi
 		./autogen.sh && \
 		sed -e 's|#!/usr/bin/python|#!$(crossprefix)/bin/python|' -i po/xml2po.py && \
 		./configure \
+			--build=$(build) \
 			--host=$(target) \
-			--without-libsdl \
-			--prefix=/usr \
+			--with-libsdl=no \
+			--enable-dependency-tracking \
 			--datadir=/usr/local/share \
+			--libdir=/usr/lib \
+			--prefix=/usr \
+			--bindir=/usr/bin \
 			--sysconfdir=/etc \
 			$(E_CONFIG_OPTS) \
 			STAGING_INCDIR=$(hostprefix)/usr/include \
@@ -86,7 +93,13 @@ $(DEPDIR)/enigma2-pli-nightly: enigma2-pli-nightly.do_prepare enigma2-pli-nightl
 	fi
 	touch $@
 
-enigma2-pli-nightly-clean enigma2-pli-nightly-distclean:
+enigma2-pli-nightly-clean:
+	rm -f $(DEPDIR)/enigma2-pli-nightly
+	rm -f $(DEPDIR)/enigma2-pli-nightly.do_compile
+	cd $(appsdir)/enigma2-nightly && \
+		$(MAKE) distclean
+
+enigma2-pli-nightly-distclean:
 	rm -f $(DEPDIR)/enigma2-pli-nightly
 	rm -f $(DEPDIR)/enigma2-pli-nightly.do_compile
 	rm -f $(DEPDIR)/enigma2-pli-nightly.do_prepare

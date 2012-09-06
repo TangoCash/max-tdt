@@ -203,7 +203,7 @@ gst_plugin_subsink;1.0;gst-plugin-subsink;gst-plugin-subsink.git;extract:gst-plu
 #
 # ENGIMA2
 #
-tuxtxtlib;1.0;libtuxtxt;libtuxtxt.git:libtuxtxt-1.0-fix_dbox_headers.diff;extract:libtuxtxt.git/libtuxtxt;patch:libtuxtxt-1.0-fix_dbox_headers.diff
+tuxtxtlib;1.0;libtuxtxt;libtuxtxt.git:tuxtxtlib-1.0-fix_dbox_headers.diff;extract:libtuxtxt.git/libtuxtxt;patch:tuxtxtlib-1.0-fix_dbox_headers.diff
 tuxtxt32bpp;1.0;tuxtxt;libtuxtxt.git:tuxtxt32bpp-1.0-fix_dbox_headers.diff;extract:libtuxtxt.git/tuxtxt;patch:tuxtxt32bpp-1.0-fix_dbox_headers.diff
 enigma2_networkbrowser;1.0;enigma2-networkbrowser;enigma2-openpli-plugins-enigma2.git:enigma2-networkbrowser-support_autofs.patch;extract:enigma2-openpli-plugins-enigma2.git/networkbrowser:enigma2-networkbrowser;patch:enigma2-networkbrowser-support_autofs.patch
 enigma2_openwebif;1.0;e2openplugin-OpenWebif;e2openplugin-OpenWebif.git;extract:e2openplugin-OpenWebif.git

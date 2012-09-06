@@ -204,6 +204,10 @@ sub process_make_prepare (@)
 
       $output .= " )";
     }
+    elsif ( $_[0] eq "apatch" )
+    {
+      $output .= "( cd " . $dir . " && chmod +w -R .;patch -p1 < \\\$(archivedir)/" . $_[1] . " )";
+    }
     elsif ( $_[0] =~ m/patch(time)?(-(\d+))?/ )
     {
       $_ = "-p1 ";

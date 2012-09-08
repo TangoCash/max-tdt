@@ -501,10 +501,10 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release/media/{dvd,nfs,usb} && \
 	ln -sf /hdd $(prefix)/release/media/hdd && \
 	$(INSTALL_DIR) $(prefix)/release/mnt/{hdd,nfs,usb} && \
-	$(INSTALL_DIR) $(prefix)/release/share/{fonts,tuxbox,zoneinfo} && \
+	$(INSTALL_DIR) $(prefix)/release/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
 	$(INSTALL_DIR) $(prefix)/release/share/tuxbox/neutrino && \
-	$(INSTALL_DIR) $(prefix)/release/usr/{bin,lib,share} && \
-	$(INSTALL_DIR) $(prefix)/release/usr/share/udhcpc && \
+	$(INSTALL_DIR) $(prefix)/release/usr/{bin,lib} && \
+	ln -sf /share $(prefix)/release/usr/share && \
 	$(INSTALL_DIR) $(prefix)/release/var/{bin,etc,httpd,lib,plugins,tuxbox,update} && \
 	$(INSTALL_DIR) $(prefix)/release/var/tuxbox/config && \
 	$(INSTALL_DIR) $(prefix)/release/var/tuxbox/config/{locale,zapit} && \
@@ -572,7 +572,7 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/etc/init.d/umountfs $(prefix)/release/etc/init.d/ && \
 	cp -dp $(targetprefix)/etc/init.d/sendsigs $(prefix)/release/etc/init.d/ && \
 	cp $(buildprefix)/root/release/reboot $(prefix)/release/etc/init.d/ && \
-	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release/usr/share/udhcpc/ && \
+	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release/share/udhcpc/ && \
 	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release/share/zoneinfo/ && \
 	echo "576i50" > $(prefix)/release/etc/videomode && \
 	cp $(buildprefix)/root/etc/fw_env.config$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(TF7700),_$(TF7700))$(if $(UFS910),_$(UFS910))$(if $(UFS912),_$(UFS912))$(if $(UFS922),_$(UFS922))$(if $(ADB_BOX),_$(ADB_BOX)) $(prefix)/release/etc/fw_env.config && \

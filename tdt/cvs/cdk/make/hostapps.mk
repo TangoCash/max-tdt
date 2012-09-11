@@ -102,3 +102,37 @@ $(DEPDIR)/host_python: @DEPENDS_host_python@
 		cp ./hostpgen $(crossprefix)/bin/pgen ) && \
 	@DISTCLEANUP_host_python@
 	touch $@
+
+#
+# PYTHON-HOST 2.7
+#
+$(DEPDIR)/host_python_27: @DEPENDS_host_python_27@
+	@PREPARE_host_python_27@ && \
+	( cd @DIR_host_python_27@ && \
+		rm -rf config.cache; \
+		autoconf && \
+		CONFIG_SITE= \
+		OPT="$(HOST_CFLAGS)" \
+		./configure \
+			--without-cxx-main \
+			--without-threads && \
+		$(MAKE) python Parser/pgen && \
+		mv python ./hostpython && \
+		mv Parser/pgen ./hostpgen && \
+		\
+		$(MAKE) distclean && \
+		./configure \
+			--prefix=$(crossprefix) \
+			--sysconfdir=$(crossprefix)/etc \
+			--without-cxx-main \
+			--without-threads && \
+		$(MAKE) \
+			TARGET_OS=$(build) \
+			PYTHON_MODULES_INCLUDE="$(crossprefix)/include" \
+			PYTHON_MODULES_LIB="$(crossprefix)/lib" \
+			HOSTPYTHON=./hostpython \
+			HOSTPGEN=./hostpgen \
+			all install && \
+		cp ./hostpgen $(crossprefix)/bin/pgen ) && \
+	@DISTCLEANUP_host_python_27@
+	touch $@

@@ -998,7 +998,7 @@ $(DEPDIR)/%ffmpeg: $(DEPDIR)/ffmpeg.do_compile
 #
 # libass
 #
-$(DEPDIR)/libass.do_prepare: bootstrap freetype @DEPENDS_libass@
+$(DEPDIR)/libass.do_prepare: bootstrap freetype libfribidi @DEPENDS_libass@
 	@PREPARE_libass@
 	touch $@
 

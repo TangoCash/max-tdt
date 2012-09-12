@@ -15,18 +15,6 @@ diff -Nur '--exclude-from=neutrino-hd_ignore' neutrino-hd2-exp.org/acinclude.m4 
  else
  	AC_MSG_RESULT(no)
  fi
-diff -Nur '--exclude-from=neutrino-hd_ignore' neutrino-hd2-exp.org/src/Makefile.am neutrino-hd2-exp/src/Makefile.am
---- neutrino-hd2-exp.org/src/Makefile.am	2012-08-25 22:01:59.808221626 +0200
-+++ neutrino-hd2-exp/src/Makefile.am	2012-08-25 22:02:16.631594020 +0200
-@@ -67,7 +67,7 @@
- 	-ljpeg -lgif -lrt -lpthread -lblkid -ldl -lFLAC -lavformat -lavcodec -lavutil
- 
- if !ENABLE_GSTREAMER
--neutrino_LDADD += $(top_builddir)/lib/libeplayer3/libeplayer3.a 
-+neutrino_LDADD += -leplayer3
- if ENABLE_LIBASS
- neutrino_LDADD += -lass
- endif
 diff -Nur '--exclude-from=neutrino-hd_ignore' neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am
 --- neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am	2012-08-25 22:01:57.585361584 +0200
 +++ neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am	2012-08-25 22:02:02.586796676 +0200

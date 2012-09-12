@@ -30,6 +30,8 @@ endif
 # NEUTRINO TWIN
 #
 $(DEPDIR)/neutrino-twin.do_prepare:
+	rm -rf $(appsdir)/neutrino-twin
+	rm -rf $(appsdir)/neutrino-twin.org
 	git clone -b dvbsi++ git://c00lstreamtech.de/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin
 	rm -rf $(appsdir)/neutrino-twin/lib/libcoolstream/*.*
 	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
@@ -81,13 +83,13 @@ neutrino-twin-distclean:
 	rm -f $(DEPDIR)/neutrino-twin
 	rm -f $(DEPDIR)/neutrino-twin.do_compile
 	rm -f $(DEPDIR)/neutrino-twin.do_prepare
-	rm -rf $(appsdir)/neutrino-twin.org
-	rm -rf $(appsdir)/neutrino-twin
 
 #
 # NEUTRINO SINGLE
 #
 $(DEPDIR)/neutrino-single.do_prepare:
+	rm -rf $(appsdir)/neutrino.single
+	rm -rf $(appsdir)/neutrino.single.org
 	git clone -b single git://c00lstreamtech.de/cst-public-gui-neutrino.git $(appsdir)/neutrino-single
 	rm -rf $(appsdir)/neutrino-single/lib/libcoolstream/*.*
 	cp -ra $(appsdir)/neutrino-single $(appsdir)/neutrino-single.org
@@ -138,19 +140,16 @@ neutrino-single-distclean:
 	rm -f $(DEPDIR)/neutrino-single
 	rm -f $(DEPDIR)/neutrino-single.do_compile
 	rm -f $(DEPDIR)/neutrino-single.do_prepare
-	rm -rf $(appsdir)/neutrino-single.org
-	rm -rf $(appsdir)/neutrino-single
 
 #
 # NEUTRINO HD2
 #
 $(DEPDIR)/neutrino-hd2.do_prepare:
+	rm -rf $(appsdir)/neutrino-hd2
+	rm -rf $(appsdir)/neutrino-hd2.org
 	svn co http://neutrinohd2.googlecode.com/svn/trunk/neutrino-hd $(appsdir)/neutrino-hd2
 	cp -ra $(appsdir)/neutrino-hd2 $(appsdir)/neutrino-hd2.org
-	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.diff"
-	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.vfd.diff"
-	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.eventlist.diff"
-	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.infoviewer.diff"
+	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.exp.diff"
 	touch $@
 
 $(appsdir)/neutrino-hd2/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libgif libid3tag curl libmad libvorbisidec libboost libflac openssl sdparm
@@ -162,9 +161,7 @@ $(appsdir)/neutrino-hd2/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpe
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=duckbox \
-			--enable-pcmsoftdecoder \
 			--with-tremor \
-			--enable-libass \
 			--with-libdir=/usr/lib \
 			--with-datadir=/share/tuxbox \
 			--with-fontdir=/share/fonts \
@@ -198,13 +195,13 @@ neutrino-hd2-distclean:
 	rm -f $(DEPDIR)/neutrino-hd2
 	rm -f $(DEPDIR)/neutrino-hd2.do_compile
 	rm -f $(DEPDIR)/neutrino-hd2.do_prepare
-	rm -rf $(appsdir)/neutrino-hd2.org
-	rm -rf $(appsdir)/neutrino-hd2
 
 #
 # neutrino-hd2-exp branch
 #
 $(DEPDIR)/neutrino-hd2-exp.do_prepare:
+	rm -rf $(appsdir)/neutrino-hd2-exp
+	rm -rf $(appsdir)/neutrino-hd2-exp.org
 	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(appsdir)/neutrino-hd2-exp
 	cp -ra $(appsdir)/neutrino-hd2-exp $(appsdir)/neutrino-hd2-exp.org
 	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.exp.diff"
@@ -219,9 +216,7 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) freetype
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=duckbox \
-			--enable-pcmsoftdecoder \
 			--with-tremor \
-			--enable-libass \
 			--with-libdir=/usr/lib \
 			--with-datadir=/share/tuxbox \
 			--with-fontdir=/share/fonts \
@@ -255,8 +250,6 @@ neutrino-hd2-exp-distclean:
 	rm -f $(DEPDIR)/neutrino-hd2-exp
 	rm -f $(DEPDIR)/neutrino-hd2-exp.do_compile
 	rm -f $(DEPDIR)/neutrino-hd2-exp.do_prepare
-	rm -rf $(appsdir)/neutrino-hd2-exp.org
-	rm -rf $(appsdir)/neutrino-hd2-exp
 
 #
 #NORMAL

@@ -174,7 +174,10 @@ libdpf;make:install:DESTDIR=TARGETS
 # net apps
 #
 portmap;make:install:BASEDIR=TARGETS;install:-m755:debian/init.d:TARGETS/etc/init.d/portmap
-nfs_utils;make:install:DESTDIR=TARGETS;install:-m644:debian/nfs-common.default:TARGETS/etc/default/nfs-common;install:-m755:debian/nfs-common.init:TARGETS/etc/init.d/nfs-common;install:-m644:debian/nfs-kernel-server.default:TARGETS/etc/default/nfs-kernel-server;install:-m755:debian/nfs-kernel-server.init:TARGETS/etc/init.d/nfs-kernel-server;install:-m644:debian/etc.exports:TARGETS/etc/exports;remove:TARGETS/sbin/mount.nfs4:TARGETS/sbin/umount.nfs4
+#nfs_utils;make:install:DESTDIR=TARGETS;install:-m644:debian/nfs-common.default:TARGETS/etc/default/nfs-common;install:-m755:debian/nfs-common.init:TARGETS/etc/init.d/nfs-common;install:-m644:debian/nfs-kernel-server.default:TARGETS/etc/default/nfs-kernel-server;install:-m755:debian/nfs-kernel-server.init:TARGETS/etc/init.d/nfs-kernel-server;install:-m644:debian/etc.exports:TARGETS/etc/exports;remove:TARGETS/sbin/mount.nfs4:TARGETS/sbin/umount.nfs4
+nfs_utils;make:install:DESTDIR=TARGETS
+libnfsidmap;make:install
+libevent;make:install
 netkit-ftpx;make:install:DESTDIR=TARGETS
 autofs;make:install:INSTALLROOT=TARGETS
 vsftpd;make:install:PREFIX=TARGETS

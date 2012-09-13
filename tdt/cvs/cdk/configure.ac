@@ -934,6 +934,8 @@ TUXBOX_RULES_MAKE(module_init_tools)
 #
 TUXBOX_RULES_MAKE(portmap)
 TUXBOX_RULES_MAKE(nfs_utils)
+TUXBOX_RULES_MAKE(libevent)
+TUXBOX_RULES_MAKE(libnfsidmap)
 TUXBOX_RULES_MAKE(vsftpd)
 TUXBOX_RULES_MAKE(netkit_ftp)
 TUXBOX_RULES_MAKE(samba)

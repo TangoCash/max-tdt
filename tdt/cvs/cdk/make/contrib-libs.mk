@@ -1640,59 +1640,6 @@ $(DEPDIR)/%python: $(DEPDIR)/python.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
-# python 2.7
-#
-$(DEPDIR)/python_27.do_prepare: bootstrap host_python openssl openssl-dev sqlite @DEPENDS_python_27@
-	@PREPARE_python@
-	touch $@
-
-$(DEPDIR)/python_27.do_compile: $(DEPDIR)/python_27.do_prepare
-	( cd @DIR_python_27@ && \
-		CONFIG_SITE= \
-		$(BUILDENV) \
-		autoreconf -Wcross --verbose --install --force Modules/_ctypes/libffi && \
-		autoconf && \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--target=$(target) \
-			--prefix=/usr \
-			--sysconfdir=/etc \
-			--enable-shared \
-			--disable-ipv6 \
-			--without-cxx-main \
-			--with-threads \
-			--with-pymalloc \
-			HOSTPYTHON=$(crossprefix)/bin/python \
-			OPT="$(TARGET_CFLAGS)" && \
-		$(MAKE) $(MAKE_ARGS) \
-			TARGET_OS=$(target) \
-			PYTHON_DISABLE_MODULES="_tkinter" \
-			PYTHON_MODULES_INCLUDE="$(prefix)/$*cdkroot/usr/include" \
-			PYTHON_MODULES_LIB="$(prefix)/$*cdkroot/usr/lib" \
-			CROSS_COMPILE=yes \
-			CFLAGS="$(TARGET_CFLAGS) -fno-inline" \
-			LDFLAGS="$(TARGET_LDFLAGS)" \
-			LD="$(target)-gcc" \
-			HOSTPYTHON=$(crossprefix)/bin/python \
-			HOSTPGEN=$(crossprefix)/bin/pgen \
-			all ) && \
-	touch $@
-
-$(DEPDIR)/min-python_27 $(DEPDIR)/std-python_27 $(DEPDIR)/max-python_27 \
-$(DEPDIR)/python_27: \
-$(DEPDIR)/%python_27: $(DEPDIR)/python_27.do_compile
-	( cd @DIR_python_27@ && \
-		$(MAKE) $(MAKE_ARGS) \
-			TARGET_OS=$(target) \
-			HOSTPYTHON=$(crossprefix)/bin/python \
-			HOSTPGEN=$(crossprefix)/bin/pgen \
-			install DESTDIR=$(prefix)/$*cdkroot ) && \
-	$(LN_SF) ../../libpython2.7.so.1.0 $(prefix)/$*cdkroot/usr/lib/python2.7/config/libpython2.7.so
-#	@DISTCLEANUP_python_27@
-	[ "x$*" = "x" ] && touch $@ || true
-
-#
 # pythonwifi
 #
 $(DEPDIR)/pythonwifi.do_prepare: bootstrap setuptools @DEPENDS_pythonwifi@

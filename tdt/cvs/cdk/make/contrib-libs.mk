@@ -1357,7 +1357,7 @@ $(DEPDIR)/elementtree.do_compile: $(DEPDIR)/elementtree.do_prepare
 
 $(DEPDIR)/min-elementtree $(DEPDIR)/std-elementtree $(DEPDIR)/max-elementtree \
 $(DEPDIR)/elementtree: \
-$(DEPDIR)/%elementtree: %python $(DEPDIR)/elementtree.do_compile
+$(DEPDIR)/%elementtree: $(DEPDIR)/elementtree.do_compile
 	cd @DIR_elementtree@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
@@ -1429,7 +1429,7 @@ $(DEPDIR)/libxslt.do_compile: $(DEPDIR)/libxslt.do_prepare
 
 $(DEPDIR)/min-libxslt $(DEPDIR)/std-libxslt $(DEPDIR)/max-libxslt \
 $(DEPDIR)/libxslt: \
-$(DEPDIR)/%libxslt: %libxml2 $(DEPDIR)/libxslt.do_compile
+$(DEPDIR)/%libxslt: $(DEPDIR)/libxslt.do_compile
 	cd @DIR_libxslt@ && \
 		@INSTALL_libxslt@ && \
 		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)/usr/lib/python2.6/site-packages/libxsltmod.la && \
@@ -1610,6 +1610,8 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 			--without-cxx-main \
 			--with-threads \
 			--with-pymalloc \
+			--with-signal-module \
+			--with-wctype-functions \
 			HOSTPYTHON=$(crossprefix)/bin/python \
 			OPT="$(TARGET_CFLAGS)" && \
 		$(MAKE) $(MAKE_ARGS) \
@@ -3206,6 +3208,6 @@ $(DEPDIR)/libnfs: \
 $(DEPDIR)/%libnfs: $(DEPDIR)/libnfs.do_compile
 	cd @DIR_libnfs@ && \
 		@INSTALL_libnfs@
-#	@DISTCLEANUP_libnfs@
+	@DISTCLEANUP_libnfs@
 	[ "x$*" = "x" ] && touch $@ || true
 

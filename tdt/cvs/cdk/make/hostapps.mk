@@ -75,7 +75,6 @@ endif
 $(DEPDIR)/host_python: @DEPENDS_host_python@
 	@PREPARE_host_python@ && \
 	( cd @DIR_host_python@ && \
-		rm -rf config.cache; \
 		autoconf && \
 		CONFIG_SITE= \
 		OPT="$(HOST_CFLAGS)" \

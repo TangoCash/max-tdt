@@ -53,6 +53,7 @@ $(DEPDIR)/libevent: \
 $(DEPDIR)/%libevent: $(DEPDIR)/libevent.do_compile
 	cd @DIR_libevent@  && \
 		@INSTALL_libevent@
+	@DISTCLEANUP_libevent@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -74,6 +75,7 @@ $(DEPDIR)/libnfsidmap: \
 $(DEPDIR)/%libnfsidmap: $(DEPDIR)/libnfsidmap.do_compile
 	cd @DIR_libnfsidmap@  && \
 		@INSTALL_libnfsidmap@
+	@DISTCLEANUP_libnfsidmap@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #

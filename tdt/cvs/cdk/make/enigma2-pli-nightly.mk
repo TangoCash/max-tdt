@@ -30,7 +30,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo " 2) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	echo " 3) Sat, 20 Aug 2012 19:08 - E2 OpenPli gstreamer / libplayer3 51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	echo " 4) Sat, 24 Aug 2012 23:42 - E2 OpenPli gstreamer / libplayer3 002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	echo " 5) Sat, 31 Aug 2012 22:19 - E2 OpenPli gstreamer / libplayer3 dac44307bb144bd5062ee8abaa8ca65cebf4d87c"; \
+	echo " 5) Sat, 16 Sep 2012 14:53 - E2 OpenPli gstreamer / libplayer3 a869076762f6e24305d6a58f95c3918e02a1442a"; \
 	echo "========================================================================================================"; \
 	echo " 9) Sat, 04 Sep 2012 20:19 - E2 OpenAAF gstreamer / libplayer3 da889c777d5d3a144eab1a0cbabf8b15d44f082f"; \
 	echo "========================================================================================================"; \
@@ -42,7 +42,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="dac44307bb144bd5062ee8abaa8ca65cebf4d87c"; \
+	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="a869076762f6e24305d6a58f95c3918e02a1442a"; \
 	[ "$$REPLY" == "9" ] && DIFF="9" && REVISION="da889c777d5d3a144eab1a0cbabf8b15d44f082f" && REPO="git://github.com/openaaf/enigma2.git"; \
 	echo "Revision       : "$$REVISION; \
 	echo ""; \

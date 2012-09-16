@@ -1,11 +1,11 @@
 #
 # NFS-UTILS
 #
-$(DEPDIR)/nfs-utils.do_prepare: bootstrap e2fsprogs libevent libnfsidmap @DEPENDS_nfs_utils@
+$(DEPDIR)/nfs_utils.do_prepare: bootstrap e2fsprogs libevent libnfsidmap @DEPENDS_nfs_utils@
 	@PREPARE_nfs_utils@
 	touch $@
 
-$(DEPDIR)/nfs-utils.do_compile: $(DEPDIR)/nfs-utils.do_prepare
+$(DEPDIR)/nfs_utils.do_compile: $(DEPDIR)/nfs_utils.do_prepare
 	cd @DIR_nfs_utils@ && \
 		$(BUILDENV) \
 		./configure \
@@ -21,10 +21,9 @@ $(DEPDIR)/nfs-utils.do_compile: $(DEPDIR)/nfs-utils.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-nfs-utils $(DEPDIR)/std-nfs-utils $(DEPDIR)/max-nfs-utils \
-$(DEPDIR)/nfs-utils: \
-$(DEPDIR)/%nfs-utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) \
-		$(DEPDIR)/nfs-utils.do_compile
+$(DEPDIR)/min-nfs_utils $(DEPDIR)/std-nfs_utils $(DEPDIR)/max-nfs_utils \
+$(DEPDIR)/nfs_utils: \
+$(DEPDIR)/%nfs_utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) $(DEPDIR)/nfs_utils.do_compile
 	$(INSTALL) -d $(prefix)/$*cdkroot/etc/{default,init.d} && \
 	cd @DIR_nfs_utils@ && \
 		@INSTALL_nfs_utils@

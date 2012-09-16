@@ -166,6 +166,7 @@ release_xbmc_base:
 	cp $(buildprefix)/root/release/mountall $(prefix)/release/etc/init.d/ && \
 	cp $(buildprefix)/root/release/hostname $(prefix)/release/etc/init.d/ && \
 	cp $(buildprefix)/root/release/vsftpd $(prefix)/release/etc/init.d/ && \
+	cp $(buildprefix)/root/release/xbmc_userdata $(prefix)/release/etc/init.d/ && \
 	cp -dp $(targetprefix)/usr/sbin/vsftpd $(prefix)/release/usr/bin/ && \
 	cp $(buildprefix)/root/release/bootclean.sh $(prefix)/release/etc/init.d/ && \
 	cp $(buildprefix)/root/release/network $(prefix)/release/etc/init.d/ && \
@@ -468,7 +469,7 @@ endif
 	rm -rf $(prefix)/release/usr/share/xbmc/system/keymaps/*
 	cp -a $(targetprefix)/usr/share/xbmc/system/keymaps/appcommand.xml $(prefix)/release/usr/share/xbmc/system/keymaps/
 	cp -a $(targetprefix)/usr/share/xbmc/system/keymaps/keyboard.xml $(prefix)/release/usr/share/xbmc/system/keymaps/
-	sed -i "s/<home>FirstPage<\/home>/<!-- home>FirstPage<\/home -->/g" $(prefix)/release/usr/share/xbmc/system/keymaps/keyboard.xml
+	sed -i "s/<home>FirstPage<\/home>/<home>PreviousMenu<\/home>/g" $(prefix)/release/usr/share/xbmc/system/keymaps/keyboard.xml
 #	cp -a $(targetprefix)/usr/share/xbmc/system/keymaps/remote.xml $(prefix)/release/usr/share/xbmc/system/keymaps/
 	cp $(buildprefix)/root/release/keymap_xbmc.xml $(prefix)/release/usr/share/xbmc/system/keymaps/duckbox.xml
 

@@ -1563,6 +1563,32 @@ $(DEPDIR)/%pilimaging: $(DEPDIR)/pilimaging.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# pycrypto
+#
+$(DEPDIR)/pycrypto.do_prepare: bootstrap setuptools @DEPENDS_pycrypto@
+	@PREPARE_pycrypto@
+	touch $@
+
+$(DEPDIR)/pycrypto.do_compile: $(DEPDIR)/pycrypto.do_prepare
+	cd @DIR_pycrypto@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr
+	touch $@
+
+$(DEPDIR)/min-pycrypto $(DEPDIR)/std-pycrypto $(DEPDIR)/max-pycrypto \
+$(DEPDIR)/pycrypto: \
+$(DEPDIR)/%pycrypto: $(DEPDIR)/pycrypto.do_compile
+	cd @DIR_pycrypto@ && \
+		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
+		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+	@DISTCLEANUP_pycrypto@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # pyusb
 #
 $(DEPDIR)/pyusb.do_prepare: bootstrap setuptools @DEPENDS_pyusb@

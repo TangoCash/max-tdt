@@ -1471,7 +1471,7 @@ $(DEPDIR)/%lxml: $(DEPDIR)/lxml.do_compile
 #
 # setuptools
 #
-$(DEPDIR)/setuptools.do_prepare: bootstrap @DEPENDS_setuptools@
+$(DEPDIR)/setuptools.do_prepare: bootstrap python @DEPENDS_setuptools@
 	@PREPARE_setuptools@
 	touch $@
 
@@ -1560,6 +1560,29 @@ $(DEPDIR)/%pilimaging: $(DEPDIR)/pilimaging.do_compile
 		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pilimaging@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# pyusb
+#
+$(DEPDIR)/pyusb.do_prepare: bootstrap setuptools @DEPENDS_pyusb@
+	@PREPARE_pyusb@
+	touch $@
+
+$(DEPDIR)/pyusb.do_compile: $(DEPDIR)/pyusb.do_prepare
+	cd @DIR_pyusb@ && \
+		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
+		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		$(crossprefix)/bin/python ./setup.py build
+	touch $@
+
+$(DEPDIR)/min-pyusb $(DEPDIR)/std-pyusb $(DEPDIR)/max-pyusb \
+$(DEPDIR)/pyusb: \
+$(DEPDIR)/%pyusb: $(DEPDIR)/pyusb.do_compile
+	cd @DIR_pyusb@ && \
+		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+	@DISTCLEANUP_pyusb@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #

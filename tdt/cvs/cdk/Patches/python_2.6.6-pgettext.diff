@@ -1,6 +1,7 @@
---- a/Lib/gettext.py
-+++ b/Lib/gettext.py
-@@ -53,6 +53,7 @@ from errno import ENOENT
+diff -Nur python-2.6.6.org/Lib/gettext.py python-2.6.6/Lib/gettext.py
+--- python-2.6.6.org/Lib/gettext.py	2006-02-19 14:26:36.000000000 +0100
++++ python-2.6.6/Lib/gettext.py	2012-09-17 21:55:58.820875346 +0200
+@@ -53,6 +53,7 @@
  __all__ = ['NullTranslations', 'GNUTranslations', 'Catalog',
             'find', 'translation', 'install', 'textdomain', 'bindtextdomain',
             'dgettext', 'dngettext', 'gettext', 'ngettext',
@@ -8,7 +9,7 @@
             ]
  
  _default_localedir = os.path.join(sys.prefix, 'share', 'locale')
-@@ -193,11 +194,21 @@ class NullTranslations:
+@@ -193,11 +194,21 @@
              return self._fallback.gettext(message)
          return message
  
@@ -30,7 +31,7 @@
      def ngettext(self, msgid1, msgid2, n):
          if self._fallback:
              return self._fallback.ngettext(msgid1, msgid2, n)
-@@ -206,6 +217,14 @@ class NullTranslations:
+@@ -206,6 +217,14 @@
          else:
              return msgid2
  
@@ -45,7 +46,7 @@
      def lngettext(self, msgid1, msgid2, n):
          if self._fallback:
              return self._fallback.lngettext(msgid1, msgid2, n)
-@@ -227,6 +246,14 @@ class NullTranslations:
+@@ -227,6 +246,14 @@
          else:
              return unicode(msgid2)
  
@@ -60,7 +61,7 @@
      def info(self):
          return self._info
  
-@@ -252,13 +279,22 @@ class NullTranslations:
+@@ -252,13 +279,22 @@
                  __builtin__.__dict__['lgettext'] = self.lgettext
              if "lngettext" in names:
                  __builtin__.__dict__['lngettext'] = self.lngettext
@@ -84,7 +85,7 @@
      def _parse(self, fp):
          """Override this method to support alternative .mo formats."""
          unpack = struct.unpack
-@@ -354,6 +390,21 @@ class GNUTranslations(NullTranslations):
+@@ -354,6 +390,21 @@
              return tmsg.encode(self._charset)
          return tmsg
  
@@ -106,7 +107,7 @@
      def lgettext(self, message):
          missing = object()
          tmsg = self._catalog.get(message, missing)
-@@ -365,6 +416,18 @@ class GNUTranslations(NullTranslations):
+@@ -365,6 +416,18 @@
              return tmsg.encode(self._output_charset)
          return tmsg.encode(locale.getpreferredencoding())
  
@@ -125,7 +126,7 @@
      def ngettext(self, msgid1, msgid2, n):
          try:
              tmsg = self._catalog[(msgid1, self.plural(n))]
-@@ -381,6 +444,23 @@ class GNUTranslations(NullTranslations):
+@@ -381,6 +444,23 @@
              else:
                  return msgid2
  
@@ -149,7 +150,7 @@
      def lngettext(self, msgid1, msgid2, n):
          try:
              tmsg = self._catalog[(msgid1, self.plural(n))]
-@@ -416,6 +496,21 @@ class GNUTranslations(NullTranslations):
+@@ -416,6 +496,21 @@
                  tmsg = unicode(msgid2)
          return tmsg
  
@@ -171,7 +172,7 @@
  
  # Locate a .mo file using the gettext strategy
  def find(domain, localedir=None, languages=None, all=0):
-@@ -532,6 +627,14 @@ def dgettext(domain, message):
+@@ -532,6 +627,14 @@
          return message
      return t.gettext(message)
  
@@ -186,7 +187,7 @@
  def ldgettext(domain, message):
      try:
          t = translation(domain, _localedirs.get(domain, None),
-@@ -540,6 +643,14 @@ def ldgettext(domain, message):
+@@ -540,6 +643,14 @@
          return message
      return t.lgettext(message)
  
@@ -201,7 +202,7 @@
  def dngettext(domain, msgid1, msgid2, n):
      try:
          t = translation(domain, _localedirs.get(domain, None),
-@@ -551,6 +662,17 @@ def dngettext(domain, msgid1, msgid2, n):
+@@ -551,6 +662,17 @@
              return msgid2
      return t.ngettext(msgid1, msgid2, n)
  
@@ -219,7 +220,7 @@
  def ldngettext(domain, msgid1, msgid2, n):
      try:
          t = translation(domain, _localedirs.get(domain, None),
-@@ -562,18 +684,41 @@ def ldngettext(domain, msgid1, msgid2, n):
+@@ -562,18 +684,41 @@
              return msgid2
      return t.lngettext(msgid1, msgid2, n)
  
@@ -261,10 +262,9 @@
  # dcgettext() has been deemed unnecessary and is not implemented.
  
  # James Henstridge's Catalog constructor from GNOME gettext.  Documented usage
-diff --git a/Tools/i18n/msgfmt.py b/Tools/i18n/msgfmt.py
-index 5dd5430..510ecda 100755
---- a/Tools/i18n/msgfmt.py
-+++ b/Tools/i18n/msgfmt.py
+diff -Nur python-2.6.6.org/Tools/i18n/msgfmt.py python-2.6.6/Tools/i18n/msgfmt.py
+--- python-2.6.6.org/Tools/i18n/msgfmt.py	2006-04-06 08:44:33.000000000 +0200
++++ python-2.6.6/Tools/i18n/msgfmt.py	2012-09-17 21:55:58.820875346 +0200
 @@ -6,7 +6,8 @@
  
  This program converts a textual Uniforum-style message catalog (.po file) into

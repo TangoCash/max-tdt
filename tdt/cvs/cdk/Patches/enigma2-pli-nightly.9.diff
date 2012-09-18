@@ -518,7 +518,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/Makefile.a
 -endif
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.cpp enigma2-nightly/lib/driver/vfd.cpp
 --- enigma2-nightly.org/lib/driver/vfd.cpp	2012-09-18 08:19:09.953595517 +0200
-+++ enigma2-nightly/lib/driver/vfd.cpp	2012-09-18 08:19:10.405595536 +0200
++++ enigma2-nightly/lib/driver/vfd.cpp	2012-09-18 17:02:51.133588800 +0200
 @@ -7,12 +7,51 @@
  #include <sys/ioctl.h>
  #include <ctype.h>
@@ -1069,7 +1069,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.cpp en
 +}
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.h enigma2-nightly/lib/driver/vfd.h
 --- enigma2-nightly.org/lib/driver/vfd.h	2012-09-18 08:19:09.953595517 +0200
-+++ enigma2-nightly/lib/driver/vfd.h	2012-09-18 08:19:10.405595536 +0200
++++ enigma2-nightly/lib/driver/vfd.h	2012-09-18 17:02:51.181588800 +0200
 @@ -1,6 +1,16 @@
  #ifndef VFD_H_
  #define VFD_H_
@@ -3631,6 +3631,25 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
  
  	def updatedebug_path(configElement):
  		if not os.path.exists(config.crash.debug_path.value):
+diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/enigma_python.i enigma2-nightly/lib/python/enigma_python.i
+--- enigma2-nightly.org/lib/python/enigma_python.i	2012-09-18 08:19:10.037595526 +0200
++++ enigma2-nightly/lib/python/enigma_python.i	2012-09-18 17:16:01.329621561 +0200
+@@ -106,6 +106,7 @@
+ #include <lib/dvb_ci/dvbci_ui.h>
+ #include <lib/python/python.h>
+ #include <lib/gdi/picload.h>
++#include <lib/driver/vfd.h> 
+ %}
+ 
+ %feature("ref")   iObject "$this->AddRef(); /* eDebug(\"AddRef (%s:%d)!\", __FILE__, __LINE__); */ "
+@@ -242,6 +243,7 @@
+ %include <lib/dvb/db.h>
+ %include <lib/python/python.h>
+ %include <lib/gdi/picload.h>
++%include <lib/driver/vfd.h>
+ /**************  eptr  **************/
+ 
+ /**************  signals  **************/
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Makefile.am enigma2-nightly/lib/python/Makefile.am
 --- enigma2-nightly.org/lib/python/Makefile.am	2012-09-18 08:19:09.977595522 +0200
 +++ enigma2-nightly/lib/python/Makefile.am	2012-09-18 08:19:10.417595542 +0200
@@ -4749,7 +4768,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
  			if level >= 1:
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-09-18 08:19:10.025595521 +0200
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-09-18 11:06:47.313061627 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-09-18 17:33:11.465664267 +0200
 @@ -20,76 +20,42 @@
  	rates = { } # high-level, use selectable modes.
  
@@ -4830,8 +4849,9 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
 +		"1600x1200" : { 60: "1600x1200_60" }, #60 66 76
  	}
  
- 	modes["Scart"] = ["PAL", "NTSC", "Multi"]
+-	modes["Scart"] = ["PAL", "NTSC", "Multi"]
 -	modes["DVI-PC"] = ["PC"]
++	modes["Scart"] = ["PAL"]
 +	modes["HDMI-PC"] = ["PC"]
  	
  	if chipset == 'bcm7358' or chipset == 'bcm7356' or chipset == 'bcm7405':

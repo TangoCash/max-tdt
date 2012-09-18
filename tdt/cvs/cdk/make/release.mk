@@ -823,12 +823,14 @@ endif
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/OpenSSL/test
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/pyOpenSSL-0.9-py2.6.egg-info
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/python_wifi-0.5.0-py2.6.egg-info
+	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/pycrypto-2.5-py2.6.egg-info
+	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/pyusb-1.0.0a2-py2.6.egg-info
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/setuptools
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/setuptools-0.6c11-py2.6.egg-info
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/zope.interface-4.0.1-py2.6.egg-info
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/Twisted-12.1.0-py2.6.egg-info
 	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/twisted/{test,conch,mail,manhole,names,news,trial,words,application,enterprise,flow,lore,pair,runner,scripts,tap,topfiles}
-	rm -rf $(prefix)/release/usr/lib/python2.6/{bsddb,compiler,ctypes,curses,distutils,plat-linux3,test}
+	rm -rf $(prefix)/release/usr/lib/python2.6/{bsddb,compiler,ctypes,curses,distutils,lib-old,lib-tk,plat-linux3,test}
 
 #
 # Dont remove pyo files, remove pyc instead

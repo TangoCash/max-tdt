@@ -32,7 +32,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo " 4) Sat, 24 Aug 2012 23:42 - E2 OpenPli gstreamer / libplayer3 002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
 	echo " 5) Sat, 16 Sep 2012 14:53 - E2 OpenPli gstreamer / libplayer3 a869076762f6e24305d6a58f95c3918e02a1442a"; \
 	echo "========================================================================================================"; \
-	echo " 9) Sat, 04 Sep 2012 20:19 - E2 OpenAAF gstreamer / libplayer3 da889c777d5d3a144eab1a0cbabf8b15d44f082f"; \
+	echo " 9) Sat, 17 Sep 2012 17:19 - E2 OpenAAF gstreamer / libplayer3 0f7fa25f26091617213e85b0ed440beb67612ce3"; \
 	echo "========================================================================================================"; \
 	echo "Media Framwork : $(MEDIAFW)"; \
 	echo "External LCD   : $(EXTERNALLCD)"; \
@@ -43,7 +43,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
 	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="a869076762f6e24305d6a58f95c3918e02a1442a"; \
-	[ "$$REPLY" == "9" ] && DIFF="9" && REVISION="da889c777d5d3a144eab1a0cbabf8b15d44f082f" && REPO="git://github.com/openaaf/enigma2.git"; \
+	[ "$$REPLY" == "9" ] && DIFF="9" && REVISION="0f7fa25f26091617213e85b0ed440beb67612ce3" && REPO="git://github.com/openaaf/enigma2.git"; \
 	echo "Revision       : "$$REVISION; \
 	echo ""; \
 	[ -d "$(appsdir)/enigma2-nightly" ] || \
@@ -55,8 +55,11 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.patched
 	touch $@
 
-$(appsdir)/enigma2-pli-nightly/config.status: bootstrap freetype expat fontconfig libpng jpeg libgif libfribidi libid3tag libmad libsigc libreadline \
-		libdvbsipp python libxml2 libxslt elementtree zope_interface twisted pyopenssl pythonwifi lxml libxmlccwrap ncurses-dev libdreamdvd2 tuxtxt32bpp sdparm hotplug_e2 $(MEDIAFW_DEP) $(EXTERNALLCD_DEP)
+$(appsdir)/enigma2-pli-nightly/config.status: \
+		bootstrap freetype expat fontconfig libpng jpeg libgif libfribidi libid3tag libmad libsigc libreadline libdvbsipp \
+		python libxml2 libxslt elementtree zope_interface twisted pyopenssl pythonwifi pilimaging pyusb pycrypto \
+		lxml libxmlccwrap ncurses-dev libdreamdvd2 tuxtxt32bpp sdparm hotplug_e2 \
+		$(MEDIAFW_DEP) $(EXTERNALLCD_DEP)
 	cd $(appsdir)/enigma2-nightly && \
 		./autogen.sh && \
 		sed -e 's|#!/usr/bin/python|#!$(crossprefix)/bin/python|' -i po/xml2po.py && \
@@ -64,7 +67,6 @@ $(appsdir)/enigma2-pli-nightly/config.status: bootstrap freetype expat fontconfi
 			--build=$(build) \
 			--host=$(target) \
 			--with-libsdl=no \
-			--enable-dependency-tracking \
 			--datadir=/usr/local/share \
 			--libdir=/usr/lib \
 			--prefix=/usr \

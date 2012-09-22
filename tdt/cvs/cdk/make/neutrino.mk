@@ -189,7 +189,7 @@ $(DEPDIR)/neutrino-hd2: neutrino-hd2.do_prepare neutrino-hd2.do_compile
 neutrino-hd2-clean:
 	rm -f $(DEPDIR)/neutrino-hd2
 	cd $(appsdir)/neutrino-hd2 && \
-		$(MAKE) distclean
+		$(MAKE) clean
 
 neutrino-hd2-distclean:
 	rm -f $(DEPDIR)/neutrino-hd2
@@ -243,8 +243,8 @@ $(DEPDIR)/neutrino-hd2-exp.do_compile: $(appsdir)/neutrino-hd2-exp/config.status
 
 neutrino-hd2-exp-clean:
 	rm -f $(DEPDIR)/neutrino-hd2-exp
-	cd $(appsdir)/neutrino-hd2-exp-exp && \
-		$(MAKE) distclean
+	cd $(appsdir)/neutrino-hd2-exp && \
+		$(MAKE) clean
 
 neutrino-hd2-exp-distclean:
 	rm -f $(DEPDIR)/neutrino-hd2-exp

@@ -99,10 +99,6 @@ yaud-neutrino-static: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino release_neutrino_static
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-neutrino-single: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino-single release_neutrino_nightly
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 yaud-neutrino-twin: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino-twin release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@

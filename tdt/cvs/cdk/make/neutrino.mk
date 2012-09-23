@@ -85,63 +85,6 @@ neutrino-twin-distclean:
 	rm -f $(DEPDIR)/neutrino-twin.do_prepare
 
 #
-# NEUTRINO SINGLE
-#
-$(DEPDIR)/neutrino-single.do_prepare:
-	rm -rf $(appsdir)/neutrino.single
-	rm -rf $(appsdir)/neutrino.single.org
-	git clone -b single git://c00lstreamtech.de/cst-public-gui-neutrino.git $(appsdir)/neutrino-single
-	rm -rf $(appsdir)/neutrino-single/lib/libcoolstream/*.*
-	cp -ra $(appsdir)/neutrino-single $(appsdir)/neutrino-single.org
-	cd $(appsdir)/neutrino-single && patch -p1 < "$(buildprefix)/Patches/neutrino.single.diff"
-	cd $(appsdir)/neutrino-single && patch -p1 < "$(buildprefix)/Patches/neutrino.single.libcool.diff"
-	touch $@
-
-$(appsdir)/neutrino-single/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libungif libgif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd $(appsdir)/neutrino-single && \
-		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
-		$(BUILDENV) \
-		./configure \
-			--host=$(target) \
-			$(N_CONFIG_OPTS) \
-			--with-tremor \
-			--with-libdir=/usr/lib \
-			--with-datadir=/share/tuxbox \
-			--with-fontdir=/share/fonts \
-			--with-configdir=/var/tuxbox/config \
-			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/var/tuxbox/plugins \
-			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
-			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
-			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS)"
-
-$(DEPDIR)/neutrino-single.do_compile: $(appsdir)/neutrino-single/config.status
-	cd $(appsdir)/neutrino-single && \
-		$(MAKE) all
-	touch $@
-
-$(DEPDIR)/neutrino-single: neutrino-single.do_prepare neutrino-single.do_compile
-	$(MAKE) -C $(appsdir)/neutrino-single install DESTDIR=$(targetprefix) && \
-	make $(targetprefix)/var/etc/.version
-	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
-	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
-	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
-	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
-	touch $@
-
-neutrino-single-clean:
-	rm -f $(DEPDIR)/neutrino-single
-	cd $(appsdir)/neutrino-single && \
-		$(MAKE) distclean
-
-neutrino-single-distclean:
-	rm -f $(DEPDIR)/neutrino-single
-	rm -f $(DEPDIR)/neutrino-single.do_compile
-	rm -f $(DEPDIR)/neutrino-single.do_prepare
-
-#
 # NEUTRINO HD2
 #
 $(DEPDIR)/neutrino-hd2.do_prepare:

@@ -62,11 +62,11 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/pti.ko
    insmod $MODDIR/stmdvb.ko
    insmod $MODDIR/stm_monitor.ko
-   insmod $MODDIR/player2.ko noaudiosync=1; discardlateframe=0; useoldaudiofw=1 ;
+   insmod $MODDIR/player2.ko noaudiosync=0 discardlateframe=0 useoldaudiofw=1
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
-
+   insmod $MODDIR/bpamem.ko
   # insmod $MODDIR/cifs.ko
 
    echo "init frontpanel"
@@ -83,7 +83,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	echo "init cardreader"
 	mknod /dev/sci0 c 253 0
 	mknod /dev/sci1 c 253 1
-#	insmod $MODDIR/sci-ng.ko
+	insmod $MODDIR/smartcard.ko
 
    #DVD-PLAYER EXIT-TASTE LOAD OR EJECT DVD
    #mount /dev/sr0 /media/dvd
@@ -92,14 +92,6 @@ if [ ! -e /var/etc/.firstboot ]; then
   /etc/init.d/portmap start
   /etc/init.d/vsftpd start
   /usr/sbin/inetd
-
-   #timefix e2
-   date -s "121220001970"
-
-#   stfbcontrol a 255
-
-   echo "LOADING e2" > /dev/vfd
-   echo "LOADING e2"
 
    until false
    do

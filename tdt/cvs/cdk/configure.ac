@@ -980,7 +980,6 @@ TUXBOX_RULES_MAKE(imagemagick)
 #
 TUXBOX_RULES_MAKE(libopenthreads)
 TUXBOX_RULES_MAKE(libboost)
-TUXBOX_RULES_MAKE(ncurses)
 TUXBOX_RULES_MAKE(libz)
 TUXBOX_RULES_MAKE(libreadline)
 TUXBOX_RULES_MAKE(freetype_old)
@@ -1093,7 +1092,9 @@ TUXBOX_RULES_MAKE(gst_plugin_subsink)
 TUXBOX_RULES_MAKE(tuxtxtlib)
 TUXBOX_RULES_MAKE(tuxtxt32bpp)
 TUXBOX_RULES_MAKE(enigma2_networkbrowser)
+TUXBOX_RULES_MAKE(enigma2_webinterface)
 TUXBOX_RULES_MAKE(enigma2_openwebif)
+TUXBOX_RULES_MAKE(enigma2_plugins_all)
 TUXBOX_RULES_MAKE(hotplug_e2)
 
 #

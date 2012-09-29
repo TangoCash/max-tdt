@@ -156,7 +156,9 @@ gst_plugin_subsink;make:install:DESTDIR=TARGETS
 tuxtxtlib;rewrite-pkgconfig:tuxbox-tuxtxt.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libtuxtxt.la
 tuxtxt32bpp;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libtuxtxt32bpp.la
 enigma2_networkbrowser;make:install:DESTDIR=TARGETS
+enigma2_webinterface;make:install:DESTDIR=TARGETS
 enigma2_openwebif;make:install:DESTDIR=TARGETS
+enigma2_plugins_all;make:install:DESTDIR=TARGETS
 hotplug_e2;make:install:prefix=/usr:DESTDIR=TARGETS
 
 #

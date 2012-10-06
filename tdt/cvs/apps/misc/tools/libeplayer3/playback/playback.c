@@ -31,15 +31,16 @@
 
 static short debug_level = 10;
 
+static const char *FILENAME = "playback.c";
 #ifdef PLAYBACK_DEBUG
 #define playback_printf(level, fmt, x...) do { \
-if (debug_level >= level) printf("[%s:%s] " fmt, __FILE__, __FUNCTION__, ## x); } while (0)
+if (debug_level >= level) printf("[%s:%s] " fmt, FILENAME, __FUNCTION__, ## x); } while (0)
 #else
 #define playback_printf(level, fmt, x...)
 #endif
 
 #ifndef PLAYBACK_SILENT
-#define playback_err(fmt, x...) do { printf("[%s:%s] " fmt, __FILE__, __FUNCTION__, ## x); } while (0)
+#define playback_err(fmt, x...) do { printf("[%s:%s] " fmt, FILENAME, __FUNCTION__, ## x); } while (0)
 #else
 #define playback_err(fmt, x...)
 #endif
@@ -160,14 +161,18 @@ static int PlaybackOpen(Context_t  *context, char * uri)
 {
     playback_printf(10, "URI=%s\n", uri);
     context->playback->uri = strdup(uri);
-    if (!context->playback->isPlaying)
-    {
-        if (!strncmp("file://", uri, 7))
-        {
+    if (!context->playback->isPlaying) {
+        if (!strncmp("file://", uri, 7) || !strncmp("myts://", uri, 7)) {
             char * extension = NULL;
             context->playback->isFile = 1;
             context->playback->isHttp = 0;
             context->playback->isUPNP = 0;
+            if (!strncmp("myts://", uri, 7)) {
+                memcpy(context->playback->uri, "file", 4);
+                memcpy(uri, "file", 4);
+                context->playback->noprobe = 1;
+            } else
+                context->playback->noprobe = 0;
 
             getExtension(uri+7, &extension);
 
@@ -176,13 +181,10 @@ static int PlaybackOpen(Context_t  *context, char * uri)
 
             if(context->container->Command(context, CONTAINER_ADD, extension) < 0)
                 return cERR_PLAYBACK_ERROR;
-            if (context->container->selectedContainer != NULL)
-            {
+            if (context->container->selectedContainer != NULL) {
                 if(context->container->selectedContainer->Command(context, CONTAINER_INIT, uri) < 0)
                     return cERR_PLAYBACK_ERROR;
-            }
-            else
-            {
+            } else {
                 return cERR_PLAYBACK_ERROR;
             }
 
@@ -629,8 +631,7 @@ static void FastBackwardThread(Context_t *context)
     playback_printf(10, "exit\n");
 }
 
-static int PlaybackFastBackward(Context_t  *context,int* speed)
-{
+static int PlaybackFastBackward(Context_t  *context,int* speed) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     int error;
     pthread_attr_t attr;
@@ -638,8 +639,7 @@ static int PlaybackFastBackward(Context_t  *context,int* speed)
     playback_printf(10, "speed %d\n", *speed);
 
     /* Audio only backwarding not supported */
-    if (context->playback->isVideo && !context->playback->isHttp && !context->playback->isForwarding && (!context->playback->isPaused || context->playback->isPlaying))
-    {
+    if (context->playback->isVideo && !context->playback->isHttp && !context->playback->isForwarding && (!context->playback->isPaused || context->playback->isPlaying)) {
         if ((*speed > 0) || (*speed < cMaxSpeed_fr))
         {
             playback_err("speed %d out of range (0 - %d) \n", *speed, cMaxSpeed_fr);
@@ -658,12 +658,10 @@ static int PlaybackFastBackward(Context_t  *context,int* speed)
                 playback_err("Error creating thread error:%d:%s\n",error,strerror(error));
                 isFBThreadStarted = 0;
                 ret = cERR_PLAYBACK_ERROR;
-            }
-            else
+            } else
                 isFBThreadStarted = 1;
         }
-    }
-    else
+    } else
     {
         playback_err("fast backward not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -673,14 +671,12 @@ static int PlaybackFastBackward(Context_t  *context,int* speed)
     return ret;
 }
 #else
-static int PlaybackFastBackward(Context_t  *context,int* speed)
-{
+static int PlaybackFastBackward(Context_t  *context,int* speed) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(10, "speed = %d\n", *speed);
 
     /* Audio only reverse play not supported */
-    if (context->playback->isVideo && !context->playback->isForwarding && (!context->playback->isPaused || context->playback->isPlaying))
-    {
+    if (context->playback->isVideo && !context->playback->isForwarding && (!context->playback->isPaused || context->playback->isPlaying)) {
         if ((*speed > 0) || (*speed < cMaxSpeed_fr))
         {
             playback_err("speed %d out of range (0 - %d) \n", *speed, cMaxSpeed_fr);
@@ -691,8 +687,7 @@ static int PlaybackFastBackward(Context_t  *context,int* speed)
         {
             context->playback->BackWard = 0;
             context->playback->Speed = 0;    /* reverse end */
-        }
-        else
+        } else
         {
             context->playback->isSeeking = 1;
             context->playback->Speed = *speed;
@@ -725,14 +720,12 @@ static int PlaybackFastBackward(Context_t  *context,int* speed)
 #endif
 
 
-static int PlaybackSlowMotion(Context_t  *context,int* speed)
-{
+static int PlaybackSlowMotion(Context_t  *context,int* speed) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(10, "\n");
 
     //Audio only forwarding not supported
-    if (context->playback->isVideo && !context->playback->isHttp && context->playback->isPlaying)
-    {
+    if (context->playback->isVideo && !context->playback->isHttp && context->playback->isPlaying) {
         if(context->playback->isPaused)
             PlaybackContinue(context);
 
@@ -750,8 +743,7 @@ static int PlaybackSlowMotion(Context_t  *context,int* speed)
 
         playback_printf(20, "SlowMotion: %d x {%d}\n", *speed, context->playback->SlowMotion);
         context->output->Command(context, OUTPUT_SLOWMOTION, NULL);
-    }
-    else
+    } else
     {
         playback_err("slowmotion not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -760,20 +752,17 @@ static int PlaybackSlowMotion(Context_t  *context,int* speed)
     return ret;
 }
 
-static int PlaybackSeek(Context_t  *context, float * pos)
-{
+static int PlaybackSeek(Context_t  *context, float * pos) {
     int ret = cERR_PLAYBACK_NO_ERROR;
 
     playback_printf(10, "pos: %f\n", *pos);
 
-    if (context->playback->isPlaying && !context->playback->isForwarding && !context->playback->BackWard && !context->playback->SlowMotion && !context->playback->isPaused)
-    {
+    if (context->playback->isPlaying && !context->playback->isForwarding && !context->playback->BackWard && !context->playback->SlowMotion && !context->playback->isPaused) {
         context->playback->isSeeking = 1;
         context->output->Command(context, OUTPUT_CLEAR, NULL);
         context->container->selectedContainer->Command(context, CONTAINER_SEEK, pos);
         context->playback->isSeeking = 0;
-    }
-    else
+    } else
     {
         playback_err("not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -783,17 +772,14 @@ static int PlaybackSeek(Context_t  *context, float * pos)
     return ret;
 }
 
-static int PlaybackPts(Context_t  *context, unsigned long long int* pts)
-{
+static int PlaybackPts(Context_t  *context, unsigned long long int* pts) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(20, "\n");
     *pts = 0;
 
-    if (context->playback->isPlaying)
-    {
+    if (context->playback->isPlaying) {
         ret = context->output->Command(context, OUTPUT_PTS, pts);
-    }
-    else
+    } else
     {
         playback_err("not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -803,17 +789,14 @@ static int PlaybackPts(Context_t  *context, unsigned long long int* pts)
     return ret;
 }
 
-static int PlaybackGetFrameCount(Context_t  *context, unsigned long long int* frameCount)
-{
+static int PlaybackGetFrameCount(Context_t  *context, unsigned long long int* frameCount) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(20, "\n");
     *frameCount = 0;
 
-    if (context->playback->isPlaying)
-    {
+    if (context->playback->isPlaying) {
         ret = context->output->Command(context, OUTPUT_GET_FRAME_COUNT, frameCount);
-    }
-    else
+    } else
     {
         playback_err("not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -823,17 +806,14 @@ static int PlaybackGetFrameCount(Context_t  *context, unsigned long long int* fr
     return ret;
 }
 
-static int PlaybackLength(Context_t  *context, double* length)
-{
+static int PlaybackLength(Context_t  *context, double* length) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(20, "\n");
     *length = 0;
-    if (context->playback->isPlaying)
-    {
+    if (context->playback->isPlaying) {
         if (context->container && context->container->selectedContainer)
             context->container->selectedContainer->Command(context, CONTAINER_LENGTH, length);
-    }
-    else
+    } else
     {
         playback_err("not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -843,23 +823,19 @@ static int PlaybackLength(Context_t  *context, double* length)
     return ret;
 }
 
-static int PlaybackSwitchAudio(Context_t  *context, int* track)
-{
+static int PlaybackSwitchAudio(Context_t  *context, int* track) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     int curtrackid = 0;
     int nextrackid = 0;
     playback_printf(10, "\n");
 
-    if (context->playback->isPlaying)
-    {
-        if (context->manager && context->manager->audio)
-        {
+    if (context->playback->isPlaying) {
+        if (context->manager && context->manager->audio) {
             context->manager->audio->Command(context, MANAGER_GET, &curtrackid);
             context->manager->audio->Command(context, MANAGER_SET, track);
             context->manager->audio->Command(context, MANAGER_GET, &nextrackid);
         }
-        if(nextrackid != curtrackid)
-        {
+        if(nextrackid != curtrackid) {
             //PlaybackPause(context);
             if (context->output && context->output->audio)
                 context->output->audio->Command(context, OUTPUT_SWITCH, (void*)"audio");
@@ -869,8 +845,7 @@ static int PlaybackSwitchAudio(Context_t  *context, int* track)
 
             //PlaybackContinue(context);
         }
-    }
-    else
+    } else
     {
         playback_err("switch audio not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -880,14 +855,11 @@ static int PlaybackSwitchAudio(Context_t  *context, int* track)
     return ret;
 }
 
-static int PlaybackSwitchSubtitle(Context_t  *context, int* track)
-{
+static int PlaybackSwitchSubtitle(Context_t  *context, int* track) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(10, "Track: %d\n", *track);
-    if (context && context->playback && context->playback->isPlaying )
-    {
-        if (context->manager && context->manager->subtitle)
-        {
+    if (context && context->playback && context->playback->isPlaying ) {
+        if (context->manager && context->manager->subtitle) {
             int trackid;
             if (context->manager->subtitle->Command(context, MANAGER_SET, track) < 0)
             {
@@ -911,14 +883,12 @@ static int PlaybackSwitchSubtitle(Context_t  *context, int* track)
                  if (context->container && context->container->textSsaContainer)
                      context->container->textSsaContainer->Command(context, CONTAINER_SWITCH_SUBTITLE, &trackid);
             }
-        }
-        else
+        } else
         {
             ret = cERR_PLAYBACK_ERROR;
             playback_err("no subtitle\n");
         }
-    }
-    else
+    } else
     {
         playback_err("not possible\n");
         ret = cERR_PLAYBACK_ERROR;
@@ -932,23 +902,18 @@ static int PlaybackSwitchDVBSubtitle(Context_t  *context, int* track)
 {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(10, "Track: %d\n", *track);
-    if (context && context->playback && context->playback->isPlaying )
-    {
-        if (context->manager && context->manager->dvbsubtitle)
-        {
-            if (context->manager->dvbsubtitle->Command(context, MANAGER_SET, track) < 0)
-            {
+    if (context && context->playback && context->playback->isPlaying ) {
+        if (context->manager && context->manager->dvbsubtitle) {
+            if (context->manager->dvbsubtitle->Command(context, MANAGER_SET, track) < 0) {
                 playback_err("manager set track failed\n");
             }
-        }
-        else
-        {
+        } else
+		{
             ret = cERR_PLAYBACK_ERROR;
             playback_err("no dvbsubtitle\n");
         }
-    }
-    else
-    {
+    } else
+	{
         playback_err("not possible\n");
         ret = cERR_PLAYBACK_ERROR;
     }
@@ -957,21 +922,15 @@ static int PlaybackSwitchDVBSubtitle(Context_t  *context, int* track)
     return ret;
 }
 
-static int PlaybackSwitchTeletext(Context_t  *context, int* track)
-{
+static int PlaybackSwitchTeletext(Context_t  *context, int* track) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(10, "Track: %d\n", *track);
-    if (context && context->playback && context->playback->isPlaying )
-    {
-        if (context->manager && context->manager->teletext)
-        {
-            if (context->manager->teletext->Command(context, MANAGER_SET, track) < 0)
-            {
+    if (context && context->playback && context->playback->isPlaying ) {
+        if (context->manager && context->manager->teletext) {
+            if (context->manager->teletext->Command(context, MANAGER_SET, track) < 0) {
                 playback_err("manager set track failed\n");
             }
-        }
-        else
-        {
+        } else {
             ret = cERR_PLAYBACK_ERROR;
             playback_err("no dvbsubtitle\n");
         }
@@ -986,8 +945,7 @@ static int PlaybackSwitchTeletext(Context_t  *context, int* track)
     return ret;
 }
 
-static int PlaybackInfo(Context_t  *context, char** infoString)
-{
+static int PlaybackInfo(Context_t  *context, char** infoString) {
     int ret = cERR_PLAYBACK_NO_ERROR;
     playback_printf(10, "\n");
 
@@ -1005,108 +963,86 @@ static int PlaybackInfo(Context_t  *context, char** infoString)
     return ret;
 }
 
-static int Command(void* _context, PlaybackCmd_t command, void * argument)
-{
+static int Command(void* _context, PlaybackCmd_t command, void * argument) {
     Context_t* context = (Context_t*) _context; /* to satisfy compiler */
     int ret = cERR_PLAYBACK_NO_ERROR;
 
     playback_printf(20, "Command %d\n", command);
 
-
-    switch(command)
-    {
-    case PLAYBACK_OPEN:
-    {
+    switch(command) {
+    case PLAYBACK_OPEN: {
         ret = PlaybackOpen(context, (char*)argument);
         break;
     }
-    case PLAYBACK_CLOSE:
-    {
+    case PLAYBACK_CLOSE: {
         ret = PlaybackClose(context);
         break;
     }
-    case PLAYBACK_PLAY:
-    {
+    case PLAYBACK_PLAY: {
         ret = PlaybackPlay(context);
         break;
     }
-    case PLAYBACK_STOP:
-    {
+    case PLAYBACK_STOP: {
         ret = PlaybackStop(context);
         break;
     }
-    case PLAYBACK_PAUSE:
-    {	// 4
+    case PLAYBACK_PAUSE: {	// 4
         ret = PlaybackPause(context);
         break;
     }
-    case PLAYBACK_CONTINUE:
-    {
+    case PLAYBACK_CONTINUE: {
         ret = PlaybackContinue(context);
         break;
     }
-    case PLAYBACK_TERM:
-    {
+    case PLAYBACK_TERM: {
         ret = PlaybackTerminate(context);
         break;
     }
-    case PLAYBACK_FASTFORWARD:
-    {
+    case PLAYBACK_FASTFORWARD: {
         ret = PlaybackFastForward(context,(int*)argument);
         break;
     }
-    case PLAYBACK_SEEK:
-    {
+    case PLAYBACK_SEEK: {
         ret = PlaybackSeek(context, (float*)argument);
         break;
     }
-    case PLAYBACK_PTS:
-    { // 10
+    case PLAYBACK_PTS: { // 10
         ret = PlaybackPts(context, (unsigned long long int*)argument);
         break;
     }
-    case PLAYBACK_LENGTH:
-    { // 11
+    case PLAYBACK_LENGTH: { // 11
         ret = PlaybackLength(context, (double*)argument);
         break;
     }
-    case PLAYBACK_SWITCH_AUDIO:
-    {
+    case PLAYBACK_SWITCH_AUDIO: {
         ret = PlaybackSwitchAudio(context, (int*)argument);
         break;
     }
-    case PLAYBACK_SWITCH_SUBTITLE:
-    {
+    case PLAYBACK_SWITCH_SUBTITLE: {
         ret = PlaybackSwitchSubtitle(context, (int*)argument);
         break;
     }
-    case PLAYBACK_INFO:
-    {
+    case PLAYBACK_INFO: {
         ret = PlaybackInfo(context, (char**)argument);
         break;
     }
-    case PLAYBACK_SLOWMOTION:
-    {
+    case PLAYBACK_SLOWMOTION: {
         ret = PlaybackSlowMotion(context,(int*)argument);
         break;
     }
-    case PLAYBACK_FASTBACKWARD:
-    {
+    case PLAYBACK_FASTBACKWARD: {
         ret = PlaybackFastBackward(context,(int*)argument);
         break;
     }
-    case PLAYBACK_GET_FRAME_COUNT:
-    { // 10
+    case PLAYBACK_GET_FRAME_COUNT: { // 10
         ret = PlaybackGetFrameCount(context, (unsigned long long int*)argument);
         break;
     }
-    case PLAYBACK_SWITCH_DVBSUBTITLE:
-    {
+    case PLAYBACK_SWITCH_DVBSUBTITLE: {
         ret = PlaybackSwitchDVBSubtitle(context, (int*)argument);
         break;
     }
-    case PLAYBACK_SWITCH_TELETEXT:
-    {
+    case PLAYBACK_SWITCH_TELETEXT: {
         ret = PlaybackSwitchTeletext(context, (int*)argument);
         break;
     }
@@ -1144,5 +1080,6 @@ PlaybackHandler_t PlaybackHandler = {
     0,
     &Command,
     "",
+    0,
     0
 };

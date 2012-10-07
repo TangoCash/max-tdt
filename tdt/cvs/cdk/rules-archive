@@ -224,7 +224,7 @@ dpflib-0.12.tar.gz
 #
 # net apps
 #
-portmap-6.0.tgz;http://neil.brown.name/portmap
+portmap_6.0.0.orig.tar.gz;http://ftp.de.debian.org/debian/pool/main/p/portmap
 portmap_6.0.0-2.diff.gz ;http://debian.osuosl.org/debian/pool/main/p/portmap
 nfs-utils-1.2.5.tar.bz2;http://downloads.sourceforge.net/project/nfs/nfs-utils/1.2.5
 libevent-2.0.20-stable.tar.gz;http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0

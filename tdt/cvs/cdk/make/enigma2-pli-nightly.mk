@@ -30,9 +30,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo " 2) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	echo " 3) Sat, 20 Aug 2012 19:08 - E2 OpenPli gstreamer / libplayer3 51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	echo " 4) Sat, 24 Aug 2012 23:42 - E2 OpenPli gstreamer / libplayer3 002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	echo " 5) Sat, 16 Sep 2012 14:53 - E2 OpenPli gstreamer / libplayer3 a869076762f6e24305d6a58f95c3918e02a1442a"; \
-	echo "========================================================================================================"; \
-	echo " 9) Sat, 17 Sep 2012 17:19 - E2 OpenAAF gstreamer / libplayer3 0f7fa25f26091617213e85b0ed440beb67612ce3"; \
+	echo " 5) Fri, 05 Oct 2012 21:37 - E2 OpenPli gstreamer / libplayer3 7e38f7f6c911cd16106fb3b131e5c2d3a7ea51c7"; \
 	echo "========================================================================================================"; \
 	echo "Media Framwork : $(MEDIAFW)"; \
 	echo "External LCD   : $(EXTERNALLCD)"; \
@@ -42,13 +40,15 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
 	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="a869076762f6e24305d6a58f95c3918e02a1442a"; \
-	[ "$$REPLY" == "9" ] && DIFF="9" && REVISION="0f7fa25f26091617213e85b0ed440beb67612ce3" && REPO="git://github.com/openaaf/enigma2.git"; \
+	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="7e38f7f6c911cd16106fb3b131e5c2d3a7ea51c7"; \
 	echo "Revision       : "$$REVISION; \
 	echo ""; \
-	[ -d "$(appsdir)/enigma2-nightly" ] || \
-	git clone -b $$HEAD $$REPO $(appsdir)/enigma2-nightly; \
-	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.newest; \
+	[ -d "$(archivedir)/enigma2-pli-nightly.git" ] && \
+	(cd $(archivedir)/enigma2-pli-nightly.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/enigma2-pli-nightly.git" ] || \
+	git clone -b $$HEAD $$REPO $(archivedir)/enigma2-pli-nightly.git; \
+	cp -ra $(archivedir)/enigma2-pli-nightly.git $(appsdir)/enigma2-nightly.newest; \
+	cp -ra $(archivedir)/enigma2-pli-nightly.git $(appsdir)/enigma2-nightly; \
 	[ "$$REVISION" == "" ] || (cd $(appsdir)/enigma2-nightly; git checkout "$$REVISION"; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.org; \
 	cd $(appsdir)/enigma2-nightly && patch -p1 < "../../cdk/Patches/enigma2-pli-nightly.$$DIFF.diff"

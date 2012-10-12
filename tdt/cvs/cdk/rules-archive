@@ -52,6 +52,7 @@ grep_2.5.1.ds2-6.diff.gz;http://64studio.hivelocity.net/apt/pool/main/g/grep
 openrdate-1.1.2.tar.gz;http://prdownloads.sourceforge.net/sourceforge/openrdate
 termcap-2.0.8.tar.gz;http://fresh.t-systems-sfr.com/linux/src
 e2fsprogs-1.42.4.tar.gz;http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.42.4
+e2fsprogs-1.42.6.tar.gz;http://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.42.6
 xfsprogs_2.9.4-1.tar.gz;ftp://oss.sgi.com/projects/xfs/cmd_tars
 mc-4.8.0.tar.bz2;http://www.midnight-commander.org/downloads
 sdparm-1.07.tgz;http://sg.danny.cz/sg/p

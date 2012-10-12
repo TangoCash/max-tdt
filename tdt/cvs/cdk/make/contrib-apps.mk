@@ -176,14 +176,14 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 	cd @DIR_e2fsprogs@ && \
 	ln -sf /bin/true ./ldconfig; \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
-	cc=$(target)-gcc \
+	CC=$(target)-gcc \
+	RANLIB=$(target)-ranlib \
+	CFLAGS="-Os" \
+	PATH=$(buildprefix)/@DIR_e2fsprogs@:$(PATH) \
 	./configure \
 		--build=$(build) \
 		--host=$(target) \
 		--target=$(target) \
-		--prefix=/usr \
-		--libdir=/usr/lib \
 		--disable-rpath \
 		--disable-quota \
 		--disable-testio-debug \
@@ -197,7 +197,7 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 		--without-libintl-prefix \
 		--without-libiconv-prefix \
 		--with-root-prefix= && \
-	$(MAKE) all && \
+	$(MAKE) && \
 	$(MAKE) -C e2fsck e2fsck.static
 	touch $@
 else !STM24
@@ -234,11 +234,10 @@ endif !STM24
 if STM24
 $(DEPDIR)/e2fsprogs: $(DEPDIR)/e2fsprogs.do_compile
 	cd @DIR_e2fsprogs@ && \
-	$(BUILDENV) \
-	$(MAKE) install install-libs \
-		LDCONFIG=true \
-		DESTDIR=$(targetprefix) && \
-	$(INSTALL) e2fsck/e2fsck.static $(targetprefix)/sbin
+		@INSTALL_e2fsprogs@
+	[ "x$*" = "x" ] && ( cd @DIR_e2fsprogs@ && \
+		$(MAKE) install install-libs DESTDIR=$(targetprefix) && \
+	$(INSTALL) e2fsck/e2fsck.static $(targetprefix)/sbin ) || true
 	@DISTCLEANUP_e2fsprogs@
 	touch $@
 else !STM24

@@ -23,9 +23,6 @@ cdk-clean:
 	-$(MAKE) -C $(driverdir) KERNEL_LOCATION=$(buildprefix)/linux-sh4 \
 		BIN_DEST=$(targetprefix)/bin \
 		INSTALL_MOD_PATH=$(targetprefix) clean
-	-$(MAKE) -C $(appsdir)/neutrino distclean
-	-$(MAKE) -C $(appsdir)/neutrino-beta distclean
-	-$(MAKE) -C $(appsdir)/enigma2-nightly distclean
 	-$(MAKE) -C $(appsdir)/tuxbox/libs clean
 	-$(MAKE) -C $(appsdir)/tuxbox/libtuxbox clean
 	-$(MAKE) -C $(appsdir)/tuxbox/plugins clean
@@ -57,7 +54,8 @@ clean-local: mostlyclean-local depsclean rpmdepsclean
 	-rm -rf $(prefix)/release*
 	-rm -rf SOURCES SPECS BUILD && install -d SOURCES SPECS BUILD
 	-rm -rf $(prefix)/ccache
-
+	-rm -rf $(DEPDIR)/u-boot-utils*
+	-rm -rf $(DEPDIR)/linux-kernel*
 
 # Be brutal...just nuke it!
 distclean-local:

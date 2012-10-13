@@ -103,7 +103,7 @@ $(appsdir)/neutrino-hd2/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpe
 		./configure \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
-			--with-boxtype=duckbox \
+			--with-boxtype=$(BOXTYPE) \
 			--with-tremor \
 			--with-libdir=/usr/lib \
 			--with-datadir=/share/tuxbox \
@@ -158,7 +158,7 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) freetype
 		./configure \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
-			--with-boxtype=duckbox \
+			--with-boxtype=$(BOXTYPE) \
 			--with-tremor \
 			--with-libdir=/usr/lib \
 			--with-datadir=/share/tuxbox \

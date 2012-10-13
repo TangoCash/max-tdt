@@ -96,36 +96,36 @@ case $1 in
 esac
 
 case "$REPLY" in
-	 1) TARGET="--enable-ufs910";;
-	 3) TARGET="--enable-ufs912";;
-	 4) TARGET="--enable-ufs922";;
-	 5) TARGET="--enable-tf7700";;
-	 6) TARGET="--enable-fortis_hdbox";;
-	 7) TARGET="--enable-hl101";;
-	 8) TARGET="--enable-vip";;
-	 9) TARGET="--enable-cuberevo";;
-	10) TARGET="--enable-cuberevo_mini";;
-	11) TARGET="--enable-cuberevo_mini2";;
-	12) TARGET="--enable-cuberevo_250hd";;
-	13) TARGET="--enable-cuberevo_9500hd";;
-	14) TARGET="--enable-cuberevo_2000hd";;
-	15) TARGET="--enable-cuberevo_mini_fta";;
-	16) TARGET="--enable-homecast5101";;
-	17) TARGET="--enable-octagon1008";;
-	18) TARGET="--enable-spark";;
-	19) TARGET="--enable-atevio7500";;
-	20) TARGET="--enable-spark7162";;
-	21) TARGET="--enable-ipbox9900";;
-	22) TARGET="--enable-ipbox99";;
-	23) TARGET="--enable-ipbox55";;
-	24) TARGET="--enable-hs7810a";;
-	25) TARGET="--enable-adb_box";;
-	26) TARGET="--enable-hs7110";;
-	27) TARGET="--enable-whitebox";;
-	28) TARGET="--enable-ufs913";;
-	 *) TARGET="--enable-ufs912";;
+	 1) TARGET="--enable-ufs910";BOXTYPE="--with-boxtype=ufs910";;
+	 3) TARGET="--enable-ufs912";BOXTYPE="--with-boxtype=ufs912";;
+	 4) TARGET="--enable-ufs922";BOXTYPE="--with-boxtype=ufs922";;
+	 5) TARGET="--enable-tf7700";BOXTYPE="--with-boxtype=tf7700";;
+	 6) TARGET="--enable-fortis_hdbox";BOXTYPE="--with-boxtype=fortis_hdbox";;
+	 7) TARGET="--enable-hl101";BOXTYPE="--with-boxtype=hl101";;
+	 8) TARGET="--enable-vip";BOXTYPE="--with-boxtype=vip";;
+	 9) TARGET="--enable-cuberevo";BOXTYPE="--with-boxtype=cuberevo";;
+	10) TARGET="--enable-cuberevo_mini";BOXTYPE="--with-boxtype=cuberevo_mini";;
+	11) TARGET="--enable-cuberevo_mini2";BOXTYPE="--with-boxtype=cuberevo_mini2";;
+	12) TARGET="--enable-cuberevo_250hd";BOXTYPE="--with-boxtype=cuberevo_250hd";;
+	13) TARGET="--enable-cuberevo_9500hd";BOXTYPE="--with-boxtype=cuberevo_9500hd";;
+	14) TARGET="--enable-cuberevo_2000hd";BOXTYPE="--with-boxtype=cuberevo_2000hd";;
+	15) TARGET="--enable-cuberevo_mini_fta";BOXTYPE="--with-boxtype=cuberevo_mini_fta";;
+	16) TARGET="--enable-homecast5101";BOXTYPE="--with-boxtype=homecast5101";;
+	17) TARGET="--enable-octagon1008";BOXTYPE="--with-boxtype=octagon1008";;
+	18) TARGET="--enable-spark";BOXTYPE="--with-boxtype=spark";;
+	19) TARGET="--enable-atevio7500";BOXTYPE="--with-boxtype=atevio7500";;
+	20) TARGET="--enable-spark7162";BOXTYPE="--with-boxtype=spark7162";;
+	21) TARGET="--enable-ipbox9900";BOXTYPE="--with-boxtype=ipbox9900";;
+	22) TARGET="--enable-ipbox99";BOXTYPE="--with-boxtype=ipbox99";;
+	23) TARGET="--enable-ipbox55";BOXTYPE="--with-boxtype=ipbox55";;
+	24) TARGET="--enable-hs7810a";BOXTYPE="--with-boxtype=hs7810a";;
+	25) TARGET="--enable-adb_box";BOXTYPE="--with-boxtype=adb_box";;
+	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
+	27) TARGET="--enable-whitebox";BOXTYPE="--with-boxtype=whitebox";;
+	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
+	 *) TARGET="--enable-ufs912";BOXTYPE="--with-boxtype=ufs912";;
 esac
-CONFIGPARAM="$CONFIGPARAM $TARGET"
+CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
 
 case "$REPLY" in
         8) REPLY=$3
@@ -505,13 +505,12 @@ echo $CONFIGPARAM >lastChoice
 echo "-----------------------"
 echo "Your build enivroment is ready :-)"
 echo "Your next step could be:"
+echo "make yaud-enigma1-hd"
 echo "make yaud-enigma2-nightly"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-neutrino"
-echo "make yaud-neutrino-hd2"
 echo "make yaud-neutrino-hd2-exp"
 echo "make yaud-vdr"
-echo "make yaud-vdrdev2"
-echo "make yaud-enigma1-hd"
 echo "make yaud-xbmc-nightly"
 echo "-----------------------"
+

@@ -14,6 +14,8 @@ AC_ARG_WITH(toolchain,
 AM_CONDITIONAL(USE_FOREIGN_TOOLCHAIN,test "$TOOLCHAIN_PATH" != "notset")
 AC_SUBST(TOOLCHAIN_PATH)
 
+TUXBOX_BOXTYPE
+
 if test "$target_alias" = "" ; then
 	target_alias="sh4-linux"
 fi
@@ -1194,7 +1196,7 @@ ${srcdir}/rules-archive.pl ${srcdir}/rules-archive > Makefile-archive
 AC_MSG_RESULT([
 summary:
 -------------------------------------------------------------------------------
-target cpu                  : $CPU_MODEL
+target cpu/boxtype          : $CPU_ARCH / $BOXTYPE
 linux kernel                : ${KERNELVERSION%.*}
 kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
@@ -1234,35 +1236,6 @@ driver directory            : $driverdir
 host apps directory         : $hostappsdir
 customization directory     : $customizationsdir
 archive directory           : $archivedir
-GNU server                  : $gnuserver
-default server              : $defaultserver
-update http prefix          : $updatehttpprefix
-Fortis/hdbox stuff          : $enable_fortis_hdbox
-Fortis hs7810a stuff        : $enable_hs7810a
-Fortis hs7110 stuff         : $enable_hs7110
-Atevio 7500 stuff           : $enable_atevio7500
-octagon1008 stuff           : $enable_octagon1008
-topfield stuff              : $enable_tf7700
-spider-box hl101 stuff      : $enable_hl101
-edision argus vip1 v2 stuff : $enable_vip1_v2
-edision argus vip2 v1 stuff : $enable_vip2_v1
-spark box stuff             : $enable_spark
-spark7162 box stuff         : $enable_spark7162
-adb_box stuff               : $enable_adb_box
-ufs910 stuff                : $enable_ufs910
-ufs912 stuff                : $enable_ufs912
-ufs922 stuff                : $enable_ufs922
-cuberevo stuff              : $enable_cuberevo
-cuberevo mini stuff         : $enable_cuberevo_mini
-cuberevo mini 2 stuff       : $enable_cuberevo_mini2
-cuberevo mini fta stuff     : $enable_cuberevo_mini_fta
-cuberevo 250hd stuff        : $enable_cuberevo_250hd
-cuberevo 2000hd stuff       : $enable_cuberevo_2000hd
-cuberevo 9500hd stuff       : $enable_cuberevo_9500hd
-homecast 5101 stuff         : $enable_homecast5101
-ipbox 9900 stuff            : $enable_ipbox9900
-ipbox 99 stuff              : $enable_ipbox99
-ipbox 55 stuff              : $enable_ipbox55
 XFS support for IDE         : $enable_xfs
 NFS server                  : $enable_nfsserver
 Samba Clients               : $enable_cifs

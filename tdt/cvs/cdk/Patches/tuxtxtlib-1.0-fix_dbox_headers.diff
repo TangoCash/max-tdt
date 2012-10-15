@@ -136,7 +136,7 @@
  	{
  		renderinfo->var_screeninfo.yoffset = 0;
  
-+#ifdef __sh__
++#ifndef __sh__
  		if (ioctl(renderinfo->fb, FBIOPAN_DISPLAY, &renderinfo->var_screeninfo) == -1)
  			perror("TuxTxt <FBIOPAN_DISPLAY>");
 +#endif

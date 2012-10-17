@@ -176,6 +176,7 @@ TwistedWeb2-8.1.0.tar.bz2;http://twistedmatrix.com/Releases/Web2/8.1
 Imaging-1.1.7.tar.gz;http://effbot.org/downloads
 pycrypto-2.5.tar.gz;http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto
 pyOpenSSL-0.9.tar.gz;http://sourceforge.net/projects/pyopenssl/files/pyopenssl/0.9
+pyOpenSSL-0.11.tar.gz;http://launchpad.net/pyopenssl/main/0.11/+download
 pyusb-1.0.0a2.tar.gz;http://pypi.python.org/packages/source/p/pyusb
 Python-2.6.tar.bz2;http://www.python.org/ftp/python/2.6;http://pkgs.fedoraproject.org/repo/pkgs/python/Python-2.6.tar.bz2/837476958702cb386c657b5dba61cdc5
 Python-2.6.6.tar.bz2;http://www.python.org/ftp/python/2.6.6

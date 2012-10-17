@@ -279,7 +279,7 @@ AC_SUBST(NTFS)
 AC_ARG_ENABLE(nfsserver,
 	AS_HELP_STRING(--enable-nfsserver,      enable NFS server),
 	[case "${enableval}" in
-		yes) NFSSERVER=nfs-utils ;;
+		yes) NFSSERVER=nfs_utils ;;
 	esac],[enable_nfsserver=no])
 AM_CONDITIONAL(ENABLE_NFSSERVER,test "$enable_nfsserver" = "yes")
 AC_SUBST(NFSSERVER)
@@ -287,7 +287,7 @@ AC_SUBST(NFSSERVER)
 AC_ARG_ENABLE(cifs,
 	AS_HELP_STRING(--enable-cifs,    enable the samba clients),
 	[case "${enableval}" in
-		yes) CIFS=samba-client ;;
+		yes) CIFS=samba ;;
 	esac],[enable_cifs=no])
 AM_CONDITIONAL(ENABLE_CIFS,test "$enable_cifs" = "yes")
 AC_SUBST(CIFS)

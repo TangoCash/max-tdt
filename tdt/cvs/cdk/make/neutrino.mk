@@ -32,7 +32,12 @@ endif
 $(DEPDIR)/neutrino-twin.do_prepare:
 	rm -rf $(appsdir)/neutrino-twin
 	rm -rf $(appsdir)/neutrino-twin.org
-	git clone -b dvbsi++ git://c00lstreamtech.de/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin
+	[ -d "$(archivedir)/neutrino-hd.git" ] && \
+	(cd $(archivedir)/neutrino-hd.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-hd.git" ] || \
+	git clone git://c00lstreamtech.de/cst-public-gui-neutrino.git $(archivedir)/neutrino-hd.git; \
+	cp -ra $(archivedir)/neutrino-hd.git $(appsdir)/neutrino-twin; \
+	(cd $(appsdir)/neutrino-twin; git checkout dvbsi++; cd "$(buildprefix)";); \
 	rm -rf $(appsdir)/neutrino-twin/lib/libcoolstream/*.*
 	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.diff"

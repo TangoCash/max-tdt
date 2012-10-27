@@ -288,7 +288,7 @@ GCC_SPEC_PATCH :=
 GCC_PATCHES :=
 else !STM23
 # if STM24
-GCC_VERSION := $(if $(OLDSTM24),4.3.4-66,4.6.3-113)
+GCC_VERSION := $(if $(OLDSTM24),4.3.4-66,4.6.3-114)
 GCC_SPEC := stm-target-$(GCC).spec
 GCC_SPEC_PATCH := $(if $(OLDSTM24),,$(GCC_SPEC).$(GCC_VERSION).diff)
 GCC_PATCHES := $(if $(OLDSTM24),,stm-target-$(GCC).$(GCC_VERSION).diff)

@@ -923,7 +923,7 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 	cd @DIR_ffmpeg@ && \
 	$(BUILDENV) \
 	./configure \
-		$(FFMPEG_CUSTOM_OLD) \
+		$(FFMPEG_CUSTOM_NEU) \
 		--disable-static \
 		--enable-shared \
 		--enable-cross-compile \

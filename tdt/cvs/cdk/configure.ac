@@ -31,7 +31,7 @@ AM_MAINTAINER_MODE
 AC_PROG_CC
 
 AC_ARG_ENABLE(player131,
-	AS_HELP_STRING(--enable-player131,	set up the CDK to use player131),
+	AS_HELP_STRING(--enable-player131, set up the CDK to use player131),
 	[case "${enableval}" in
 		yes) PLAYER131=player131 ;;
 	esac],[enable_player131=no])
@@ -39,7 +39,7 @@ AM_CONDITIONAL(ENABLE_PLAYER131,test "$enable_player131" = "yes")
 AC_SUBST(PLAYER131)
 
 AC_ARG_ENABLE(player179,
-	AS_HELP_STRING(--enable-player179,	set up the CDK to use player179),
+	AS_HELP_STRING(--enable-player179, set up the CDK to use player179),
 	[case "${enableval}" in
 		yes) PLAYER179=player179 ;;
 	esac],[enable_player179=no])
@@ -47,7 +47,7 @@ AM_CONDITIONAL(ENABLE_PLAYER179,test "$enable_player179" = "yes")
 AC_SUBST(PLAYER179)
 
 AC_ARG_ENABLE(player191,
-	AS_HELP_STRING(--enable-player191,	set up the CDK to use player191),
+	AS_HELP_STRING(--enable-player191, set up the CDK to use player191),
 	[case "${enableval}" in
 		yes) PLAYER191=player191 ;;
 	esac],[enable_player191=no])
@@ -71,37 +71,27 @@ AM_CONDITIONAL(ENABLE_MULTICOM324,test "$enable_multicom324" = "yes")
 AC_SUBST(MULTICOM324)
 
 AC_ARG_ENABLE(stm22,
-	AS_HELP_STRING(--enable-stm22,	set up the CDK to use the STLinux 2.2),
+	AS_HELP_STRING(--enable-stm22, set up the CDK to use the STLinux 2.2),
 	,[enable_stm22=no])
 AM_CONDITIONAL(STM22,test "$enable_stm22" = "yes")
 
 AC_ARG_ENABLE(stm23,
-	AS_HELP_STRING(--enable-stm23,	set up the CDK to use the STLinux 2.3),
+	AS_HELP_STRING(--enable-stm23, set up the CDK to use the STLinux 2.3),
 	,[enable_stm23=no])
 AM_CONDITIONAL(STM23,test "$enable_stm23" = "yes")
 
 AC_ARG_ENABLE(havana,
-	AS_HELP_STRING(--enable-havana,	set up the CDK to use the STLinux 2.3 Havana),
+	AS_HELP_STRING(--enable-havana, set up the CDK to use the STLinux 2.3 Havana),
 	,[enable_havana=no])
 AM_CONDITIONAL(STM23_HAVANA,test "$enable_havana" = "yes")
 
 AC_ARG_ENABLE(stm24,
-	AS_HELP_STRING(--enable-stm24,	set up the CDK to use the STLinux 2.4),
+	AS_HELP_STRING(--enable-stm24, set up the CDK to use the STLinux 2.4),
 	,[enable_stm24=no])
 AM_CONDITIONAL(STM24,test "$enable_stm24" = "yes")
 
-AC_ARG_ENABLE(p0040,
-	AS_HELP_STRING(--enable-p0040,	set up the CDK to use the STLinux 2.2 with patchlevel 0040),
-	,[enable_p0040=no])
-AM_CONDITIONAL(P0040,test "$enable_p0040" = "yes")
-
-AC_ARG_ENABLE(p0041,
-	AS_HELP_STRING(--enable-p0041,	set up the CDK to use the STLinux 2.2 with patchlevel 0041),
-	,[enable_p0041=no])
-AM_CONDITIONAL(P0041,test "$enable_p0041" = "yes")
-
 AC_ARG_ENABLE(p0119,
-	AS_HELP_STRING(--enable-p0119,  set up the CDK to use the STLinux 2.3 with patchlevel 0119),
+	AS_HELP_STRING(--enable-p0119, set up the CDK to use the STLinux 2.3 with patchlevel 0119),
 	[case "${enableval}" in
 		yes) P0119=p0119 ;;
 	esac], [enable_p0119=no])
@@ -109,7 +99,7 @@ AM_CONDITIONAL(ENABLE_P0119,test "$enable_p0119" = "yes")
 AC_SUBST(P0119)
 
 AC_ARG_ENABLE(p0123,
-	AS_HELP_STRING(--enable-p0123,  set up the CDK to use the STLinux 2.3 with patchlevel 0123),
+	AS_HELP_STRING(--enable-p0123, set up the CDK to use the STLinux 2.3 with patchlevel 0123),
 	[case "${enableval}" in
 		yes) P0123=p0123 ;;
 	esac], [enable_p0123=no])
@@ -117,7 +107,7 @@ AM_CONDITIONAL(ENABLE_P0123,test "$enable_p0123" = "yes")
 AC_SUBST(P0123)
 
 AC_ARG_ENABLE(p0201,
-	AS_HELP_STRING(--enable-p0201,  set up the CDK to use the STLinux 2.4 with patchlevel 0201),
+	AS_HELP_STRING(--enable-p0201, set up the CDK to use the STLinux 2.4 with patchlevel 0201),
 	[case "${enableval}" in
 		yes) P0201=p0201 ;;
 	esac], [enable_p0201=no])
@@ -125,7 +115,7 @@ AM_CONDITIONAL(ENABLE_P0201,test "$enable_p0201" = "yes")
 AC_SUBST(P0201)
 
 AC_ARG_ENABLE(p0205,
-	AS_HELP_STRING(--enable-p0205,  set up the CDK to use the STLinux 2.4 with patchlevel 0205),
+	AS_HELP_STRING(--enable-p0205, set up the CDK to use the STLinux 2.4 with patchlevel 0205),
 	[case "${enableval}" in
 		yes) P0205=p0205 ;;
 	esac], [enable_p0205=no])
@@ -133,7 +123,7 @@ AM_CONDITIONAL(ENABLE_P0205,test "$enable_p0205" = "yes")
 AC_SUBST(P0205)
 
 AC_ARG_ENABLE(p0206,
-	AS_HELP_STRING(--enable-p0206,  set up the CDK to use the STLinux 2.4 with patchlevel 0206),
+	AS_HELP_STRING(--enable-p0206, set up the CDK to use the STLinux 2.4 with patchlevel 0206),
 	[case "${enableval}" in
 		yes) P0206=p0206 ;;
 	esac], [enable_p0206=no])
@@ -141,7 +131,7 @@ AM_CONDITIONAL(ENABLE_P0206,test "$enable_p0206" = "yes")
 AC_SUBST(P0206)
 
 AC_ARG_ENABLE(p0207,
-	AS_HELP_STRING(--enable-p0207,  set up the CDK to use the STLinux 2.4 with patchlevel 0207),
+	AS_HELP_STRING(--enable-p0207, set up the CDK to use the STLinux 2.4 with patchlevel 0207),
 	[case "${enableval}" in
 		yes) P0207=p0207 ;;
 	esac], [enable_p0207=no])
@@ -149,7 +139,7 @@ AM_CONDITIONAL(ENABLE_P0207,test "$enable_p0207" = "yes")
 AC_SUBST(P0207)
 
 AC_ARG_ENABLE(p0209,
-	AS_HELP_STRING(--enable-p0209,  set up the CDK to use the STLinux 2.4 with patchlevel 0209),
+	AS_HELP_STRING(--enable-p0209, set up the CDK to use the STLinux 2.4 with patchlevel 0209),
 	[case "${enableval}" in
 		yes) P0209=p0209 ;;
 	esac], [enable_p0209=no])
@@ -157,7 +147,7 @@ AM_CONDITIONAL(ENABLE_P0209,test "$enable_p0209" = "yes")
 AC_SUBST(P0209)
 
 AC_ARG_ENABLE(p0210,
-	AS_HELP_STRING(--enable-p0210,  set up the CDK to use the STLinux 2.4 with patchlevel 0210),
+	AS_HELP_STRING(--enable-p0210, set up the CDK to use the STLinux 2.4 with patchlevel 0210),
 	[case "${enableval}" in
 		yes) P0210=p0210 ;;
 	esac], [enable_p0210=no])
@@ -165,7 +155,7 @@ AM_CONDITIONAL(ENABLE_P0210,test "$enable_p0210" = "yes")
 AC_SUBST(P0210)
 
 AC_ARG_ENABLE(p0211,
-	AS_HELP_STRING(--enable-p0211,  set up the CDK to use the STLinux 2.4 with patchlevel 0211),
+	AS_HELP_STRING(--enable-p0211, set up the CDK to use the STLinux 2.4 with patchlevel 0211),
 	[case "${enableval}" in
 		yes) P0211=p0211 ;;
 	esac], [enable_p0211=no])
@@ -173,61 +163,53 @@ AM_CONDITIONAL(ENABLE_P0211,test "$enable_p0211" = "yes")
 AC_SUBST(P0211)
 
 AC_ARG_ENABLE(p0302,
-	AS_HELP_STRING(--enable-p0302,  set up the CDK to use the STLinux 2.4 with patchlevel 0302),
+	AS_HELP_STRING(--enable-p0302, set up the CDK to use the STLinux 2.4 with patchlevel 0302),
 	[case "${enableval}" in
 		yes) P0302=p0302 ;;
 	esac], [enable_p0302=no])
 AM_CONDITIONAL(ENABLE_P0302,test "$enable_p0302" = "yes")
 AC_SUBST(P0302)
 
-AC_ARG_ENABLE(havana_p0207_5,
-	AS_HELP_STRING(enable-havana-p0207_5,  set up the CDK to use the STLinux 2.4 with Havana patchlevel 0207_5),
-	[case "${enableval}" in
-		yes) HAVANA_P0207_5=havana_p0207_5 ;;
-	esac], [enable_havana_p0207_5=no])
-AM_CONDITIONAL(ENABLE_HAVANA_P0207_5,test "$enable_havana_p0207_5" = "yes")
-AC_SUBST(HAVANA_P0207_5)
-
 AC_ARG_ENABLE(debug,
-	AS_HELP_STRING(--enable-debug,	set up the CDK to use debug kernel configs),
+	AS_HELP_STRING(--enable-debug, set up the CDK to use debug kernel configs),
 	,[enable_debug=no])
 AM_CONDITIONAL(DEBUG,test "$enable_debug" = "yes")
 
 AC_ARG_ENABLE(old_gcc_stm24,
-	AS_HELP_STRING(--enable-old-gcc-stm24,  compile image stm24 using gcc 4.3.4),
+	AS_HELP_STRING(--enable-old-gcc-stm24, compile image stm24 using gcc 4.3.4),
 	,[enable_old_gcc_stm24=no])
 AM_CONDITIONAL(OLD_GCC_STM24,test "$enable_old_gcc_stm24" = "yes")
 
 AC_ARG_WITH(cpu,
-	[  --with-cpu=MODEL        cpu model [[sh4]]],
+	[  --with-cpu=MODEL    cpu model [[sh4]]],
 	[CPU_MODEL="$withval"],[CPU_MODEL="sh4"])
 AC_SUBST(CPU_MODEL)
 
 AC_ARG_WITH(assume-kernelsources-old,
-	[  --with-assume-kernelsources-old	Do not recompile due to new kernel sources],
+	[  --with-assume-kernelsources-old Do not recompile due to new kernel sources],
 	[assume_kernelsources_old="yes"],[assume_kernelsources_old="no"])
 AM_CONDITIONAL(ASSUME_KERNELSOURCES_OLD,test "$assume_kernelsources_old" = "yes")
 
 AC_ARG_ENABLE(mediafwgstreamer,
-	AS_HELP_STRING(--enable-mediafwgstreamer,	set up the CDK to use mediafw gstreamer),
+	AS_HELP_STRING(--enable-mediafwgstreamer,    set up the CDK to use mediafw gstreamer),
 	,[enable_mediafwgstreamer=no])
 AM_CONDITIONAL(ENABLE_MEDIAFWGSTREAMER,test "$enable_mediafwgstreamer" = "yes")
 AC_SUBST(MEDIAFWGSTREAMER)
 
 AC_ARG_ENABLE(graphicfwdirectfb,
-	AS_HELP_STRING(--enable-graphicfwdirectfb,	set up the CDK to use graphicfw directfb),
+	AS_HELP_STRING(--enable-graphicfwdirectfb,    set up the CDK to use graphicfw directfb),
 	,[enable_graphicfwdirectfb=no])
 AM_CONDITIONAL(ENABLE_GRAPHICFWDIRECTFB,test "$enable_graphicfwdirectfb" = "yes")
 AC_SUBST(GRAPHICFWDIRECTFB)
 
 AC_ARG_ENABLE(externallcd,
-	AS_HELP_STRING(--enable-externallcd,	set up the CDK to use graphlcd),
+	AS_HELP_STRING(--enable-externallcd,    set up the CDK to use graphlcd),
 	,[enable_externallcd=no])
 AM_CONDITIONAL(ENABLE_EXTERNALLCD,test "$enable_externallcd" = "yes")
 AC_SUBST(EXTERNALLCD)
 
 AC_ARG_ENABLE(eplayer3,
-	AS_HELP_STRING(--enable-eplayer3, enable eplayer3 support),
+	AS_HELP_STRING(--enable-eplayer3,    enable eplayer3 support),
 	,[enable_eplayer3=no])
 AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
 AC_SUBST(EPLAYER3)
@@ -253,7 +235,7 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 fi
 
 AC_ARG_ENABLE(lirc,
-	AS_HELP_STRING(--enable-lirc,	include lirc in yadds and images),
+	AS_HELP_STRING(--enable-lirc, include lirc in yadds and images),
 	[case "${enableval}" in
 		yes) LIRC=lirc ;;
 	esac], [enable_lirc=no])
@@ -261,7 +243,7 @@ AM_CONDITIONAL(ENABLE_LIRC,test "$enable_lirc" = "yes")
 AC_SUBST(LIRC)
 
 AC_ARG_ENABLE(xfs,
-	AS_HELP_STRING(--enable-xfs,    include xfs drivers in yauds and images),
+	AS_HELP_STRING(--enable-xfs, include xfs drivers in yauds and images),
 	[case "${enableval}" in
 		yes) XFSPROGS=xfsprogs ;;
 	esac],[enable_xfs=no])
@@ -269,7 +251,7 @@ AM_CONDITIONAL(ENABLE_XFS,test "$enable_xfs" = "yes")
 AC_SUBST(XFSPROGS)
 
 AC_ARG_ENABLE(ntfs,
-	AS_HELP_STRING(--enable-ntfs,    include ntfs drivers in yauds and images),
+	AS_HELP_STRING(--enable-ntfs, include ntfs drivers in yauds and images),
 	[case "${enableval}" in
 		yes) NTFS=ntfs ;;
 	esac],[enable_ntfs=no])
@@ -277,7 +259,7 @@ AM_CONDITIONAL(ENABLE_NTFS,test "$enable_ntfs" = "yes")
 AC_SUBST(NTFS)
 
 AC_ARG_ENABLE(nfsserver,
-	AS_HELP_STRING(--enable-nfsserver,      enable NFS server),
+	AS_HELP_STRING(--enable-nfsserver, enable NFS server),
 	[case "${enableval}" in
 		yes) NFSSERVER=nfs_utils ;;
 	esac],[enable_nfsserver=no])
@@ -285,7 +267,7 @@ AM_CONDITIONAL(ENABLE_NFSSERVER,test "$enable_nfsserver" = "yes")
 AC_SUBST(NFSSERVER)
 
 AC_ARG_ENABLE(cifs,
-	AS_HELP_STRING(--enable-cifs,    enable the samba clients),
+	AS_HELP_STRING(--enable-cifs, enable the samba clients),
 	[case "${enableval}" in
 		yes) CIFS=samba ;;
 	esac],[enable_cifs=no])
@@ -293,7 +275,7 @@ AM_CONDITIONAL(ENABLE_CIFS,test "$enable_cifs" = "yes")
 AC_SUBST(CIFS)
 
 AC_ARG_ENABLE(sg3,
-	AS_HELP_STRING(--enable-sg3,    enable the sg3-utils),
+	AS_HELP_STRING(--enable-sg3, enable the sg3-utils),
 	[case "${enableval}" in
 		yes) SG3=sg3_utils ;;
 	esac],[enable_sg3=no])
@@ -301,7 +283,7 @@ AM_CONDITIONAL(ENABLE_SG3,test "$enable_sg3" = "yes")
 AC_SUBST(SG3)
 
 AC_ARG_ENABLE(var,
-	AS_HELP_STRING(--enable-var,    move stock and libs into var),
+	AS_HELP_STRING(--enable-var, move stock and libs into var),
 	[case "${enableval}" in
 		yes) VAR=var ;;
 	esac],[enable_var=no])
@@ -309,17 +291,17 @@ AM_CONDITIONAL(ENABLE_VAR,test "$enable_var" = "yes")
 AC_SUBST(VAR)
 
 AC_ARG_WITH(rootpartitionsize,
-	[  --with-rootpartitionsize=SIZE	size of the root partition],
+	[  --with-rootpartitionsize=SIZE    size of the root partition],
 	[ROOT_PARTITION_SIZE="$withval"],[ROOT_PARTITION_SIZE="0x240000"])
 AC_SUBST(ROOT_PARTITION_SIZE)
 
 AC_ARG_WITH(datapartitionsize,
-	[  --with-datapartitionsize=SIZE	size of the data partition],
+	[  --with-datapartitionsize=SIZE    size of the data partition],
 	[DATA_PARTITION_SIZE="$withval"],[DATA_PARTITION_SIZE="0x400000"])
 AC_SUBST(DATA_PARTITION_SIZE)
 
 AC_ARG_ENABLE(ccache,
-	AS_HELP_STRING(--enable-ccache,	enable ccache),
+	AS_HELP_STRING(--enable-ccache, enable ccache),
 	[case "${enableval}" in
 		yes) CCACHE_BIN=ccache;;
 	esac], [enable_ccache=no])
@@ -327,7 +309,7 @@ AM_CONDITIONAL(ENABLE_CCACHE,test "$enable_ccache" = "yes")
 AC_SUBST(CCACHE_BIN)
 
 AC_ARG_ENABLE(fortis_hdbox,
-	AS_HELP_STRING(--enable-fortis_hdbox,    enable Fortis/hdbox FS-9200HD PVR stuff),
+	AS_HELP_STRING(--enable-fortis_hdbox, enable Fortis/hdbox FS-9200HD PVR stuff),
 	[case "${enableval}" in
 		yes) FORTIS_HDBOX=fortis_hdbox ;;
 	esac],[enable_fortis_hdbox=no])
@@ -335,7 +317,7 @@ AM_CONDITIONAL(ENABLE_FORTIS_HDBOX,test "$enable_fortis_hdbox" = "yes")
 AC_SUBST(FORTIS_HDBOX)
 
 AC_ARG_ENABLE(atevio7500,
-	AS_HELP_STRING(--enable-atevio7500,    enable Atevio 7500 PVR stuff),
+	AS_HELP_STRING(--enable-atevio7500, enable Atevio 7500 PVR stuff),
 	[case "${enableval}" in
 		yes) ATEVIO7500=atevio7500 ;;
 	esac],[enable_atevio7500=no])
@@ -343,7 +325,7 @@ AM_CONDITIONAL(ENABLE_ATEVIO7500,test "$enable_atevio7500" = "yes")
 AC_SUBST(ATEVIO7500)
 
 AC_ARG_ENABLE(octagon1008,
-	AS_HELP_STRING(--enable-octagon1008,    enable Octagon 1008 stuff),
+	AS_HELP_STRING(--enable-octagon1008, enable Octagon 1008 stuff),
 	[case "${enableval}" in
 		yes) OCTAGON1008=octagon1008 ;;
 	esac],[enable_octagon1008=no])
@@ -351,7 +333,7 @@ AM_CONDITIONAL(ENABLE_OCTAGON1008,test "$enable_octagon1008" = "yes")
 AC_SUBST(OCTAGON1008)
 
 AC_ARG_ENABLE(tf7700,
-	AS_HELP_STRING(--enable-tf7700,    enable topfield tf7700 stuff),
+	AS_HELP_STRING(--enable-tf7700, enable topfield tf7700 stuff),
 	[case "${enableval}" in
 		yes) TF7700=tf7700 ;;
 	esac],[enable_tf7700=no])
@@ -359,7 +341,7 @@ AM_CONDITIONAL(ENABLE_TF7700,test "$enable_tf7700" = "yes")
 AC_SUBST(TF7700)
 
 AC_ARG_ENABLE(hl101,
-	AS_HELP_STRING(--enable-hl101,    enable spider box hl101 stuff),
+	AS_HELP_STRING(--enable-hl101, enable spider box hl101 stuff),
 	[case "${enableval}" in
 		yes) HL101=hl101 ;;
 	esac],[enable_hl101=no])
@@ -367,7 +349,7 @@ AM_CONDITIONAL(ENABLE_HL101,test "$enable_hl101" = "yes")
 AC_SUBST(HL101)
 
 AC_ARG_ENABLE(vip2_v1,
-	AS_HELP_STRING(--enable-vip2_v1,    enable edision argus vip2_v1 stuff),
+	AS_HELP_STRING(--enable-vip2_v1, enable edision argus vip2_v1 stuff),
 	[case "${enableval}" in
 		yes) VIP2_V1=vip2_v1 ;;
 	esac],[enable_vip2_v1=no])
@@ -375,7 +357,7 @@ AM_CONDITIONAL(ENABLE_VIP2_V1,test "$enable_vip2_v1" = "yes")
 AC_SUBST(VIP2_V1)
 
 AC_ARG_ENABLE(vip1_v2,
-	AS_HELP_STRING(--enable-vip1_v2,    enable edision argus vip1_v2 stuff),
+	AS_HELP_STRING(--enable-vip1_v2, enable edision argus vip1_v2 stuff),
 	[case "${enableval}" in
 		yes) VIP1_V2=vip1_v2 ;;
 	esac],[enable_vip1_v2=no])
@@ -383,7 +365,7 @@ AM_CONDITIONAL(ENABLE_VIP1_V2,test "$enable_vip1_v2" = "yes")
 AC_SUBST(VIP1_V2)
 
 AC_ARG_ENABLE(spark,
-	AS_HELP_STRING(--enable-spark,    enable spark),
+	AS_HELP_STRING(--enable-spark, enable spark),
 	[case "${enableval}" in
 		yes) SPARK=spark ;;
 	esac],[enable_spark=no])
@@ -391,7 +373,7 @@ AM_CONDITIONAL(ENABLE_SPARK,test "$enable_spark" = "yes")
 AC_SUBST(SPARK)
 
 AC_ARG_ENABLE(spark7162,
-	AS_HELP_STRING(--enable-spark7162,    enable spark7162),
+	AS_HELP_STRING(--enable-spark7162, enable spark7162),
 	[case "${enableval}" in
 		yes) SPARK7162=spark7162 ;;
 	esac],[enable_spark7162=no])
@@ -399,14 +381,14 @@ AM_CONDITIONAL(ENABLE_SPARK7162,test "$enable_spark7162" = "yes")
 AC_SUBST(SPARK7162)
 
 AC_ARG_ENABLE(adb_box,
-	AS_HELP_STRING(--enable-adb_box,    enable adb_box stuff),
+	AS_HELP_STRING(--enable-adb_box, enable adb_box stuff),
 	[case "${enableval}" in
 		yes) ADB_BOX=adb_box ;;
 	esac],[enable_adb_box=no])
 AM_CONDITIONAL(ENABLE_ADB_BOX,test "$enable_adb_box" = "yes")
 AC_SUBST(ADB_BOX)
 AC_ARG_ENABLE(ufs922,
-	AS_HELP_STRING(--enable-ufs922,    enable kathrein ufs922 stuff),
+	AS_HELP_STRING(--enable-ufs922, enable kathrein ufs922 stuff),
 	[case "${enableval}" in
 		yes) UFS922=ufs922 ;;
 	esac],[enable_ufs922=no])
@@ -414,7 +396,7 @@ AM_CONDITIONAL(ENABLE_UFS922,test "$enable_ufs922" = "yes")
 AC_SUBST(UFS922)
 
 AC_ARG_ENABLE(ufs910,
-	AS_HELP_STRING(--enable-ufs910,    enable kathrein ufs910 stuff),
+	AS_HELP_STRING(--enable-ufs910, enable kathrein ufs910 stuff),
 	[case "${enableval}" in
 		yes) UFS910=ufs910 ;;
 	esac],[enable_ufs910=no])
@@ -422,7 +404,7 @@ AM_CONDITIONAL(ENABLE_UFS910,test "$enable_ufs910" = "yes")
 AC_SUBST(UFS910)
 
 AC_ARG_ENABLE(ufs912,
-	AS_HELP_STRING(--enable-ufs912,    enable kathrein ufs912 stuff),
+	AS_HELP_STRING(--enable-ufs912, enable kathrein ufs912 stuff),
 	[case "${enableval}" in
 		yes) UFS912=ufs912 ;;
 	esac],[enable_ufs912=no])
@@ -430,7 +412,7 @@ AM_CONDITIONAL(ENABLE_UFS912,test "$enable_ufs912" = "yes")
 AC_SUBST(UFS912)
 
 AC_ARG_ENABLE(ufs913,
-	AS_HELP_STRING(--enable-ufs913,    enable kathrein ufs913 stuff),
+	AS_HELP_STRING(--enable-ufs913, enable kathrein ufs913 stuff),
 	[case "${enableval}" in
 		yes) UFS913=ufs913 ;;
 	esac],[enable_ufs913=no])
@@ -438,7 +420,7 @@ AM_CONDITIONAL(ENABLE_UFS913,test "$enable_ufs913" = "yes")
 AC_SUBST(UFS913)
 
 AC_ARG_ENABLE(hs7810a,
-	AS_HELP_STRING(--enable-hs7810a,    enable fortis hs7810a stuff),
+	AS_HELP_STRING(--enable-hs7810a, enable fortis hs7810a stuff),
 	[case "${enableval}" in
 		yes) HS7810A=hs7810a ;;
 	esac],[enable_hs7810a=no])
@@ -446,7 +428,7 @@ AM_CONDITIONAL(ENABLE_HS7810A,test "$enable_hs7810a" = "yes")
 AC_SUBST(HS7810A)
 
 AC_ARG_ENABLE(hs7110,
-	AS_HELP_STRING(--enable-hs7110,    enable fortis hs7110 stuff),
+	AS_HELP_STRING(--enable-hs7110, enable fortis hs7110 stuff),
 	[case "${enableval}" in
 		yes) HS7110=hs7110 ;;
 	esac],[enable_hs7110=no])
@@ -454,7 +436,7 @@ AM_CONDITIONAL(ENABLE_HS7110,test "$enable_hs7110" = "yes")
 AC_SUBST(HS7110)
 
 AC_ARG_ENABLE(whitebox,
-	AS_HELP_STRING(--enable-whitebox,    enable fortis whitebox stuff),
+	AS_HELP_STRING(--enable-whitebox, enable fortis whitebox stuff),
 	[case "${enableval}" in
 		yes) WHITEBOX=whitebox ;;
 	esac],[enable_WHITEBOX=no])
@@ -462,7 +444,7 @@ AM_CONDITIONAL(ENABLE_WHITEBOX,test "$enable_whitebox" = "yes")
 AC_SUBST(WHITEBOX)
 
 AC_ARG_ENABLE(cuberevo,
-	AS_HELP_STRING(--enable-cuberevo,    enable cuberevo stuff),
+	AS_HELP_STRING(--enable-cuberevo, enable cuberevo stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO=cuberevo ;;
 	esac],[enable_cuberevo=no])
@@ -470,7 +452,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO,test "$enable_cuberevo" = "yes")
 AC_SUBST(CUBEREVO)
 
 AC_ARG_ENABLE(cuberevo_mini,
-	AS_HELP_STRING(--enable-cuberevo_mini,    enable cuberevo mini stuff),
+	AS_HELP_STRING(--enable-cuberevo_mini, enable cuberevo mini stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO_MINI=cuberevo_mini ;;
 	esac],[enable_cuberevo_mini=no])
@@ -478,7 +460,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO_MINI,test "$enable_cuberevo_mini" = "yes")
 AC_SUBST(CUBEREVO_MINI)
 
 AC_ARG_ENABLE(cuberevo_mini2,
-	AS_HELP_STRING(--enable-cuberevo_mini2,    enable cuberevo mini 2 stuff),
+	AS_HELP_STRING(--enable-cuberevo_mini2, enable cuberevo mini 2 stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO_MINI2=cuberevo_mini2 ;;
 	esac],[enable_cuberevo_mini2=no])
@@ -486,7 +468,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO_MINI2,test "$enable_cuberevo_mini2" = "yes")
 AC_SUBST(CUBEREVO_MINI2)
 
 AC_ARG_ENABLE(cuberevo_mini_fta,
-	AS_HELP_STRING(--enable-cuberevo_mini_fta,    enable cuberevo mini fta stuff),
+	AS_HELP_STRING(--enable-cuberevo_mini_fta, enable cuberevo mini fta stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO_MINI_FTA=cuberevo_mini_fta ;;
 	esac],[enable_cuberevo_mini_fta=no])
@@ -494,7 +476,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO_MINI_FTA,test "$enable_cuberevo_mini_fta" = "yes"
 AC_SUBST(CUBEREVO_MINI_FTA)
 
 AC_ARG_ENABLE(cuberevo_250hd,
-	AS_HELP_STRING(--enable-cuberevo_250hd,    enable cuberevo 250hd stuff),
+	AS_HELP_STRING(--enable-cuberevo_250hd, enable cuberevo 250hd stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO_250HD=cuberevo_250hd ;;
 	esac],[enable_cuberevo_250hd=no])
@@ -502,7 +484,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO_250HD,test "$enable_cuberevo_250hd" = "yes")
 AC_SUBST(CUBEREVO_250HD)
 
 AC_ARG_ENABLE(cuberevo_2000hd,
-	AS_HELP_STRING(--enable-cuberevo_2000hd,    enable cuberevo 2000hd stuff),
+	AS_HELP_STRING(--enable-cuberevo_2000hd, enable cuberevo 2000hd stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO_2000HD=cuberevo_2000hd ;;
 	esac],[enable_cuberevo_2000hd=no])
@@ -510,7 +492,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO_2000HD,test "$enable_cuberevo_2000hd" = "yes")
 AC_SUBST(CUBEREVO_2000HD)
 
 AC_ARG_ENABLE(cuberevo_9500hd,
-	AS_HELP_STRING(--enable-cuberevo_9500hd,    enable cuberevo 9500hd stuff),
+	AS_HELP_STRING(--enable-cuberevo_9500hd, enable cuberevo 9500hd stuff),
 	[case "${enableval}" in
 		yes) CUBEREVO_9500HD=cuberevo_9500hd ;;
 	esac],[enable_cuberevo_9500hd=no])
@@ -518,7 +500,7 @@ AM_CONDITIONAL(ENABLE_CUBEREVO_9500HD,test "$enable_cuberevo_9500hd" = "yes")
 AC_SUBST(CUBEREVO_9500HD)
 
 AC_ARG_ENABLE(homecast5101,
-	AS_HELP_STRING(--enable-homecast5101,    enable homecast 5101 stuff),
+	AS_HELP_STRING(--enable-homecast5101, enable homecast 5101 stuff),
 	[case "${enableval}" in
 		yes) HOMECAST5101=hs5101 ;;
 	esac],[enable_homecast5101=no])
@@ -526,7 +508,7 @@ AM_CONDITIONAL(ENABLE_HOMECAST5101,test "$enable_homecast5101" = "yes")
 AC_SUBST(HOMECAST5101)
 
 AC_ARG_ENABLE(ipbox9900,
-	AS_HELP_STRING(--enable-ipbox9900,    enable ipbox 9900 stuff),
+	AS_HELP_STRING(--enable-ipbox9900, enable ipbox 9900 stuff),
 	[case "${enableval}" in
 		yes) IPBOX9900=ipbox9900 ;;
 	esac],[enable_ipbox9900=no])
@@ -534,7 +516,7 @@ AM_CONDITIONAL(ENABLE_IPBOX9900,test "$enable_ipbox9900" = "yes")
 AC_SUBST(IPBOX9900)
 
 AC_ARG_ENABLE(ipbox99,
-	AS_HELP_STRING(--enable-ipbox99,    enable ipbox 99 stuff),
+	AS_HELP_STRING(--enable-ipbox99, enable ipbox 99 stuff),
 	[case "${enableval}" in
 		yes) IPBOX99=ipbox99 ;;
 	esac],[enable_ipbox99=no])
@@ -542,7 +524,7 @@ AM_CONDITIONAL(ENABLE_IPBOX99,test "$enable_ipbox99" = "yes")
 AC_SUBST(IPBOX99)
 
 AC_ARG_ENABLE(ipbox55,
-	AS_HELP_STRING(--enable-ipbox55,    enable ipbox 55 stuff),
+	AS_HELP_STRING(--enable-ipbox55, enable ipbox 55 stuff),
 	[case "${enableval}" in
 		yes) IPBOX55=ipbox55 ;;
 	esac],[enable_ipbox55=no])
@@ -550,12 +532,12 @@ AM_CONDITIONAL(ENABLE_IPBOX55,test "$enable_ipbox55" = "yes")
 AC_SUBST(IPBOX55)
 
 AC_ARG_ENABLE(enable_vdr1711,
-	AS_HELP_STRING(--enable-vdr1711,	set up the CDK to use vdr 1.7.11),
+	AS_HELP_STRING(--enable-vdr1711, set up the CDK to use vdr 1.7.11),
 	,[enable_vdr1711=no])
 AM_CONDITIONAL(ENABLE_VDR1711,test "$enable_vdr1711" = "yes")
 
 AC_ARG_ENABLE(vdr1722,
-	AS_HELP_STRING(--enable-vdr1722,    enable vdr-1.7.22 stuff),
+	AS_HELP_STRING(--enable-vdr1722, enable vdr-1.7.22 stuff),
 	[case "${enableval}" in
 		yes) VDR1722=vdr1722 ;;
 	esac],[enable_vdr1722=no])
@@ -563,7 +545,7 @@ AM_CONDITIONAL(ENABLE_VDR1722,test "$enable_vdr1722" = "yes")
 AC_SUBST(VDR1722)
 
 AC_ARG_ENABLE(vdr1727,
-	AS_HELP_STRING(--enable-vdr1727,    enable vdr-1.7.27 stuff),
+	AS_HELP_STRING(--enable-vdr1727, enable vdr-1.7.27 stuff),
 	[case "${enableval}" in
 		yes) VDR1722=vdr1727 ;;
 	esac],[enable_vdr1727=no])
@@ -582,27 +564,27 @@ if test "$prefix" = "NONE"; then
 fi
 
 AC_ARG_WITH(targetprefix,
-	[  --with-targetprefix=DIR prefix for target files [[PREFIX/cdkroot]]],
+	[  --with-targetprefix=DIR    prefix for target files [[PREFIX/cdkroot]]],
 	[targetprefix="$with_targetprefix"],[targetprefix="${prefix}/cdkroot"])
 
 AC_ARG_WITH(hostprefix,
-	[  --with-hostprefix=DIR   prefix for host files [[PREFIX/host]]],
+	[  --with-hostprefix=DIR    prefix for host files [[PREFIX/host]]],
 	[hostprefix="$with_hostprefix"],[hostprefix="${prefix}/host"])
 
 AC_ARG_WITH(bootprefix,
-	[  --with-bootprefix=DIR   prefix for boot files [[PREFIX/cdkroot-tftpboot]]],
+	[  --with-bootprefix=DIR    prefix for boot files [[PREFIX/cdkroot-tftpboot]]],
 	[bootprefix="$with_bootprefix"],[bootprefix="${prefix}/cdkroot-tftpboot"])
 
 AC_ARG_WITH(serversupport,
-	[  --with-serversupport=DIR  prefix for server file templates [[PREFIX/serversupport]]],
+	[  --with-serversupport=DIR    prefix for server file templates [[PREFIX/serversupport]]],
 	[serversupport="$with_serversupport"],[serversupport="${prefix}/serversupport"])
 
 AC_ARG_WITH(customizationsdir,
-	[  --with-customizationsdir=DIR  optional directory containing customization scripts [[[CVS]]]],
+	[  --with-customizationsdir=DIR    optional directory containing customization scripts [[[CVS]]]],
 	[customizationsdir="$with_customizationsdir"],[customizationsdir="`pwd`"])
 
 AC_ARG_WITH(updatehttpprefix,
-	[  --with-updatehttpprefix=URL  optional URL containing the URL of a directory with update images [[NONE]]],
+	[  --with-updatehttpprefix=URL    optional URL containing the URL of a directory with update images [[NONE]]],
 	[updatehttpprefix="$with_updatehttpprefix"],[updatehttpprefix=])
 
 buildprefix=`pwd`
@@ -615,7 +597,7 @@ AC_SUBST(customizationsdir)
 AC_SUBST(updatehttpprefix)
 
 AC_ARG_WITH(checkImage,
-	[  --with-checkImage=[[none,rename,warn]]	How/if to invoke checkImage [[none]]],
+	[  --with-checkImage=[[none,rename,warn]] How/if to invoke checkImage [[none]]],
 	[CHECKIMAGE_BEHAVIOR="$withval"],[CHECKIMAGE_BEHAVIOR="true"])
 if [[ "$withval" = "rename" ]] ; then
 	TUXBOX_CHECKIMAGE='$(hostprefix)/bin/checkImage $@ || mv $@ $@_bad'
@@ -627,19 +609,19 @@ fi
 AC_SUBST(TUXBOX_CHECKIMAGE)
 
 AC_ARG_WITH(archivedir,
-	[  --with-archivedir=DIR   where to store downloaded files [[Archive/]]],
+	[  --with-archivedir=DIR    where to store downloaded files [[Archive/]]],
 	[archivedir="$with_archivedir"],[archivedir="$buildprefix/Archive"])
 
 AC_ARG_WITH(cvsdir,
-	[  --with-cvsdir=DIR       where to find the cvs],
+	[  --with-cvsdir=DIR    where to find the cvs],
 	[cvsdir="$with_cvsdir"],[cvsdir="NONE"])
 
 AC_ARG_WITH(appsdir,
-	[  --with-appsdir=DIR      apps dir from cvs [[[CVS/]apps/]]],
+	[  --with-appsdir=DIR    apps dir from cvs [[[CVS/]apps/]]],
 	[appsdir="$with_appsdir"],[appsdir="NONE"])
 
 AC_ARG_WITH(bootdir,
-	[  --with-bootdir=DIR      boot dir from cvs [[[CVS/]boot/]]],
+	[  --with-bootdir=DIR    boot dir from cvs [[[CVS/]boot/]]],
 	[bootdir="$with_bootdir"],[bootdir="NONE"])
 
 AC_ARG_WITH(driverdir,
@@ -647,15 +629,15 @@ AC_ARG_WITH(driverdir,
 	[driverdir="$with_driverdir"],[driverdir="NONE"])
 
 AC_ARG_WITH(hostappsdir,
-	[  --with-hostappsdir=DIR  hostapps dir from cvs [[[CVS/]hostapps]]],
+	[  --with-hostappsdir=DIR    hostapps dir from cvs [[[CVS/]hostapps]]],
 	[hostappsdir="$with_hostappsdir"],[hostappsdir="NONE"])
 
 AC_ARG_WITH(gnuserver,
-	[  --with-gnuserver=ADDRESS   the gnu server for gnu-stuff (without ftp://)],
+	[  --with-gnuserver=ADDRESS    the gnu server for gnu-stuff (without ftp://)],
 	[gnuserver="$with_gnuserver"],[gnuserver=ftp.gwdg.de/pub/misc/gnu/ftp/gnu])
 
 AC_ARG_WITH(defaultserver,
-	[  --with-defaultserver=ADDRESS   the server that is taken if no server is given/works (without http://)],
+	[  --with-defaultserver=ADDRESS    the server that is taken if no server is given/works (without http://)],
 	[defaultserver="$with_defaultserver"],[defaultserver="NONE"])
 
 if test "$cvsdir" = "NONE"; then
@@ -794,9 +776,6 @@ AC_SUBST(DISTCLEANUP)
 AC_SUBST(KERNELVERSION)
 AC_SUBST(KERNELSTMLABEL)
 AC_SUBST(KERNELLABEL)
-TUXBOX_RULES_MAKE(linux)
-TUXBOX_RULES_MAKE(linuxp0040)
-TUXBOX_RULES_MAKE(linuxp0041)
 TUXBOX_RULES_MAKE(linux23)
 TUXBOX_RULES_MAKE(linuxp0119)
 TUXBOX_RULES_MAKE(linuxp0123)
@@ -810,18 +789,6 @@ TUXBOX_RULES_MAKE(linuxp0210)
 TUXBOX_RULES_MAKE(linuxp0211)
 TUXBOX_RULES_MAKE(linuxp0302)
 
-if test "$enable_stm22" = "yes"; then
-	if test "$enable_p0040" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0040}
-		KERNELSTMLABEL="_${VERSION_linuxp0040#*_}"
-	elif test "$enable_p0041" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0041}
-		KERNELSTMLABEL="_${VERSION_linuxp0041#*_}"
-	else
-		KERNELVERSION=${VERSION_linux}
-		KERNELSTMLABEL="_${VERSION_linux#*_}"
-	fi
-else
 if test "$enable_stm23" = "yes"; then
 	if test "$enable_p0123" == "yes"; then
 		KERNELVERSION=${VERSION_linuxp0123}
@@ -871,10 +838,8 @@ else
 		KERNELLABEL="201"
 	fi
 fi
-fi
 
 AC_SUBST(EXTERNALLCD_DEP)
-
 if test "$enable_externallcd" == "yes"; then
 	EXTERNALLCD="yes"
 	EXTERNALLCD_DEP="graphlcd"
@@ -885,7 +850,6 @@ fi
 
 AC_SUBST(MEDIAFW)
 AC_SUBST(MEDIAFW_DEP)
-
 if test "$enable_mediafwgstreamer" == "yes"; then
 	MEDIAFW="gstreamer"
 	MEDIAFW_DEP="gst_plugins_dvbmediasink"
@@ -896,7 +860,6 @@ fi
 
 AC_SUBST(GRAPHICFW)
 AC_SUBST(GRAPHICFW_DEP)
-
 if test "$enable_graphicfwdirectfb" == "yes"; then
 	GRAPHICFW="directfb"
 	GRAPHICFW_DEP="directfb"
@@ -905,13 +868,6 @@ else
 	GRAPHICFW_DEP=""
 fi
 
-
-
-#TUXBOX_RULES_MAKE_EXDIR(binutils)
-#TUXBOX_RULES_MAKE_EXDIR(bootstrap_gcc)
-#TUXBOX_RULES_MAKE_EXDIR(glibc)
-#TUXBOX_RULES_MAKE_EXDIR(gcc)
-#TUXBOX_RULES_MAKE(uclibc)
 
 #
 # core
@@ -1163,17 +1119,17 @@ RPMMAJOR=`rpm --version | awk '{print $NF}' | cut -d '.' -f 1`
 RPMMINOR=`rpm --version | awk '{print $NF}' | cut -d '.' -f 2`
 
 if test ${RPMMAJOR} -lt 4 -o ${RPMMAJOR} -eq 4 -a ${RPMMINOR} -lt 7 ; then
-  # RPM < 4.7
-  echo "macrofiles: ${macrofiles}" > localrc
-  DRPMBUILD="--rcfile /usr/lib/rpm/rpmrc:localrc"
-  DRPM=${DRPMBUILD}
+	# RPM < 4.7
+	echo "macrofiles: ${macrofiles}" > localrc
+	DRPMBUILD="--rcfile /usr/lib/rpm/rpmrc:localrc"
+	DRPM=${DRPMBUILD}
 else
-  # RPM > 4.7
-  DRPMBUILD="--macros ${macrofiles}"
-  case `lsb_release -s -i` in
-    Ubuntu* | Debian* ) DRPM="--force-debian ${DRPMBUILD}" ;;
-    *) DRPM=${DRPMBUILD} ;;
-  esac
+	# RPM > 4.7
+	DRPMBUILD="--macros ${macrofiles}"
+	case `lsb_release -s -i` in
+		Ubuntu* | Debian* ) DRPM="--force-debian ${DRPMBUILD}" ;;
+		*) DRPM=${DRPMBUILD} ;;
+	esac
 fi
 
 AC_SUBST(DRPM)
@@ -1200,12 +1156,8 @@ target cpu/boxtype          : $CPU_ARCH / $BOXTYPE
 linux kernel                : ${KERNELVERSION%.*}
 kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
-STLinux 2.2                 : $enable_stm22
 STLinux 2.3                 : $enable_stm23
-STLinux 2.3_Havana          : $enable_havana
 STLinux 2.4                 : $enable_stm24
-Patchlevel P0040            : $enable_p0040
-Patchlevel P0041            : $enable_p0041
 Patchlevel P0119            : $enable_p0119
 Patchlevel P0123            : $enable_p0123
 Patchlevel P0201            : $enable_p0201
@@ -1216,7 +1168,6 @@ Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210
 Patchlevel P0211            : $enable_p0211
 Patchlevel P0302            : $enable_p0302
-HAVANA Patchlevel P0207_5   : $enable_havana_p0207_5
 vdr VDR 1.7.11              : $enable_vdr1711
 vdr VDR 1.7.22              : $enable_vdr1722
 vdr VDR 1.7.27              : $enable_vdr1727

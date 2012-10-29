@@ -11,23 +11,6 @@ AUTOMAKE_OPTIONS = -Wno-portability
 
 #######################################      #########################################
 
-if STM22
-if P0040
-KERNEL_DEPENDS = @DEPENDS_linuxp0040@
-KERNEL_DIR = @DIR_linuxp0040@
-KERNEL_PREPARE = @PREPARE_linuxp0040@
-else !P0040
-if P0041
-KERNEL_DEPENDS = @DEPENDS_linuxp0041@
-KERNEL_DIR = @DIR_linuxp0041@
-KERNEL_PREPARE = @PREPARE_linuxp0041@
-else !P0041
-KERNEL_DEPENDS = @DEPENDS_linux@
-KERNEL_DIR = @DIR_linux@
-KERNEL_PREPARE = @PREPARE_linux@
-endif !P0041
-endif !P0040
-else !STM22
 if STM23
 if ENABLE_P0119
 KERNEL_DEPENDS = @DEPENDS_linux23@
@@ -79,15 +62,9 @@ endif
 KERNEL_PREPARE = @PREPARE_linux24@
 # endif STM24
 endif !STM23
-endif !STM22
 
 #######################################      #########################################
 
-if STM22
-STLINUX := stlinux22
-STM_SRC := stlinux23
-STM_RELOCATE := /opt/STM/STLinux-2.2
-else !STM22
 if STM23
 STLINUX := stlinux23
 STM_SRC := $(STLINUX)
@@ -99,7 +76,6 @@ STM_SRC := $(STLINUX)
 STM_RELOCATE := /opt/STM/STLinux-2.4
 # endif STM24
 endif !STM23
-endif !STM22
 
 #######################################      #########################################
 
@@ -208,6 +184,39 @@ PLATFORM_CPPFLAGS := \
 	$(if $(IPBOX9900),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX9900 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include") \
 	$(if $(IPBOX99),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX99 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include") \
 	$(if $(IPBOX55),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX55 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include")
+
+DRIVER_PLATFORM := \
+		$(if $(UFS910),UFS910=$(UFS910)) \
+		$(if $(FORTIS_HDBOX),FORTIS_HDBOX=$(FORTIS_HDBOX)) \
+		$(if $(ATEVIO7500),ATEVIO7500=$(ATEVIO7500)) \
+		$(if $(OCTAGON1008),OCTAGON1008=$(OCTAGON1008)) \
+		$(if $(HS7810A),HS7810A=$(HS7810A)) \
+		$(if $(HS7110),HS7110=$(HS7110)) \
+		$(if $(WHITEBOX),WHITEBOX=$(WHITEBOX)) \
+		$(if $(TF7700),TF7700=$(TF7700)) \
+		$(if $(HL101),HL101=$(HL101)) \
+		$(if $(VIP1_V2),VIP1_V2=$(VIP1_V2)) \
+		$(if $(VIP2_V1),VIP2_V1=$(VIP2_V1)) \
+		$(if $(UFS922),UFS922=$(UFS922)) \
+		$(if $(UFS912),UFS912=$(UFS912)) \
+		$(if $(UFS913),UFS913=$(UFS913)) \
+		$(if $(SPARK),SPARK=$(SPARK)) \
+		$(if $(SPARK7162),SPARK7162=$(SPARK7162)) \
+		$(if $(ADB_BOX),ADB_BOX=$(ADB_BOX)) \
+		$(if $(CUBEREVO),CUBEREVO=$(CUBEREVO)) \
+		$(if $(CUBEREVO_MINI),CUBEREVO_MINI=$(CUBEREVO_MINI)) \
+		$(if $(CUBEREVO_MINI2),CUBEREVO_MINI2=$(CUBEREVO_MINI2)) \
+		$(if $(CUBEREVO_MINI_FTA),CUBEREVO_MINI_FTA=$(CUBEREVO_MINI_FTA)) \
+		$(if $(CUBEREVO_250HD),CUBEREVO_250HD=$(CUBEREVO_250HD)) \
+		$(if $(CUBEREVO_2000HD),CUBEREVO_2000HD=$(CUBEREVO_2000HD)) \
+		$(if $(CUBEREVO_9500HD),CUBEREVO_9500HD=$(CUBEREVO_9500HD)) \
+		$(if $(HOMECAST5101),HOMECAST5101=$(HOMECAST5101)) \
+		$(if $(IPBOX9900),IPBOX9900=$(IPBOX9900)) \
+		$(if $(IPBOX99),IPBOX99=$(IPBOX99)) \
+		$(if $(IPBOX55),IPBOX55=$(IPBOX55)) \
+		$(if $(PLAYER131),PLAYER131=$(PLAYER131)) \
+		$(if $(PLAYER179),PLAYER179=$(PLAYER179)) \
+		$(if $(PLAYER191),PLAYER191=$(PLAYER191))
 
 DEPDIR = .deps
 

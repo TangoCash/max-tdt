@@ -680,9 +680,6 @@ if ENABLE_PLAYER191
 	done
 endif
 
-if STM22
-	rm $(prefix)/release_vdrdev2/lib/modules/p2div64.ko
-endif
 	rm -rf $(prefix)/release_vdrdev2/lib/autofs
 	rm -rf $(prefix)/release_vdrdev2/lib/modules/$(KERNELVERSION)
 
@@ -849,11 +846,7 @@ endif
 #######################################################################################
 #######################################################################################
 
-if STM22
-	cp $(kernelprefix)/linux/arch/sh/boot/uImage $(prefix)/release_vdrdev2/boot/
-else
 	cp $(kernelprefix)/linux-sh4/arch/sh/boot/uImage $(prefix)/release_vdrdev2/boot/
-endif
 
 if STM24
 	[ -e $(kernelprefix)/linux-sh4/fs/autofs4/autofs4.ko ] && cp $(kernelprefix)/linux-sh4/fs/autofs4/autofs4.ko $(prefix)/release_vdrdev2/lib/modules || true

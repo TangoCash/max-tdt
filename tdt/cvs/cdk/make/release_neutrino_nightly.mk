@@ -773,10 +773,6 @@ endif
 #
 	rm -rf $(prefix)/release/lib/autofs
 	rm -rf $(prefix)/release/lib/modules/$(KERNELVERSION)
-
-if STM22
-	rm $(prefix)/release/lib/modules/p2div64.ko
-endif
 	rm -rf $(prefix)/release/usr/lib/alsa-lib
 	rm -rf $(prefix)/release/usr/lib/alsaplayer
 

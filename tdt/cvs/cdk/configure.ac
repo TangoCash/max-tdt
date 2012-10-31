@@ -70,11 +70,6 @@ AC_ARG_ENABLE(multicom324,
 AM_CONDITIONAL(ENABLE_MULTICOM324,test "$enable_multicom324" = "yes")
 AC_SUBST(MULTICOM324)
 
-AC_ARG_ENABLE(stm22,
-	AS_HELP_STRING(--enable-stm22, set up the CDK to use the STLinux 2.2),
-	,[enable_stm22=no])
-AM_CONDITIONAL(STM22,test "$enable_stm22" = "yes")
-
 AC_ARG_ENABLE(stm23,
 	AS_HELP_STRING(--enable-stm23, set up the CDK to use the STLinux 2.3),
 	,[enable_stm23=no])

@@ -11,11 +11,7 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 #
 # libz
 #
-if !STM22
-LIBZ_ORDER = binutils binutils-dev
-endif !STM22
-
-$(DEPDIR)/libz.do_prepare: bootstrap @DEPENDS_libz@ $(if $(LIBZ_ORDER),| $(LIBZ_ORDER))
+$(DEPDIR)/libz.do_prepare: bootstrap binutils binutils-dev @DEPENDS_libz@
 	@PREPARE_libz@
 	touch $@
 

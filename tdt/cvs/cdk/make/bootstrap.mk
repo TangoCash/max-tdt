@@ -35,20 +35,12 @@ $(hostprefix)/ccache-bin/gcc: | $(CCACHE)
 # HOST-RPMCONFIG
 #
 HOST_RPMCONFIG = host-rpmconfig
-if STM22
-HOST_RPMCONFIG_VERSION = 2.2-10
-HOST_RPMCONFIG_SPEC = stm-$(HOST_RPMCONFIG)-2.2.spec
-HOST_RPMCONFIG_SPEC_PATCH = stm-$(HOST_RPMCONFIG).spec22.diff
-HOST_RPMCONFIG_PATCHES = stm-$(HOST_RPMCONFIG)-compress_man-allways-true.patch \
-			 stm-$(HOST_RPMCONFIG)-autoreconf-add-libtool-macros22.patch
-else !STM22
 if STM23
 HOST_RPMCONFIG_VERSION = 2.3-16
 HOST_RPMCONFIG_SPEC = stm-$(HOST_RPMCONFIG).spec
 HOST_RPMCONFIG_SPEC_PATCH = stm-$(HOST_RPMCONFIG).spec23.diff
 HOST_RPMCONFIG_PATCHES = stm-$(HOST_RPMCONFIG)-autoreconf-add-libtool-macros23.patch \
 			 stm-$(HOST_RPMCONFIG)-config_sub-dir.patch
-
 else !STM23
 # if STM24
 HOST_RPMCONFIG_VERSION = 2.4-30
@@ -58,7 +50,7 @@ HOST_RPMCONFIG_PATCHES = stm-$(HOST_RPMCONFIG)-$(HOST_RPMCONFIG_VERSION)-ignore-
 			 stm-$(HOST_RPMCONFIG)-$(HOST_RPMCONFIG_VERSION)-autoreconf-add-libtool-macros.patch
 # endif STM24
 endif !STM23
-endif !STM22
+
 HOST_RPMCONFIG_RPM = RPMS/noarch/$(STLINUX)-$(HOST_RPMCONFIG)-$(HOST_RPMCONFIG_VERSION).noarch.rpm
 
 $(HOST_RPMCONFIG_RPM): \
@@ -105,12 +97,6 @@ endif STM24
 # HOST-BASE-PASSWD
 #
 HOST_BASE_PASSWD = host-base-passwd
-if STM22
-HOST_BASE_PASSWD_VERSION = 3.5.9-3
-HOST_BASE_PASSWD_SPEC = stm-$(HOST_BASE_PASSWD).spec
-HOST_BASE_PASSWD_SPEC_PATCH = $(HOST_BASE_PASSWD_SPEC)22.diff
-HOST_BASE_PASSWD_PATCHES =
-else !STM22
 if STM23
 HOST_BASE_PASSWD_VERSION = 3.5.9-6
 HOST_BASE_PASSWD_SPEC = stm-$(HOST_BASE_PASSWD).spec
@@ -124,7 +110,7 @@ HOST_BASE_PASSWD_SPEC_PATCH =
 HOST_BASE_PASSWD_PATCHES =
 # endif STM24
 endif !STM23
-endif !STM22
+
 HOST_BASE_PASSWD_RPM = RPMS/sh4/$(STLINUX)-$(HOST_BASE_PASSWD)-$(HOST_BASE_PASSWD_VERSION).sh4.rpm
 
 $(HOST_BASE_PASSWD_RPM): \
@@ -145,12 +131,6 @@ $(HOST_BASE_PASSWD): $(HOST_BASE_PASSWD_RPM)
 # HOST-DISTRIBUTIONUTILS
 #
 HOST_DISTRIBUTIONUTILS = host-distributionutils
-if STM22
-HOST_DISTRIBUTIONUTILS_VERSION = 2.8.4-4
-HOST_DISTRIBUTIONUTILS_SPEC = stm-$(HOST_DISTRIBUTIONUTILS).spec
-HOST_DISTRIBUTIONUTILS_SPEC_PATCH =
-HOST_DISTRIBUTIONUTILS_PATCHES =
-else !STM22
 if STM23
 HOST_DISTRIBUTIONUTILS_VERSION = 2.8.4-4
 HOST_DISTRIBUTIONUTILS_SPEC = stm-$(HOST_DISTRIBUTIONUTILS).spec
@@ -164,7 +144,7 @@ HOST_DISTRIBUTIONUTILS_SPEC_PATCH =
 HOST_DISTRIBUTIONUTILS_PATCHES =
 # endif STM24
 endif !STM23
-endif !STM22
+
 HOST_DISTRIBUTIONUTILS_RPM = RPMS/$(host_arch)/$(STLINUX)-$(HOST_DISTRIBUTIONUTILS)-$(HOST_DISTRIBUTIONUTILS_VERSION).$(host_arch).rpm
 
 $(HOST_DISTRIBUTIONUTILS_RPM): \
@@ -185,12 +165,6 @@ $(HOST_DISTRIBUTIONUTILS): $(HOST_DISTRIBUTIONUTILS_RPM)
 # HOST AUTOTOOLS
 #
 HOST_AUTOTOOLS = host-autotools
-if STM22
-HOST_AUTOTOOLS_VERSION = 2.0-8
-HOST_AUTOTOOLS_SPEC = stm-$(HOST_AUTOTOOLS).spec
-HOST_AUTOTOOLS_SPEC_PATCH = $(HOST_AUTOTOOLS_SPEC)22.diff
-HOST_AUTOTOOLS_PATCHES =
-else !STM22
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 HOST_AUTOTOOLS_VERSION = dev-20091012-2
@@ -205,7 +179,7 @@ HOST_AUTOTOOLS_SPEC_PATCH =
 HOST_AUTOTOOLS_PATCHES =
 # endif STM24
 endif !STM23
-endif !STM22
+
 HOST_AUTOTOOLS_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOTOOLS)-$(HOST_AUTOTOOLS_VERSION).sh4.rpm
 
 $(HOST_AUTOTOOLS_RPM): \
@@ -224,7 +198,6 @@ $(DEPDIR)/$(HOST_AUTOTOOLS): $(HOST_AUTOTOOLS_RPM)
 #
 # HOST AUTOMAKE
 #
-if !STM22
 HOST_AUTOMAKE = host-automake
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -240,6 +213,7 @@ HOST_AUTOMAKE_SPEC_PATCH =
 HOST_AUTOMAKE_PATCHES =
 # endif STM24
 endif !STM23
+
 HOST_AUTOMAKE_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOMAKE)-$(HOST_AUTOMAKE_VERSION).sh4.rpm
 
 $(HOST_AUTOMAKE_RPM): \
@@ -254,12 +228,10 @@ $(HOST_AUTOMAKE_RPM): \
 $(DEPDIR)/$(HOST_AUTOMAKE): $(HOST_AUTOMAKE_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch $@
-endif !STM22
 
 #
 # HOST AUTOCONF
 #
-if !STM22
 HOST_AUTOCONF = host-autoconf
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -275,6 +247,7 @@ HOST_AUTOCONF_SPEC_PATCH = stm-$(HOST_AUTOCONF).$(HOST_AUTOCONF_VERSION).spec.di
 HOST_AUTOCONF_PATCHES = stm-$(HOST_AUTOCONF).$(HOST_AUTOCONF_VERSION).diff
 # endif STM24
 endif !STM23
+
 HOST_AUTOCONF_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOCONF)-$(HOST_AUTOCONF_VERSION).sh4.rpm
 
 $(HOST_AUTOCONF_RPM): \
@@ -289,12 +262,10 @@ $(HOST_AUTOCONF_RPM): \
 $(DEPDIR)/$(HOST_AUTOCONF): $(HOST_AUTOCONF_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch $@
-endif !STM22
 
 #
 # HOST PKGCONFIG
 #
-if !STM22
 HOST_PKGCONFIG = host-pkg-config
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -310,6 +281,7 @@ HOST_PKGCONFIG_SPEC_PATCH =
 HOST_PKGCONFIG_PATCHES =
 # endif STM24
 endif !STM23
+
 HOST_PKGCONFIG_RPM = RPMS/sh4/$(STLINUX)-$(HOST_PKGCONFIG)-$(HOST_PKGCONFIG_VERSION).sh4.rpm
 
 $(HOST_PKGCONFIG_RPM): \
@@ -324,18 +296,11 @@ $(HOST_PKGCONFIG_RPM): \
 $(DEPDIR)/$(HOST_PKGCONFIG): $(HOST_PKGCONFIG_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch $@
-endif !STM22
 
 #
 # HOST-MTD-UTILS
 #
 HOST_MTD_UTILS = host-mtd-utils
-if STM22
-HOST_MTD_UTILS_VERSION = 1.0.1-8
-HOST_MTD_UTILS_SPEC = stm-$(HOST_MTD_UTILS).spec
-HOST_MTD_UTILS_SPEC_PATCH =
-HOST_MTD_UTILS_PATCHES =
-else !STM22
 if STM23
 HOST_MTD_UTILS_VERSION = 1.0.1-8
 HOST_MTD_UTILS_SPEC = stm-$(HOST_MTD_UTILS).spec
@@ -349,7 +314,7 @@ HOST_MTD_UTILS_SPEC_PATCH =
 HOST_MTD_UTILS_PATCHES =
 # endif STM24
 endif !STM23
-endif !STM22
+
 HOST_MTD_UTILS_RPM = RPMS/sh4/$(STLINUX)-$(HOST_MTD_UTILS)-$(HOST_MTD_UTILS_VERSION).sh4.rpm
 
 # Workaround for stm24, where is the host-lzo package available?
@@ -388,6 +353,7 @@ HOST_FLEX_VERSION = 2.5.35-2
 HOST_FLEX_SPEC = stm-$(HOST_FLEX).spec
 HOST_FLEX_SPEC_PATCH =
 HOST_FLEX_PATCHES =
+
 HOST_FLEX_RPM = RPMS/sh4/$(STLINUX)-$(HOST_FLEX)-$(HOST_FLEX_VERSION).sh4.rpm
 
 $(HOST_FLEX_RPM): \
@@ -412,6 +378,7 @@ HOST_LIBFFI_VERSION = 3.0.10-2
 HOST_LIBFFI_SPEC = stm-$(HOST_LIBFFI).spec
 HOST_LIBFFI_SPEC_PATCH = #$(HOST_LIBFFI_SPEC).$(HOST_LIBFFI_VERSION).diff
 HOST_LIBFFI_PATCHES =
+
 HOST_LIBFFI_RPM = RPMS/sh4/$(STLINUX)-$(HOST_LIBFFI)-$(HOST_LIBFFI_VERSION).sh4.rpm
 
 $(HOST_LIBFFI_RPM): \
@@ -437,6 +404,7 @@ HOST_GLIB2_VERSION = 2.32.1-26
 HOST_GLIB2_SPEC = stm-$(HOST_GLIB2).spec
 HOST_GLIB2_SPEC_PATCH = $(HOST_GLIB2_SPEC).$(HOST_GLIB2_VERSION).diff
 HOST_GLIB2_PATCHES =
+
 HOST_GLIB2_RPM = RPMS/sh4/$(STLINUX)-$(HOST_GLIB2)-$(HOST_GLIB2_VERSION).sh4.rpm
 
 $(HOST_GLIB2_RPM): \
@@ -491,12 +459,6 @@ cross-sh4-filesystem:
 # CROSS_DISTRIBUTIONUTILS
 #
 CROSS_DISTRIBUTIONUTILS = cross-sh4-distributionutils
-if STM22
-CROSS_DISTRIBUTIONUTILS_VERSION = 1.14-3
-CROSS_DISTRIBUTIONUTILS_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_DISTRIBUTIONUTILS)).spec
-CROSS_DISTRIBUTIONUTILS_SPEC_PATCH = $(CROSS_DISTRIBUTIONUTILS_SPEC)22.diff
-CROSS_DISTRIBUTIONUTILS_PATCHES = hardhatutils-srcdir.diff
-else !STM22
 if STM23
 CROSS_DISTRIBUTIONUTILS_VERSION = 1.14-5
 CROSS_DISTRIBUTIONUTILS_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_DISTRIBUTIONUTILS)).spec
@@ -510,7 +472,7 @@ CROSS_DISTRIBUTIONUTILS_SPEC_PATCH =
 CROSS_DISTRIBUTIONUTILS_PATCHES =
 # endif STM24
 endif !STM23
-endif !STM22
+
 CROSS_DISTRIBUTIONUTILS_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_DISTRIBUTIONUTILS)-$(CROSS_DISTRIBUTIONUTILS_VERSION).$(host_arch).rpm
 
 $(CROSS_DISTRIBUTIONUTILS_RPM): \
@@ -523,28 +485,15 @@ $(CROSS_DISTRIBUTIONUTILS_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild  $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(CROSS_DISTRIBUTIONUTILS_SPEC)
 
-if STM22
-$(CROSS_DISTRIBUTIONUTILS): $(CROSS_DISTRIBUTIONUTILS_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
-	$(LN_SF) $(hostprefix)/bin/target-initdconfig $(crossprefix)/bin/target-initdconfig
-	touch .deps/$(notdir $@)
-else
 $(CROSS_DISTRIBUTIONUTILS): $(CROSS_DISTRIBUTIONUTILS_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch .deps/$(notdir $@)
-endif
 
 #
 # CROSS BINUTILS
 #
 CROSS_BINUTILS = cross-sh4-binutils
 CROSS_BINUTILS_DEV = cross-sh4-binutils-dev
-if STM22
-CROSS_BINUTILS_VERSION = 2.17.50.0.4-13
-CROSS_BINUTILS_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_BINUTILS))-sh4processed.spec
-CROSS_BINUTILS_SPEC_PATCH = $(CROSS_BINUTILS_SPEC)22.diff
-CROSS_BINUTILS_PATCHES = stm-cross-binutils.diff
-else !STM22
 if STM23
 CROSS_BINUTILS_VERSION = 2.18.50.0.8-34
 CROSS_BINUTILS_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_BINUTILS)).spec
@@ -558,7 +507,7 @@ CROSS_BINUTILS_SPEC_PATCH = $(CROSS_BINUTILS_SPEC).$(CROSS_BINUTILS_VERSION).dif
 CROSS_BINUTILS_PATCHES =
 # endif STM24
 endif !STM23
-endif !STM22
+
 CROSS_BINUTILS_RPM = RPMS/${host_arch}/$(STLINUX)-$(CROSS_BINUTILS)-$(CROSS_BINUTILS_VERSION).${host_arch}.rpm
 CROSS_BINUTILS_DEV_RPM = RPMS/${host_arch}/$(STLINUX)-$(CROSS_BINUTILS_DEV)-$(CROSS_BINUTILS_VERSION).${host_arch}.rpm
 
@@ -583,7 +532,6 @@ $(CROSS_BINUTILS_DEV): $(CROSS_BINUTILS_DEV_RPM)
 #
 # CROSS GMP
 #
-if !STM22
 if STM23
 CROSS_GMP = cross-sh4-gmp
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -591,7 +539,6 @@ CROSS_GMP_VERSION = 4.3.2-6
 CROSS_GMP_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_GMP)).spec
 CROSS_GMP_SPEC_PATCH =
 CROSS_GMP_PATCHES =
-CROSS_GMP_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_GMP)-$(CROSS_GMP_VERSION).$(host_arch).rpm
 else !STM23
 # if STM24
 CROSS_GMP = cross-sh4-gmp
@@ -599,9 +546,10 @@ CROSS_GMP_VERSION = $(if $(OLDSTM24),4.3.2-8,5.0.2-10)
 CROSS_GMP_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_GMP)).spec
 CROSS_GMP_SPEC_PATCH = $(CROSS_GMP_SPEC).$(CROSS_GMP_VERSION).diff
 CROSS_GMP_PATCHES =
-CROSS_GMP_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_GMP)-$(CROSS_GMP_VERSION).$(host_arch).rpm
 # endif STM24
 endif !STM23
+
+CROSS_GMP_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_GMP)-$(CROSS_GMP_VERSION).$(host_arch).rpm
 
 $(CROSS_GMP_RPM): \
 		$(addprefix Patches/,$(CROSS_GMP_SPEC_PATCH) $(CROSS_GMP_PATCHES)) \
@@ -615,12 +563,10 @@ $(CROSS_GMP_RPM): \
 $(DEPDIR)/$(CROSS_GMP): $(CROSS_GMP_RPM)
 	@rpm $(DRPM) --nodeps -Uhv $(lastword $^) && \
 	touch $@
-endif !STM22
 
 #
 # CROSS MPFR
 #
-if !STM22
 CROSS_MPFR = cross-sh4-mpfr
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -636,6 +582,7 @@ CROSS_MPFR_SPEC_PATCH = $(CROSS_MPFR_SPEC).$(CROSS_MPFR_VERSION).diff
 CROSS_MPFR_PATCHES =
 # endif STM24
 endif !STM23
+
 CROSS_MPFR_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_MPFR)-$(CROSS_MPFR_VERSION).$(host_arch).rpm
 
 $(CROSS_MPFR_RPM): \
@@ -650,7 +597,6 @@ $(CROSS_MPFR_RPM): \
 $(DEPDIR)/$(CROSS_MPFR): $(CROSS_GMP) $(CROSS_MPFR_RPM)
 	@rpm $(DRPM) --nodeps -Uhv $(lastword $^) && \
 	touch $@
-endif !STM22
 
 #
 # CROSS MPC
@@ -661,6 +607,7 @@ CROSS_MPC_VERSION = $(if $(OLDSTM24),0.8.2-3,0.9-4)
 CROSS_MPC_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_MPC)).spec
 CROSS_MPC_SPEC_PATCH = $(CROSS_MPC_SPEC).$(CROSS_MPC_VERSION).diff
 CROSS_MPC_PATCHES =
+
 CROSS_MPC_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_MPC)-$(CROSS_MPC_VERSION).$(host_arch).rpm
 
 $(CROSS_MPC_RPM): \
@@ -686,6 +633,7 @@ CROSS_LIBELF_VERSION = $(if $(OLDSTM24),0.8.13-1,0.8.13-1)
 CROSS_LIBELF_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_LIBELF)).spec
 CROSS_LIBELF_SPEC_PATCH = $(if $(OLDSTM24),$(CROSS_LIBELF_SPEC).$(CROSS_LIBELF_VERSION).diff,)
 CROSS_LIBELF_PATCHES =
+
 CROSS_LIBELF_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_LIBELF)-$(CROSS_LIBELF_VERSION).$(host_arch).rpm
 
 $(CROSS_LIBELF_RPM): \
@@ -710,15 +658,6 @@ CROSS_CPP = cross-sh4-cpp
 CROSS_G++ = cross-sh4-g++
 CROSS_PROTOIZE = cross-sh4-protoize
 CROSS_LIBGCC = cross-sh4-libgcc
-if STM22
-CROSS_GCC_VERSION = 4.1.1-23
-CROSS_GCC_RAWVERSION = $(firstword $(subst -, ,$(CROSS_GCC_VERSION)))
-CROSS_GCC_SPEC = stm-$(subst cross-sh4-,cross-,$(CROSS_GCC))-sh4processed.spec
-CROSS_GCC_SPEC_PATCH = $(CROSS_GCC_SPEC)22.diff
-CROSS_GCC_PATCHES =
-CROSS_GCC_KERNELHEADERS = kernel-headers
-CROSS_GCC_INVALIDATE = YES
-else !STM22
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 CROSS_GCC_VERSION = 4.3.4-63
@@ -739,7 +678,7 @@ CROSS_GCC_KERNELHEADERS = linux-kernel-headers
 CROSS_GCC_INVALIDATE =
 # endif STM24
 endif !STM23
-endif !STM22
+
 CROSS_GCC_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_GCC)-$(CROSS_GCC_VERSION).$(host_arch).rpm
 CROSS_CPP_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_CPP)-$(CROSS_GCC_VERSION).$(host_arch).rpm
 CROSS_G++_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_G++)-$(CROSS_GCC_VERSION).$(host_arch).rpm

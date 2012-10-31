@@ -39,13 +39,6 @@ $(DEPDIR)/%filesystem: bootstrap-cross
 #
 GLIBC := glibc
 GLIBC_DEV := glibc-dev
-if STM22
-GLIBC_VERSION := 2.5-27
-GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
-GLIBC_SPEC := stm-target-$(GLIBC)-sh4processed.spec
-GLIBC_SPEC_PATCH := $(GLIBC_SPEC)22.diff
-GLIBC_PATCHES := glibc-2.5.patch
-else !STM22
 if STM23
 GLIBC_VERSION := 2.6.1-53
 GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
@@ -61,7 +54,7 @@ GLIBC_SPEC_PATCH :=
 GLIBC_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 GLIBC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIBC)-$(GLIBC_VERSION).sh4.rpm
 GLIBC_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIBC_DEV)-$(GLIBC_VERSION).sh4.rpm
 
@@ -100,12 +93,6 @@ $(DEPDIR)/%$(GLIBC_DEV): $(DEPDIR)/%$(GLIBC) $(GLIBC_DEV_RPM)
 #
 BINUTILS := binutils
 BINUTILS_DEV := binutils-dev
-if STM22
-BINUTILS_VERSION := 2.17.50.0.4-14
-BINUTILS_SPEC := stm-target-$(BINUTILS)-sh4processed.spec
-BINUTILS_SPEC_PATCH :=
-BINUTILS_PATCHES :=
-else !STM22
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 BINUTILS_VERSION := 2.19.1-41
@@ -120,7 +107,7 @@ BINUTILS_SPEC_PATCH := $(if $(OLDSTM24),,$(BINUTILS_SPEC).$(BINUTILS_VERSION).di
 BINUTILS_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 BINUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BINUTILS)-$(BINUTILS_VERSION).sh4.rpm
 BINUTILS_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BINUTILS_DEV)-$(BINUTILS_VERSION).sh4.rpm
 
@@ -144,7 +131,6 @@ $(BINUTILS_DEV): $(BINUTILS_DEV_RPM)
 #
 # GMP
 #
-if !STM22
 GMP := gmp
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -160,6 +146,7 @@ GMP_SPEC_PATCH :=
 GMP_PATCHES :=
 # endif STM24
 endif !STM23
+
 GMP_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GMP)-$(GMP_VERSION).sh4.rpm
 
 $(GMP_RPM): \
@@ -176,12 +163,10 @@ $(DEPDIR)/$(GMP): $(GMP_RPM)
 	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/libgmp.la; \
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/libgmp.la
 	touch $@
-endif !STM22
 
 #
 # MPFR
 #
-if !STM22
 MPFR := mpfr
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
@@ -197,6 +182,7 @@ MPFR_SPEC_PATCH :=
 MPFR_PATCHES :=
 # endif STM24
 endif !STM23
+
 MPFR_RPM := RPMS/sh4/$(STLINUX)-sh4-$(MPFR)-$(MPFR_VERSION).sh4.rpm
 
 $(MPFR_RPM): \
@@ -213,7 +199,6 @@ $(DEPDIR)/$(MPFR): $(MPFR_RPM)
 	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/libmpfr.la; \
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/libmpfr.la
 	touch .deps/$(notdir $@)
-endif !STM22
 
 #
 # MPC
@@ -274,12 +259,6 @@ GCC := gcc
 LIBSTDC := libstdc++
 LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
-if STM22
-GCC_VERSION := 4.1.1-26
-GCC_SPEC := stm-target-$(GCC)-sh4processed.spec
-GCC_SPEC_PATCH := $(GCC_SPEC)22.diff
-GCC_PATCHES :=
-else !STM22
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 GCC_VERSION := 4.3.4-66
@@ -294,7 +273,7 @@ GCC_SPEC_PATCH := $(if $(OLDSTM24),,$(GCC_SPEC).$(GCC_VERSION).diff)
 GCC_PATCHES := $(if $(OLDSTM24),,stm-target-$(GCC).$(GCC_VERSION).diff)
 # endif STM24
 endif !STM23
-endif !STM22
+
 GCC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GCC)-$(GCC_VERSION).sh4.rpm
 LIBSTDC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBSTDC)-$(GCC_VERSION).sh4.rpm
 LIBSTDC_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBSTDC_DEV)-$(GCC_VERSION).sh4.rpm
@@ -390,13 +369,6 @@ endif STM24
 LIBTERMCAP := libtermcap
 LIBTERMCAP_DEV := libtermcap-dev
 LIBTERMCAP_DOC := libtermcap-doc
-if STM22
-LIBTERMCAP_VERSION := 2.0.8-8
-LIBTERMCAP_RAWVERSION := $(firstword $(subst -, ,$(LIBTERMCAP_VERSION)))
-LIBTERMCAP_SPEC := stm-target-$(LIBTERMCAP).spec
-LIBTERMCAP_SPEC_PATCH :=
-LIBTERMCAP_PATCHES :=
-else !STM22
 if STM23
 LIBTERMCAP_VERSION := 2.0.8-8
 LIBTERMCAP_RAWVERSION := $(firstword $(subst -, ,$(LIBTERMCAP_VERSION)))
@@ -412,7 +384,7 @@ LIBTERMCAP_SPEC_PATCH :=
 LIBTERMCAP_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 LIBTERMCAP_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBTERMCAP)-$(LIBTERMCAP_VERSION).sh4.rpm
 LIBTERMCAP_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBTERMCAP_DEV)-$(LIBTERMCAP_VERSION).sh4.rpm
 LIBTERMCAP_DOC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBTERMCAP_DOC)-$(LIBTERMCAP_VERSION).sh4.rpm
@@ -457,12 +429,6 @@ $(DEPDIR)/%$(LIBTERMCAP_DOC): $(LIBTERMCAP_DOC_RPM)
 NCURSES := ncurses
 NCURSES_BASE := ncurses-base
 NCURSES_DEV := ncurses-dev
-if STM22
-NCURSES_VERSION := 5.5-9
-NCURSES_SPEC := stm-target-$(NCURSES).spec
-NCURSES_SPEC_PATCH :=
-NCURSES_PATCHES :=
-else !STM22
 if STM23
 NCURSES_VERSION := 5.5-9
 NCURSES_SPEC := stm-target-$(NCURSES).spec
@@ -476,7 +442,7 @@ NCURSES_SPEC_PATCH :=
 NCURSES_PATCHES :=
 endif STM24
 endif !STM23
-endif !STM22
+
 NCURSES_RPM := RPMS/sh4/$(STLINUX)-sh4-$(NCURSES)-$(NCURSES_VERSION).sh4.rpm
 NCURSES_BASE_RPM := RPMS/sh4/$(STLINUX)-sh4-$(NCURSES_BASE)-$(NCURSES_VERSION).sh4.rpm
 NCURSES_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(NCURSES_DEV)-$(NCURSES_VERSION).sh4.rpm
@@ -522,12 +488,6 @@ $(DEPDIR)/%$(NCURSES_DEV): $(DEPDIR)/%$(NCURSES_BASE) $(NCURSES_DEV_RPM)
 # BASE-PASSWD
 #
 BASE_PASSWD := base-passwd
-if STM22
-BASE_PASSWD_VERSION := 3.5.9-6
-BASE_PASSWD_SPEC := stm-target-$(BASE_PASSWD).spec
-BASE_PASSWD_SPEC_PATCH :=
-BASE_PASSWD_PATCHES :=
-else !STM22
 if STM23
 BASE_PASSWD_VERSION := 3.5.9-7
 BASE_PASSWD_SPEC := stm-target-$(BASE_PASSWD).spec
@@ -541,7 +501,7 @@ BASE_PASSWD_SPEC_PATCH :=
 BASE_PASSWD_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 BASE_PASSWD_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BASE_PASSWD)-$(BASE_PASSWD_VERSION).sh4.rpm
 
 $(BASE_PASSWD_RPM): \
@@ -572,12 +532,6 @@ $(DEPDIR)/%$(BASE_PASSWD): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
 # MAKEDEV
 #
 MAKEDEV := makedev
-if STM22
-MAKEDEV_VERSION := 2.3.1-15
-MAKEDEV_SPEC := stm-target-$(MAKEDEV).spec
-MAKEDEV_SPEC_PATCH :=
-MAKEDEV_PATCHES :=
-else !STM22
 if STM23
 MAKEDEV_VERSION := 2.3.1-24
 MAKEDEV_SPEC := stm-target-$(MAKEDEV).spec
@@ -591,7 +545,7 @@ MAKEDEV_SPEC_PATCH :=
 MAKEDEV_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 MAKEDEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(MAKEDEV)-$(MAKEDEV_VERSION).sh4.rpm
 
 $(MAKEDEV_RPM): \
@@ -616,12 +570,6 @@ $(DEPDIR)/%$(MAKEDEV): root/sbin/MAKEDEV $(MAKEDEV_RPM)
 # BASE-FILES
 #
 BASE_FILES := base-files
-if STM22
-BASE_FILES_VERSION := 2.0-4
-BASE_FILES_SPEC := stm-target-$(BASE_FILES).spec
-BASE_FILES_SPEC_PATCH :=
-BASE_FILES_PATCHES :=
-else !STM22
 if STM23
 BASE_FILES_VERSION := 2.0-7
 BASE_FILES_SPEC := stm-target-$(BASE_FILES).spec
@@ -635,7 +583,7 @@ BASE_FILES_SPEC_PATCH :=
 BASE_FILES_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 BASE_FILES_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BASE_FILES)-$(BASE_FILES_VERSION).sh4.rpm
 
 $(BASE_FILES_RPM): \
@@ -664,12 +612,6 @@ $(DEPDIR)/%$(BASE_FILES): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
 # UDEV
 #
 UDEV := udev
-if STM22
-UDEV_VERSION := 054-6
-UDEV_SPEC := stm-target-$(UDEV).spec
-UDEV_SPEC_PATCH :=
-UDEV_PATCHES :=
-else !STM22
 if STM23
 UDEV_VERSION := 116-23
 UDEV_SPEC := stm-target-$(UDEV).spec
@@ -683,7 +625,7 @@ UDEV_SPEC_PATCH :=
 UDEV_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 UDEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV)-$(UDEV_VERSION).sh4.rpm
 UDEV_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV_DEV)-$(UDEV_VERSION).sh4.rpm
 
@@ -708,35 +650,3 @@ $(DEPDIR)/%$(UDEV): $(UDEV_RPM)
 	[ "x$*" = "x" ] && touch $@ || true
 
 #Wrote: /home/data/ufs/cvs/cdk/RPMS/sh4/stlinux20-sh4-udev-doc-054-5.sh4.rpm
-
-#
-# HOTPLUG
-#
-if STM22
-HOTPLUG := hotplug
-HOTPLUG_VERSION := 2004_09_23-4
-HOTPLUG_SPEC := stm-target-$(HOTPLUG).spec
-HOTPLUG_SPEC_PATCH :=
-HOTPLUG_PATCHES :=
-HOTPLUG_RPM := RPMS/sh4/$(STLINUX)-sh4-$(HOTPLUG)-$(HOTPLUG_VERSION).sh4.rpm
-
-$(HOTPLUG_RPM): \
-		$(if $(HOTPLUG_SPEC_PATCH),Patches/$(HOTPLUG_SPEC_PATCH)) \
-		$(if $(HOTPLUG_PATCHES),$(HOTPLUG_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STLINUX)-target-$(HOTPLUG)-$(HOTPLUG_VERSION).src.rpm
-	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOTPLUG_SPEC_PATCH),( cd SPECS && patch -p1 $(HOTPLUG_SPEC) < $(buildprefix)/Patches/$(HOTPLUG_SPEC_PATCH) ) &&) \
-	$(if $(HOTPLUG_PATCHES),cp $(HOTPLUG_PATCHES:%=Patches/%) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOTPLUG_SPEC)
-
-$(DEPDIR)/min-$(HOTPLUG) $(DEPDIR)/std-$(HOTPLUG) $(DEPDIR)/max-$(HOTPLUG) $(DEPDIR)/$(HOTPLUG): \
-$(DEPDIR)/%$(HOTPLUG): $(HOTPLUG_RPM)
-	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	( export HHL_CROSS_TARGET_DIR=$(prefix)/$*cdkroot && cd $(prefix)/$*cdkroot/etc/init.d && \
-		for s in hotplug ; do \
-			$(hostprefix)/bin/target-initdconfig --add $$s || \
-			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
-	[ "x$*" = "x" ] && touch $@ || true
-endif STM22

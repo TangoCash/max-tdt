@@ -87,7 +87,7 @@ cp -dp $(targetprefix)/sbin/MAKEDEV$(if $(TF7700),_dual_tuner)$(if $(FORTIS_HDBO
 	cp -dp $(targetprefix)/etc/init.d/halt $(prefix)/release_enigma1_hd/etc/init.d/ && \
 	cp $(buildprefix)/root/release/reboot $(prefix)/release_enigma1_hd/etc/init.d/ && \
 	echo "576i50" > $(prefix)/release_enigma1_hd/etc/videomode && \
-cp $(buildprefix)/root/release/rcS_enigma1_hd$(if $(TF7700),_$(TF7700))$(if $(UFS910),_$(UFS910))$(if $(UFS922),_$(UFS922))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD)) $(prefix)/release_enigma1_hd/etc/init.d/rcS && \
+	cp $(buildprefix)/root/release/rcS_enigma1_hd$(if $(TF7700),_$(TF7700))$(if $(UFS910),_$(UFS910))$(if $(UFS922),_$(UFS922))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD)) $(prefix)/release_enigma1_hd/etc/init.d/rcS && \
 	chmod 755 $(prefix)/release_enigma1_hd/etc/init.d/rcS && \
 	mkdir -p $(prefix)/release_enigma1_hd/usr/local/bin && \
 	cp $(buildprefix)/root/release/mountvirtfs $(prefix)/release_enigma1_hd/etc/init.d/ && \
@@ -102,9 +102,6 @@ cp $(buildprefix)/root/release/rcS_enigma1_hd$(if $(TF7700),_$(TF7700))$(if $(UF
 	rm -f $(prefix)/release_enigma1_hd/lib/*.o && \
 	rm -f $(prefix)/release_enigma1_hd/lib/*.la && \
 	find $(prefix)/release_enigma1_hd/lib/ -name  *.so* -exec sh4-linux-strip --strip-unneeded {} \;
-if !STM22
-	cp $(buildprefix)/root/release/rcS_stm23$(if $(TF7700),_$(TF7700))$(if $(UFS910),_$(UFS910))$(if $(UFS922),_$(UFS922))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD)) $(prefix)/release_enigma1_hd/etc/init.d/rcS
-endif
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/avs/avs.ko $(prefix)/release_enigma1_hd/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/boxtype/boxtype.ko $(prefix)/release_enigma1_hd/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/simu_button/simu_button.ko $(prefix)/release_enigma1_hd/lib/modules/
@@ -609,9 +606,6 @@ if ENABLE_PLAYER191
 	done
 endif
 
-if STM22
-	rm $(prefix)/release_enigma1_hd/lib/modules/p2div64.ko
-endif
 	rm -rf $(prefix)/release_enigma1_hd/lib/autofs
 	rm -rf $(prefix)/release_enigma1_hd/lib/modules/$(KERNELVERSION)
 
@@ -761,11 +755,7 @@ endif
 #######################################################################################
 #######################################################################################
 
-if STM22
-	cp $(kernelprefix)/linux/arch/sh/boot/uImage $(prefix)/release_enigma1_hd/boot/
-else
 	cp $(kernelprefix)/linux-sh4/arch/sh/boot/uImage $(prefix)/release_enigma1_hd/boot/
-endif
 
 if STM24
 	[ -e $(kernelprefix)/linux-sh4/fs/autofs4/autofs4.ko ] && cp $(kernelprefix)/linux-sh4/fs/autofs4/autofs4.ko $(prefix)/release_enigma1_hd/lib/modules || true

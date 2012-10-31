@@ -72,12 +72,6 @@ $(DEPDIR)/misc-e2:
 # SPLASHUTILS
 #
 SPLASHUTILS := splashutils
-if STM22
-SPLASHUTILS_VERSION := 1.5.3.2-4
-SPLASHUTILS_SPEC := stm-target-$(SPLASHUTILS).spec
-SPLASHUTILS_SPEC_PATCH := $(SPLASHUTILS_SPEC).diff
-SPLASHUTILS_PATCHES :=
-else !STM22
 if STM23
 SPLASHUTILS_VERSION := 1.5.3.2-4
 SPLASHUTILS_SPEC := stm-target-$(SPLASHUTILS).spec
@@ -91,7 +85,7 @@ SPLASHUTILS_SPEC_PATCH :=
 SPLASHUTILS_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 SPLASHUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(SPLASHUTILS)-$(SPLASHUTILS_VERSION).sh4.rpm
 
 $(SPLASHUTILS_RPM): \
@@ -122,12 +116,6 @@ $(DEPDIR)/%$(SPLASHUTILS): $(SPLASHUTILS_RPM)
 # STSLAVE
 #
 STSLAVE := stslave
-if STM22
-STSLAVE_VERSION := 0.6-8
-STSLAVE_SPEC := stm-target-$(STSLAVE).spec
-STSLAVE_SPEC_PATCH :=
-STSLAVE_PATCHES :=
-else !STM22
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 STSLAVE_VERSION := 0.7-18
@@ -142,7 +130,7 @@ STSLAVE_SPEC_PATCH :=
 STSLAVE_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 STSLAVE_RPM := RPMS/sh4/$(STLINUX)-sh4-$(STSLAVE)-$(STSLAVE_VERSION).sh4.rpm
 
 $(STSLAVE_RPM): \
@@ -155,33 +143,18 @@ $(STSLAVE_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(STSLAVE_SPEC)
 
-if STM22
-$(DEPDIR)/min-$(STSLAVE) $(DEPDIR)/std-$(STSLAVE) $(DEPDIR)/max-$(STSLAVE) $(DEPDIR)/$(STSLAVE): \
-$(DEPDIR)/%$(STSLAVE): $(STSLAVE_RPM)
-	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
-else !STM22
 $(DEPDIR)/min-$(STSLAVE) $(DEPDIR)/std-$(STSLAVE) $(DEPDIR)/max-$(STSLAVE) $(DEPDIR)/$(STSLAVE): \
 $(DEPDIR)/%$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@
-endif !STM22
 
 #
 # OPENSSL
 #
 OPENSSL := openssl
 OPENSSL_DEV := openssl-dev
-if STM22
-OPENSSL_VERSION := 0.9.8-6
-OPENSSL_SPEC := stm-target-$(OPENSSL).spec
-OPENSSL_SPEC_PATCH :=
-OPENSSL_PATCHES :=
-else !STM22
 if STM23
 OPENSSL_VERSION := 0.9.8h-11
 OPENSSL_SPEC := stm-target-$(OPENSSL).spec
@@ -195,7 +168,6 @@ OPENSSL_SPEC_PATCH :=
 OPENSSL_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
 
 OPENSSL_RPM := RPMS/sh4/$(STLINUX)-sh4-$(OPENSSL)-$(OPENSSL_VERSION).sh4.rpm
 OPENSSL_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(OPENSSL_DEV)-$(OPENSSL_VERSION).sh4.rpm
@@ -232,12 +204,6 @@ $(DEPDIR)/%$(OPENSSL_DEV): %$(OPENSSL) $(OPENSSL_DEV_RPM)
 #
 ALSALIB := alsa-lib
 ALSALIB_DEV := alsa-lib-dev
-if STM22
-ALSALIB_VERSION := 1.0.12-9
-ALSALIB_SPEC := stm-target-$(ALSALIB)-sh4processed.spec
-ALSALIB_SPEC_PATCH := stm-target-$(ALSALIB).spec22.diff
-ALSALIB_PATCHES :=
-else !STM22
 if STM23
 ALSALIB_VERSION := 1.0.16-16
 ALSALIB_SPEC := stm-target-$(ALSALIB).spec
@@ -251,7 +217,7 @@ ALSALIB_SPEC_PATCH :=
 ALSALIB_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 ALSALIB_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSALIB)-$(ALSALIB_VERSION).sh4.rpm
 ALSALIB_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSALIB_DEV)-$(ALSALIB_VERSION).sh4.rpm
 
@@ -283,12 +249,6 @@ $(DEPDIR)/%$(ALSALIB_DEV): %$(ALSALIB) $(ALSALIB_DEV_RPM)
 # ALSAUTILS
 #
 ALSAUTILS := alsa-utils
-if STM22
-ALSAUTILS_VERSION := 1.0.12-7
-ALSAUTILS_SPEC := stm-target-$(ALSAUTILS).spec
-ALSAUTILS_SPEC_PATCH :=
-ALSAUTILS_PATCHES :=
-else !STM22
 if STM23
 ALSAUTILS_VERSION := 1.0.16-14
 ALSAUTILS_SPEC := stm-target-$(ALSAUTILS).spec
@@ -302,7 +262,7 @@ ALSAUTILS_SPEC_PATCH :=
 ALSAUTILS_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 ALSAUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAUTILS)-$(ALSAUTILS_VERSION).sh4.rpm
 
 $(ALSAUTILS_RPM): \
@@ -328,12 +288,6 @@ $(DEPDIR)/%$(ALSAUTILS): $(ALSAUTILS_RPM)
 #
 ALSAPLAYER := alsaplayer
 ALSAPLAYER_DEV := alsaplayer-dev
-if STM22
-ALSAPLAYER_VERSION := 0.99.76-5
-ALSAPLAYER_SPEC := stm-target-$(ALSAPLAYER).spec
-ALSAPLAYER_SPEC_PATCH :=
-ALSAPLAYER_PATCHES :=
-else !STM22
 if STM23
 # Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 ALSAPLAYER_VERSION := 0.99.77-16
@@ -348,7 +302,7 @@ ALSAPLAYER_SPEC_PATCH :=
 ALSAPLAYER_PATCHES :=
 # endif STM24
 endif !STM23
-endif !STM22
+
 ALSAPLAYER_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAPLAYER)-$(ALSAPLAYER_VERSION).sh4.rpm
 ALSAPLAYER_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAPLAYER_DEV)-$(ALSAPLAYER_VERSION).sh4.rpm
 

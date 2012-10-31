@@ -765,11 +765,7 @@ endif
 #######################################################################################
 #######################################################################################
 
-if STM22
-	cp $(kernelprefix)/linux/arch/sh/boot/uImage $(prefix)/release_vdr/boot/
-else
 	cp $(kernelprefix)/linux-sh4/arch/sh/boot/uImage $(prefix)/release_vdr/boot/
-endif
 
 if STM24
 	[ -e $(kernelprefix)/linux-sh4/fs/autofs4/autofs4.ko ] && cp $(kernelprefix)/linux-sh4/fs/autofs4/autofs4.ko $(prefix)/release_vdr/lib/modules || true

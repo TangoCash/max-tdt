@@ -36,11 +36,11 @@ $(DEPDIR)/%nfs_utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) $(DEPDIR)/nfs_
 #
 # libevent
 #
-$(DEPDIR)/libevent.do_prepare: @DEPENDS_libevent@
+$(DEPDIR)/libevent.do_prepare: bootstrap @DEPENDS_libevent@
 	@PREPARE_libevent@
 	touch $@
 
-$(DEPDIR)/libevent.do_compile: bootstrap $(DEPDIR)/libevent.do_prepare
+$(DEPDIR)/libevent.do_compile: $(DEPDIR)/libevent.do_prepare
 	cd @DIR_libevent@ && \
 		$(BUILDENV) \
 		./configure --prefix=$(prefix)/$*cdkroot/usr/ --host=$(target) && \
@@ -58,11 +58,11 @@ $(DEPDIR)/%libevent: $(DEPDIR)/libevent.do_compile
 #
 # libnfsidmap
 #
-$(DEPDIR)/libnfsidmap.do_prepare: @DEPENDS_libnfsidmap@
+$(DEPDIR)/libnfsidmap.do_prepare: bootstrap @DEPENDS_libnfsidmap@
 	@PREPARE_libnfsidmap@
 	touch $@
 
-$(DEPDIR)/libnfsidmap.do_compile: bootstrap $(DEPDIR)/libnfsidmap.do_prepare
+$(DEPDIR)/libnfsidmap.do_compile: $(DEPDIR)/libnfsidmap.do_prepare
 	cd @DIR_libnfsidmap@ && \
 		$(BUILDENV) \
 		ac_cv_func_malloc_0_nonnull=yes ./configure --prefix=$(prefix)/$*cdkroot/usr/ --host=$(target) && \
@@ -80,11 +80,11 @@ $(DEPDIR)/%libnfsidmap: $(DEPDIR)/libnfsidmap.do_compile
 #
 # vsftpd
 #
-$(DEPDIR)/vsftpd.do_prepare: @DEPENDS_vsftpd@
+$(DEPDIR)/vsftpd.do_prepare: bootstrap @DEPENDS_vsftpd@
 	@PREPARE_vsftpd@
 	touch $@
 
-$(DEPDIR)/vsftpd.do_compile: bootstrap $(DEPDIR)/vsftpd.do_prepare
+$(DEPDIR)/vsftpd.do_compile: $(DEPDIR)/vsftpd.do_prepare
 	cd @DIR_vsftpd@ && \
 		$(MAKE) clean && \
 		$(MAKE) $(MAKE_OPTS)
@@ -102,12 +102,12 @@ $(DEPDIR)/%vsftpd: $(DEPDIR)/vsftpd.do_compile
 #
 # ETHTOOL
 #
-$(DEPDIR)/ethtool.do_prepare: @DEPENDS_ethtool@
+$(DEPDIR)/ethtool.do_prepare: bootstrap @DEPENDS_ethtool@
 	@PREPARE_ethtool@
 	touch $@
 
-$(DEPDIR)/ethtool.do_compile: bootstrap $(DEPDIR)/ethtool.do_prepare
-	cd @DIR_ethtool@  && \
+$(DEPDIR)/ethtool.do_compile: $(DEPDIR)/ethtool.do_prepare
+	cd @DIR_ethtool@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -120,7 +120,7 @@ $(DEPDIR)/ethtool.do_compile: bootstrap $(DEPDIR)/ethtool.do_prepare
 $(DEPDIR)/min-ethtool $(DEPDIR)/std-ethtool $(DEPDIR)/max-ethtool \
 $(DEPDIR)/ethtool: \
 $(DEPDIR)/%ethtool: $(DEPDIR)/ethtool.do_compile
-	cd @DIR_ethtool@  && \
+	cd @DIR_ethtool@ && \
 		@INSTALL_ethtool@
 	@DISTCLEANUP_ethtool@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -175,11 +175,11 @@ ETC_RW_FILES += samba/smb.conf init.d/samba
 #
 # NETIO
 #
-$(DEPDIR)/netio.do_prepare: @DEPENDS_netio@
+$(DEPDIR)/netio.do_prepare: bootstrap @DEPENDS_netio@
 	@PREPARE_netio@
 	touch $@
 
-$(DEPDIR)/netio.do_compile: bootstrap $(DEPDIR)/netio.do_prepare
+$(DEPDIR)/netio.do_compile: $(DEPDIR)/netio.do_prepare
 	cd @DIR_netio@ && \
 		$(MAKE_OPTS) \
 		$(MAKE) all O=.o X= CFLAGS="-DUNIX" LIBS="$(LDFLAGS) -lpthread" OUT=-o
@@ -197,11 +197,11 @@ $(DEPDIR)/%netio: $(DEPDIR)/netio.do_compile
 #
 # LIGHTTPD
 #
-$(DEPDIR)/lighttpd.do_prepare: @DEPENDS_lighttpd@
+$(DEPDIR)/lighttpd.do_prepare: bootstrap @DEPENDS_lighttpd@
 	@PREPARE_lighttpd@
 	touch $@
 
-$(DEPDIR)/lighttpd.do_compile: bootstrap $(DEPDIR)/lighttpd.do_prepare
+$(DEPDIR)/lighttpd.do_compile: $(DEPDIR)/lighttpd.do_prepare
 	cd @DIR_lighttpd@ && \
 		$(BUILDENV) \
 		./configure \
@@ -231,11 +231,11 @@ $(DEPDIR)/%lighttpd: $(DEPDIR)/lighttpd.do_compile
 #
 # NETKIT_FTP
 #
-$(DEPDIR)/netkit_ftp.do_prepare: @DEPENDS_netkit_ftp@
+$(DEPDIR)/netkit_ftp.do_prepare: bootstrap ncurses libreadline @DEPENDS_netkit_ftp@
 	@PREPARE_netkit_ftp@
 	touch $@
 
-$(DEPDIR)/netkit_ftp.do_compile: bootstrap ncurses libreadline $(DEPDIR)/netkit_ftp.do_prepare
+$(DEPDIR)/netkit_ftp.do_compile: $(DEPDIR)/netkit_ftp.do_prepare
 	cd @DIR_netkit_ftp@  && \
 		$(BUILDENV) \
 		./configure \
@@ -256,11 +256,11 @@ $(DEPDIR)/%netkit_ftp: $(DEPDIR)/netkit_ftp.do_compile
 #
 # WIRELESS_TOOLS
 #
-$(DEPDIR)/wireless_tools.do_prepare: @DEPENDS_wireless_tools@
+$(DEPDIR)/wireless_tools.do_prepare: bootstrap @DEPENDS_wireless_tools@
 	@PREPARE_wireless_tools@
 	touch $@
 
-$(DEPDIR)/wireless_tools.do_compile: bootstrap $(DEPDIR)/wireless_tools.do_prepare
+$(DEPDIR)/wireless_tools.do_compile: $(DEPDIR)/wireless_tools.do_prepare
 	cd @DIR_wireless_tools@  && \
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
@@ -276,11 +276,11 @@ $(DEPDIR)/%wireless_tools: $(DEPDIR)/wireless_tools.do_compile
 #
 # WPA_SUPPLICANT
 #
-$(DEPDIR)/wpa_supplicant.do_prepare: @DEPENDS_wpa_supplicant@
+$(DEPDIR)/wpa_supplicant.do_prepare: bootstrap openssl openssl-dev @DEPENDS_wpa_supplicant@
 	@PREPARE_wpa_supplicant@
 	touch $@
 
-$(DEPDIR)/wpa_supplicant.do_compile: bootstrap Patches/wpa_supplicant.config $(DEPDIR)/wpa_supplicant.do_prepare
+$(DEPDIR)/wpa_supplicant.do_compile: Patches/wpa_supplicant.config $(DEPDIR)/wpa_supplicant.do_prepare
 	cd @DIR_wpa_supplicant@/wpa_supplicant && \
 		$(INSTALL) -m 644 ../../$(word 2,$^) .config && \
 		$(MAKE) $(MAKE_OPTS)

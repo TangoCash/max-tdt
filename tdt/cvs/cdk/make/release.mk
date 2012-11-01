@@ -534,6 +534,7 @@ release_base:
 	cp -a $(targetprefix)/bin/* $(prefix)/release/bin/ && \
 	ln -sf /bin/showiframe $(prefix)/release/usr/bin/showiframe && \
 	cp -dp $(targetprefix)/usr/bin/sdparm $(prefix)/release/sbin/ && \
+	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release/sbin/ && \
 	cp -dp $(targetprefix)/sbin/init $(prefix)/release/sbin/ && \
 	cp -dp $(targetprefix)/sbin/killall5 $(prefix)/release/sbin/ && \
 	cp -dp $(targetprefix)/sbin/portmap $(prefix)/release/sbin/ && \

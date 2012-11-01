@@ -50,7 +50,7 @@ $(DEPDIR)/libevent.do_compile: $(DEPDIR)/libevent.do_prepare
 $(DEPDIR)/min-libevent $(DEPDIR)/std-libevent $(DEPDIR)/max-libevent \
 $(DEPDIR)/libevent: \
 $(DEPDIR)/%libevent: $(DEPDIR)/libevent.do_compile
-	cd @DIR_libevent@  && \
+	cd @DIR_libevent@ && \
 		@INSTALL_libevent@
 	@DISTCLEANUP_libevent@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -72,7 +72,7 @@ $(DEPDIR)/libnfsidmap.do_compile: $(DEPDIR)/libnfsidmap.do_prepare
 $(DEPDIR)/min-libnfsidmap $(DEPDIR)/std-libnfsidmap $(DEPDIR)/max-libnfsidmap \
 $(DEPDIR)/libnfsidmap: \
 $(DEPDIR)/%libnfsidmap: $(DEPDIR)/libnfsidmap.do_compile
-	cd @DIR_libnfsidmap@  && \
+	cd @DIR_libnfsidmap@ && \
 		@INSTALL_libnfsidmap@
 	@DISTCLEANUP_libnfsidmap@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -236,7 +236,7 @@ $(DEPDIR)/netkit_ftp.do_prepare: bootstrap ncurses libreadline @DEPENDS_netkit_f
 	touch $@
 
 $(DEPDIR)/netkit_ftp.do_compile: $(DEPDIR)/netkit_ftp.do_prepare
-	cd @DIR_netkit_ftp@  && \
+	cd @DIR_netkit_ftp@ && \
 		$(BUILDENV) \
 		./configure \
 			--with-c-compiler=$(target)-gcc \
@@ -248,7 +248,7 @@ $(DEPDIR)/netkit_ftp.do_compile: $(DEPDIR)/netkit_ftp.do_prepare
 $(DEPDIR)/min-netkit_ftp $(DEPDIR)/std-netkit_ftp $(DEPDIR)/max-netkit_ftp \
 $(DEPDIR)/netkit_ftp: \
 $(DEPDIR)/%netkit_ftp: $(DEPDIR)/netkit_ftp.do_compile
-	cd @DIR_netkit_ftp@  && \
+	cd @DIR_netkit_ftp@ && \
 		@INSTALL_netkit_ftp@
 	@DISTCLEANUP_netkit_ftp@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -261,14 +261,14 @@ $(DEPDIR)/wireless_tools.do_prepare: bootstrap @DEPENDS_wireless_tools@
 	touch $@
 
 $(DEPDIR)/wireless_tools.do_compile: $(DEPDIR)/wireless_tools.do_prepare
-	cd @DIR_wireless_tools@  && \
+	cd @DIR_wireless_tools@ && \
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
 
 $(DEPDIR)/min-wireless_tools $(DEPDIR)/std-wireless_tools $(DEPDIR)/max-wireless_tools \
 $(DEPDIR)/wireless_tools: \
 $(DEPDIR)/%wireless_tools: $(DEPDIR)/wireless_tools.do_compile
-	cd @DIR_wireless_tools@  && \
+	cd @DIR_wireless_tools@ && \
 		@INSTALL_wireless_tools@
 	@DISTCLEANUP_wireless_tools@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -276,7 +276,7 @@ $(DEPDIR)/%wireless_tools: $(DEPDIR)/wireless_tools.do_compile
 #
 # WPA_SUPPLICANT
 #
-$(DEPDIR)/wpa_supplicant.do_prepare: bootstrap openssl openssl-dev @DEPENDS_wpa_supplicant@
+$(DEPDIR)/wpa_supplicant.do_prepare: bootstrap wireless_tools openssl openssl-dev @DEPENDS_wpa_supplicant@
 	@PREPARE_wpa_supplicant@
 	touch $@
 

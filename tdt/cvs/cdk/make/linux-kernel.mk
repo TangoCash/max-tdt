@@ -1,7 +1,11 @@
 #
+# IMPORTANT: it is expected that only one define is set
+#
+CUBEMOD=$(CUBEREVO)$(CUBEREVO_MINI)$(CUBEREVO_MINI2)$(CUBEREVO_MINI_FTA)$(CUBEREVO_250HD)$(CUBEREVO_2000HD)$(CUBEREVO_9500HD)
+
+#
 # Patches Kernel 23
 #
-
 if ENABLE_P0119
 PATCH_STR=_0119
 else !ENABLE_P0119
@@ -223,7 +227,6 @@ KERNELPATCHES_23 = $(if $(TF7700),$(TF7700PATCHES_23)) \
 		$(if $(IPBOX99),$(IPBOX99PATCHES_23)) \
 		$(if $(IPBOX55),$(IPBOX55PATCHES_23))
 
-
 #
 # Patches Kernel 24
 #
@@ -408,7 +411,7 @@ ADB_BOXPATCHES_24 = $(COMMONPATCHES_24) \
 
 IPBOX9900PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ipbox9900_setup_stm24$(PATCH_STR).patch \
-		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch  \
+		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
 		linux-sh4-ipbox_bdinfo_stm24$(PATCH_STR).patch \
 		linux-sh4-ipbox_dvb_ca_stm24$(PATCH_STR).patch
 
@@ -660,7 +663,8 @@ else
 XFS_SED_CONF=-e ""
 endif
 
-if ENABLE_NFSSERVER#NFSSERVER_SED_CONF=$(foreach param,CONFIG_NFSD CONFIG_NFSD_V3 CONFIG_NFSD_TCP,-e s"/^.*$(param)[= ].*/$(param)=y/")
+if ENABLE_NFSSERVER
+#NFSSERVER_SED_CONF=$(foreach param,CONFIG_NFSD CONFIG_NFSD_V3 CONFIG_NFSD_TCP,-e s"/^.*$(param)[= ].*/$(param)=y/")
 NFSSERVER_SED_CONF=$(foreach param,CONFIG_NFSD,-e s"/^.*$(param)[= ].*/$(param)=y\nCONFIG_NFSD_V3=y\n\# CONFIG_NFSD_V3_ACL is not set\n\# CONFIG_NFSD_V4 is not set\nCONFIG_NFSD_TCP=y/")
 else
 NFSSERVER_SED_CONF=-e ""

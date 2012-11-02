@@ -1,5 +1,5 @@
---- stm-cross-gcc.spec.orig	2012-10-27 21:39:01.568130803 +0200
-+++ stm-cross-gcc.spec	2012-10-27 21:39:01.528130803 +0200
+--- stm-cross-gcc.spec.orig	2012-11-02 22:10:38.605411043 +0100
++++ stm-cross-gcc.spec	2012-11-02 22:10:38.561411041 +0100
 @@ -69,6 +69,9 @@
  
  %define _gccdir %{_stm_cross_lib_dir}/gcc/%{_stm_target_config}/%{version}
@@ -95,5 +95,5 @@
 -	%{_stm_cross_info_dir}/gcc.info
 -
  %changelog
- * Mon Oct 22 2012 Christian Bruel <christian.bruel@st.com> 110
- - [Add patch: gcc-4.6.3-pr23233.patch; Bugzilla: 23233] Fix R0 spill with -fstack-protector-all
+ * Mon Oct 29 2012 Christian Bruel <christian.bruel@st.com> 111
+ - [Replace patch: gcc-4.6.3-pr23233.patch; Bugzilla: 23233/23794] New implementation.

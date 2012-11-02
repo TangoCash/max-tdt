@@ -47,7 +47,7 @@ GLIBC_SPEC_PATCH := $(GLIBC_SPEC)23.diff
 GLIBC_PATCHES := stm-target-glibc-sysincludes.patch
 else !STM23
 # if STM24
-GLIBC_VERSION := $(if $(OLDSTM24),2.10.1-7,2.10.2-35)
+GLIBC_VERSION := $(if $(OLDSTM24),2.10.1-7,2.10.2-36)
 GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
 GLIBC_SPEC := stm-target-$(GLIBC).spec
 GLIBC_SPEC_PATCH :=
@@ -267,7 +267,7 @@ GCC_SPEC_PATCH :=
 GCC_PATCHES :=
 else !STM23
 # if STM24
-GCC_VERSION := $(if $(OLDSTM24),4.3.4-66,4.6.3-114)
+GCC_VERSION := $(if $(OLDSTM24),4.3.4-66,4.6.3-115)
 GCC_SPEC := stm-target-$(GCC).spec
 GCC_SPEC_PATCH := $(if $(OLDSTM24),,$(GCC_SPEC).$(GCC_VERSION).diff)
 GCC_PATCHES := $(if $(OLDSTM24),,stm-target-$(GCC).$(GCC_VERSION).diff)

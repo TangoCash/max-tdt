@@ -19,6 +19,9 @@ else
 include make/u-boot.mk
 endif
 
+# Target for building and install own independ ccache for tuxbox-cdk
+include make/ccache.mk
+
 # Include adapted etc files and etc read-write files
 include make/root-etc.mk
 
@@ -75,12 +78,12 @@ include make/xbmc-nightly.mk
 
 # Include neutrino gui targets
 include make/neutrino.mk
-#include make/neutrino_hd2.mk
 
 # Include vdr gui targets
 include make/vdr.mk
 include make/vdrdev.mk
 include make/vdrdev2.mk
+
 # Include enigma1-hd gui targets
 include make/enigma1-hd.mk
 
@@ -124,13 +127,17 @@ include make/release_xbmc.mk
 # New static folder
 include make/release_neutrino_static.mk
 
+# installer image for TF7700
+include make/tfinstaller.mk
+
 # Give the user rope to hang himself :-).  (Note: read from the
 # generated Makefile during make run, automake or configure does not
 # see it.)
 -include ./Makefile.local
 
-# installer image for TF7700
-include make/tfinstaller.mk
+# add user specific stuff if needed
+-include $(customizationsdir)/user.mk
+
 
 # this makes sure we do not build top-level dependencies in parallel
 # (which would not be too helpful anyway, running many configure and

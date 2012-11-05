@@ -295,13 +295,6 @@ AC_ARG_WITH(datapartitionsize,
 	[DATA_PARTITION_SIZE="$withval"],[DATA_PARTITION_SIZE="0x400000"])
 AC_SUBST(DATA_PARTITION_SIZE)
 
-AC_ARG_ENABLE(ccache,
-	AS_HELP_STRING(--enable-ccache, enable ccache),
-	[case "${enableval}" in
-		yes) CCACHE_BIN=ccache;;
-	esac], [enable_ccache=no])
-AM_CONDITIONAL(ENABLE_CCACHE,test "$enable_ccache" = "yes")
-AC_SUBST(CCACHE_BIN)
 
 AC_ARG_ENABLE(fortis_hdbox,
 	AS_HELP_STRING(--enable-fortis_hdbox, enable Fortis/hdbox FS-9200HD PVR stuff),
@@ -742,6 +735,17 @@ if test "$YACC" != "bison -y"; then
 	AC_MSG_ERROR(No bison found)
 fi
 
+################################################################
+# ccache
+#
+AC_ARG_ENABLE(ccache,
+	AS_HELP_STRING(--enable-ccache,   enable ccache supported compiling ),
+	[case "${enableval}" in
+		yes) CCACHE=ccache ;;
+	esac],[enable_ccache=no])
+AM_CONDITIONAL(ENABLE_CCACHE,test "$enable_ccache" = "yes")
+AC_SUBST(CCACHE)
+
 if test "$enable_ccache" = "yes"; then
 	AC_PATH_PROG(CCACHE,ccache,no)
 	if test "$CCACHE" = "no"; then
@@ -749,6 +753,51 @@ if test "$enable_ccache" = "yes"; then
 		CCACHE=$hostprefix/bin/ccache
 	fi
 fi
+
+hostccachedir=$(dirname `which ccache` 2>/dev/null)
+if [[ -e $hostccachedir/ccache ]]; then
+	ccachedir=$hostccachedir
+	AM_CONDITIONAL(USE_CCACHEHOST, true)
+else
+	ccachedir=$hostprefix/bin
+	AM_CONDITIONAL(USE_CCACHEHOST, false)
+fi
+AC_SUBST(ccachedir)
+
+# optional ccache settings
+AC_ARG_WITH(maxcachesize,
+	[  --with-maxcachesize=SIZE maximal ccachesize for ccache ],
+	[maxcachesize="$with_maxcachesize"],[maxcachesize="-1"])
+AC_SUBST(maxcachesize)
+
+AC_ARG_WITH(maxcachefiles,
+	[  --with-maxcachefiles=COUNT maximal count of cachefiles for ccache ],
+	[maxcachefiles="$with_maxcachefiles"],[maxcachefiles="-1"])
+AC_SUBST(maxcachefiles)
+
+if test "$enable_ccache" = "yes"; then
+	if  [[ -e $ccachedir/ccache ]]; then
+		if test $maxcachesize != -1; then
+			$ccachedir/ccache -M $maxcachesize
+		fi
+		if test $maxcachefiles != -1; then
+			$ccachedir/ccache -F $maxcachefiles
+		fi
+		ccacheinfo="
+-------------------------------------------------------------------------------
+ccache installdir           : $ccachedir
+$($ccachedir/ccache -s)
+-------------------------------------------------------------------------------"
+	else
+		ccacheinfo="
+-------------------------------------------------------------------------------
+ccache installdir           : $ccachedir
+ccache is not yet installed, but installation starts on first build of cdk environment or you can run make ccache
+-------------------------------------------------------------------------------"
+	fi
+fi
+
+################################################################
 
 FONTDIR="/share/fonts"
 AC_SUBST(FONTDIR)
@@ -1201,6 +1250,8 @@ GraphicFw                   : $GRAPHICFW
 GraphicFw Dep               : $GRAPHICFW_DEP
 EXTERNALLCD                 : $enable_externallcd
 EXTERNALLCD_DEP             : $EXTERNALLCD_DEP
+ccache support              : $enable_ccache
+                              $ccacheinfo
 ])
 
 if test "$dircheck" = "fail"; then

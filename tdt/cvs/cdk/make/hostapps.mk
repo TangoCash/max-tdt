@@ -8,19 +8,6 @@ hostapps: $(hostappsdir)/config.status
 	$(MAKE) -C $(hostappsdir)
 #	touch $@
 
-if ENABLE_CCACHE
-$(hostprefix)/bin/ccache: @DEPENDS_ccache@
-	@PREPARE_ccache@
-	cd @DIR_ccache@ && \
-		./configure \
-			--build=$(build) \
-			--host=$(build) \
-			--prefix= && \
-			$(MAKE) all && \
-			@INSTALL_ccache@
-#	@CLEANUP_ccache@
-endif
-
 #
 # MKCRAMFS
 #

@@ -5,7 +5,7 @@
 #   version
 #   directory
 #   source files and patches (separated by ':')
-#   rules ('extract', 'dirextract', 'patch', 'move', 'remove', 'link') and arguments
+#   rules ('extract', 'dirextract', 'patch' or 'patch-X' for 'patch -pX', 'apatch' to patch with files in $archivedir/, 'move', 'remove', 'link') and arguments
 #   ...
 #
 
@@ -24,11 +24,8 @@ linuxp0209;2.6.32.46_stm24_0209;linux-sh4-2.6.32.46_stm24_0209;stlinux24-host-ke
 linuxp0210;2.6.32.57_stm24_0210;linux-sh4-2.6.32.57_stm24_0210;stlinux24-host-kernel-source-sh4-2.6.32.57_stm24_0210-210.src.rpm
 linuxp0211;2.6.32.59_stm24_0211;linux-sh4-2.6.32.59_stm24_0211;stlinux24-host-kernel-source-sh4-2.6.32.59_stm24_0211-211.src.rpm
 linuxp0302;3.4.7_stm24_0302;linux-stm-3.4.7_stm24_0302;stlinux24-host-kernel-source-stm-3.4.7_stm24_0302-302.src.rpm
-
-
 squashfs;3.0;mksquashfs;squashfs3.0.tar.gz:mksquashfs_lzma.diff:lzma442.tar.bz2:lzma_zlib-stream.diff;dircreate:mksquashfs;extract:lzma442.tar.bz2;patch:lzma_zlib-stream.diff;extract:squashfs3.0.tar.gz;patch:mksquashfs_lzma.diff
 squashfs;4.0;mksquashfs;squashfs4.0.tar.gz:squashfs-tools-4.0-lzma.patch:lzma465.tar.bz2;dircreate:mksquashfs;extract:lzma465.tar.bz2;extract:squashfs4.0.tar.gz;patch:squashfs-tools-4.0-lzma.patch
-ccache;2.4;ccache-2.4;ccache-2.4.tar.gz;extract:ccache-2.4.tar.gz
 cramfs;1.1;cramfs-1.1;cramfs-1.1.tar.gz;extract:cramfs-1.1.tar.gz
 ipkg_utils;050831;ipkg-utils-050831;ipkg-utils-050831.tar.gz;extract:ipkg-utils-050831.tar.gz;patch:ipkg-utils.diff
 ipkg_host;0.99.163;ipkg-host;ipkg-0.99.163.tar.gz:ipkg-host.diff;dirextract:ipkg-0.99.163.tar.gz;patch:ipkg-host.diff
@@ -37,6 +34,11 @@ host_python;2.6.6;host-python-2.6.6;Python-2.6.6.tar.bz2:python_2.6.6.diff;extra
 #libtool;2.2.6a;libtool-2.2.6;libtool-2.2.6a.tar.gz:libtool-2.2.6a-cross_compile.patch:libtool-2.2.6a-trailing_slash.patch;extract:libtool-2.2.6a.tar.gz;patch:libtool-2.2.6a-cross_compile.patch;patch:libtool-2.2.6a-trailing_slash.patch
 #libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;patch:libtool-2.4.2-duckbox-branding-cross.patch
 libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;patch:libtool-2.4.2-duckbox-branding.patch
+
+#
+# ccache
+#
+ccache;3.1.8;ccache-3.1.8;ccache-3.1.8.tar.gz;extract:ccache-3.1.8.tar.gz
 
 #
 # root

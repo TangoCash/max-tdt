@@ -66,7 +66,6 @@ fi
 PACKAGES="\
 	make \
 	subversion \
-	ccache \
 	flex \
 	bison \
 	texinfo \

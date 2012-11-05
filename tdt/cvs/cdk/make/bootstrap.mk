@@ -13,25 +13,6 @@ host-filesystem:
 	touch .deps/$@
 
 #
-# CCACHE
-#
-$(hostprefix)/ccache-bin:
-	$(INSTALL) -d $@
-	$(INSTALL) -d $(hostprefix)/bin
-
-ccache: | $(hostprefix)/ccache-bin/gcc
-	touch .deps/$(notdir $@)
-
-$(hostprefix)/ccache-bin/gcc: | $(CCACHE)
-	make $(hostprefix)/ccache-bin
-	ln -sf $| $@
-	ln -sf $| $(@D)/g++
-	ln -sf $| $(@D)/$(target)-gcc
-	ln -sf $| $(@D)/$(target)-g++
-	ln -sf $| $(hostprefix)/bin/$(target)-gcc
-	ln -sf $| $(hostprefix)/bin/$(target)-g++
-
-#
 # HOST-RPMCONFIG
 #
 HOST_RPMCONFIG = host-rpmconfig
@@ -426,7 +407,6 @@ endif STM24
 #
 $(DEPDIR)/bootstrap-host: | \
 		host-filesystem \
-		$(CCACHE_BIN) \
 		host-rpmconfig \
 		$(HOST_M4) \
 		host-base-passwd \

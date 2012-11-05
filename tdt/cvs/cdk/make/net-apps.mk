@@ -282,7 +282,7 @@ $(DEPDIR)/wpa_supplicant.do_prepare: bootstrap wireless_tools openssl openssl-de
 
 $(DEPDIR)/wpa_supplicant.do_compile: Patches/wpa_supplicant.config $(DEPDIR)/wpa_supplicant.do_prepare
 	cd @DIR_wpa_supplicant@/wpa_supplicant && \
-		$(INSTALL) -m 644 ../../$(word 2,$^) .config && \
+		$(INSTALL) -m 644 ../../$(word 1,$^) .config && \
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
 

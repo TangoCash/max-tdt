@@ -418,7 +418,7 @@ FILE_SPEC := stm-target-$(FILE).spec
 FILE_SPEC_PATCH :=
 FILE_PATCHES :=
 
-DIFF_RPM := RPMS/sh4/$(STLINUX)-sh4-$(FILE)-$(FILE_VERSION).sh4.rpm
+FILE_RPM := RPMS/sh4/$(STLINUX)-sh4-$(FILE)-$(FILE_VERSION).sh4.rpm
 
 $(FILE_RPM): \
 		$(if $(FILE_SPEC_PATCH),Patches/$(FILE_SPEC_PATCH)) \

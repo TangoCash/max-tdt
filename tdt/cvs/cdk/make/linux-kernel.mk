@@ -4,230 +4,6 @@
 CUBEMOD=$(CUBEREVO)$(CUBEREVO_MINI)$(CUBEREVO_MINI2)$(CUBEREVO_MINI_FTA)$(CUBEREVO_250HD)$(CUBEREVO_2000HD)$(CUBEREVO_9500HD)
 
 #
-# Patches Kernel 23
-#
-if ENABLE_P0119
-PATCH_STR=_0119
-else !ENABLE_P0119
-if ENABLE_P0123
-PATCH_STR=_0123
-endif ENABLE_P0123
-endif !ENABLE_P0119
-
-if ENABLE_ADB_BOX
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_ADB_BOX
-if ENABLE_HL101
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_HL101
-if ENABLE_VIP1_V2
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_VIP1_V2
-if ENABLE_VIP2_V1
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_VIP2_V1
-if ENABLE_IPBOX9900
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_IPBOX9900
-if ENABLE_IPBOX99
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_IPBOX99
-if ENABLE_IPBOX55
-STM23_DVB_PATCH = linux-sh4-linuxdvb_api5_stm23.patch
-else !ENABLE_IPBOX55
-
-STM23_DVB_PATCH = linux-sh4-linuxdvb_stm23$(PATCH_STR).patch
-endif !ENABLE_IPBOX55
-endif !ENABLE_IPBOX99
-endif !ENABLE_IPBOX9900
-endif !ENABLE_VIP2_V1
-endif !ENABLE_VIP1_V2
-endif !ENABLE_HL101
-endif !ENABLE_ADB_BOX
-
-COMMONPATCHES_23 = \
-		linux-squashfs3.0_lzma_stm23.patch \
-		linux-sh4-cpp_stm23.patch \
-		linux-sh4-time_stm23.patch \
-		linux-sh4-cmdline-printk_stm23.patch \
-		linux-sh4-shksyms-gcc43_stm23.patch \
-		$(if $(P0123),linux-sh4-mtd_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-strcpy_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-asm_mov_0xffffff_stm23$(PATCH_STR).patch) \
-		linux-sh4-cifs-unaligned-mem-access-kernel_stm23.patch \
-		linux-tune_stm23.patch \
-		linux-ftdi_sio.c_stm23.patch \
-		$(STM23_DVB_PATCH)
-
-UFS912PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-ufs912_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-SPARKPATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-spark_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-spark_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-spark_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-spark_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-SPARK7162PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-spark7162_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-spark7162_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-spark7162_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-spark7162_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-UFS922PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs922_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs922_setup_stm23$(PATCH_STR).patch)
-
-FORTISPATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),fortis_hdbox_setup_stm23.diff) \
-		$(if $(P0119),fortis_hdbox_dvb_core_stm23.patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-fortis_hdbox_setup_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-ATEVIO7500PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-atevio7500_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-atevio7500_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-OCTAGON1008PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-octagon_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-octagon_setup_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-HS7810APATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-hs7810a_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-hs7810a_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-HS7110PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-hs7110_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-hs7110_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-WHITEBOXPATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-whitebox_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-whitebox_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		fortis_hdbox_dvb_core_stm23.patch
-
-TF7700PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		tf7700_setup_stm23$(PATCH_STR).patch
-
-HL101PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-stmmac_stm23$(PATCH_STR)_hl101.patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		linux-sh4-hl101_setup_stm23$(PATCH_STR).patch
-
-VIP2PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-stmmac_stm23$(PATCH_STR)_vip2.patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		linux-sh4-vip2_setup_stm23$(PATCH_STR).patch
-
-ADB_BOXPATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_stb7100_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_sata1_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_sata2_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_sata3_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_pio_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_soc_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_net1_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_net2_stm23$(PATCH_STR).patch) \
-		$(if $(P0119),linux-sh4-adb_box_nand_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch)\
-		linux-sh4-ufs910_pcmplayer_stm23.patch \
-		$(if $(P0123),stx7100_fdma_fix_stm23_123.patch) \
-		linux-sh4-ufs910_reboot_stm23.patch \
-		$(if $(P0123),linux-sh4-adb_box_setup_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-adb_box_stb7100_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-adb_box_sata1_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-adb_box_sata2_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-adb_box_sata3_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-adb_box_net_stm23$(PATCH_STR).patch)
-
-UFS910PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		$(if $(P0123),linux-sh4-ufs912_sound_stm23$(PATCH_STR).patch) \
-		linux-sh4-ufs910_setup_stm23$(PATCH_STR).patch \
-		linux-sh4-ufs910_pcmplayer_stm23.patch \
-		$(if $(P0123),stx7100_fdma_fix_stm23_123.patch) \
-		linux-sh4-ufs910_reboot_stm23.patch
-
-IPBOX9900PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		linux-sh4-ipbox_setup_stm23$(PATCH_STR).patch \
-		linux-sh4-ipbox_rtl8201_stm23$(PATCH_STR).patch
-
-IPBOX99PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		linux-sh4-ipbox_setup_stm23$(PATCH_STR).patch \
-		linux-sh4-ipbox_rtl8201_stm23$(PATCH_STR).patch
-
-IPBOX55PATCHES_23 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		linux-sh4-ipbox_setup_stm23$(PATCH_STR).patch \
-		linux-sh4-ipbox_rtl8201_stm23$(PATCH_STR).patch
-
-CUBEPATCHES_023 = $(COMMONPATCHES_23) \
-		$(if $(P0119),linux-sh4-fdma_stm23$(PATCH_STR).patch) \
-		linux-sh4-sound_stm23$(PATCH_STR).patch \
-		linux-sh4-cuberevo_patches_stm23$(PATCH_STR).patch \
-		linux-sh4-cuberevo_rtl8201_stm23$(PATCH_STR).patch \
-		linux-sh4-$(CUBEMOD)_setup_stm23$(PATCH_STR).patch
-
-HS5101PATCHES_23 = $(UFS910PATCHES_23)
-
-KERNELPATCHES_23 = $(if $(TF7700),$(TF7700PATCHES_23)) \
-		$(if $(HL101),$(HL101PATCHES_23)) \
-		$(if $(VIP1_V2),$(VIP2PATCHES_23)) \
-		$(if $(VIP2_V1),$(VIP2PATCHES_23)) \
-		$(if $(UFS912),$(UFS912PATCHES_23)) \
-		$(if $(SPARK),$(SPARKPATCHES_23)) \
-		$(if $(SPARK7162),$(SPARK7162PATCHES_23)) \
-		$(if $(UFS922),$(UFS922PATCHES_23)) \
-		$(if $(CUBEMOD),$(CUBEPATCHES_023)) \
-		$(if $(UFS910),$(UFS910PATCHES_23)) \
-		$(if $(FORTIS_HDBOX),$(FORTISPATCHES_23)) \
-		$(if $(ATEVIO7500),$(ATEVIO7500PATCHES_23)) \
-		$(if $(OCTAGON1008),$(OCTAGON1008PATCHES_23)) \
-		$(if $(HS7810A),$(HS7810APATCHES_23)) \
-		$(if $(HS7110),$(HS7110PATCHES_23)) \
-		$(if $(WHITEBOX),$(WHITEBOXPATCHES_23)) \
-		$(if $(HOMECAST5101),$(HS5101PATCHES_23)) \
-		$(if $(ADB_BOX),$(ADB_BOXPATCHES_23)) \
-		$(if $(IPBOX9900),$(IPBOX9900PATCHES_23)) \
-		$(if $(IPBOX99),$(IPBOX99PATCHES_23)) \
-		$(if $(IPBOX55),$(IPBOX55PATCHES_23))
-
-#
 # Patches Kernel 24
 #
 if ENABLE_P0201
@@ -340,7 +116,7 @@ HS7110PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-hs7110_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
-		linux-squashfs3.0_lzma_stm23.patch \
+		linux-squashfs3.0_lzma_stm24.patch \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
 
@@ -350,7 +126,7 @@ WHITEBOXPATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-whitebox_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
-		linux-squashfs3.0_lzma_stm23.patch \
+		linux-squashfs3.0_lzma_stm24.patch \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
 
@@ -769,3 +545,4 @@ linux-kernel.%:
 	@echo ""
 	diff $(KERNEL_DIR)/.config.old $(KERNEL_DIR)/.config
 	@echo ""
+

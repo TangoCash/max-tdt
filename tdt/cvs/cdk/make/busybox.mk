@@ -25,6 +25,6 @@ $(DEPDIR)/%busybox: $(DEPDIR)/busybox.do_compile
 	cd @DIR_busybox@ && \
 		export CROSS_COMPILE=$(target)- && \
 		@INSTALL_busybox@
-#		@CLEANUP_busybox@
+#		@DISTCLEANUP_busybox@
 	@[ "x$*" = "x" ] && touch $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@

@@ -72,19 +72,10 @@ $(DEPDIR)/misc-e2:
 # SPLASHUTILS
 #
 SPLASHUTILS := splashutils
-if STM23
-SPLASHUTILS_VERSION := 1.5.3.2-4
-SPLASHUTILS_SPEC := stm-target-$(SPLASHUTILS).spec
-SPLASHUTILS_SPEC_PATCH := $(SPLASHUTILS_SPEC).diff
-SPLASHUTILS_PATCHES :=
-else !STM23
-# if STM24
 SPLASHUTILS_VERSION := 1.5.4.3-7
 SPLASHUTILS_SPEC := stm-target-$(SPLASHUTILS).spec
 SPLASHUTILS_SPEC_PATCH :=
 SPLASHUTILS_PATCHES :=
-# endif STM24
-endif !STM23
 
 SPLASHUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(SPLASHUTILS)-$(SPLASHUTILS_VERSION).sh4.rpm
 
@@ -92,7 +83,7 @@ $(SPLASHUTILS_RPM): \
 		$(if $(SPLASHUTILS_SPEC_PATCH),Patches/$(SPLASHUTILS_SPEC_PATCH)) \
 		$(if $(SPLASHUTILS_PATCHES),$(SPLASHUTILS_PATCHES:%=Patches/%)) \
 		jpeg libmng freetype libpng \
-		$(archivedir)/stlinux23-target-$(SPLASHUTILS)-$(SPLASHUTILS_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(SPLASHUTILS)-$(SPLASHUTILS_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(SPLASHUTILS_SPEC_PATCH),( cd SPECS && patch -p1 $(SPLASHUTILS_SPEC) < $(buildprefix)/Patches/$(SPLASHUTILS_SPEC_PATCH) ) &&) \
 	$(if $(SPLASHUTILS_PATCHES),cp $(SPLASHUTILS_PATCHES:%=Patches/%) SOURCES/ &&) \
@@ -116,27 +107,17 @@ $(DEPDIR)/%$(SPLASHUTILS): $(SPLASHUTILS_RPM)
 # STSLAVE
 #
 STSLAVE := stslave
-if STM23
-# Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
 STSLAVE_VERSION := 0.7-18
 STSLAVE_SPEC := stm-target-$(STSLAVE).spec
 STSLAVE_SPEC_PATCH :=
 STSLAVE_PATCHES :=
-else !STM23
-# if STM24
-STSLAVE_VERSION := 0.7-18
-STSLAVE_SPEC := stm-target-$(STSLAVE).spec
-STSLAVE_SPEC_PATCH :=
-STSLAVE_PATCHES :=
-# endif STM24
-endif !STM23
 
 STSLAVE_RPM := RPMS/sh4/$(STLINUX)-sh4-$(STSLAVE)-$(STSLAVE_VERSION).sh4.rpm
 
 $(STSLAVE_RPM): \
 		$(if $(STSLAVE_SPEC_PATCH),Patches/$(STSLAVE_SPEC_PATCH)) \
 		$(if $(STSLAVE_PATCHES),$(STSLAVE_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(STSLAVE)-$(STSLAVE_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(STSLAVE)-$(STSLAVE_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(STSLAVE_SPEC_PATCH),( cd SPECS && patch -p1 $(STSLAVE_SPEC) < $(buildprefix)/Patches/$(STSLAVE_SPEC_PATCH) ) &&) \
 	$(if $(STSLAVE_PATCHES),cp $(STSLAVE_PATCHES:%=Patches/%) SOURCES/ &&) \
@@ -155,19 +136,10 @@ $(DEPDIR)/%$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
 #
 OPENSSL := openssl
 OPENSSL_DEV := openssl-dev
-if STM23
-OPENSSL_VERSION := 0.9.8h-11
-OPENSSL_SPEC := stm-target-$(OPENSSL).spec
-OPENSSL_SPEC_PATCH :=
-OPENSSL_PATCHES :=
-else !STM23
-# if STM24
 OPENSSL_VERSION := 0.9.8l-16
 OPENSSL_SPEC := stm-target-$(OPENSSL).spec
 OPENSSL_SPEC_PATCH :=
 OPENSSL_PATCHES :=
-# endif STM24
-endif !STM23
 
 OPENSSL_RPM := RPMS/sh4/$(STLINUX)-sh4-$(OPENSSL)-$(OPENSSL_VERSION).sh4.rpm
 OPENSSL_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(OPENSSL_DEV)-$(OPENSSL_VERSION).sh4.rpm
@@ -204,19 +176,10 @@ $(DEPDIR)/%$(OPENSSL_DEV): %$(OPENSSL) $(OPENSSL_DEV_RPM)
 #
 ALSALIB := alsa-lib
 ALSALIB_DEV := alsa-lib-dev
-if STM23
-ALSALIB_VERSION := 1.0.16-16
-ALSALIB_SPEC := stm-target-$(ALSALIB).spec
-ALSALIB_SPEC_PATCH := $(ALSALIB_SPEC)23.diff
-ALSALIB_PATCHES :=
-else !STM23
-# if STM24
 ALSALIB_VERSION := 1.0.21a-23
 ALSALIB_SPEC := stm-target-$(ALSALIB).spec
 ALSALIB_SPEC_PATCH :=
 ALSALIB_PATCHES :=
-# endif STM24
-endif !STM23
 
 ALSALIB_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSALIB)-$(ALSALIB_VERSION).sh4.rpm
 ALSALIB_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSALIB_DEV)-$(ALSALIB_VERSION).sh4.rpm
@@ -249,19 +212,10 @@ $(DEPDIR)/%$(ALSALIB_DEV): %$(ALSALIB) $(ALSALIB_DEV_RPM)
 # ALSAUTILS
 #
 ALSAUTILS := alsa-utils
-if STM23
-ALSAUTILS_VERSION := 1.0.16-14
-ALSAUTILS_SPEC := stm-target-$(ALSAUTILS).spec
-ALSAUTILS_SPEC_PATCH :=
-ALSAUTILS_PATCHES :=
-else !STM23
-# if STM24
 ALSAUTILS_VERSION := 1.0.16-16
 ALSAUTILS_SPEC := stm-target-$(ALSAUTILS).spec
 ALSAUTILS_SPEC_PATCH :=
 ALSAUTILS_PATCHES :=
-# endif STM24
-endif !STM23
 
 ALSAUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAUTILS)-$(ALSAUTILS_VERSION).sh4.rpm
 
@@ -288,20 +242,10 @@ $(DEPDIR)/%$(ALSAUTILS): $(ALSAUTILS_RPM)
 #
 ALSAPLAYER := alsaplayer
 ALSAPLAYER_DEV := alsaplayer-dev
-if STM23
-# Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
-ALSAPLAYER_VERSION := 0.99.77-16
-ALSAPLAYER_SPEC := stm-target-$(ALSAPLAYER).spec
-ALSAPLAYER_SPEC_PATCH :=
-ALSAPLAYER_PATCHES :=
-else !STM23
-# if STM24
 ALSAPLAYER_VERSION := 0.99.77-15
 ALSAPLAYER_SPEC := stm-target-$(ALSAPLAYER).spec
 ALSAPLAYER_SPEC_PATCH :=
 ALSAPLAYER_PATCHES :=
-# endif STM24
-endif !STM23
 
 ALSAPLAYER_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAPLAYER)-$(ALSAPLAYER_VERSION).sh4.rpm
 ALSAPLAYER_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAPLAYER_DEV)-$(ALSAPLAYER_VERSION).sh4.rpm
@@ -310,7 +254,7 @@ $(ALSAPLAYER_RPM) $(ALSAPLAYER_DEV_RPM): \
 		$(if $(ALSAPLAYER_SPEC_PATCH),Patches/$(ALSAPLAYER_SPEC_PATCH)) \
 		$(if $(ALSAPLAYER_PATCHES),$(ALSAPLAYER_PATCHES:%=Patches/%)) \
 		libmad libid3tag \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(ALSAPLAYER)-$(ALSAPLAYER_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(ALSAPLAYER)-$(ALSAPLAYER_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(ALSAPLAYER_SPEC_PATCH),( cd SPECS && patch -p1 $(ALSAPLAYER_SPEC) < $(buildprefix)/Patches/$(ALSAPLAYER_SPEC_PATCH) ) &&) \
 	$(if $(ALSAPLAYER_PATCHES),cp $(ALSAPLAYER_PATCHES:%=Patches/%) SOURCES/ &&) \
@@ -331,3 +275,4 @@ $(DEPDIR)/%$(ALSAPLAYER_DEV): $(ALSAPLAYER_DEV_RPM)
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@
+

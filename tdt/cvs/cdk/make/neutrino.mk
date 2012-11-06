@@ -90,61 +90,6 @@ neutrino-twin-distclean:
 	rm -f $(DEPDIR)/neutrino-twin.do_prepare
 
 #
-# NEUTRINO HD2
-#
-$(DEPDIR)/neutrino-hd2.do_prepare:
-	rm -rf $(appsdir)/neutrino-hd2
-	rm -rf $(appsdir)/neutrino-hd2.org
-	svn co http://neutrinohd2.googlecode.com/svn/trunk/neutrino-hd $(appsdir)/neutrino-hd2
-	cp -ra $(appsdir)/neutrino-hd2 $(appsdir)/neutrino-hd2.org
-	cd $(appsdir)/neutrino-hd2 && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.exp.diff"
-	touch $@
-
-$(appsdir)/neutrino-hd2/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libgif libid3tag curl libmad libvorbisidec libboost libflac openssl sdparm
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd $(appsdir)/neutrino-hd2 && \
-		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
-		$(BUILDENV) \
-		./configure \
-			--host=$(target) \
-			$(N_CONFIG_OPTS) \
-			--with-boxtype=$(BOXTYPE) \
-			--with-tremor \
-			--with-libdir=/usr/lib \
-			--with-datadir=/share/tuxbox \
-			--with-fontdir=/share/fonts \
-			--with-configdir=/var/tuxbox/config \
-			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/var/tuxbox/plugins \
-			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
-			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
-			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS)"
-
-$(DEPDIR)/neutrino-hd2.do_compile: $(appsdir)/neutrino-hd2/config.status
-	cd $(appsdir)/neutrino-hd2 && \
-		$(MAKE) all
-	touch $@
-
-$(DEPDIR)/neutrino-hd2: neutrino-hd2.do_prepare neutrino-hd2.do_compile
-	$(MAKE) -C $(appsdir)/neutrino-hd2 install DESTDIR=$(targetprefix) && \
-	make $(targetprefix)/var/etc/.version
-	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
-	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
-	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
-	touch $@
-
-neutrino-hd2-clean:
-	rm -f $(DEPDIR)/neutrino-hd2
-	cd $(appsdir)/neutrino-hd2 && \
-		$(MAKE) clean
-
-neutrino-hd2-distclean:
-	rm -f $(DEPDIR)/neutrino-hd2
-	rm -f $(DEPDIR)/neutrino-hd2.do_compile
-	rm -f $(DEPDIR)/neutrino-hd2.do_prepare
-
-#
 # neutrino-hd2-exp branch
 #
 $(DEPDIR)/neutrino-hd2-exp.do_prepare:
@@ -241,3 +186,4 @@ neutrino-clean neutrino-distclean:
 	rm -f $(DEPDIR)/neutrino.do_prepare
 	cd $(appsdir)/neutrino && \
 		$(MAKE) distclean
+

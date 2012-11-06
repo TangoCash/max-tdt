@@ -17,20 +17,12 @@ $(DEPDIR)/%filesystem: bootstrap-cross
 #	ln -s /tmp $(targetprefix)/var/tmp
 	$(INSTALL) -d $(targetprefix)/var/lib/misc
 	$(INSTALL) -d $(targetprefix)/var/lock/subsys
-#	$(LN_S) ../mail $(targetprefix)/var/spool/mail
-#	ln -sf ../mail $(targetprefix)/var/spool/mail
 	$(INSTALL) -d $(targetprefix)/etc/{init.d,rc.d,samba}
 	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
 	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
 	$(INSTALL) -d $(targetprefix)/etc/samba/private
-#	$(INSTALL) -d $(targetprefix)/jffs
 	$(INSTALL) -d $(targetprefix)/media
-#	$(INSTALL) -d $(targetprefix)/include
-#	$(INSTALL) -d $(targetprefix)/ram
-#	$(INSTALL) -d $(targetprefix)/rom
 #	$(INSTALL) -d $(targetprefix)/share/{doc,info,locale,man,misc,nls}
-#	$(INSTALL) -d $(targetprefix)/srv
-#	$(INSTALL) -d $(targetprefix)/srv/www
 	$(INSTALL) -d $(targetprefix)/var/bin
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -39,21 +31,11 @@ $(DEPDIR)/%filesystem: bootstrap-cross
 #
 GLIBC := glibc
 GLIBC_DEV := glibc-dev
-if STM23
-GLIBC_VERSION := 2.6.1-53
-GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
-GLIBC_SPEC := stm-target-$(GLIBC).spec
-GLIBC_SPEC_PATCH := $(GLIBC_SPEC)23.diff
-GLIBC_PATCHES := stm-target-glibc-sysincludes.patch
-else !STM23
-# if STM24
 GLIBC_VERSION := $(if $(OLDSTM24),2.10.1-7,2.10.2-36)
 GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
 GLIBC_SPEC := stm-target-$(GLIBC).spec
 GLIBC_SPEC_PATCH :=
 GLIBC_PATCHES :=
-# endif STM24
-endif !STM23
 
 GLIBC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIBC)-$(GLIBC_VERSION).sh4.rpm
 GLIBC_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIBC_DEV)-$(GLIBC_VERSION).sh4.rpm
@@ -82,38 +64,22 @@ $(DEPDIR)/%$(GLIBC_DEV): $(DEPDIR)/%$(GLIBC) $(GLIBC_DEV_RPM)
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	[ "x$*" = "x" ] && touch $@ || true
 
-#Wrote: RPMS/sh4/stlinux23-sh4-glibc-prof-2.5-27.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-glibc-locales-2.5-27.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-glibc-i18ndata-2.5-27.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-glibc-nscd-2.5-27.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-glibc-doc-2.5-27.sh4.rpm
-
 #
 # BINUTILS
 #
 BINUTILS := binutils
 BINUTILS_DEV := binutils-dev
-if STM23
-# Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
-BINUTILS_VERSION := 2.19.1-41
-BINUTILS_SPEC := stm-target-$(BINUTILS).spec
-BINUTILS_SPEC_PATCH :=
-BINUTILS_PATCHES :=
-else !STM23
-# if STM24
 BINUTILS_VERSION = $(if $(OLDSTM24),2.19.1-41,2.22-64)
 BINUTILS_SPEC := stm-target-$(BINUTILS).spec
 BINUTILS_SPEC_PATCH := $(if $(OLDSTM24),,$(BINUTILS_SPEC).$(BINUTILS_VERSION).diff)
 BINUTILS_PATCHES :=
-# endif STM24
-endif !STM23
 
 BINUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BINUTILS)-$(BINUTILS_VERSION).sh4.rpm
 BINUTILS_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BINUTILS_DEV)-$(BINUTILS_VERSION).sh4.rpm
 
 $(BINUTILS_RPM) $(BINUTILS_DEV_RPM): \
 		$(addprefix Patches/,$(BINUTILS_SPEC_PATCH) $(BINUTILS_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(BINUTILS)-$(BINUTILS_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(BINUTILS)-$(BINUTILS_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(BINUTILS_SPEC_PATCH),( cd SPECS && patch -p1 $(BINUTILS_SPEC) < $(buildprefix)/Patches/$(BINUTILS_SPEC_PATCH) ) &&) \
 	$(if $(BINUTILS_PATCHES),cp $(addprefix Patches/,$(BINUTILS_PATCHES)) SOURCES/ &&) \
@@ -132,26 +98,16 @@ $(BINUTILS_DEV): $(BINUTILS_DEV_RPM)
 # GMP
 #
 GMP := gmp
-if STM23
-# Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
-GMP_VERSION := 4.3.2-3
-GMP_SPEC := stm-target-$(GMP).spec
-GMP_SPEC_PATCH :=
-GMP_PATCHES :=
-else !STM23
-# if STM24
 GMP_VERSION := $(if $(OLDSTM24),4.3.2-4,5.0.2-6)
 GMP_SPEC := stm-target-$(GMP).spec
 GMP_SPEC_PATCH :=
 GMP_PATCHES :=
-# endif STM24
-endif !STM23
 
 GMP_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GMP)-$(GMP_VERSION).sh4.rpm
 
 $(GMP_RPM): \
 		$(addprefix Patches/,$(GMP_SPEC_PATCH) $(GMP_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(GMP)-$(GMP_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(GMP)-$(GMP_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(GMP_SPEC_PATCH),( cd SPECS && patch -p1 $(GMP_SPEC) < $(buildprefix)/Patches/$(GMP_SPEC_PATCH) ) &&) \
 	$(if $(GMP_PATCHES),cp $(addprefix Patches/,$(GMP_PATCHES)) SOURCES/ &&) \
@@ -168,26 +124,16 @@ $(DEPDIR)/$(GMP): $(GMP_RPM)
 # MPFR
 #
 MPFR := mpfr
-if STM23
-# Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
-MPFR_VERSION := 2.4.2-3
-MPFR_SPEC := stm-target-$(MPFR).spec
-MPFR_SPEC_PATCH :=
-MPFR_PATCHES :=
-else !STM23
-# if STM24
 MPFR_VERSION := $(if $(OLDSTM24),2.4.2-4,3.1.0-6)
 MPFR_SPEC := stm-target-$(MPFR).spec
 MPFR_SPEC_PATCH :=
 MPFR_PATCHES :=
-# endif STM24
-endif !STM23
 
 MPFR_RPM := RPMS/sh4/$(STLINUX)-sh4-$(MPFR)-$(MPFR_VERSION).sh4.rpm
 
 $(MPFR_RPM): \
 		$(addprefix Patches/,$(MPFR_SPEC_PATCH) $(MPFR_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(MPFR)-$(MPFR_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(MPFR)-$(MPFR_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(MPFR_SPEC_PATCH),( cd SPECS && patch -p1 $(MPFR_SPEC) < $(buildprefix)/Patches/$(MPFR_SPEC_PATCH) ) &&) \
 	$(if $(MPFR_PATCHES),cp $(addprefix Patches/,$(MPFR_PATCHES)) SOURCES/ &&) \
@@ -203,7 +149,6 @@ $(DEPDIR)/$(MPFR): $(MPFR_RPM)
 #
 # MPC
 #
-if STM24
 MPC := mpc
 MPC_VERSION := $(if $(OLDSTM24),0.8.2-2,0.9-3)
 MPC_SPEC := stm-target-$(MPC).spec
@@ -213,7 +158,7 @@ MPC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(MPC)-$(MPC_VERSION).sh4.rpm
 
 $(MPC_RPM): \
 		$(addprefix Patches/,$(MPC_SPEC_PATCH) $(MPC_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(MPC)-$(MPC_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(MPC)-$(MPC_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(MPC_SPEC_PATCH),( cd SPECS && patch -p1 $(MPC_SPEC) < $(buildprefix)/Patches/$(MPC_SPEC_PATCH) ) &&) \
 	$(if $(MPC_PATCHES),cp $(addprefix Patches/,$(MPC_PATCHES)) SOURCES/ &&) \
@@ -225,22 +170,21 @@ $(DEPDIR)/$(MPC): $(MPC_RPM)
 	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/libmpc.la; \
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/libmpc.la
 	touch $@
-endif STM24
 
 #
 # LIBELF
 #
-if STM24
 LIBELF := libelf
 LIBELF_VERSION := 0.8.13-1
 LIBELF_SPEC := stm-target-$(LIBELF).spec
 LIBELF_SPEC_PATCH :=
 LIBELF_PATCHES :=
+
 LIBELF_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBELF)-$(LIBELF_VERSION).sh4.rpm
 
 $(LIBELF_RPM): \
 		$(addprefix Patches/,$(LIBELF_SPEC_PATCH) $(LIBELF_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(LIBELF)-$(LIBELF_VERSION).src.rpm
+		$(archivedir)/$(STLINUX)-target-$(LIBELF)-$(LIBELF_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(LIBELF_SPEC_PATCH),( cd SPECS && patch -p1 $(LIBELF_SPEC) < $(buildprefix)/Patches/$(LIBELF_SPEC_PATCH) ) &&) \
 	$(if $(LIBELF_PATCHES),cp $(addprefix Patches/,$(LIBELF_PATCHES)) SOURCES/ &&) \
@@ -250,7 +194,6 @@ $(LIBELF_RPM): \
 $(DEPDIR)/$(LIBELF): $(LIBELF_RPM)
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^) && \
 	touch $@
-endif STM24
 
 #
 # GCC LIBSTDC++
@@ -259,20 +202,10 @@ GCC := gcc
 LIBSTDC := libstdc++
 LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
-if STM23
-# Due to libtool errors of target-gcc, the stm24 version is used instead of stm23
-GCC_VERSION := 4.3.4-66
-GCC_SPEC := stm-target-$(GCC).spec
-GCC_SPEC_PATCH :=
-GCC_PATCHES :=
-else !STM23
-# if STM24
 GCC_VERSION := $(if $(OLDSTM24),4.3.4-66,4.6.3-115)
 GCC_SPEC := stm-target-$(GCC).spec
 GCC_SPEC_PATCH := $(if $(OLDSTM24),,$(GCC_SPEC).$(GCC_VERSION).diff)
 GCC_PATCHES := $(if $(OLDSTM24),,stm-target-$(GCC).$(GCC_VERSION).diff)
-# endif STM24
-endif !STM23
 
 GCC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GCC)-$(GCC_VERSION).sh4.rpm
 LIBSTDC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBSTDC)-$(GCC_VERSION).sh4.rpm
@@ -281,7 +214,7 @@ LIBGCC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBGCC)-$(GCC_VERSION).sh4.rpm
 
 $(GCC_RPM) $(LIBSTDC_RPM) $(LIBSTDC_DEV_RPM) $(LIBGCC_RPM): \
 		$(addprefix Patches/,$(GCC_SPEC_PATCH) $(GCC_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-target-$(GCC)-$(GCC_VERSION).src.rpm \
+		$(archivedir)/$(STLINUX)-target-$(GCC)-$(GCC_VERSION).src.rpm \
 		| $(DEPDIR)/$(GLIBC_DEV) $(GMP) $(MPFR) $(MPC) $(LIBELF)
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(GCC_SPEC_PATCH),( cd SPECS && patch -p1 $(GCC_SPEC) < $(buildprefix)/Patches/$(GCC_SPEC_PATCH) ) &&) \
@@ -315,17 +248,11 @@ $(DEPDIR)/%$(LIBGCC): $(LIBGCC_RPM)
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	[ "x$*" = "x" ] && touch $@ || true
 
-#Wrote: RPMS/sh4/stlinux20-sh4-cpp-3.4.3-22.sh4.rpm
-#Wrote: RPMS/sh4/stlinux20-sh4-cpp-doc-3.4.3-22.sh4.rpm
-#Wrote: RPMS/sh4/stlinux20-sh4-g++-3.4.3-22.sh4.rpm
-#Wrote: RPMS/sh4/stlinux20-sh4-gcc-doc-3.4.3-22.sh4.rpm
-
 # END OF BOOTSTRAP
 
 #
 # GLIB2
 #
-if STM24
 GLIB2 := #glib2
 GLIB2_DEV := glib2-dev
 GLIB2_VERSION := 2.32.1-32
@@ -361,7 +288,6 @@ $(DEPDIR)/%$(GLIB2_DEV): $(DEPDIR)/%$(GLIB2) $(GLIB2_DEV_RPM)
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/{libgio,libglib,libgmodule,libgobject,libgthread}-2.0.la
 	sed -i '/^prefix=/{ s#/usr#$(targetprefix)/usr#g }' $(targetprefix)/usr/lib//pkgconfig/{gio,gio-unix,glib,gmodule,gmodule-export,gmodule-no-export,gobject}-2.0.pc
 	[ "x$*" = "x" ] && touch $@ || true
-endif STM24
 
 #
 # LIBTERMCAP
@@ -369,21 +295,11 @@ endif STM24
 LIBTERMCAP := libtermcap
 LIBTERMCAP_DEV := libtermcap-dev
 LIBTERMCAP_DOC := libtermcap-doc
-if STM23
-LIBTERMCAP_VERSION := 2.0.8-8
-LIBTERMCAP_RAWVERSION := $(firstword $(subst -, ,$(LIBTERMCAP_VERSION)))
-LIBTERMCAP_SPEC := stm-target-$(LIBTERMCAP).spec
-LIBTERMCAP_SPEC_PATCH :=
-LIBTERMCAP_PATCHES :=
-else !STM23
-# if STM24
 LIBTERMCAP_VERSION := 2.0.8-10
 LIBTERMCAP_RAWVERSION := $(firstword $(subst -, ,$(LIBTERMCAP_VERSION)))
 LIBTERMCAP_SPEC := stm-target-$(LIBTERMCAP).spec
 LIBTERMCAP_SPEC_PATCH :=
 LIBTERMCAP_PATCHES :=
-# endif STM24
-endif !STM23
 
 LIBTERMCAP_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBTERMCAP)-$(LIBTERMCAP_VERSION).sh4.rpm
 LIBTERMCAP_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBTERMCAP_DEV)-$(LIBTERMCAP_VERSION).sh4.rpm
@@ -429,19 +345,10 @@ $(DEPDIR)/%$(LIBTERMCAP_DOC): $(LIBTERMCAP_DOC_RPM)
 NCURSES := ncurses
 NCURSES_BASE := ncurses-base
 NCURSES_DEV := ncurses-dev
-if STM23
-NCURSES_VERSION := 5.5-9
-NCURSES_SPEC := stm-target-$(NCURSES).spec
-NCURSES_SPEC_PATCH :=
-NCURSES_PATCHES :=
-else !STM23
-if STM24
 NCURSES_VERSION := 5.5-10
 NCURSES_SPEC := stm-target-$(NCURSES).spec
 NCURSES_SPEC_PATCH :=
 NCURSES_PATCHES :=
-endif STM24
-endif !STM23
 
 NCURSES_RPM := RPMS/sh4/$(STLINUX)-sh4-$(NCURSES)-$(NCURSES_VERSION).sh4.rpm
 NCURSES_BASE_RPM := RPMS/sh4/$(STLINUX)-sh4-$(NCURSES_BASE)-$(NCURSES_VERSION).sh4.rpm
@@ -479,28 +386,14 @@ $(DEPDIR)/%$(NCURSES_DEV): $(DEPDIR)/%$(NCURSES_BASE) $(NCURSES_DEV_RPM)
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	[ "x$*" = "x" ] && touch $@ || true
 
-#Wrote: RPMS/sh4/stlinux23-sh4-ncurses-dbg-5.5-9.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-ncurses-pic-5.5-9.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-ncurses-bin-5.5-9.sh4.rpm
-#Wrote: RPMS/sh4/stlinux23-sh4-ncurses-term-5.5-9.sh4.rpm
-
 #
 # BASE-PASSWD
 #
 BASE_PASSWD := base-passwd
-if STM23
-BASE_PASSWD_VERSION := 3.5.9-7
-BASE_PASSWD_SPEC := stm-target-$(BASE_PASSWD).spec
-BASE_PASSWD_SPEC_PATCH :=
-BASE_PASSWD_PATCHES :=
-else !STM23
-# if STM24
 BASE_PASSWD_VERSION := 3.5.9-9
 BASE_PASSWD_SPEC := stm-target-$(BASE_PASSWD).spec
 BASE_PASSWD_SPEC_PATCH :=
 BASE_PASSWD_PATCHES :=
-# endif STM24
-endif !STM23
 
 BASE_PASSWD_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BASE_PASSWD)-$(BASE_PASSWD_VERSION).sh4.rpm
 
@@ -532,19 +425,10 @@ $(DEPDIR)/%$(BASE_PASSWD): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
 # MAKEDEV
 #
 MAKEDEV := makedev
-if STM23
-MAKEDEV_VERSION := 2.3.1-24
-MAKEDEV_SPEC := stm-target-$(MAKEDEV).spec
-MAKEDEV_SPEC_PATCH :=
-MAKEDEV_PATCHES :=
-else !STM23
-# if STM24
 MAKEDEV_VERSION := 2.3.1-26
 MAKEDEV_SPEC := stm-target-$(MAKEDEV).spec
 MAKEDEV_SPEC_PATCH :=
 MAKEDEV_PATCHES :=
-# endif STM24
-endif !STM23
 
 MAKEDEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(MAKEDEV)-$(MAKEDEV_VERSION).sh4.rpm
 
@@ -570,19 +454,10 @@ $(DEPDIR)/%$(MAKEDEV): root/sbin/MAKEDEV $(MAKEDEV_RPM)
 # BASE-FILES
 #
 BASE_FILES := base-files
-if STM23
-BASE_FILES_VERSION := 2.0-7
-BASE_FILES_SPEC := stm-target-$(BASE_FILES).spec
-BASE_FILES_SPEC_PATCH :=
-BASE_FILES_PATCHES :=
-else !STM23
-# if STM24
 BASE_FILES_VERSION := 2.0-8
 BASE_FILES_SPEC := stm-target-$(BASE_FILES).spec
 BASE_FILES_SPEC_PATCH :=
 BASE_FILES_PATCHES :=
-# endif STM24
-endif !STM23
 
 BASE_FILES_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BASE_FILES)-$(BASE_FILES_VERSION).sh4.rpm
 
@@ -612,19 +487,10 @@ $(DEPDIR)/%$(BASE_FILES): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
 # UDEV
 #
 UDEV := udev
-if STM23
-UDEV_VERSION := 116-23
-UDEV_SPEC := stm-target-$(UDEV).spec
-UDEV_SPEC_PATCH :=
-UDEV_PATCHES :=
-else !STM23
-# if STM24
 UDEV_VERSION := 146-27
 UDEV_SPEC := stm-target-$(UDEV).spec
 UDEV_SPEC_PATCH :=
 UDEV_PATCHES :=
-# endif STM24
-endif !STM23
 
 UDEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV)-$(UDEV_VERSION).sh4.rpm
 UDEV_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV_DEV)-$(UDEV_VERSION).sh4.rpm
@@ -649,4 +515,3 @@ $(DEPDIR)/%$(UDEV): $(UDEV_RPM)
 			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
 	[ "x$*" = "x" ] && touch $@ || true
 
-#Wrote: /home/data/ufs/cvs/cdk/RPMS/sh4/stlinux20-sh4-udev-doc-054-5.sh4.rpm

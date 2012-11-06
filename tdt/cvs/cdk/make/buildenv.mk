@@ -6,7 +6,6 @@ export CXXFLAGS
 export DRPM
 export DRPMBUILD
 
-export LIBTOOL_PREFIX_BASE=$(targetprefix)
 AUTOMAKE_OPTIONS = -Wno-portability
 
 #######################################      #########################################
@@ -265,3 +264,4 @@ query-%:
 		( for j in $$FOUND ; do \
 			echo "RPMS/$$i/$$j:" && \
 			rpm $(DRPM) -qplv --scripts RPMS/$$i/$$j || true; echo;done ) || true ; done
+

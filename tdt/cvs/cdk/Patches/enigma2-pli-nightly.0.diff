@@ -1,6 +1,6 @@
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/configure.ac enigma2-nightly/configure.ac
---- enigma2-nightly.org/configure.ac	2012-10-10 22:23:32.855601398 +0200
-+++ enigma2-nightly/configure.ac	2012-10-25 20:05:06.702503739 +0200
+--- enigma2-nightly.org/configure.ac	2012-11-02 07:46:19.488168464 +0100
++++ enigma2-nightly/configure.ac	2012-11-06 22:05:44.672048137 +0100
 @@ -28,10 +28,42 @@
  AM_CONDITIONAL(HAVE_GIT_DIR, test -d "$srcdir/.git")
  AM_CONDITIONAL(HAVE_FAKE_GIT_DIR, test -f "$srcdir/.git/last_commit_info")
@@ -98,8 +98,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/configure.ac enigma2-
  po/Makefile
  main/Makefile
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/data/skin_display.xml enigma2-nightly/data/skin_display.xml
---- enigma2-nightly.org/data/skin_display.xml	2012-10-10 22:23:32.875601399 +0200
-+++ enigma2-nightly/data/skin_display.xml	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/data/skin_display.xml	2012-11-02 07:46:19.512168463 +0100
++++ enigma2-nightly/data/skin_display.xml	2012-11-06 22:05:44.672048137 +0100
 @@ -22,27 +22,30 @@
  
  <!-- template -->
@@ -300,8 +300,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/data/skin_display.xml
  	</screen>
  </skin>
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/etpm.cpp enigma2-nightly/lib/base/etpm.cpp
---- enigma2-nightly.org/lib/base/etpm.cpp	2012-10-10 22:23:32.883601400 +0200
-+++ enigma2-nightly/lib/base/etpm.cpp	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/base/etpm.cpp	2012-11-02 07:46:19.516168463 +0100
++++ enigma2-nightly/lib/base/etpm.cpp	2012-11-06 22:05:44.672048137 +0100
 @@ -6,14 +6,17 @@
  #include <string.h>
  #include <sys/un.h>
@@ -397,8 +397,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/etpm.cpp eni
  	return "";
  }
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/filepush.cpp enigma2-nightly/lib/base/filepush.cpp
---- enigma2-nightly.org/lib/base/filepush.cpp	2012-10-20 21:45:06.119926559 +0200
-+++ enigma2-nightly/lib/base/filepush.cpp	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/base/filepush.cpp	2012-11-02 07:46:19.516168463 +0100
++++ enigma2-nightly/lib/base/filepush.cpp	2012-11-06 22:05:44.672048137 +0100
 @@ -5,6 +5,15 @@
  #include <sys/ioctl.h>
  #include <sys/mman.h>
@@ -488,8 +488,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/filepush.cpp
  	eDebug("FILEPUSH THREAD STOP");
  }
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/filepush.h enigma2-nightly/lib/base/filepush.h
---- enigma2-nightly.org/lib/base/filepush.h	2012-10-14 17:36:27.746753486 +0200
-+++ enigma2-nightly/lib/base/filepush.h	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/base/filepush.h	2012-11-02 07:46:19.516168463 +0100
++++ enigma2-nightly/lib/base/filepush.h	2012-11-06 22:05:44.676048138 +0100
 @@ -13,6 +13,11 @@
  public:
  	virtual void getNextSourceSpan(off_t current_offset, size_t bytes_read, off_t &start, size_t &size)=0;
@@ -503,8 +503,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/filepush.h e
  
  class eFilePushThread: public eThread, public Object
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/ioprio.cpp enigma2-nightly/lib/base/ioprio.cpp
---- enigma2-nightly.org/lib/base/ioprio.cpp	2012-10-10 22:23:32.883601400 +0200
-+++ enigma2-nightly/lib/base/ioprio.cpp	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/base/ioprio.cpp	2012-11-02 07:46:19.516168463 +0100
++++ enigma2-nightly/lib/base/ioprio.cpp	2012-11-06 22:05:44.676048138 +0100
 @@ -28,6 +28,9 @@
  #elif defined(__mips__)
  #define __NR_ioprio_set		4284
@@ -516,8 +516,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/base/ioprio.cpp e
  #error "Unsupported arch"
  #endif
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/Makefile.inc enigma2-nightly/lib/driver/Makefile.inc
---- enigma2-nightly.org/lib/driver/Makefile.inc	2012-10-10 22:23:32.883601400 +0200
-+++ enigma2-nightly/lib/driver/Makefile.inc	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/driver/Makefile.inc	2012-11-02 07:46:19.516168463 +0100
++++ enigma2-nightly/lib/driver/Makefile.inc	2012-11-06 22:05:44.676048138 +0100
 @@ -9,7 +9,8 @@
  	driver/rc.cpp \
  	driver/rcinput.cpp \
@@ -539,8 +539,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/Makefile.i
  if HAVE_LIBSDL
  driver_libenigma_driver_a_SOURCES += \
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/rc.cpp enigma2-nightly/lib/driver/rc.cpp
---- enigma2-nightly.org/lib/driver/rc.cpp	2012-10-10 22:23:32.883601400 +0200
-+++ enigma2-nightly/lib/driver/rc.cpp	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/driver/rc.cpp	2012-11-02 07:46:19.520168464 +0100
++++ enigma2-nightly/lib/driver/rc.cpp	2012-11-06 22:05:44.676048138 +0100
 @@ -148,6 +148,9 @@
  
  bool eRCInputEventDriver::isKeyboard()
@@ -553,7 +553,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/rc.cpp eni
  }
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.cpp enigma2-nightly/lib/driver/vfd.cpp
 --- enigma2-nightly.org/lib/driver/vfd.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/driver/vfd.cpp	2012-10-25 20:05:06.706503740 +0200
++++ enigma2-nightly/lib/driver/vfd.cpp	2012-11-06 22:05:44.676048138 +0100
 @@ -0,0 +1,529 @@
 +#include <stdarg.h>
 +#include <stdlib.h>
@@ -1086,7 +1086,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.cpp en
 +}
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.h enigma2-nightly/lib/driver/vfd.h
 --- enigma2-nightly.org/lib/driver/vfd.h	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/driver/vfd.h	2012-10-25 20:05:06.706503740 +0200
++++ enigma2-nightly/lib/driver/vfd.h	2012-11-06 22:05:44.676048138 +0100
 @@ -0,0 +1,47 @@
 +#ifndef VFD_H_
 +#define VFD_H_
@@ -1136,9 +1136,9 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/driver/vfd.h enig
 +
 +#endif
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp enigma2-nightly/lib/dvb/decoder.cpp
---- enigma2-nightly.org/lib/dvb/decoder.cpp	2012-10-10 22:23:32.887601401 +0200
-+++ enigma2-nightly/lib/dvb/decoder.cpp	2012-10-25 20:05:06.706503740 +0200
-@@ -39,7 +39,11 @@
+--- enigma2-nightly.org/lib/dvb/decoder.cpp	2012-11-06 22:03:14.256041903 +0100
++++ enigma2-nightly/lib/dvb/decoder.cpp	2012-11-06 22:05:44.676048138 +0100
+@@ -40,7 +40,11 @@
  	pes.input    = DMX_IN_FRONTEND;
  	pes.output   = DMX_OUT_DECODER;
  	pes.pes_type = m_dev ? DMX_PES_AUDIO1 : DMX_PES_AUDIO0; /* FIXME */
@@ -1150,7 +1150,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DMX_SET_PES_FILTER(0x%02x) - audio - ", pid);
  	if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
  	{
-@@ -47,6 +51,7 @@
+@@ -48,6 +52,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1158,7 +1158,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DEMUX_START - audio - ");
  	if (::ioctl(m_fd_demux, DMX_START) < 0)
  	{
-@@ -54,6 +59,7 @@
+@@ -55,6 +60,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1166,7 +1166,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	int bypass = 0;
  
  	switch (type)
-@@ -89,7 +95,9 @@
+@@ -90,7 +96,9 @@
  		eDebug("failed (%m)");
  	else
  		eDebug("ok");
@@ -1176,7 +1176,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("AUDIO_PLAY - ");
  	if (::ioctl(m_fd, AUDIO_PLAY) < 0)
  		eDebug("failed (%m)");
-@@ -264,7 +272,11 @@
+@@ -265,7 +273,11 @@
  	pes.input    = DMX_IN_FRONTEND;
  	pes.output   = DMX_OUT_DECODER;
  	pes.pes_type = m_dev ? DMX_PES_VIDEO1 : DMX_PES_VIDEO0; /* FIXME */
@@ -1188,7 +1188,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DMX_SET_PES_FILTER(0x%02x) - video - ", pid);
  	if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
  	{
-@@ -272,6 +284,7 @@
+@@ -273,6 +285,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1196,7 +1196,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DEMUX_START - video - ");
  	if (::ioctl(m_fd_demux, DMX_START) < 0)
  	{
-@@ -280,6 +293,7 @@
+@@ -281,6 +294,7 @@
  	}
  	eDebug("ok");
  	freeze();  // why freeze here?!? this is a problem when only a pid change is requested... because of the unfreeze logic in Decoder::setState
@@ -1204,7 +1204,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("VIDEO_PLAY - ");
  	if (::ioctl(m_fd, VIDEO_PLAY) < 0)
  		eDebug("failed (%m)");
-@@ -526,7 +540,11 @@
+@@ -522,7 +536,11 @@
  	pes.input    = DMX_IN_FRONTEND;
  	pes.output   = DMX_OUT_DECODER;
  	pes.pes_type = m_dev ? DMX_PES_PCR1 : DMX_PES_PCR0; /* FIXME */
@@ -1216,7 +1216,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DMX_SET_PES_FILTER(0x%02x) - pcr - ", pid);
  	if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
  	{
-@@ -534,6 +552,7 @@
+@@ -530,6 +548,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1224,7 +1224,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DEMUX_START - pcr - ");
  	if (::ioctl(m_fd_demux, DMX_START) < 0)
  	{
-@@ -541,6 +560,7 @@
+@@ -537,6 +556,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1232,7 +1232,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	return 0;
  }
  
-@@ -581,7 +601,11 @@
+@@ -577,7 +597,11 @@
  	pes.input    = DMX_IN_FRONTEND;
  	pes.output   = DMX_OUT_DECODER;
  	pes.pes_type = m_dev ? DMX_PES_TELETEXT1 : DMX_PES_TELETEXT0; // FIXME
@@ -1244,7 +1244,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  
  	eDebugNoNewLine("DMX_SET_PES_FILTER(0x%02x) - ttx - ", pid);
  	if (::ioctl(m_fd_demux, DMX_SET_PES_FILTER, &pes) < 0)
-@@ -590,6 +614,7 @@
+@@ -586,6 +610,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1252,7 +1252,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	eDebugNoNewLine("DEMUX_START - ttx - ");
  	if (::ioctl(m_fd_demux, DMX_START) < 0)
  	{
-@@ -597,6 +622,7 @@
+@@ -593,6 +618,7 @@
  		return -errno;
  	}
  	eDebug("ok");
@@ -1260,7 +1260,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  	return 0;
  }
  
-@@ -732,12 +758,28 @@
+@@ -728,12 +754,28 @@
  		int *s = state_table[m_state];
  		if (changed & (changeState|changeVideo) && m_video)
  		{
@@ -1289,7 +1289,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  		}
  		if (changed & (changeState|changeAudio) && m_audio)
  		{
-@@ -1029,6 +1071,10 @@
+@@ -1019,6 +1061,10 @@
  		{
  			struct stat s;
  			fstat(f, &s);
@@ -1300,7 +1300,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  			if (m_video_clip_fd == -1)
  				m_video_clip_fd = open("/dev/dvb/adapter0/video0", O_WRONLY);
  			if (m_video_clip_fd >= 0)
-@@ -1044,8 +1090,10 @@
+@@ -1034,8 +1080,10 @@
  				read(f, iframe, s.st_size);
  				if (ioctl(m_video_clip_fd, VIDEO_SELECT_SOURCE, VIDEO_SOURCE_MEMORY) < 0)
  					eDebug("VIDEO_SELECT_SOURCE MEMORY failed (%m)");
@@ -1311,7 +1311,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  				if (ioctl(m_video_clip_fd, VIDEO_PLAY) < 0)
  					eDebug("VIDEO_PLAY failed (%m)");
  				if (ioctl(m_video_clip_fd, VIDEO_CONTINUE) < 0)
-@@ -1062,7 +1110,9 @@
+@@ -1052,7 +1100,9 @@
  				if (!seq_end_avail)
  					write(m_video_clip_fd, seq_end, sizeof(seq_end));
  				write(m_video_clip_fd, stuffing, 8192);
@@ -1322,8 +1322,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/decoder.cpp e
  			close(f);
  		}
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/dvb.cpp enigma2-nightly/lib/dvb/dvb.cpp
---- enigma2-nightly.org/lib/dvb/dvb.cpp	2012-10-15 22:15:16.650844526 +0200
-+++ enigma2-nightly/lib/dvb/dvb.cpp	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/dvb/dvb.cpp	2012-11-02 07:46:19.520168464 +0100
++++ enigma2-nightly/lib/dvb/dvb.cpp	2012-11-06 22:05:44.680048139 +0100
 @@ -111,6 +111,62 @@
  		m_boxtype = DM800SE;
  	else if (!strncmp(tmp, "dm7020hd\n", rd))
@@ -1468,8 +1468,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/dvb.cpp enigm
  
  	m_pvr_thread = new eDVBChannelFilePush(m_source->getPacketSize());
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/dvb.h enigma2-nightly/lib/dvb/dvb.h
---- enigma2-nightly.org/lib/dvb/dvb.h	2012-10-15 22:15:16.650844526 +0200
-+++ enigma2-nightly/lib/dvb/dvb.h	2012-10-25 20:05:06.706503740 +0200
+--- enigma2-nightly.org/lib/dvb/dvb.h	2012-11-02 07:46:19.520168464 +0100
++++ enigma2-nightly/lib/dvb/dvb.h	2012-11-06 22:05:44.680048139 +0100
 @@ -166,7 +166,11 @@
  	DECLARE_REF(eDVBResourceManager);
  	int avail, busy;
@@ -1493,8 +1493,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/dvb.h enigma2
  	RESULT connectStateChange(const Slot1<void,iDVBChannel*> &stateChange, ePtr<eConnection> &connection);
  	RESULT connectEvent(const Slot2<void,iDVBChannel*,int> &eventChange, ePtr<eConnection> &connection);
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/epgcache.cpp enigma2-nightly/lib/dvb/epgcache.cpp
---- enigma2-nightly.org/lib/dvb/epgcache.cpp	2012-10-10 22:23:32.887601401 +0200
-+++ enigma2-nightly/lib/dvb/epgcache.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb/epgcache.cpp	2012-11-05 08:22:54.099313802 +0100
++++ enigma2-nightly/lib/dvb/epgcache.cpp	2012-11-06 22:05:44.680048139 +0100
 @@ -220,10 +220,22 @@
  	int tmp = ByteSize - 10;
  	memcpy(data, EITdata, 10);
@@ -1545,7 +1545,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/epgcache.cpp 
  			if ( it != descriptors.end() )
  			{
  				descriptorPair &p = it->second;
-@@ -1771,6 +1797,46 @@
+@@ -1786,6 +1812,46 @@
  {
  	int map;
  	iDVBSectionReader *reader = NULL;
@@ -1592,7 +1592,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/epgcache.cpp 
  	switch (source)
  	{
  		case NOWNEXT:
-@@ -1875,6 +1941,10 @@
+@@ -1890,6 +1956,10 @@
  			cache->sectionRead(data, source, this);
  		}
  	}
@@ -1603,7 +1603,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/epgcache.cpp 
  }
  
  #if ENABLE_FREESAT
-@@ -2958,11 +3028,22 @@
+@@ -2973,11 +3043,22 @@
  						{
  							__u8 *data = evData->EITdata;
  							int tmp = evData->ByteSize-10;
@@ -1626,7 +1626,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/epgcache.cpp 
  								descriptorMap::iterator it =
  									eventData::descriptors.find(crc);
  								if (it != eventData::descriptors.end())
-@@ -3141,12 +3222,23 @@
+@@ -3156,12 +3237,23 @@
  				}
  				__u8 *data = evit->second->EITdata;
  				int tmp = evit->second->ByteSize-10;
@@ -1651,8 +1651,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/epgcache.cpp 
  					{
  						if (descr[i] == crc32)  // found...
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/frontend.cpp enigma2-nightly/lib/dvb/frontend.cpp
---- enigma2-nightly.org/lib/dvb/frontend.cpp	2012-10-10 22:23:32.887601401 +0200
-+++ enigma2-nightly/lib/dvb/frontend.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb/frontend.cpp	2012-11-05 08:22:54.099313802 +0100
++++ enigma2-nightly/lib/dvb/frontend.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -1398,7 +1398,9 @@
  				{
  					default:
@@ -1695,9 +1695,9 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/frontend.cpp 
  	{
  		score = 2;
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/volume.cpp enigma2-nightly/lib/dvb/volume.cpp
---- enigma2-nightly.org/lib/dvb/volume.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb/volume.cpp	2012-10-25 20:05:06.710503740 +0200
-@@ -33,7 +33,9 @@
+--- enigma2-nightly.org/lib/dvb/volume.cpp	2012-11-05 08:22:54.099313802 +0100
++++ enigma2-nightly/lib/dvb/volume.cpp	2012-11-06 22:05:44.684048139 +0100
+@@ -34,7 +34,9 @@
  	openMixer();
  #endif
  	volumeUnMute();
@@ -1708,8 +1708,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb/volume.cpp en
  
  int eDVBVolumecontrol::openMixer()
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_appmgr.cpp enigma2-nightly/lib/dvb_ci/dvbci_appmgr.cpp
---- enigma2-nightly.org/lib/dvb_ci/dvbci_appmgr.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb_ci/dvbci_appmgr.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb_ci/dvbci_appmgr.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/dvb_ci/dvbci_appmgr.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -94,6 +94,9 @@
  	eDebug("in appmanager -> startmmi()");
  	const unsigned char tag[3]={0x9F, 0x80, 0x22};  // Tenter_menu
@@ -1721,8 +1721,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_appm
  }
  
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci.cpp enigma2-nightly/lib/dvb_ci/dvbci.cpp
---- enigma2-nightly.org/lib/dvb_ci/dvbci.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb_ci/dvbci.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb_ci/dvbci.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/dvb_ci/dvbci.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -18,6 +18,11 @@
  
  #include <dvbsi++/ca_program_map_section.h>
@@ -2239,8 +2239,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci.cpp 
  	return 0;
  }
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci.h enigma2-nightly/lib/dvb_ci/dvbci.h
---- enigma2-nightly.org/lib/dvb_ci/dvbci.h	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb_ci/dvbci.h	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb_ci/dvbci.h	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/dvb_ci/dvbci.h	2012-11-06 22:05:44.684048139 +0100
 @@ -5,6 +5,9 @@
  
  #include <lib/base/ebase.h>
@@ -2327,8 +2327,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci.h en
  
  struct CIPmtHandler
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_mmi.cpp enigma2-nightly/lib/dvb_ci/dvbci_mmi.cpp
---- enigma2-nightly.org/lib/dvb_ci/dvbci_mmi.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb_ci/dvbci_mmi.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb_ci/dvbci_mmi.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/dvb_ci/dvbci_mmi.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -25,6 +25,9 @@
  
  eDVBCIMMISession::~eDVBCIMMISession()
@@ -2340,8 +2340,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_mmi.
  	eDVBCI_UI::getInstance()->mmiSessionDestroyed(slot->getSlotID());
  }
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_resmgr.cpp enigma2-nightly/lib/dvb_ci/dvbci_resmgr.cpp
---- enigma2-nightly.org/lib/dvb_ci/dvbci_resmgr.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb_ci/dvbci_resmgr.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb_ci/dvbci_resmgr.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/dvb_ci/dvbci_resmgr.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -5,7 +5,12 @@
  
  int eDVBCIResourceManagerSession::receivedAPDU(const unsigned char *tag,const void *data, int len)
@@ -2356,8 +2356,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_resm
  		eDebugNoNewLine("%02x ", ((const unsigned char*)data)[i]);
  	eDebug("");
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_session.cpp enigma2-nightly/lib/dvb_ci/dvbci_session.cpp
---- enigma2-nightly.org/lib/dvb_ci/dvbci_session.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/dvb_ci/dvbci_session.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/dvb_ci/dvbci_session.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/dvb_ci/dvbci_session.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -257,6 +257,12 @@
  		if ((!session_nb) || (session_nb >= SLMS))
  		{
@@ -2372,8 +2372,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/dvb_ci/dvbci_sess
  		}
  		
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/accel.cpp enigma2-nightly/lib/gdi/accel.cpp
---- enigma2-nightly.org/lib/gdi/accel.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/gdi/accel.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/accel.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/accel.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -9,8 +9,25 @@
  #include <lib/gdi/gpixmap.h>
  
@@ -2499,8 +2499,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/accel.cpp eni
  	ati_accel_blit(
  		src->data_phys, src->x, src->y, src->stride,
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/fb.cpp enigma2-nightly/lib/gdi/fb.cpp
---- enigma2-nightly.org/lib/gdi/fb.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/gdi/fb.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/fb.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/fb.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -8,6 +8,9 @@
  #include <linux/kd.h>
  
@@ -2832,8 +2832,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/fb.cpp enigma
 +#endif
 +
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/fb.h enigma2-nightly/lib/gdi/fb.h
---- enigma2-nightly.org/lib/gdi/fb.h	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/gdi/fb.h	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/fb.h	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/fb.h	2012-11-06 22:05:44.684048139 +0100
 @@ -3,11 +3,26 @@
  
  #include <lib/base/eerror.h>
@@ -2882,8 +2882,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/fb.h enigma2-
  	int lock();
  	void unlock();
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/gfbdc.cpp enigma2-nightly/lib/gdi/gfbdc.cpp
---- enigma2-nightly.org/lib/gdi/gfbdc.cpp	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/gdi/gfbdc.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/gfbdc.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/gfbdc.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -171,13 +171,29 @@
  
  void gFBDC::setResolution(int xres, int yres, int bpp)
@@ -2915,8 +2915,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/gfbdc.cpp eni
  	surface.x = m_xres;
  	surface.y = m_yres;
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/glcddc.cpp enigma2-nightly/lib/gdi/glcddc.cpp
---- enigma2-nightly.org/lib/gdi/glcddc.cpp	2012-10-24 10:04:17.681424830 +0200
-+++ enigma2-nightly/lib/gdi/glcddc.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/glcddc.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/glcddc.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -5,6 +5,21 @@
  
  gLCDDC *gLCDDC::instance;
@@ -2976,8 +2976,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/glcddc.cpp en
  		gDC::exec(o);
  		break;
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/glcddc.h enigma2-nightly/lib/gdi/glcddc.h
---- enigma2-nightly.org/lib/gdi/glcddc.h	2012-10-10 22:23:32.895601400 +0200
-+++ enigma2-nightly/lib/gdi/glcddc.h	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/glcddc.h	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/glcddc.h	2012-11-06 22:05:44.684048139 +0100
 @@ -11,6 +11,9 @@
  	int update;
  	void exec(const gOpcode *opcode);
@@ -2989,8 +2989,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/glcddc.h enig
  	gLCDDC();
  	~gLCDDC();
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/gpixmap.cpp enigma2-nightly/lib/gdi/gpixmap.cpp
---- enigma2-nightly.org/lib/gdi/gpixmap.cpp	2012-10-10 22:23:32.895601400 +0200
-+++ enigma2-nightly/lib/gdi/gpixmap.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/gpixmap.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/gpixmap.cpp	2012-11-06 22:05:44.684048139 +0100
 @@ -187,6 +187,9 @@
  			else
  				col=0x10101*color;
@@ -3032,8 +3032,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/gpixmap.cpp e
  			}
  
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/lcd.cpp enigma2-nightly/lib/gdi/lcd.cpp
---- enigma2-nightly.org/lib/gdi/lcd.cpp	2012-10-10 22:23:32.895601400 +0200
-+++ enigma2-nightly/lib/gdi/lcd.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/lcd.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/lcd.cpp	2012-11-06 22:05:44.688048138 +0100
 @@ -60,6 +60,7 @@
  }
  #endif
@@ -3185,8 +3185,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/lcd.cpp enigm
 +}
 +#endif
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/lcd.h enigma2-nightly/lib/gdi/lcd.h
---- enigma2-nightly.org/lib/gdi/lcd.h	2012-10-10 22:23:32.895601400 +0200
-+++ enigma2-nightly/lib/gdi/lcd.h	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/lcd.h	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/lcd.h	2012-11-06 22:05:44.688048138 +0100
 @@ -5,6 +5,17 @@
  #include <lib/gdi/esize.h>
  #include <lib/gdi/erect.h>
@@ -3220,8 +3220,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/lcd.h enigma2
  	eDBoxLCD();
  	~eDBoxLCD();
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/Makefile.inc enigma2-nightly/lib/gdi/Makefile.inc
---- enigma2-nightly.org/lib/gdi/Makefile.inc	2012-10-10 22:23:32.891601401 +0200
-+++ enigma2-nightly/lib/gdi/Makefile.inc	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/Makefile.inc	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/Makefile.inc	2012-11-06 22:05:44.688048138 +0100
 @@ -19,7 +19,8 @@
  	gdi/lcd.cpp \
  	gdi/picexif.cpp \
@@ -3233,8 +3233,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/Makefile.inc 
  gdiincludedir = $(pkgincludedir)/lib/gdi
  gdiinclude_HEADERS = \
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/picload.cpp enigma2-nightly/lib/gdi/picload.cpp
---- enigma2-nightly.org/lib/gdi/picload.cpp	2012-10-10 22:23:32.895601400 +0200
-+++ enigma2-nightly/lib/gdi/picload.cpp	2012-10-25 20:05:06.710503740 +0200
+--- enigma2-nightly.org/lib/gdi/picload.cpp	2012-11-02 07:46:19.528168465 +0100
++++ enigma2-nightly/lib/gdi/picload.cpp	2012-11-06 22:05:44.688048138 +0100
 @@ -4,6 +4,7 @@
  
  #include <lib/gdi/picload.h>
@@ -3459,7 +3459,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/picload.cpp e
 +#endif
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/stmfb.cpp enigma2-nightly/lib/gdi/stmfb.cpp
 --- enigma2-nightly.org/lib/gdi/stmfb.cpp	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/gdi/stmfb.cpp	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/gdi/stmfb.cpp	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,75 @@
 +/*
 +  Interface to the Dreambox dm800/dm8000 proprietary accel interface.
@@ -3537,8 +3537,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/gdi/stmfb.cpp eni
 +//	printf("unimplemented bcm_accel_fill\n");
 +}
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/Makefile.am enigma2-nightly/lib/Makefile.am
---- enigma2-nightly.org/lib/Makefile.am	2012-10-10 22:23:32.879601399 +0200
-+++ enigma2-nightly/lib/Makefile.am	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/Makefile.am	2012-11-02 07:46:19.516168463 +0100
++++ enigma2-nightly/lib/Makefile.am	2012-11-06 22:05:44.688048138 +0100
 @@ -7,6 +7,11 @@
  	-include Python.h \
  	-include $(top_builddir)/enigma2_config.h
@@ -3552,8 +3552,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/Makefile.am enigm
  noinst_LIBRARIES=
  BUILT_SOURCES=
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/Converter/RemainingToText.py enigma2-nightly/lib/python/Components/Converter/RemainingToText.py
---- enigma2-nightly.org/lib/python/Components/Converter/RemainingToText.py	2012-10-10 22:23:32.899601400 +0200
-+++ enigma2-nightly/lib/python/Components/Converter/RemainingToText.py	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/Converter/RemainingToText.py	2012-11-02 07:46:19.532168464 +0100
++++ enigma2-nightly/lib/python/Components/Converter/RemainingToText.py	2012-11-06 22:05:44.688048138 +0100
 @@ -6,6 +6,9 @@
  	WITH_SECONDS = 1
  	NO_SECONDS = 2
@@ -3594,8 +3594,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
  				return "%d min" % (duration / 60)
  		else:
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/Harddisk.py enigma2-nightly/lib/python/Components/Harddisk.py
---- enigma2-nightly.org/lib/python/Components/Harddisk.py	2012-10-13 20:38:12.589493524 +0200
-+++ enigma2-nightly/lib/python/Components/Harddisk.py	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/Harddisk.py	2012-11-02 07:46:19.536168464 +0100
++++ enigma2-nightly/lib/python/Components/Harddisk.py	2012-11-06 22:05:44.688048138 +0100
 @@ -71,21 +71,11 @@
  			self.dev_path = '/dev/' + self.device
  			self.disk_path = self.dev_path
@@ -3647,8 +3647,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
  			self.partitions.append(p)
  			if p.mountpoint: # Plugins won't expect unmounted devices
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/NimManager.py enigma2-nightly/lib/python/Components/NimManager.py
---- enigma2-nightly.org/lib/python/Components/NimManager.py	2012-10-10 22:23:32.899601400 +0200
-+++ enigma2-nightly/lib/python/Components/NimManager.py	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/NimManager.py	2012-11-02 07:46:19.536168464 +0100
++++ enigma2-nightly/lib/python/Components/NimManager.py	2012-11-06 22:05:44.688048138 +0100
 @@ -20,6 +20,10 @@
  import xml.etree.cElementTree
  
@@ -3661,8 +3661,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
  	for x in satlist:
  		if x[0] == orbpos:
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/Renderer/Makefile.am enigma2-nightly/lib/python/Components/Renderer/Makefile.am
---- enigma2-nightly.org/lib/python/Components/Renderer/Makefile.am	2012-10-10 22:23:32.903601401 +0200
-+++ enigma2-nightly/lib/python/Components/Renderer/Makefile.am	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/Renderer/Makefile.am	2012-11-02 07:46:19.536168464 +0100
++++ enigma2-nightly/lib/python/Components/Renderer/Makefile.am	2012-11-06 22:05:44.688048138 +0100
 @@ -3,4 +3,5 @@
  install_PYTHON = \
  	__init__.py Label.py Progress.py Listbox.py Renderer.py Pixmap.py \
@@ -3671,8 +3671,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
 +	FrontpanelLed.py ChannelNumber.py VideoSize.py NextEpgInfo.py \
 +	SingleEpgList.py
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/Renderer/Progress.py enigma2-nightly/lib/python/Components/Renderer/Progress.py
---- enigma2-nightly.org/lib/python/Components/Renderer/Progress.py	2012-10-10 22:23:32.903601401 +0200
-+++ enigma2-nightly/lib/python/Components/Renderer/Progress.py	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/Renderer/Progress.py	2012-11-02 07:46:19.536168464 +0100
++++ enigma2-nightly/lib/python/Components/Renderer/Progress.py	2012-11-06 22:05:44.688048138 +0100
 @@ -13,25 +13,40 @@
  	GUI_WIDGET = eSlider
  
@@ -3729,7 +3729,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
  		return (self.__start, self.__end)
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/Renderer/SingleEpgList.py enigma2-nightly/lib/python/Components/Renderer/SingleEpgList.py
 --- enigma2-nightly.org/lib/python/Components/Renderer/SingleEpgList.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Components/Renderer/SingleEpgList.py	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Components/Renderer/SingleEpgList.py	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,39 @@
 +from Components.VariableText import VariableText
 +from enigma import eLabel, eEPGCache
@@ -3771,8 +3771,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
 +					break
 +		self.text = text
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/UsageConfig.py enigma2-nightly/lib/python/Components/UsageConfig.py
---- enigma2-nightly.org/lib/python/Components/UsageConfig.py	2012-10-10 22:23:32.903601401 +0200
-+++ enigma2-nightly/lib/python/Components/UsageConfig.py	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/UsageConfig.py	2012-11-02 07:46:19.540168465 +0100
++++ enigma2-nightly/lib/python/Components/UsageConfig.py	2012-11-06 22:05:44.688048138 +0100
 @@ -99,7 +99,7 @@
  	config.usage.frontend_priority = ConfigSelection(default = "-1", choices = nims)
  	config.misc.disable_background_scan = ConfigYesNo(default = False)
@@ -3783,8 +3783,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
  		('barright', _("Progress Bar Right")),
  		('percleft', _("Percentage Left")),
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components/VolumeControl.py enigma2-nightly/lib/python/Components/VolumeControl.py
---- enigma2-nightly.org/lib/python/Components/VolumeControl.py	2012-10-10 22:23:32.903601401 +0200
-+++ enigma2-nightly/lib/python/Components/VolumeControl.py	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Components/VolumeControl.py	2012-11-02 07:46:19.540168465 +0100
++++ enigma2-nightly/lib/python/Components/VolumeControl.py	2012-11-06 22:05:44.688048138 +0100
 @@ -75,13 +75,24 @@
  
  	def volMute(self, showMuteSymbol=True, force=False):
@@ -3812,8 +3812,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Components
 +				self.volctrl.setVolume(vol, vol)
 +#+++<
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/enigma_python.i enigma2-nightly/lib/python/enigma_python.i
---- enigma2-nightly.org/lib/python/enigma_python.i	2012-10-10 22:23:32.951601402 +0200
-+++ enigma2-nightly/lib/python/enigma_python.i	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/enigma_python.i	2012-11-02 07:46:19.588168467 +0100
++++ enigma2-nightly/lib/python/enigma_python.i	2012-11-06 22:05:44.688048138 +0100
 @@ -106,6 +106,7 @@
  #include <lib/dvb_ci/dvbci_ui.h>
  #include <lib/python/python.h>
@@ -3831,8 +3831,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/enigma_pyt
  
  /**************  signals  **************/
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Makefile.inc enigma2-nightly/lib/python/Makefile.inc
---- enigma2-nightly.org/lib/python/Makefile.inc	2012-10-10 22:23:32.903601401 +0200
-+++ enigma2-nightly/lib/python/Makefile.inc	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Makefile.inc	2012-11-02 07:46:19.540168465 +0100
++++ enigma2-nightly/lib/python/Makefile.inc	2012-11-06 22:05:44.688048138 +0100
 @@ -22,7 +22,7 @@
  @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/python/enigma_python.Pcpp@am__quote@
  
@@ -3844,13 +3844,13 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Makefile.i
  
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/CuberevoVFD/__init__.py enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/__init__.py
 --- enigma2-nightly.org/lib/python/Plugins/Extensions/CuberevoVFD/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/__init__.py	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/__init__.py	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,2 @@
 +
 +
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/CuberevoVFD/Makefile.am enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/Makefile.am
 --- enigma2-nightly.org/lib/python/Plugins/Extensions/CuberevoVFD/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/Makefile.am	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/Makefile.am	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,5 @@
 +installdir = $(pkglibdir)/python/Plugins/Extensions/CuberevoVFD
 +
@@ -3859,7 +3859,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Ex
 +	plugin.py
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/CuberevoVFD/plugin.py enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/plugin.py
 --- enigma2-nightly.org/lib/python/Plugins/Extensions/CuberevoVFD/plugin.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/plugin.py	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Plugins/Extensions/CuberevoVFD/plugin.py	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,317 @@
 +from Screens.Screen import Screen
 +from Screens.MessageBox import MessageBox
@@ -4179,8 +4179,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Ex
 +	return [ PluginDescriptor(name="CuberevoVFD", description="Change VFD display settings", where = PluginDescriptor.WHERE_PLUGINMENU, fnc=main),
 +		PluginDescriptor(where = [PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc = autostart) ]
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/Makefile.am enigma2-nightly/lib/python/Plugins/Extensions/Makefile.am
---- enigma2-nightly.org/lib/python/Plugins/Extensions/Makefile.am	2012-10-10 22:23:32.919601402 +0200
-+++ enigma2-nightly/lib/python/Plugins/Extensions/Makefile.am	2012-10-25 20:05:06.714503740 +0200
+--- enigma2-nightly.org/lib/python/Plugins/Extensions/Makefile.am	2012-11-02 07:46:19.552168465 +0100
++++ enigma2-nightly/lib/python/Plugins/Extensions/Makefile.am	2012-11-06 22:05:44.688048138 +0100
 @@ -1,6 +1,14 @@
  installdir = $(pkglibdir)/python/Plugins/Extensions
  
@@ -4199,13 +4199,13 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Ex
  SUBDIRS += DVDPlayer
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/TopfieldVFD/__init__.py enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/__init__.py
 --- enigma2-nightly.org/lib/python/Plugins/Extensions/TopfieldVFD/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/__init__.py	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/__init__.py	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,2 @@
 +
 +
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/TopfieldVFD/Makefile.am enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/Makefile.am
 --- enigma2-nightly.org/lib/python/Plugins/Extensions/TopfieldVFD/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/Makefile.am	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/Makefile.am	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,5 @@
 +installdir = $(pkglibdir)/python/Plugins/Extensions/TopfieldVFD
 +
@@ -4214,7 +4214,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Ex
 +	plugin.py
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Extensions/TopfieldVFD/plugin.py enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/plugin.py
 --- enigma2-nightly.org/lib/python/Plugins/Extensions/TopfieldVFD/plugin.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/plugin.py	2012-10-25 20:05:06.714503740 +0200
++++ enigma2-nightly/lib/python/Plugins/Extensions/TopfieldVFD/plugin.py	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,458 @@
 +from Screens.Screen import Screen
 +from Screens.MessageBox import MessageBox
@@ -4675,8 +4675,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Ex
 +	return [ PluginDescriptor(name="TopfieldVFD", description="Change VFD display settings", where = PluginDescriptor.WHERE_PLUGINMENU, fnc=main),
 +		PluginDescriptor(where = [PluginDescriptor.WHERE_SESSIONSTART, PluginDescriptor.WHERE_AUTOSTART], fnc = autostart) ]
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Hotplug/plugin.py enigma2-nightly/lib/python/Plugins/SystemPlugins/Hotplug/plugin.py
---- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Hotplug/plugin.py	2012-10-10 22:23:32.927601401 +0200
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Hotplug/plugin.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Hotplug/plugin.py	2012-11-02 07:46:19.560168466 +0100
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Hotplug/plugin.py	2012-11-06 22:05:44.688048138 +0100
 @@ -9,6 +9,8 @@
  	action = v.get("ACTION")
  	device = v.get("DEVPATH")
@@ -4687,8 +4687,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
  
  	dev = device.split('/')[-1]
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Makefile.am enigma2-nightly/lib/python/Plugins/SystemPlugins/Makefile.am
---- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Makefile.am	2012-10-10 22:23:32.927601401 +0200
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Makefile.am	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Makefile.am	2012-11-02 07:46:19.560168466 +0100
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Makefile.am	2012-11-06 22:05:44.688048138 +0100
 @@ -2,9 +2,9 @@
  
  SUBDIRS = SoftwareManager PositionerSetup Satfinder \
@@ -4702,8 +4702,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
  if HAVE_TEMPFANCONTROL
  SUBDIRS += TempFanControl
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/SkinSelector/plugin.py enigma2-nightly/lib/python/Plugins/SystemPlugins/SkinSelector/plugin.py
---- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/SkinSelector/plugin.py	2012-10-10 22:23:32.935601402 +0200
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/SkinSelector/plugin.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/SkinSelector/plugin.py	2012-11-02 07:46:19.572168466 +0100
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/SkinSelector/plugin.py	2012-11-06 22:05:44.688048138 +0100
 @@ -10,7 +10,7 @@
  from Components.MenuList import MenuList
  from Plugins.Plugin import PluginDescriptor
@@ -4724,13 +4724,13 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
  					subdir = "Default Skin"
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/__init__.py enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/__init__.py
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/__init__.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/__init__.py	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/__init__.py	2012-11-06 22:05:44.688048138 +0100
 @@ -0,0 +1,2 @@
 +
 +
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/LICENSE enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/LICENSE
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/LICENSE	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/LICENSE	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/LICENSE	2012-11-06 22:05:44.692048138 +0100
 @@ -0,0 +1,9 @@
 +This plugin is licensed under the Creative Commons 
 +Attribution-NonCommercial-ShareAlike 3.0 Unported 
@@ -4743,7 +4743,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
 +distributed other than under the conditions noted above.
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/Makefile.am enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/Makefile.am
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/Makefile.am	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/Makefile.am	2012-11-06 22:05:44.692048138 +0100
 @@ -0,0 +1,9 @@
 +installdir = $(pkglibdir)/python/Plugins/SystemPlugins/VFD-Icons
 +
@@ -4756,14 +4756,14 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
 +dist_install_DATA = LICENSE
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/Makefile.am enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/Makefile.am
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/Makefile.am	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/Makefile.am	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/Makefile.am	2012-11-06 22:05:44.692048138 +0100
 @@ -0,0 +1,3 @@
 +installdir = $(datadir)/meta
 +
 +dist_install_DATA = plugin_vfd-icons.xml
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/plugin_vfd-icons.xml enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/plugin_vfd-icons.xml
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/plugin_vfd-icons.xml	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/plugin_vfd-icons.xml	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/meta/plugin_vfd-icons.xml	2012-11-06 22:05:44.692048138 +0100
 @@ -0,0 +1,20 @@
 +<default>
 +	<prerequisites>
@@ -4787,7 +4787,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
 +</default>
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/plugin.py enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/plugin.py
 --- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/VFD-Icons/plugin.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/plugin.py	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/VFD-Icons/plugin.py	2012-11-06 22:05:44.692048138 +0100
 @@ -0,0 +1,153 @@
 +# -*- coding: utf-8 -*-
 +from Plugins.Plugin import PluginDescriptor
@@ -4943,8 +4943,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
 +def Plugins(**kwargs):
 +	return [ PluginDescriptor(name="VFDIcons", description="Icons in VFD", where = PluginDescriptor.WHERE_SESSIONSTART, fnc=main ) ]
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/plugin.py enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/plugin.py
---- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2012-10-10 22:23:32.943601403 +0200
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2012-11-02 07:46:19.576168466 +0100
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/plugin.py	2012-11-06 22:05:44.692048138 +0100
 @@ -67,6 +67,9 @@
  				self.list.append(getConfigListEntry(_("Resolution"), config.av.videorate[config.av.videomode[config.av.videoport.value].value], _("This option configures the screen resolution in PC output mode.")))
  			else:
@@ -4971,8 +4971,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
  			self.list.append(getConfigListEntry(_("Color format"), config.av.colorformat, _("When using scart connection, choose what color format to use.")))
  			if level >= 1:
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py
---- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-10-13 20:38:12.593493524 +0200
-+++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-11-02 07:46:19.576168466 +0100
++++ enigma2-nightly/lib/python/Plugins/SystemPlugins/Videomode/VideoHardware.py	2012-11-06 22:05:44.692048138 +0100
 @@ -14,54 +14,35 @@
  
  	modes = { }  # a list of (high-level) modes for a certain port.
@@ -5149,8 +5149,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Plugins/Sy
  video_hw = VideoHardware()
  video_hw.setConfiguredMode()
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/ChannelSelection.py enigma2-nightly/lib/python/Screens/ChannelSelection.py
---- enigma2-nightly.org/lib/python/Screens/ChannelSelection.py	2012-10-24 10:04:17.681424830 +0200
-+++ enigma2-nightly/lib/python/Screens/ChannelSelection.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Screens/ChannelSelection.py	2012-11-06 22:03:14.276041901 +0100
++++ enigma2-nightly/lib/python/Screens/ChannelSelection.py	2012-11-06 22:05:44.692048138 +0100
 @@ -3,6 +3,11 @@
  from Screen import Screen
  from Components.Button import Button
@@ -5270,7 +5270,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/Ch
  
  	def moveUp(self):
  		self.servicelist.moveUp()
-@@ -1770,6 +1809,9 @@
+@@ -1778,6 +1817,9 @@
  
  	def layoutFinished(self):
  		self.setModeTv()
@@ -5281,8 +5281,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/Ch
  	def channelSelected(self): # just return selected service
  		ref = self.getCurrentSelection()
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/InfoBarGenerics.py enigma2-nightly/lib/python/Screens/InfoBarGenerics.py
---- enigma2-nightly.org/lib/python/Screens/InfoBarGenerics.py	2012-10-10 22:23:32.947601402 +0200
-+++ enigma2-nightly/lib/python/Screens/InfoBarGenerics.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Screens/InfoBarGenerics.py	2012-11-02 07:46:19.580168467 +0100
++++ enigma2-nightly/lib/python/Screens/InfoBarGenerics.py	2012-11-06 22:05:44.692048138 +0100
 @@ -8,7 +8,7 @@
  from Components.PluginComponent import plugins
  from Components.ServiceEventTracker import ServiceEventTracker
@@ -5350,7 +5350,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/In
  			self.hide()
  			self.hideTimer.stop()
  
-@@ -1529,7 +1539,7 @@
+@@ -1543,7 +1553,7 @@
  
  	def updateExtensions(self):
  		self.extensionsList = []
@@ -5359,7 +5359,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/In
  		self.extensionKeys = {}
  		for x in self.list:
  			if x[0] == self.EXTENSION_SINGLE:
-@@ -1979,16 +1989,16 @@
+@@ -1993,16 +2003,16 @@
  				idx += 1
  
  			if self.bouquets and len(self.bouquets):
@@ -5383,7 +5383,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/In
  
  			self.session.openWithCallback(self.subserviceSelected, ChoiceBox, title=_("Please select a subservice..."), list = tlist, selection = selection, keys = keys, skin_name = "SubserviceSelection")
  
-@@ -2500,3 +2510,137 @@
+@@ -2514,3 +2524,137 @@
  				Notifications.AddPopup(text = error, type = MessageBox.TYPE_ERROR, timeout = 5, id = "ZapError")
  			else:
  				Notifications.RemovePopup(id = "ZapError")
@@ -5522,8 +5522,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/In
 +		from Screens.SleepTimerEdit import SleepTimerEdit
 +		self.session.open(SleepTimerEdit)
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/InfoBar.py enigma2-nightly/lib/python/Screens/InfoBar.py
---- enigma2-nightly.org/lib/python/Screens/InfoBar.py	2012-10-10 22:23:32.947601402 +0200
-+++ enigma2-nightly/lib/python/Screens/InfoBar.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Screens/InfoBar.py	2012-11-02 07:46:19.580168467 +0100
++++ enigma2-nightly/lib/python/Screens/InfoBar.py	2012-11-06 22:05:44.692048138 +0100
 @@ -8,6 +8,9 @@
  
  profile("LOAD:enigma")
@@ -5680,8 +5680,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/In
 +		self.session.open(SleepTimerEdit)
 \ Kein Zeilenumbruch am Dateiende.
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/Standby.py enigma2-nightly/lib/python/Screens/Standby.py
---- enigma2-nightly.org/lib/python/Screens/Standby.py	2012-10-10 22:23:32.951601402 +0200
-+++ enigma2-nightly/lib/python/Screens/Standby.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Screens/Standby.py	2012-11-02 07:46:19.584168467 +0100
++++ enigma2-nightly/lib/python/Screens/Standby.py	2012-11-06 22:05:44.692048138 +0100
 @@ -11,6 +11,9 @@
  class Standby(Screen):
  	def Power(self):
@@ -5703,8 +5703,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/St
  		self.onClose.append(self.__onClose)
  
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/Wizard.py enigma2-nightly/lib/python/Screens/Wizard.py
---- enigma2-nightly.org/lib/python/Screens/Wizard.py	2012-10-10 22:23:32.951601402 +0200
-+++ enigma2-nightly/lib/python/Screens/Wizard.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Screens/Wizard.py	2012-11-02 07:46:19.584168467 +0100
++++ enigma2-nightly/lib/python/Screens/Wizard.py	2012-11-06 22:05:44.692048138 +0100
 @@ -14,6 +14,9 @@
  
  from xml.sax import make_parser
@@ -5737,7 +5737,7 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Screens/Wi
  	def resetCounter(self):
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Tools/Command.py enigma2-nightly/lib/python/Tools/Command.py
 --- enigma2-nightly.org/lib/python/Tools/Command.py	1970-01-01 01:00:00.000000000 +0100
-+++ enigma2-nightly/lib/python/Tools/Command.py	2012-10-25 20:05:06.718503740 +0200
++++ enigma2-nightly/lib/python/Tools/Command.py	2012-11-06 22:05:44.692048138 +0100
 @@ -0,0 +1,22 @@
 +from os import stat as os_stat, path as os_path, system
 +import os
@@ -5762,8 +5762,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Tools/Comm
 +	return comandline
 +
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Tools/KeyBindings.py enigma2-nightly/lib/python/Tools/KeyBindings.py
---- enigma2-nightly.org/lib/python/Tools/KeyBindings.py	2012-10-10 22:23:32.951601402 +0200
-+++ enigma2-nightly/lib/python/Tools/KeyBindings.py	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Tools/KeyBindings.py	2012-11-02 07:46:19.584168467 +0100
++++ enigma2-nightly/lib/python/Tools/KeyBindings.py	2012-11-06 22:05:44.692048138 +0100
 @@ -45,7 +45,10 @@
  		KEYIDS["KEY_9"]: ("9",),
  		KEYIDS["KEY_EXIT"]: ("EXIT",),
@@ -5789,8 +5789,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Tools/KeyB
  	{
  		KEYIDS["BTN_0"]: ("UP", "fp"),
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Tools/Makefile.am enigma2-nightly/lib/python/Tools/Makefile.am
---- enigma2-nightly.org/lib/python/Tools/Makefile.am	2012-10-10 22:23:32.951601402 +0200
-+++ enigma2-nightly/lib/python/Tools/Makefile.am	2012-10-25 20:05:06.718503740 +0200
+--- enigma2-nightly.org/lib/python/Tools/Makefile.am	2012-11-02 07:46:19.584168467 +0100
++++ enigma2-nightly/lib/python/Tools/Makefile.am	2012-11-06 22:05:44.692048138 +0100
 @@ -5,4 +5,4 @@
  	KeyBindings.py BoundFunction.py ISO639.py Notifications.py __init__.py \
  	RedirectOutput.py StbHardware.py Import.py Event.py CList.py \
@@ -5798,17 +5798,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/python/Tools/Make
 -	Downloader.py Trashcan.py GetEcmInfo.py Alternatives.py
 +	Downloader.py Trashcan.py GetEcmInfo.py Alternatives.py Command.py
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicedvb.cpp enigma2-nightly/lib/service/servicedvb.cpp
---- enigma2-nightly.org/lib/service/servicedvb.cpp	2012-10-20 21:45:06.119926559 +0200
-+++ enigma2-nightly/lib/service/servicedvb.cpp	2012-10-25 20:05:06.718503740 +0200
-@@ -82,7 +82,7 @@
- 	return -1;
- }
- 
--int eStaticServiceDVBInformation::isPlayable(const eServiceReference &ref, const eServiceReference &ignore, bool simulate=false)
-+int eStaticServiceDVBInformation::isPlayable(const eServiceReference &ref, const eServiceReference &ignore, bool simulate)
- {
- 	ePtr<eDVBResourceManager> res_mgr;
- 	if ( eDVBResourceManager::getInstance( res_mgr ) )
+--- enigma2-nightly.org/lib/service/servicedvb.cpp	2012-11-06 22:03:14.276041901 +0100
++++ enigma2-nightly/lib/service/servicedvb.cpp	2012-11-06 22:05:44.692048138 +0100
 @@ -590,6 +590,9 @@
  	if (sc)
  	{
@@ -5820,8 +5811,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicedv
  		extensions.push_back("trp");
  		sc->addServiceFactory(eServiceFactoryDVB::id, this, extensions);
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicedvbrecord.cpp enigma2-nightly/lib/service/servicedvbrecord.cpp
---- enigma2-nightly.org/lib/service/servicedvbrecord.cpp	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/lib/service/servicedvbrecord.cpp	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/lib/service/servicedvbrecord.cpp	2012-11-02 07:46:19.588168467 +0100
++++ enigma2-nightly/lib/service/servicedvbrecord.cpp	2012-11-06 22:05:44.692048138 +0100
 @@ -10,6 +10,10 @@
  #include <netinet/in.h>
  
@@ -5878,8 +5869,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicedv
  		{
  			eDebug("eDVBServiceRecord - can't open recording file!");
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp3.cpp enigma2-nightly/lib/service/servicemp3.cpp
---- enigma2-nightly.org/lib/service/servicemp3.cpp	2012-10-22 08:30:41.800694087 +0200
-+++ enigma2-nightly/lib/service/servicemp3.cpp	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/lib/service/servicemp3.cpp	2012-11-06 08:31:44.822375919 +0100
++++ enigma2-nightly/lib/service/servicemp3.cpp	2012-11-06 22:05:44.696048139 +0100
 @@ -15,8 +15,10 @@
  
  #include <string>
@@ -6910,8 +6901,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp
  }
  
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp3.h enigma2-nightly/lib/service/servicemp3.h
---- enigma2-nightly.org/lib/service/servicemp3.h	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/lib/service/servicemp3.h	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/lib/service/servicemp3.h	2012-11-02 07:46:19.588168467 +0100
++++ enigma2-nightly/lib/service/servicemp3.h	2012-11-06 22:05:44.696048139 +0100
 @@ -6,7 +6,18 @@
  #include <lib/dvb/pmt.h>
  #include <lib/dvb/subtitle.h>
@@ -7073,8 +7064,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/lib/service/servicemp
  
  #endif
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/m4/ax_python_devel.m4 enigma2-nightly/m4/ax_python_devel.m4
---- enigma2-nightly.org/m4/ax_python_devel.m4	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/m4/ax_python_devel.m4	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/m4/ax_python_devel.m4	2012-11-02 07:46:19.588168467 +0100
++++ enigma2-nightly/m4/ax_python_devel.m4	2012-11-06 22:05:44.696048139 +0100
 @@ -154,7 +154,7 @@
  		python_path=`$PYTHON -c "import distutils.sysconfig; \
  			print (distutils.sysconfig.get_python_inc ());"`
@@ -7107,8 +7098,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/m4/ax_python_devel.m4
  	AC_MSG_RESULT([$PYTHON_SITE_PKG])
  	AC_SUBST([PYTHON_SITE_PKG])
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/main/bsod.cpp enigma2-nightly/main/bsod.cpp
---- enigma2-nightly.org/main/bsod.cpp	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/main/bsod.cpp	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/main/bsod.cpp	2012-11-02 07:46:19.588168467 +0100
++++ enigma2-nightly/main/bsod.cpp	2012-11-06 22:05:44.696048139 +0100
 @@ -17,8 +17,11 @@
  #include "version_info.h"
  
@@ -7123,8 +7114,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/main/bsod.cpp enigma2
  
  #define RINGBUFFER_SIZE 16384
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/main/enigma.cpp enigma2-nightly/main/enigma.cpp
---- enigma2-nightly.org/main/enigma.cpp	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/main/enigma.cpp	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/main/enigma.cpp	2012-11-02 07:46:19.592168467 +0100
++++ enigma2-nightly/main/enigma.cpp	2012-11-06 22:05:44.696048139 +0100
 @@ -28,10 +28,15 @@
  #include <lib/python/connections.h>
  #include <lib/python/python.h>
@@ -7177,8 +7168,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/main/enigma.cpp enigm
  	printf("executing main\n");
  	
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/main/Makefile.am enigma2-nightly/main/Makefile.am
---- enigma2-nightly.org/main/Makefile.am	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/main/Makefile.am	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/main/Makefile.am	2012-11-02 07:46:19.588168467 +0100
++++ enigma2-nightly/main/Makefile.am	2012-11-06 22:05:44.696048139 +0100
 @@ -9,6 +9,8 @@
  
  bin_PROGRAMS = enigma2
@@ -7208,8 +7199,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/main/Makefile.am enig
  enigma2_LDFLAGS = -Wl,--export-dynamic
  
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/mytest.py enigma2-nightly/mytest.py
---- enigma2-nightly.org/mytest.py	2012-10-10 22:23:32.955601403 +0200
-+++ enigma2-nightly/mytest.py	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/mytest.py	2012-11-02 07:46:19.592168467 +0100
++++ enigma2-nightly/mytest.py	2012-11-06 22:05:44.696048139 +0100
 @@ -302,6 +302,10 @@
  
  		self.pushCurrent()
@@ -7235,8 +7226,8 @@ diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/mytest.py enigma2-nig
  			print "dvb time sync disabled... so set RTC now to current linux time!", strftime("%Y/%m/%d %H:%M", localtime(nowTime))
  			setRTCtime(nowTime)
 diff -Nur '--exclude-from=diff-ignore' enigma2-nightly.org/skin.py enigma2-nightly/skin.py
---- enigma2-nightly.org/skin.py	2012-10-10 22:23:33.003601404 +0200
-+++ enigma2-nightly/skin.py	2012-10-25 20:05:06.722503740 +0200
+--- enigma2-nightly.org/skin.py	2012-11-02 07:46:19.640168470 +0100
++++ enigma2-nightly/skin.py	2012-11-06 22:05:44.696048139 +0100
 @@ -68,7 +68,7 @@
  
  # example: loadSkin("nemesis_greenline/skin.xml")

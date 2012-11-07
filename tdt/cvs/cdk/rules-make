@@ -55,8 +55,6 @@ module_init_tools;3.16;module-init-tools-3.16;module-init-tools-3.16.tar.bz2;ext
 bzip2;1.0.6;bzip2-1.0.6;bzip2-1.0.6.tar.gz:bzip2.diff;extract:bzip2-1.0.6.tar.gz;patch:bzip2.diff
 grep;2.5.1;grep-2.5.1;grep-2.5.1.tar.bz2:grep_2.5.1.ds2-6.diff.gz;extract:grep-2.5.1.tar.bz2
 openrdate;1.1.2;openrdate-1.1.2;openrdate-1.1.2.tar.gz;extract:openrdate-1.1.2.tar.gz
-#e2fsprogs;1.41.14;e2fsprogs-1.41.14;e2fsprogs-1.41.14.tar.gz:e2fsprogs-1.41.11-relative-usrlib-path.patch:e2fsprogs-1.41.11-no-lib-deps.patch;extract:e2fsprogs-1.41.14.tar.gz;patch:e2fsprogs-1.41.11-relative-usrlib-path.patch;patch:e2fsprogs-1.41.11-no-lib-deps.patch
-#e2fsprogs;1.42.4;e2fsprogs-1.42.4;e2fsprogs-1.42.4.tar.gz;extract:e2fsprogs-1.42.4.tar.gz;patch:e2fsprogs-1.42.4.patch
 e2fsprogs;1.42.6;e2fsprogs-1.42.6;e2fsprogs-1.42.6.tar.gz;extract:e2fsprogs-1.42.6.tar.gz;patch:e2fsprogs-1.42.4.patch
 xfsprogs;2.9.4-1;xfsprogs-2.9.4;xfsprogs_2.9.4-1.tar.gz:xfsprogs.diff;extract:xfsprogs_2.9.4-1.tar.gz;patch:xfsprogs.diff
 mc;4.8.0;mc-4.8.0;mc-4.8.0.tar.bz2:mc.diff;extract:mc-4.8.0.tar.bz2
@@ -85,7 +83,7 @@ imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:Imag
 # contrib libs
 #
 libopenthreads;1.00;openthreads-1.00;openthreads-1.00.tar.gz;extract:openthreads-1.00.tar.gz
-libboost;boost-1.51.0;boost_1_51_0;boost_1_51_0.tar.bz2;extract:boost_1_51_0.tar.bz2;patch:libboost.diff
+libboost;boost-1.52.0;boost_1_52_0;boost_1_52_0.tar.bz2;extract:boost_1_52_0.tar.bz2;patch:libboost.diff
 libz;1.2.7;zlib-1.2.7;zlib-1.2.7.tar.bz2;extract:zlib-1.2.7.tar.bz2;patch:zlib-1.2.7.patch
 libreadline;5.2;readline-5.2;readline-5.2.tar.gz;extract:readline-5.2.tar.gz;patch:readline-5.2-termcap_shlibs.patch
 freetype_old;2.1.4;freetype-2.1.4;freetype-2.1.4.tar.bz2:libfreetype.diff;extract:freetype-2.1.4.tar.bz2;patch:libfreetype.diff

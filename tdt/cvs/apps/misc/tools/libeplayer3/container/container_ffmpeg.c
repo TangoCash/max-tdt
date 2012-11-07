@@ -753,6 +753,7 @@ if(!context->playback->BackWard && audioMute)
                            else
                            {
                                int i;
+
                                ffmpeg_printf(0, "format %d\n", sub.format);
                                ffmpeg_printf(0, "start_display_time %d\n", sub.start_display_time);
                                ffmpeg_printf(0, "end_display_time %d\n", sub.end_display_time);
@@ -949,6 +950,9 @@ int container_ffmpeg_init(Context_t *context, char * filename)
 
     avContext->flags = AVFMT_FLAG_GENPTS;
 
+    if (context->playback->noprobe)
+        avContext->max_analyze_duration = 1;
+
     ffmpeg_printf(20, "find_streaminfo\n");
 
 #if LIBAVCODEC_VERSION_MAJOR < 54
@@ -1024,6 +1028,7 @@ int container_ffmpeg_init(Context_t *context, char * filename)
                 track.frame_rate = frame_rate * 1000.0;
 
                 /* fixme: revise this */
+
                 if (track.frame_rate < 23970)
                     track.TimeScale = 1001;
                 else

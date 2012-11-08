@@ -48,8 +48,8 @@ host_alias=`/usr/share/automake-${AM_VER}/config.guess`
 
 # Then undo Suse specific modifications, no harm to other distribution
 case `echo ${host_alias} | cut -d '-' -f 1` in
-  i?86) VENDOR=pc ;;
-  *   ) VENDOR=unknown ;;
+	i?86) VENDOR=pc ;;
+	*   ) VENDOR=unknown ;;
 esac
 host_alias=`echo ${host_alias} | sed -e "s/suse/${VENDOR}/"`
 
@@ -128,61 +128,50 @@ esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
 
 case "$REPLY" in
-        8) REPLY=$3
-			echo -e "\nModels:"
-			echo " 1) VIP1 v1 [ single tuner + 2 CI + 2 USB ]"
-			echo " 2) VIP1 v2 [ single tuner + 2 CI + 1 USB + plug & play tuner (dvb-s2/t/c) ]"
-			echo " 3) VIP2 v1 [ twin tuner ]"
+	8) REPLY=$3
+		echo -e "\nModels:"
+		echo " 1) VIP1 v1 [ single tuner + 2 CI + 2 USB ]"
+		echo " 2) VIP1 v2 [ single tuner + 2 CI + 1 USB + plug & play tuner (dvb-s2/t/c) ]"
+		echo " 3) VIP2 v1 [ twin tuner ]"
 
-        	read -p "Select Model (1-3)? "
+		read -p "Select Model (1-3)? "
 
-			case "$REPLY" in
-				1) MODEL="--enable-hl101";;
-				2) MODEL="--enable-vip1_v2";;
-				3) MODEL="--enable-vip2_v1";;
-				*) MODEL="--enable-vip2_v1";;
-			esac
-			CONFIGPARAM="$CONFIGPARAM $MODEL"
-        	;;
-        *)
+		case "$REPLY" in
+			1) MODEL="--enable-hl101";;
+			2) MODEL="--enable-vip1_v2";;
+			3) MODEL="--enable-vip2_v1";;
+			*) MODEL="--enable-vip2_v1";;
+		esac
+		CONFIGPARAM="$CONFIGPARAM $MODEL"
+		;;
+	*)
 esac
 
 ##############################################
 
 echo -e "\nKernel:"
 echo " Maintained:"
-echo "   8) STM 24 P0207 (Recommended)"
-echo "  10) STM 24 P0209"
+echo "   1) STM 24 P0207 (Recommended)"
+echo "   2) STM 24 P0209"
 echo " Experimental:"
-echo "  11) STM 24 P0210 (UFS910, octagon1008, Fortis based (HDBOX), SPARK, Atevio7500)"
-echo "  12) STM 24 P0211 (UFS910, octagon1008, Cuberevo (IPBOX 9000), Fortis based (HDBOX), SPARK, Atevio7500)"
-echo "  13) STM 24 P0302 (UFS913)"
-echo " Deprecated (Not maintained):"
-echo "   1) STM 22 P0041"
-echo "   2) STM 23 P0119"
-echo "   4) STM 23 P0123"
-echo "   6) STM 24 P0205"
+echo "   3) STM 24 P0210 (UFS910, octagon1008, Fortis based (HDBOX), SPARK, Atevio7500)"
+echo "   4) STM 24 P0211 (UFS910, octagon1008, Cuberevo (IPBOX 9000), Fortis based (HDBOX), SPARK, Atevio7500)"
+echo "   5) STM 24 P0302 (UFS913)"
 case $2 in
-        [1-9] | 1[0-9]) REPLY=$2
-        echo -e "\nSelected kernel: $REPLY\n"
-        ;;
-        *)
-        read -p "Select kernel (1-13)? ";;
+	[1-9] | 1[0-9]) REPLY=$2
+	echo -e "\nSelected kernel: $REPLY\n"
+	;;
+	*)
+	read -p "Select kernel (1-5)? ";;
 esac
 
 case "$REPLY" in
-	1)  KERNEL="--enable-stm22 --enable-p0041";;
-	2)  KERNEL="--enable-stm23 --enable-p0119";;
-	4)  KERNEL="--enable-stm23 --enable-p0123";;
-	5)  KERNEL="--enable-stm24 --enable-p0201";STMFB="stm24";;
-	6)  KERNEL="--enable-stm24 --enable-p0205";STMFB="stm24";;
-	7)  KERNEL="--enable-stm24 --enable-p0206";STMFB="stm24";;
-	8)  KERNEL="--enable-stm24 --enable-p0207";STMFB="stm24";;
-	10) KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
-	11) KERNEL="--enable-stm24 --enable-p0210";STMFB="stm24";;
-	12) KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
-	13) KERNEL="--enable-stm24 --enable-p0302";STMFB="stm24";;
-	*)  KERNEL="--enable-stm24 --enable-p0207";STMFB="stm24";;
+	1)  KERNEL="--enable-stm24 --enable-p0207";STMFB="stm24";;
+	2)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
+	3)  KERNEL="--enable-stm24 --enable-p0210";STMFB="stm24";;
+	4)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
+	5)  KERNEL="--enable-stm24 --enable-p0302";STMFB="stm24";;
+	*)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
 esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
 
@@ -203,7 +192,7 @@ cd ../driver/
 echo "# Automatically generated config: don't edit" > .config
 echo "#" >> .config
 echo "export CONFIG_ZD1211REV_B=y" >> .config
-echo "export CONFIG_ZD1211=n"		>> .config
+echo "export CONFIG_ZD1211=n" >> .config
 cd -
 
 ##############################################
@@ -213,11 +202,11 @@ echo "   1) Player 131 (Deprecated)"
 echo "   2) Player 179"
 echo "   3) Player 191 (Recommended)"
 case $4 in
-        [1-3]) REPLY=$4
-        echo -e "\nSelected player: $REPLY\n"
-        ;;
-        *)
-        read -p "Select player (1-3)? ";;
+	[1-3]) REPLY=$4
+	echo -e "\nSelected player: $REPLY\n"
+	;;
+	*)
+	read -p "Select player (1-3)? ";;
 esac
 
 case "$REPLY" in
@@ -330,11 +319,11 @@ echo -e "\nMulticom:"
 echo "   1) Multicom 3.2.2     (Recommended for Player179)"
 echo "   3) Multicom 3.2.4     (Recommended for Player191)"
 case $5 in
-        [1-3]) REPLY=$5
-        echo -e "\nSelected multicom: $REPLY\n"
-        ;;
-        *)
-        read -p "Select multicom (1-3)? ";;
+	[1-3]) REPLY=$5
+	echo -e "\nSelected multicom: $REPLY\n"
+	;;
+	*)
+	read -p "Select multicom (1-3)? ";;
 esac
 
 case "$REPLY" in
@@ -383,11 +372,11 @@ echo -e "\nMedia Framework:"
 echo "   1) eplayer3  (Recommended for Enigma1/2, Neutrino/HD, VDR)"
 echo "   2) gstreamer (Recommended for Enigma2 / PLI, XBMC)"
 case $6 in
-        [1-2]) REPLY=$6
-        echo -e "\nSelected media framwork: $REPLY\n"
-        ;;
-        *)
-        read -p "Select media framwork (1-2)? ";;
+	[1-2]) REPLY=$6
+	echo -e "\nSelected media framwork: $REPLY\n"
+	;;
+	*)
+	read -p "Select media framwork (1-2)? ";;
 esac
 
 case "$REPLY" in
@@ -402,11 +391,11 @@ echo -e "\nExternal LCD support:"
 echo "   1) No external LCD"
 echo "   2) graphlcd for external LCD"
 case $7 in
-        [1-2]) REPLY=$7
-        echo -e "\nSelected LCD support: $REPLY\n"
-        ;;
-        *)
-        read -p "Select external LCD support (1-2)? ";;
+	[1-2]) REPLY=$7
+	echo -e "\nSelected LCD support: $REPLY\n"
+	;;
+	*)
+	read -p "Select external LCD support (1-2)? ";;
 esac
 
 case "$REPLY" in
@@ -423,10 +412,10 @@ echo "   2) VDR-1.7.22"
 echo "   3) VDR-1.7.27"
 case $8 in
 	[1-3]) REPLY=$8
-        echo -e "\nSelected VDR-1.7.XX: $REPLY\n"
-        ;;
-        *)
-        read -p "Select VDR (1-3)? ";;
+	echo -e "\nSelected VDR-1.7.XX: $REPLY\n"
+	;;
+	*)
+	read -p "Select VDR (1-3)? ";;
 esac
 
 case "$REPLY" in
@@ -464,11 +453,11 @@ echo -e "\nGraphic Framework:"
 echo "   1) Framebuffer (Enigma1/2, Neutrino1/HD, VDR)"
 echo "   2) DirectFB    (XBMC for UFS912, UFS913, Atevio7500)"
 case $9 in
-        [1-2]) REPLY=$9
-        echo -e "\nSelected Graphic Framework: $REPLY\n"
-        ;;
-        *)
-        read -p "Select Graphic Framework (1-2)? ";;
+	[1-2]) REPLY=$9
+	echo -e "\nSelected Graphic Framework: $REPLY\n"
+	;;
+	*)
+	read -p "Select Graphic Framework (1-2)? ";;
 esac
 
 case "$REPLY" in
@@ -505,7 +494,6 @@ echo $CONFIGPARAM >lastChoice
 echo "-----------------------"
 echo "Your build enivroment is ready :-)"
 echo "Your next step could be:"
-echo "make yaud-enigma1-hd"
 echo "make yaud-enigma2-nightly"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-neutrino"

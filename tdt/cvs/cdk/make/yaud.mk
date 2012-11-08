@@ -9,6 +9,7 @@ min-prepare-yaud std-prepare-yaud max-prepare-yaud: \
 #
 $(DEPDIR)/min-bootstrap $(DEPDIR)/std-bootstrap $(DEPDIR)/max-bootstrap $(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
+		%ccache \
 		%libtool \
 		%$(FILESYSTEM) \
 		| %$(GLIBC) \
@@ -79,10 +80,6 @@ max-:
 yaud-stock: yaud-none stock
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-enigma: yaud-none lirc stslave \
-		boot-elf misc-cp remote firstboot enigma
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 yaud-vdr: yaud-none stslave openssl openssl-dev \
 		boot-elf misc-cp remote firstboot vdr release_vdr
 	@TUXBOX_YAUD_CUSTOMIZE@
@@ -95,32 +92,16 @@ yaud-neutrino: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-neutrino-static: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino release_neutrino_static
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 yaud-neutrino-twin: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino-twin release_neutrino_nightly
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-yaud-neutrino-hd2: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino-hd2 release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-hd2-exp: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino-hd2-exp release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-enigma2: yaud-none host_python lirc \
-		boot-elf remote firstboot enigma2 enigma2-misc release
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 yaud-enigma2-nightly: yaud-none host_python lirc stslave \
 		boot-elf remote firstboot enigma2-nightly release
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-yaud-enigma1-hd: yaud-none lirc stslave \
-		boot-elf remote firstboot enigma1-hd release_enigma1_hd
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-enigma2-pli-nightly: yaud-none host_python lirc \

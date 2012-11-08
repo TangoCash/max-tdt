@@ -70,60 +70,11 @@ AC_ARG_ENABLE(multicom324,
 AM_CONDITIONAL(ENABLE_MULTICOM324,test "$enable_multicom324" = "yes")
 AC_SUBST(MULTICOM324)
 
-AC_ARG_ENABLE(stm23,
-	AS_HELP_STRING(--enable-stm23, set up the CDK to use the STLinux 2.3),
-	,[enable_stm23=no])
-AM_CONDITIONAL(STM23,test "$enable_stm23" = "yes")
-
-AC_ARG_ENABLE(havana,
-	AS_HELP_STRING(--enable-havana, set up the CDK to use the STLinux 2.3 Havana),
-	,[enable_havana=no])
-AM_CONDITIONAL(STM23_HAVANA,test "$enable_havana" = "yes")
 
 AC_ARG_ENABLE(stm24,
 	AS_HELP_STRING(--enable-stm24, set up the CDK to use the STLinux 2.4),
 	,[enable_stm24=no])
 AM_CONDITIONAL(STM24,test "$enable_stm24" = "yes")
-
-AC_ARG_ENABLE(p0119,
-	AS_HELP_STRING(--enable-p0119, set up the CDK to use the STLinux 2.3 with patchlevel 0119),
-	[case "${enableval}" in
-		yes) P0119=p0119 ;;
-	esac], [enable_p0119=no])
-AM_CONDITIONAL(ENABLE_P0119,test "$enable_p0119" = "yes")
-AC_SUBST(P0119)
-
-AC_ARG_ENABLE(p0123,
-	AS_HELP_STRING(--enable-p0123, set up the CDK to use the STLinux 2.3 with patchlevel 0123),
-	[case "${enableval}" in
-		yes) P0123=p0123 ;;
-	esac], [enable_p0123=no])
-AM_CONDITIONAL(ENABLE_P0123,test "$enable_p0123" = "yes")
-AC_SUBST(P0123)
-
-AC_ARG_ENABLE(p0201,
-	AS_HELP_STRING(--enable-p0201, set up the CDK to use the STLinux 2.4 with patchlevel 0201),
-	[case "${enableval}" in
-		yes) P0201=p0201 ;;
-	esac], [enable_p0201=no])
-AM_CONDITIONAL(ENABLE_P0201,test "$enable_p0201" = "yes")
-AC_SUBST(P0201)
-
-AC_ARG_ENABLE(p0205,
-	AS_HELP_STRING(--enable-p0205, set up the CDK to use the STLinux 2.4 with patchlevel 0205),
-	[case "${enableval}" in
-		yes) P0205=p0205 ;;
-	esac], [enable_p0205=no])
-AM_CONDITIONAL(ENABLE_P0205,test "$enable_p0205" = "yes")
-AC_SUBST(P0205)
-
-AC_ARG_ENABLE(p0206,
-	AS_HELP_STRING(--enable-p0206, set up the CDK to use the STLinux 2.4 with patchlevel 0206),
-	[case "${enableval}" in
-		yes) P0206=p0206 ;;
-	esac], [enable_p0206=no])
-AM_CONDITIONAL(ENABLE_P0206,test "$enable_p0206" = "yes")
-AC_SUBST(P0206)
 
 AC_ARG_ENABLE(p0207,
 	AS_HELP_STRING(--enable-p0207, set up the CDK to use the STLinux 2.4 with patchlevel 0207),
@@ -820,31 +771,15 @@ AC_SUBST(DISTCLEANUP)
 AC_SUBST(KERNELVERSION)
 AC_SUBST(KERNELSTMLABEL)
 AC_SUBST(KERNELLABEL)
-TUXBOX_RULES_MAKE(linux23)
-TUXBOX_RULES_MAKE(linuxp0119)
-TUXBOX_RULES_MAKE(linuxp0123)
 TUXBOX_RULES_MAKE(linux24)
-TUXBOX_RULES_MAKE(linuxp0201)
-TUXBOX_RULES_MAKE(linuxp0205)
-TUXBOX_RULES_MAKE(linuxp0206)
 TUXBOX_RULES_MAKE(linuxp0207)
 TUXBOX_RULES_MAKE(linuxp0209)
 TUXBOX_RULES_MAKE(linuxp0210)
 TUXBOX_RULES_MAKE(linuxp0211)
 TUXBOX_RULES_MAKE(linuxp0302)
 
-if test "$enable_stm23" = "yes"; then
-	if test "$enable_p0123" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0123}
-		KERNELSTMLABEL="_${VERSION_linuxp0123#*_}"
-		KERNELLABEL="123"
-	else
-		KERNELVERSION=${VERSION_linuxp0119}
-		KERNELSTMLABEL="_${VERSION_linuxp0119#*_}"
-		KERNELLABEL="119"
-	fi
-else
-	if test "$enable_havana_p0207_5" == "yes"; then
+if test "$enable_stm24" = "yes"; then
+	if test "$enable_p0207" == "yes"; then
 		KERNELVERSION=${VERSION_linuxp0207}
 		KERNELSTMLABEL="_${VERSION_linuxp0207#*_}"
 		KERNELLABEL="207"
@@ -864,22 +799,6 @@ else
 		KERNELVERSION=${VERSION_linuxp0302}
 		KERNELSTMLABEL="_${VERSION_linuxp0302#*_}"
 		KERNELLABEL="302"
-	elif test "$enable_p0207" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0207}
-		KERNELSTMLABEL="_${VERSION_linuxp0207#*_}"
-		KERNELLABEL="207"
-	elif test "$enable_p0206" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0206}
-		KERNELSTMLABEL="_${VERSION_linuxp0206#*_}"
-		KERNELLABEL="206"
-	elif test "$enable_p0205" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0205}
-		KERNELSTMLABEL="_${VERSION_linuxp0205#*_}"
-		KERNELLABEL="205"
-	else
-		KERNELVERSION=${VERSION_linuxp0201}
-		KERNELSTMLABEL="_${VERSION_linuxp0201#*_}"
-		KERNELLABEL="201"
 	fi
 fi
 
@@ -1200,13 +1119,7 @@ target cpu/boxtype          : $CPU_ARCH / $BOXTYPE
 linux kernel                : ${KERNELVERSION%.*}
 kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
-STLinux 2.3                 : $enable_stm23
 STLinux 2.4                 : $enable_stm24
-Patchlevel P0119            : $enable_p0119
-Patchlevel P0123            : $enable_p0123
-Patchlevel P0201            : $enable_p0201
-Patchlevel P0205            : $enable_p0205
-Patchlevel P0206            : $enable_p0206
 Patchlevel P0207            : $enable_p0207
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210

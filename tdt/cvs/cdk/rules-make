@@ -12,13 +12,7 @@
 #
 # core
 #
-linux23;2.6.23.17_stm23_0119;linux-sh4-2.6.23.17_stm23_0119;stlinux23-host-kernel-source-sh4-2.6.23.17_stm23_0119-119.src.rpm
-linuxp0119;2.6.23.17_stm23_0119;linux-sh4-2.6.23.17_stm23_0119;stlinux23-host-kernel-source-sh4-2.6.23.17_stm23_0119-119.src.rpm
-linuxp0123;2.6.23.17_stm23_0123;linux-sh4-2.6.23.17_stm23_0123;stlinux23-host-kernel-source-sh4-2.6.23.17_stm23_0123-123.src.rpm
 linux24;2.6.32.10_stm24_0201;linux-sh4-2.6.32.10_stm24_0201;stlinux24-host-kernel-source-sh4-2.6.32.10_stm24_0201-201.src.rpm
-linuxp0201;2.6.32.10_stm24_0201;linux-sh4-2.6.32.10_stm24_0201;stlinux24-host-kernel-source-sh4-2.6.32.10_stm24_0201-201.src.rpm
-linuxp0205;2.6.32.16_stm24_0205;linux-sh4-2.6.32.16_stm24_0205;stlinux24-host-kernel-source-sh4-2.6.32.16_stm24_0205-205.src.rpm
-linuxp0206;2.6.32.28_stm24_0206;linux-sh4-2.6.32.28_stm24_0206;stlinux24-host-kernel-source-sh4-2.6.32.28_stm24_0206-206.src.rpm
 linuxp0207;2.6.32.28_stm24_0207;linux-sh4-2.6.32.28_stm24_0207;stlinux24-host-kernel-source-sh4-2.6.32.28_stm24_0207-207.src.rpm
 linuxp0209;2.6.32.46_stm24_0209;linux-sh4-2.6.32.46_stm24_0209;stlinux24-host-kernel-source-sh4-2.6.32.46_stm24_0209-209.src.rpm
 linuxp0210;2.6.32.57_stm24_0210;linux-sh4-2.6.32.57_stm24_0210;stlinux24-host-kernel-source-sh4-2.6.32.57_stm24_0210-210.src.rpm

@@ -10,34 +10,7 @@ AUTOMAKE_OPTIONS = -Wno-portability
 
 #######################################      #########################################
 
-if STM23
-if ENABLE_P0119
-KERNEL_DEPENDS = @DEPENDS_linux23@
-KERNEL_DIR = @DIR_linuxp0119@
-KERNEL_PREPARE = @PREPARE_linux23@
-else !ENABLE_P0119
-if ENABLE_P0123
-KERNEL_DEPENDS = @DEPENDS_linux23@
-KERNEL_DIR = @DIR_linuxp0123@
-KERNEL_PREPARE = @PREPARE_linux23@
-else !ENABLE_P0123
-KERNEL_DEPENDS = @DEPENDS_linux23@
-KERNEL_DIR = @DIR_linux23@
-KERNEL_PREPARE = @PREPARE_linux23@
-endif !ENABLE_P0123
-endif !ENABLE_P0119
-else !STM23
-# if STM24
 KERNEL_DEPENDS = @DEPENDS_linux24@
-if ENABLE_P0201
-KERNEL_DIR = @DIR_linuxp0201@
-else
-if ENABLE_P0205
-KERNEL_DIR = @DIR_linuxp0205@
-else
-if ENABLE_P0206
-KERNEL_DIR = @DIR_linuxp0206@
-else
 if ENABLE_P0207
 KERNEL_DIR = @DIR_linuxp0207@
 else
@@ -55,26 +28,14 @@ endif
 endif
 endif
 endif
-endif
-endif
-endif
+
 KERNEL_PREPARE = @PREPARE_linux24@
-# endif STM24
-endif !STM23
 
 #######################################      #########################################
 
-if STM23
-STLINUX := stlinux23
-STM_SRC := $(STLINUX)
-STM_RELOCATE := /opt/STM/STLinux-2.3
-else !STM23
-# if STM24
 STLINUX := stlinux24
 STM_SRC := $(STLINUX)
 STM_RELOCATE := /opt/STM/STLinux-2.4
-# endif STM24
-endif !STM23
 
 #######################################      #########################################
 
@@ -264,4 +225,3 @@ query-%:
 		( for j in $$FOUND ; do \
 			echo "RPMS/$$i/$$j:" && \
 			rpm $(DRPM) -qplv --scripts RPMS/$$i/$$j || true; echo;done ) || true ; done
-

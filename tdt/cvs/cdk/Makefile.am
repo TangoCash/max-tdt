@@ -58,9 +58,6 @@ include make/misc_tools.mk
 # Plugins
 include make/plugins.mk
 
-# Include enigma gui targets
-include make/enigma.mk
-
 # Include enigma2 gui targets
 include make/enigma2.mk
 
@@ -81,14 +78,7 @@ include make/neutrino.mk
 
 # Include vdr gui targets
 include make/vdr.mk
-include make/vdrdev.mk
 include make/vdrdev2.mk
-
-# Include enigma1-hd gui targets
-include make/enigma1-hd.mk
-
-# Essential, and some less essential, libraries
-#include make/tuxbox_libs.mk
 
 # A small, but absolutely essential library
 include make/libtuxbox.mk
@@ -97,7 +87,6 @@ include make/libtuxbox.mk
 include make/yaud.mk
 
 # Include misc targets (SPECS derived)
-# (splashutils)
 include make/misc-specs.mk
 
 # A number of cleaning targets
@@ -120,12 +109,7 @@ include make/release_vdr.mk
 
 include make/release_vdrdev2.mk
 
-include make/release_enigma1_hd.mk
-
 include make/release_xbmc.mk
-
-# New static folder
-include make/release_neutrino_static.mk
 
 # installer image for TF7700
 include make/tfinstaller.mk
@@ -137,7 +121,6 @@ include make/tfinstaller.mk
 
 # add user specific stuff if needed
 -include $(customizationsdir)/user.mk
-
 
 # this makes sure we do not build top-level dependencies in parallel
 # (which would not be too helpful anyway, running many configure and

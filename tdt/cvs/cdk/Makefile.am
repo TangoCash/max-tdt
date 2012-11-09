@@ -49,17 +49,11 @@ include make/net-apps.mk
 # Include divers tools targets
 include make/diverse-tools.mk
 
-# More misc libs, mostly nonessential
-include make/misc_libs.mk
-
 # Misc tools, not essential
 include make/misc_tools.mk
 
 # Plugins
 include make/plugins.mk
-
-# Include enigma2 gui targets
-include make/enigma2.mk
 
 # Include enigma2 plugins targets
 include make/enigma2-plugins.mk
@@ -79,9 +73,6 @@ include make/neutrino.mk
 # Include vdr gui targets
 include make/vdr.mk
 include make/vdrdev2.mk
-
-# A small, but absolutely essential library
-include make/libtuxbox.mk
 
 # Include yaud targets
 include make/yaud.mk

@@ -188,7 +188,7 @@
  
  	def sanitizeOptions(self, origOptions, cifs=False):
  		options = origOptions.strip()
-@@ -116,74 +130,18 @@
+@@ -116,83 +130,21 @@
  
  	def CheckMountPoint(self, item, callback):
  		data = self.automounts[item]
@@ -199,12 +199,12 @@
 -		if self.activeMountsCounter == 0:
 -			print "self.automounts without active mounts",self.automounts
 -			if data['active'] == 'False' or data['active'] is False:
--				umountcmd = 'umount -fl '+ path
+-				umountcmd = "umount -fl '%s'" % path
 -				print "[AutoMount.py] UMOUNT-CMD--->",umountcmd
 -				self.MountConsole.ePopen(umountcmd, self.CheckMountPointFinished, [data, callback])
 -		else:
 -			if data['active'] == 'False' or data['active'] is False:
--				self.command = 'umount -fl '+ path
+-				self.command = "umount -fl '%s'" % path
 -
 -			elif data['active'] == 'True' or data['active'] is True:
 -			        try:
@@ -221,13 +221,14 @@
 -								options = "tcp,noatime," + data['options']
 -							else:
 -								options = "tcp,noatime"
--							tmpcmd = 'mount -t nfs -o ' + options + ' ' + data['ip'] + ':/' + tmpsharedir + ' ' + path
+-							tmpcmd = "mount -t nfs -o %s '%s' '%s'" % (options, data['ip'] + ':/' + tmpsharedir, path)
 -							self.command = tmpcmd.encode("UTF-8")
 -
 -					elif data['mounttype'] == 'cifs':
 -						if not os.path.ismount(path):
 -							tmpusername = data['username'].replace(" ", "\\ ")
--							tmpcmd = 'mount -t cifs -o '+ data['options'] +',noatime,noserverino,iocharset=utf8,username='+ tmpusername + ',password='+ data['password'] + ' //' + data['ip'] + '/' + tmpsharedir + ' ' + path
+-							options = data['options'] + ',noatime,noserverino,iocharset=utf8,username='+ tmpusername + ',password='+ data['password']
+-							tmpcmd = "mount -t cifs -o %s '//%s/%s' '%s'" % (options, data['ip'], tmpsharedir, path)
 -							self.command = tmpcmd.encode("UTF-8")
 -				except Exception, ex:
 -				        print "[AutoMount.py] Failed to create", path, "Error:", ex
@@ -241,8 +242,8 @@
  
  	def CheckMountPointFinished(self, result, retval, extra_args):
  		print "[AutoMount.py] CheckMountPointFinished",result,retval
-		(data, callback ) = extra_args
-		path = os.path.join('/media/net', data['sharename'])
+ 		(data, callback ) = extra_args
+ 		path = os.path.join('/media/net', data['sharename'])
 -		if os.path.exists(path):
 -			if os.path.ismount(path):
 -				if self.automounts.has_key(data['sharename']):
@@ -251,12 +252,6 @@
 -					if self.automounts[data['sharename']]['hdd_replacement'] == 'True': #hdd replacement hack
 -						self.makeHDDlink(path)
 -					harddiskmanager.addMountedPartition(path, desc)
-+		if self.automounts.has_key(data['sharename']):
-+			self.automounts[data['sharename']]['isMounted'] = True
-+			desc = data['sharename']
-+			if self.automounts[data['sharename']]['hdd_replacement'] == 'True': #hdd replacement hack
-+				self.makeHDDlink(path)
-+			harddiskmanager.addMountedPartition(path, desc)
 -			else:
 -				if self.automounts.has_key(data['sharename']):
 -					self.automounts[data['sharename']]['isMounted'] = False
@@ -267,10 +262,12 @@
 -							harddiskmanager.removeMountedPartition(path)
 -						except Exception, ex:
 -						        print "Failed to remove", path, "Error:", ex
- 		if self.checkList:
- 			# Go to next item in list...
- 			self.CheckMountPoint(self.checkList.pop(), callback)
-@@ -187,11 +145,6 @@
++		if self.automounts.has_key(data['sharename']):
++			self.automounts[data['sharename']]['isMounted'] = True
++			desc = data['sharename']
++			if self.automounts[data['sharename']]['hdd_replacement'] == 'True': #hdd replacement hack
++				self.makeHDDlink(path)
++			harddiskmanager.addMountedPartition(path, desc)
  		if self.checkList:
  			# Go to next item in list...
  			self.CheckMountPoint(self.checkList.pop(), callback)
@@ -282,7 +279,7 @@
  
  	def makeHDDlink(self, path):
  		hdd_dir = '/media/hdd'
-@@ -209,19 +174,11 @@
+@@ -210,19 +162,11 @@
  			print "[AutoMount.py] add symlink fails!", ex
  		movie = os.path.join(hdd_dir, 'movie')
  		if not os.path.exists(movie):
@@ -303,7 +300,7 @@
  	def getMountsList(self):
  		return self.automounts
  
-@@ -237,38 +194,37 @@
+@@ -238,38 +182,37 @@
  
  	def writeMountsConfig(self):
  		# Generate List in RAM
@@ -365,14 +362,14 @@
  	def removeMount(self, mountpoint, callback = None):
  		print "[AutoMount.py] removing mount: ",mountpoint
  		self.newautomounts = {}
-@@ -277,28 +233,5 @@
+@@ -278,28 +221,6 @@
  				self.newautomounts[sharename] = sharedata
  		self.automounts.clear()
  		self.automounts = self.newautomounts
 -		if not self.removeConsole:
 -			self.removeConsole = Console()
 -		path = '/media/net/'+ mountpoint
--		umountcmd = 'umount -fl '+ path
+-		umountcmd = "umount -fl '%s'" % path
 -		print "[AutoMount.py] UMOUNT-CMD--->",umountcmd
 -		self.removeConsole.ePopen(umountcmd, self.removeMountPointFinished, [path, callback])
 -
@@ -391,6 +388,6 @@
 -				if callback is not None:
 -					self.callback = callback
 -					self.timer.startLongTimer(1)
--
+ 
  
  iAutoMount = AutoMount()

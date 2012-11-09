@@ -26,6 +26,8 @@ $(DEPDIR)/%enigma2_openwebif: $(DEPDIR)/enigma2_openwebif.do_compile
 # enigma2-networkbrowser
 #
 $(DEPDIR)/enigma2_networkbrowser.do_prepare: @DEPENDS_enigma2_networkbrowser@
+	[ -d "$(archivedir)/enigma2-pli-nightly.git" ] && \
+	(cd $(archivedir)/enigma2-openpli-plugins-enigma2.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
 	@PREPARE_enigma2_networkbrowser@
 	touch $@
 

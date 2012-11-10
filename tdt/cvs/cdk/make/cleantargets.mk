@@ -23,10 +23,6 @@ cdk-clean:
 	-$(MAKE) -C $(driverdir) KERNEL_LOCATION=$(buildprefix)/linux-sh4 \
 		BIN_DEST=$(targetprefix)/bin \
 		INSTALL_MOD_PATH=$(targetprefix) clean
-	-$(MAKE) -C $(appsdir)/tuxbox/libs clean
-	-$(MAKE) -C $(appsdir)/tuxbox/libtuxbox clean
-	-$(MAKE) -C $(appsdir)/tuxbox/plugins clean
-	-$(MAKE) -C $(appsdir)/misc/libs clean
 	-$(MAKE) -C $(appsdir)/misc/tools distclean
 	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop clean
 	-$(MAKE) -C $(hostappsdir) clean
@@ -36,10 +32,6 @@ cdk-clean:
 # Clean tuxbox source directories. Clean up in cdkroot as much as the
 # uninstall facilities of the components allow.
 clean-local: mostlyclean-local depsclean rpmdepsclean
-	-$(MAKE) -C $(appsdir)/tuxbox/libs uninstall
-	-$(MAKE) -C $(appsdir)/tuxbox/libtuxbox uninstall
-	-$(MAKE) -C $(appsdir)/tuxbox/plugins uninstall
-	-$(MAKE) -C $(appsdir)/misc/libs uninstall
 	-$(MAKE) -C $(appsdir)/misc/tools uninstall
 	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop uninstall
 	-$(MAKE) -C $(hostappsdir) uninstall
@@ -62,19 +54,11 @@ distclean-local:
 #	-$(MAKE) -C root distclean
 	-$(MAKE) -C $(appsdir) distclean
 #	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop distclean
-#	-$(MAKE) -C $(appsdir)/dvb/libdvb++ distclean
-#	-$(MAKE) -C $(appsdir)/dvb/libdvbsi++ distclean
-	-$(MAKE) -C $(appsdir)/tuxbox/libs distclean
-	-$(MAKE) -C $(appsdir)/tuxbox/plugins distclean
-	-$(MAKE) -C $(appsdir)/tuxbox/libtuxbox distclean
-	-$(MAKE) -C $(appsdir)/misc/libs distclean
 	-$(MAKE) -C $(appsdir)/misc/tools distclean
 	-$(MAKE) -C $(hostappsdir) distclean
 	-$(MAKE) driver-clean
-	-$(MAKE) enigma2-clean
 	-rm -f Makefile-archive
 	-rm -f rules-downcheck.pl
-	-rm -f linux
 	-rm -f linux-sh4
 	-rm -rf $(appsdir)/enigma2-*
 	-rm -rf $(appsdir)/neutrino-*

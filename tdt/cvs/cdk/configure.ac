@@ -33,7 +33,7 @@ AC_PROG_CC
 AC_ARG_ENABLE(gcc434,
 	AS_HELP_STRING(--enable-gcc434, compile image stm24 using gcc 4.3.4),
 	,[enable_gcc434=no])
-AM_CONDITIONAL(GCC_437,test "$enable_gcc434" = "yes")
+AM_CONDITIONAL(GCC_434,test "$enable_gcc434" = "yes")
 
 AC_ARG_ENABLE(gcc472,
 	AS_HELP_STRING(--enable-gcc472, compile image stm24 using gcc 4.7.2),

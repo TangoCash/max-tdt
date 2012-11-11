@@ -44,7 +44,7 @@
 #include <string>
 #include <string.h>
 #include <stdlib.h>
-#include <iostream>
+#include <unistd.h>
 
 //!!you have to set CONFIG_FRAMEBUFFER_CONSOLE in kernel!! thx bpanther
 #define CONSOLE "/dev/tty1"

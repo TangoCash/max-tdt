@@ -1,6 +1,8 @@
 AC_INIT(tuxbox-apps-misc-tools,0.0.1,,tuxbox-misc-tools)
 AM_INIT_AUTOMAKE(tuxbox-misc-tools,0.0.1)
 
+TUXBOX_BOXTYPE
+
 AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LIBTOOL
@@ -25,7 +27,13 @@ AC_ARG_ENABLE([multicom324],
 AM_CONDITIONAL([ENABLE_MULTICOM324], [test x$enable_multicom324 = xtrue])
 AC_SUBST(MULTICOM324)
 
-
+AC_MSG_RESULT([
+summary:
+----------------------------------------
+Boxtype          : $BOXTYPE
+Multicom322      : $enable_multicom322
+Multicom324      : $enable_multicom324
+])
 
 AC_OUTPUT([
 Makefile

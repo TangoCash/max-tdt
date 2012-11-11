@@ -9,11 +9,15 @@ SUBDIRS = \
 	streamproxy \
 	stfbcontrol \
 	ustslave \
-	tffpctl \
-	tfd2mtd \
 	gitVCInfo \
 	hotplug \
 	vfdctl \
 	libmme_host \
 	libmmeimage \
 	ipbox_eeprom
+
+if BOXTYPE_TF7700
+SUBDIRS += \
+	tffpctl \
+	tfd2mtd
+endif

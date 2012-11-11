@@ -498,7 +498,12 @@ CROSS_G++ = cross-sh4-g++
 CROSS_PROTOIZE = cross-sh4-protoize
 CROSS_LIBGCC = cross-sh4-libgcc
 
+if GCC_472
+CROSS_GCC_VERSION = 4.7.2-112
+else
 CROSS_GCC_VERSION = $(if $(OLDSTM24),4.3.4-63,4.6.3-111)
+endif
+
 CROSS_GCC_RAWVERSION = $(firstword $(subst -, ,$(CROSS_GCC_VERSION)))
 CROSS_GCC_SPEC = stm-$(subst cross-sh4-,cross-,$(CROSS_GCC)).spec
 CROSS_GCC_SPEC_PATCH = $(CROSS_GCC_SPEC).$(CROSS_GCC_VERSION).diff

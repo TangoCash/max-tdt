@@ -1,5 +1,6 @@
-#######################################      #########################################
-
+#
+#
+#
 export CFLAGS
 export CXXFLAGS
 
@@ -8,8 +9,9 @@ export DRPMBUILD
 
 AUTOMAKE_OPTIONS = -Wno-portability
 
-#######################################      #########################################
-
+#
+#
+#
 KERNEL_DEPENDS = @DEPENDS_linux24@
 if ENABLE_P0207
 KERNEL_DIR = @DIR_linuxp0207@
@@ -31,21 +33,24 @@ endif
 
 KERNEL_PREPARE = @PREPARE_linux24@
 
-#######################################      #########################################
+DEPMOD = /sbin/depmod
 
+#
+#
+#
 STLINUX := stlinux24
 STM_SRC := $(STLINUX)
 STM_RELOCATE := /opt/STM/STLinux-2.4
 
-#######################################      #########################################
-
+#
+#
+#
 if ENABLE_CCACHE
 PATH := $(hostprefix)/ccache-bin:$(crossprefix)/bin:$(PATH):/usr/sbin
 else
 PATH := $(crossprefix)/bin:$(PATH):/usr/sbin
 endif
 
-DEPMOD = /sbin/depmod
 SOCKSIFY=
 CMD_CVS=$(SOCKSIFY) $(shell which cvs)
 WGET=$(SOCKSIFY) wget
@@ -64,7 +69,7 @@ MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
 ADAPTED_ETC_FILES =
 ETC_RW_FILES =
 
-if OLD_GCC_STM24
+if GCC_434
 OLDSTM24 = YES
 endif
 
@@ -187,15 +192,18 @@ CONFIGURE_OPTS = \
 	--host=$(target) \
 	--prefix=$(targetprefix)/usr \
 	--with-driver=$(driverdir) \
-	--with-dvbincludes=$(driverdir)/include \
+	--with-dvbincludes=$(targetprefix)/usr/include \
+	--with-boxtype=$(BOXTYPE) \
 	--with-target=cdk
 
-if ENABLE_CCACHE
-CONFIGURE_OPTS += --enable-ccache 
+if MAINTAINER_MODE
+CONFIGURE_OPTS += \
+	--enable-maintainer-mode
 endif
 
-if MAINTAINER_MODE
-CONFIGURE_OPTS += --enable-maintainer-mode
+if ENABLE_CCACHE
+CONFIGURE_OPTS += \
+	--enable-ccache
 endif
 
 CONFIGURE = \

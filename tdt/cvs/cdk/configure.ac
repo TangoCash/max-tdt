@@ -30,140 +30,21 @@ AM_MAINTAINER_MODE
 
 AC_PROG_CC
 
-AC_ARG_ENABLE(player131,
-	AS_HELP_STRING(--enable-player131, set up the CDK to use player131),
-	[case "${enableval}" in
-		yes) PLAYER131=player131 ;;
-	esac],[enable_player131=no])
-AM_CONDITIONAL(ENABLE_PLAYER131,test "$enable_player131" = "yes")
-AC_SUBST(PLAYER131)
+AC_ARG_ENABLE(gcc434,
+	AS_HELP_STRING(--enable-gcc434, compile image stm24 using gcc 4.3.4),
+	,[enable_gcc434=no])
+AM_CONDITIONAL(GCC_437,test "$enable_gcc434" = "yes")
 
-AC_ARG_ENABLE(player179,
-	AS_HELP_STRING(--enable-player179, set up the CDK to use player179),
-	[case "${enableval}" in
-		yes) PLAYER179=player179 ;;
-	esac],[enable_player179=no])
-AM_CONDITIONAL(ENABLE_PLAYER179,test "$enable_player179" = "yes")
-AC_SUBST(PLAYER179)
+AC_ARG_ENABLE(gcc472,
+	AS_HELP_STRING(--enable-gcc472, compile image stm24 using gcc 4.7.2),
+	,[enable_gcc472=no])
+AM_CONDITIONAL(GCC_472,test "$enable_gcc472" = "yes")
 
-AC_ARG_ENABLE(player191,
-	AS_HELP_STRING(--enable-player191, set up the CDK to use player191),
-	[case "${enableval}" in
-		yes) PLAYER191=player191 ;;
-	esac],[enable_player191=no])
-AM_CONDITIONAL(ENABLE_PLAYER191,test "$enable_player191" = "yes")
-AC_SUBST(PLAYER191)
-
-AC_ARG_ENABLE(multicom322,
-	AS_HELP_STRING(--enable-multicom322, set up the CDK to use multicom322),
-	[case "${enableval}" in
-		yes) MULTICOM322=multicom322 ;;
-	esac],[enable_multicom322=no])
-AM_CONDITIONAL(ENABLE_MULTICOM322,test "$enable_multicom322" = "yes")
-AC_SUBST(MULTICOM322)
-
-AC_ARG_ENABLE(multicom324,
-	AS_HELP_STRING(--enable-multicom324, set up the CDK to use multicom324),
-	[case "${enableval}" in
-		yes) MULTICOM324=multicom324 ;;
-	esac],[enable_multicom324=no])
-AM_CONDITIONAL(ENABLE_MULTICOM324,test "$enable_multicom324" = "yes")
-AC_SUBST(MULTICOM324)
-
-
-AC_ARG_ENABLE(stm24,
-	AS_HELP_STRING(--enable-stm24, set up the CDK to use the STLinux 2.4),
-	,[enable_stm24=no])
-AM_CONDITIONAL(STM24,test "$enable_stm24" = "yes")
-
-AC_ARG_ENABLE(p0207,
-	AS_HELP_STRING(--enable-p0207, set up the CDK to use the STLinux 2.4 with patchlevel 0207),
-	[case "${enableval}" in
-		yes) P0207=p0207 ;;
-	esac], [enable_p0207=no])
-AM_CONDITIONAL(ENABLE_P0207,test "$enable_p0207" = "yes")
-AC_SUBST(P0207)
-
-AC_ARG_ENABLE(p0209,
-	AS_HELP_STRING(--enable-p0209, set up the CDK to use the STLinux 2.4 with patchlevel 0209),
-	[case "${enableval}" in
-		yes) P0209=p0209 ;;
-	esac], [enable_p0209=no])
-AM_CONDITIONAL(ENABLE_P0209,test "$enable_p0209" = "yes")
-AC_SUBST(P0209)
-
-AC_ARG_ENABLE(p0210,
-	AS_HELP_STRING(--enable-p0210, set up the CDK to use the STLinux 2.4 with patchlevel 0210),
-	[case "${enableval}" in
-		yes) P0210=p0210 ;;
-	esac], [enable_p0210=no])
-AM_CONDITIONAL(ENABLE_P0210,test "$enable_p0210" = "yes")
-AC_SUBST(P0210)
-
-AC_ARG_ENABLE(p0211,
-	AS_HELP_STRING(--enable-p0211, set up the CDK to use the STLinux 2.4 with patchlevel 0211),
-	[case "${enableval}" in
-		yes) P0211=p0211 ;;
-	esac], [enable_p0211=no])
-AM_CONDITIONAL(ENABLE_P0211,test "$enable_p0211" = "yes")
-AC_SUBST(P0211)
-
-AC_ARG_ENABLE(p0302,
-	AS_HELP_STRING(--enable-p0302, set up the CDK to use the STLinux 2.4 with patchlevel 0302),
-	[case "${enableval}" in
-		yes) P0302=p0302 ;;
-	esac], [enable_p0302=no])
-AM_CONDITIONAL(ENABLE_P0302,test "$enable_p0302" = "yes")
-AC_SUBST(P0302)
-
-AC_ARG_ENABLE(debug,
-	AS_HELP_STRING(--enable-debug, set up the CDK to use debug kernel configs),
-	,[enable_debug=no])
-AM_CONDITIONAL(DEBUG,test "$enable_debug" = "yes")
-
-AC_ARG_ENABLE(old_gcc_stm24,
-	AS_HELP_STRING(--enable-old-gcc-stm24, compile image stm24 using gcc 4.3.4),
-	,[enable_old_gcc_stm24=no])
-AM_CONDITIONAL(OLD_GCC_STM24,test "$enable_old_gcc_stm24" = "yes")
-
-AC_ARG_WITH(cpu,
-	[  --with-cpu=MODEL    cpu model [[sh4]]],
-	[CPU_MODEL="$withval"],[CPU_MODEL="sh4"])
-AC_SUBST(CPU_MODEL)
-
-AC_ARG_WITH(assume-kernelsources-old,
-	[  --with-assume-kernelsources-old Do not recompile due to new kernel sources],
-	[assume_kernelsources_old="yes"],[assume_kernelsources_old="no"])
-AM_CONDITIONAL(ASSUME_KERNELSOURCES_OLD,test "$assume_kernelsources_old" = "yes")
-
-AC_ARG_ENABLE(mediafwgstreamer,
-	AS_HELP_STRING(--enable-mediafwgstreamer,    set up the CDK to use mediafw gstreamer),
-	,[enable_mediafwgstreamer=no])
-AM_CONDITIONAL(ENABLE_MEDIAFWGSTREAMER,test "$enable_mediafwgstreamer" = "yes")
-AC_SUBST(MEDIAFWGSTREAMER)
-
-AC_ARG_ENABLE(graphicfwdirectfb,
-	AS_HELP_STRING(--enable-graphicfwdirectfb,    set up the CDK to use graphicfw directfb),
-	,[enable_graphicfwdirectfb=no])
-AM_CONDITIONAL(ENABLE_GRAPHICFWDIRECTFB,test "$enable_graphicfwdirectfb" = "yes")
-AC_SUBST(GRAPHICFWDIRECTFB)
-
-AC_ARG_ENABLE(externallcd,
-	AS_HELP_STRING(--enable-externallcd,    set up the CDK to use graphlcd),
-	,[enable_externallcd=no])
-AM_CONDITIONAL(ENABLE_EXTERNALLCD,test "$enable_externallcd" = "yes")
-AC_SUBST(EXTERNALLCD)
-
-AC_ARG_ENABLE(eplayer3,
-	AS_HELP_STRING(--enable-eplayer3,    enable eplayer3 support),
-	,[enable_eplayer3=no])
-AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
-AC_SUBST(EPLAYER3)
 
 if test -z "$CFLAGS" ; then
 	CFLAGS="-g -O2"
 fi
-# CFLAGS="-g -O2 -fno-strict-aliasing"
+
 if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 	TARGET_CFLAGS="-pipe"
 	if test "$enable_debug" = "yes"; then
@@ -247,6 +128,125 @@ AC_ARG_WITH(datapartitionsize,
 AC_SUBST(DATA_PARTITION_SIZE)
 
 
+AC_ARG_ENABLE(stm24,
+	AS_HELP_STRING(--enable-stm24, set up the CDK to use the STLinux 2.4),
+	,[enable_stm24=no])
+AM_CONDITIONAL(STM24,test "$enable_stm24" = "yes")
+
+AC_ARG_ENABLE(player131,
+	AS_HELP_STRING(--enable-player131, set up the CDK to use player131),
+	[case "${enableval}" in
+		yes) PLAYER131=player131 ;;
+	esac],[enable_player131=no])
+AM_CONDITIONAL(ENABLE_PLAYER131,test "$enable_player131" = "yes")
+AC_SUBST(PLAYER131)
+
+AC_ARG_ENABLE(player179,
+	AS_HELP_STRING(--enable-player179, set up the CDK to use player179),
+	[case "${enableval}" in
+		yes) PLAYER179=player179 ;;
+	esac],[enable_player179=no])
+AM_CONDITIONAL(ENABLE_PLAYER179,test "$enable_player179" = "yes")
+AC_SUBST(PLAYER179)
+
+AC_ARG_ENABLE(player191,
+	AS_HELP_STRING(--enable-player191, set up the CDK to use player191),
+	[case "${enableval}" in
+		yes) PLAYER191=player191 ;;
+	esac],[enable_player191=no])
+AM_CONDITIONAL(ENABLE_PLAYER191,test "$enable_player191" = "yes")
+AC_SUBST(PLAYER191)
+
+AC_ARG_ENABLE(multicom322,
+	AS_HELP_STRING(--enable-multicom322, set up the CDK to use multicom322),
+	[case "${enableval}" in
+		yes) MULTICOM322=multicom322 ;;
+	esac],[enable_multicom322=no])
+AM_CONDITIONAL(ENABLE_MULTICOM322,test "$enable_multicom322" = "yes")
+AC_SUBST(MULTICOM322)
+
+AC_ARG_ENABLE(multicom324,
+	AS_HELP_STRING(--enable-multicom324, set up the CDK to use multicom324),
+	[case "${enableval}" in
+		yes) MULTICOM324=multicom324 ;;
+	esac],[enable_multicom324=no])
+AM_CONDITIONAL(ENABLE_MULTICOM324,test "$enable_multicom324" = "yes")
+AC_SUBST(MULTICOM324)
+
+AC_ARG_ENABLE(p0207,
+	AS_HELP_STRING(--enable-p0207, set up the CDK to use the STLinux 2.4 with patchlevel 0207),
+	[case "${enableval}" in
+		yes) P0207=p0207 ;;
+	esac], [enable_p0207=no])
+AM_CONDITIONAL(ENABLE_P0207,test "$enable_p0207" = "yes")
+AC_SUBST(P0207)
+
+AC_ARG_ENABLE(p0209,
+	AS_HELP_STRING(--enable-p0209, set up the CDK to use the STLinux 2.4 with patchlevel 0209),
+	[case "${enableval}" in
+		yes) P0209=p0209 ;;
+	esac], [enable_p0209=no])
+AM_CONDITIONAL(ENABLE_P0209,test "$enable_p0209" = "yes")
+AC_SUBST(P0209)
+
+AC_ARG_ENABLE(p0210,
+	AS_HELP_STRING(--enable-p0210, set up the CDK to use the STLinux 2.4 with patchlevel 0210),
+	[case "${enableval}" in
+		yes) P0210=p0210 ;;
+	esac], [enable_p0210=no])
+AM_CONDITIONAL(ENABLE_P0210,test "$enable_p0210" = "yes")
+AC_SUBST(P0210)
+
+AC_ARG_ENABLE(p0211,
+	AS_HELP_STRING(--enable-p0211, set up the CDK to use the STLinux 2.4 with patchlevel 0211),
+	[case "${enableval}" in
+		yes) P0211=p0211 ;;
+	esac], [enable_p0211=no])
+AM_CONDITIONAL(ENABLE_P0211,test "$enable_p0211" = "yes")
+AC_SUBST(P0211)
+
+AC_ARG_ENABLE(p0302,
+	AS_HELP_STRING(--enable-p0302, set up the CDK to use the STLinux 2.4 with patchlevel 0302),
+	[case "${enableval}" in
+		yes) P0302=p0302 ;;
+	esac], [enable_p0302=no])
+AM_CONDITIONAL(ENABLE_P0302,test "$enable_p0302" = "yes")
+AC_SUBST(P0302)
+
+AC_ARG_WITH(cpu,
+	[  --with-cpu=MODEL    cpu model [[sh4]]],
+	[CPU_MODEL="$withval"],[CPU_MODEL="sh4"])
+AC_SUBST(CPU_MODEL)
+
+AC_ARG_ENABLE(debug,
+	AS_HELP_STRING(--enable-debug, set up the CDK to use debug kernel configs),
+	,[enable_debug=no])
+AM_CONDITIONAL(DEBUG,test "$enable_debug" = "yes")
+
+AC_ARG_ENABLE(mediafwgstreamer,
+	AS_HELP_STRING(--enable-mediafwgstreamer,    set up the CDK to use mediafw gstreamer),
+	,[enable_mediafwgstreamer=no])
+AM_CONDITIONAL(ENABLE_MEDIAFWGSTREAMER,test "$enable_mediafwgstreamer" = "yes")
+AC_SUBST(MEDIAFWGSTREAMER)
+
+AC_ARG_ENABLE(graphicfwdirectfb,
+	AS_HELP_STRING(--enable-graphicfwdirectfb,    set up the CDK to use graphicfw directfb),
+	,[enable_graphicfwdirectfb=no])
+AM_CONDITIONAL(ENABLE_GRAPHICFWDIRECTFB,test "$enable_graphicfwdirectfb" = "yes")
+AC_SUBST(GRAPHICFWDIRECTFB)
+
+AC_ARG_ENABLE(externallcd,
+	AS_HELP_STRING(--enable-externallcd,    set up the CDK to use graphlcd),
+	,[enable_externallcd=no])
+AM_CONDITIONAL(ENABLE_EXTERNALLCD,test "$enable_externallcd" = "yes")
+AC_SUBST(EXTERNALLCD)
+
+AC_ARG_ENABLE(eplayer3,
+	AS_HELP_STRING(--enable-eplayer3,    enable eplayer3 support),
+	,[enable_eplayer3=no])
+AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
+AC_SUBST(EPLAYER3)
+
 AC_ARG_ENABLE(fortis_hdbox,
 	AS_HELP_STRING(--enable-fortis_hdbox, enable Fortis/hdbox FS-9200HD PVR stuff),
 	[case "${enableval}" in
@@ -326,6 +326,7 @@ AC_ARG_ENABLE(adb_box,
 	esac],[enable_adb_box=no])
 AM_CONDITIONAL(ENABLE_ADB_BOX,test "$enable_adb_box" = "yes")
 AC_SUBST(ADB_BOX)
+
 AC_ARG_ENABLE(ufs922,
 	AS_HELP_STRING(--enable-ufs922, enable kathrein ufs922 stuff),
 	[case "${enableval}" in
@@ -515,7 +516,8 @@ AC_ARG_WITH(bootprefix,
 	[bootprefix="$with_bootprefix"],[bootprefix="${prefix}/cdkroot-tftpboot"])
 
 AC_ARG_WITH(serversupport,
-	[  --with-serversupport=DIR    prefix for server file templates [[PREFIX/serversupport]]],
+	[  --with-serversupport=DIR
+						prefix for server file templates [[PREFIX/serversupport]]],
 	[serversupport="$with_serversupport"],[serversupport="${prefix}/serversupport"])
 
 AC_ARG_WITH(customizationsdir,
@@ -523,17 +525,10 @@ AC_ARG_WITH(customizationsdir,
 	[customizationsdir="$with_customizationsdir"],[customizationsdir="`pwd`"])
 
 AC_ARG_WITH(updatehttpprefix,
-	[  --with-updatehttpprefix=URL    optional URL containing the URL of a directory with update images [[NONE]]],
+	[  --with-updatehttpprefix=URL
+						optional URL containing the URL of a directory with update images
+						"disable" completely disables internet update code [[NONE]]],
 	[updatehttpprefix="$with_updatehttpprefix"],[updatehttpprefix=])
-
-buildprefix=`pwd`
-AC_SUBST(targetprefix)
-AC_SUBST(hostprefix)
-AC_SUBST(buildprefix)
-AC_SUBST(bootprefix)
-AC_SUBST(serversupport)
-AC_SUBST(customizationsdir)
-AC_SUBST(updatehttpprefix)
 
 AC_ARG_WITH(checkImage,
 	[  --with-checkImage=[[none,rename,warn]] How/if to invoke checkImage [[none]]],
@@ -546,6 +541,16 @@ else
 	TUXBOX_CHECKIMAGE=@true
 fi
 AC_SUBST(TUXBOX_CHECKIMAGE)
+
+buildprefix=`pwd`
+AC_SUBST(targetprefix)
+AC_SUBST(hostprefix)
+AC_SUBST(buildprefix)
+AC_SUBST(bootprefix)
+AC_SUBST(serversupport)
+AC_SUBST(customizationsdir)
+AC_SUBST(updatehttpprefix)
+AM_CONDITIONAL(DISABLE_UPDATE_HTTP,test "$updatehttpprefix" = "disable")
 
 AC_ARG_WITH(archivedir,
 	[  --with-archivedir=DIR    where to store downloaded files [[Archive/]]],
@@ -572,12 +577,18 @@ AC_ARG_WITH(hostappsdir,
 	[hostappsdir="$with_hostappsdir"],[hostappsdir="NONE"])
 
 AC_ARG_WITH(gnuserver,
-	[  --with-gnuserver=ADDRESS    the gnu server for gnu-stuff (without ftp://)],
+	[  --with-gnuserver=ADDRESS
+						the gnu server for gnu-stuff (without ftp://)],
 	[gnuserver="$with_gnuserver"],[gnuserver=ftp.gwdg.de/pub/misc/gnu/ftp/gnu])
 
 AC_ARG_WITH(defaultserver,
-	[  --with-defaultserver=ADDRESS    the server that is taken if no server is given/works (without http://)],
+	[  --with-defaultserver=ADDRESS
+						the server that is taken if no server is given/works (without http://)],
 	[defaultserver="$with_defaultserver"],[defaultserver="NONE"])
+
+if test "$defaultserver" = "NONE"; then
+	defaultserver=""
+fi
 
 if test "$cvsdir" = "NONE"; then
 	if test "$appsdir" = "NONE"; then
@@ -605,10 +616,6 @@ else
 	if test "$hostappsdir" = "NONE"; then
 		hostappsdir="$cvsdir/hostapps"
 	fi
-fi
-
-if test "$defaultserver" = "NONE"; then
-	defaultserver=""
 fi
 
 dircheck="ok"
@@ -697,14 +704,6 @@ AC_ARG_ENABLE(ccache,
 AM_CONDITIONAL(ENABLE_CCACHE,test "$enable_ccache" = "yes")
 AC_SUBST(CCACHE)
 
-if test "$enable_ccache" = "yes"; then
-	AC_PATH_PROG(CCACHE,ccache,no)
-	if test "$CCACHE" = "no"; then
-		AC_MSG_WARN(No ccache found)
-		CCACHE=$hostprefix/bin/ccache
-	fi
-fi
-
 hostccachedir=$(dirname `which ccache` 2>/dev/null)
 if [[ -e $hostccachedir/ccache ]]; then
 	ccachedir=$hostccachedir
@@ -717,12 +716,14 @@ AC_SUBST(ccachedir)
 
 # optional ccache settings
 AC_ARG_WITH(maxcachesize,
-	[  --with-maxcachesize=SIZE maximal ccachesize for ccache ],
+	[  --with-maxcachesize=SIZE 
+						maximal ccachesize for ccache ],
 	[maxcachesize="$with_maxcachesize"],[maxcachesize="-1"])
 AC_SUBST(maxcachesize)
 
 AC_ARG_WITH(maxcachefiles,
-	[  --with-maxcachefiles=COUNT maximal count of cachefiles for ccache ],
+	[  --with-maxcachefiles=COUNT 
+						maximal count of cachefiles for ccache ],
 	[maxcachefiles="$with_maxcachefiles"],[maxcachefiles="-1"])
 AC_SUBST(maxcachefiles)
 
@@ -735,16 +736,16 @@ if test "$enable_ccache" = "yes"; then
 			$ccachedir/ccache -F $maxcachefiles
 		fi
 		ccacheinfo="
--------------------------------------------------------------------------------
+----------------------------------------
 ccache installdir           : $ccachedir
 $($ccachedir/ccache -s)
--------------------------------------------------------------------------------"
+----------------------------------------"
 	else
 		ccacheinfo="
--------------------------------------------------------------------------------
+----------------------------------------
 ccache installdir           : $ccachedir
 ccache is not yet installed, but installation starts on first build of cdk environment or you can run make ccache
--------------------------------------------------------------------------------"
+----------------------------------------"
 	fi
 fi
 
@@ -1113,12 +1114,14 @@ ${srcdir}/rules-archive.pl ${srcdir}/rules-archive > Makefile-archive
 
 AC_MSG_RESULT([
 summary:
--------------------------------------------------------------------------------
+----------------------------------------
 target cpu/boxtype          : $CPU_ARCH / $BOXTYPE
 linux kernel                : ${KERNELVERSION%.*}
 kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
 STLinux 2.4                 : $enable_stm24
+GCC 4.3.4                   : $enable_gcc434
+GCC 4.7.2                   : $enable_gcc472
 Patchlevel P0207            : $enable_p0207
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210
@@ -1178,9 +1181,9 @@ AC_MSG_RESULT([
 ])
 fi
 
-TUXBOX_CUSTOMIZE='[[ -x $(customizationsdir)/$(notdir $@)-local.sh ] && KERNELVERSION=$(KERNELVERSION) && $(customizationsdir)/$(notdir $@)-local.sh $(buildprefix) || true]'
+TUXBOX_CUSTOMIZE='[[ -x $(customizationsdir)/$(notdir $@)-local.sh ] && KERNELVERSION=$(KERNELVERSION) && BOXTYPE=$(BOXTYPE) && $(customizationsdir)/$(notdir $@)-local.sh $(buildprefix) || true]'
 AC_SUBST(TUXBOX_CUSTOMIZE)
-TUXBOX_YAUD_CUSTOMIZE='[[ -x $(customizationsdir)/$(notdir $@)-local.sh ] && KERNELVERSION=$(KERNELVERSION) && $(customizationsdir)/$(notdir $@)-local.sh $(prefix)/$*cdkroot $(buildprefix) || true]'
+TUXBOX_YAUD_CUSTOMIZE='[[ -x $(customizationsdir)/$(notdir $@)-local.sh ] && KERNELVERSION=$(KERNELVERSION) && BOXTYPE=$(BOXTYPE) && $(customizationsdir)/$(notdir $@)-local.sh $(prefix)/$*cdkroot $(buildprefix) || true]'
 AC_SUBST(TUXBOX_YAUD_CUSTOMIZE)
 TUXBOX_TOUCH='[@[ "x$*" = "x" ] && touch $@ || true]'
 AC_SUBST(TUXBOX_TOUCH)

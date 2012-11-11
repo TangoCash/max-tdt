@@ -202,7 +202,13 @@ GCC := gcc
 LIBSTDC := libstdc++
 LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
-GCC_VERSION := $(if $(OLDSTM24),4.3.4-66,4.6.3-115)
+
+if GCC_472
+GCC_VERSION = 4.7.2-116
+else
+GCC_VERSION = $(if $(OLDSTM24),4.3.4-66,4.6.3-115)
+endif
+
 GCC_SPEC := stm-target-$(GCC).spec
 GCC_SPEC_PATCH := $(if $(OLDSTM24),,$(GCC_SPEC).$(GCC_VERSION).diff)
 GCC_PATCHES := $(if $(OLDSTM24),,stm-target-$(GCC).$(GCC_VERSION).diff)

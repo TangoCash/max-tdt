@@ -151,8 +151,8 @@ esac
 
 echo -e "\nKernel:"
 echo " Maintained:"
-echo "   1) STM 24 P0207 (Recommended)"
-echo "   2) STM 24 P0209"
+echo "   1) STM 24 P0207"
+echo "   2) STM 24 P0209 (Recommended)"
 echo " Experimental:"
 echo "   3) STM 24 P0210 (UFS910, octagon1008, Fortis based (HDBOX), SPARK, Atevio7500)"
 echo "   4) STM 24 P0211 (UFS910, octagon1008, Cuberevo (IPBOX 9000), Fortis based (HDBOX), SPARK, Atevio7500)"
@@ -177,12 +177,12 @@ CONFIGPARAM="$CONFIGPARAM $KERNEL"
 
 ##############################################
 if [ "$3" ]; then
- REPLY="$3"
- echo "Activate debug (y/N)? "
- echo -e "\nSelected option: $REPLY\n"
+	REPLY="$3"
+	echo "Activate debug (y/N)? "
+	echo -e "\nSelected option: $REPLY\n"
 else
- REPLY=N
- read -p "Activate debug (y/N)? "
+	REPLY=N
+	read -p "Activate debug (y/N)? "
 fi
 [ "$REPLY" == "y" -o "$REPLY" == "Y" ] && CONFIGPARAM="$CONFIGPARAM --enable-debug"
 
@@ -211,105 +211,105 @@ esac
 
 case "$REPLY" in
 	1) PLAYER="--enable-player131"
-       cd ../driver/include/
-       if [ -L player2 ]; then
-          rm player2
-       fi
+		cd ../driver/include/
+		if [ -L player2 ]; then
+			rm player2
+		fi
 
-       if [ -L stmfb ]; then
-          rm stmfb
-       fi
-       ln -s player2_131 player2
-       ln -s stmfb_player131 stmfb
-       cd -
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s player2_131 player2
+		ln -s stmfb_player131 stmfb
+		cd - > /dev/null 2>&1
 
-       cd ../driver/
-       if [ -L player2 ]; then
-          rm player2
-       fi
-       ln -s player2_131 player2
-       echo "export CONFIG_PLAYER_131=y" >> .config
-       cd -
+		cd ../driver/
+		if [ -L player2 ]; then
+			rm player2
+		fi
+		ln -s player2_131 player2
+		echo "export CONFIG_PLAYER_131=y" >> .config
+		cd - > /dev/null 2>&1
 
-       cd ../driver/stgfb
-       if [ -L stmfb ]; then
-          rm stmfb
-       fi
-       ln -s stmfb_player131 stmfb
-       cd -
-    ;;
+		cd ../driver/stgfb
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s stmfb_player131 stmfb
+		cd - > /dev/null 2>&1
+	;;
 	2) PLAYER="--enable-player179"
-       cd ../driver/include/
-       if [ -L player2 ]; then
-          rm player2
-       fi
+		cd ../driver/include/
+		if [ -L player2 ]; then
+			rm player2
+		fi
 
-       if [ -L stmfb ]; then
-          rm stmfb
-       fi
-       ln -s player2_179 player2
-       if [ "$STMFB" == "stm24" ]; then
-           ln -s stmfb-3.1_stm24_0102 stmfb
-       else
-           ln -s stmfb-3.1_stm23_0032 stmfb
-       fi
-       cd -
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s player2_179 player2
+		if [ "$STMFB" == "stm24" ]; then
+			ln -s stmfb-3.1_stm24_0102 stmfb
+		else
+			ln -s stmfb-3.1_stm23_0032 stmfb
+		fi
+		cd - > /dev/null 2>&1
 
-       cd ../driver/
-       if [ -L player2 ]; then
-          rm player2
-       fi
-       ln -s player2_179 player2
-       echo "export CONFIG_PLAYER_179=y" >> .config
-       cd -
+		cd ../driver/
+		if [ -L player2 ]; then
+			rm player2
+		fi
+		ln -s player2_179 player2
+		echo "export CONFIG_PLAYER_179=y" >> .config
+		cd - > /dev/null 2>&1
 
-       cd ../driver/stgfb
-       if [ -L stmfb ]; then
-          rm stmfb
-       fi
-       if [ "$STMFB" == "stm24" ]; then
-           ln -s stmfb-3.1_stm24_0102 stmfb
-       else
-           ln -s stmfb-3.1_stm23_0032 stmfb
-       fi
-       cd -
-    ;;
+		cd ../driver/stgfb
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		if [ "$STMFB" == "stm24" ]; then
+			ln -s stmfb-3.1_stm24_0102 stmfb
+		else
+			ln -s stmfb-3.1_stm23_0032 stmfb
+		fi
+		cd - > /dev/null 2>&1
+	;;
 	3) PLAYER="--enable-player191"
-       cd ../driver/include/
-       if [ -L player2 ]; then
-          rm player2
-       fi
+		cd ../driver/include/
+		if [ -L player2 ]; then
+			rm player2
+		fi
 
-       if [ -L stmfb ]; then
-          rm stmfb
-       fi
-       ln -s player2_179 player2
-       if [ "$STMFB" == "stm24" ]; then
-           ln -s stmfb-3.1_stm24_0102 stmfb
-       else
-           ln -s stmfb-3.1_stm23_0032 stmfb
-       fi
-       cd -
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s player2_179 player2
+		if [ "$STMFB" == "stm24" ]; then
+			ln -s stmfb-3.1_stm24_0102 stmfb
+		else
+			ln -s stmfb-3.1_stm23_0032 stmfb
+		fi
+		cd - > /dev/null 2>&1
 
-       cd ../driver/
-       if [ -L player2 ]; then
-          rm player2
-       fi
-       ln -s player2_191 player2
-       echo "export CONFIG_PLAYER_191=y" >> .config
-       cd -
+		cd ../driver/
+		if [ -L player2 ]; then
+			rm player2
+		fi
+		ln -s player2_191 player2
+		echo "export CONFIG_PLAYER_191=y" >> .config
+		cd - > /dev/null 2>&1
 
-       cd ../driver/stgfb
-       if [ -L stmfb ]; then
-          rm stmfb
-       fi
-       if [ "$STMFB" == "stm24" ]; then
-           ln -s stmfb-3.1_stm24_0102 stmfb
-       else
-           ln -s stmfb-3.1_stm23_0032 stmfb
-       fi
-       cd -
-    ;;
+		cd ../driver/stgfb
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		if [ "$STMFB" == "stm24" ]; then
+			ln -s stmfb-3.1_stm24_0102 stmfb
+		else
+			ln -s stmfb-3.1_stm23_0032 stmfb
+		fi
+		cd - > /dev/null 2>&1
+	;;
 	*) PLAYER="--enable-player131";;
 esac
 
@@ -317,7 +317,7 @@ esac
 
 echo -e "\nMulticom:"
 echo "   1) Multicom 3.2.2     (Recommended for Player179)"
-echo "   3) Multicom 3.2.4     (Recommended for Player191)"
+echo "   2) Multicom 3.2.4     (Recommended for Player191)"
 case $5 in
 	[1-3]) REPLY=$5
 	echo -e "\nSelected multicom: $REPLY\n"
@@ -328,41 +328,41 @@ esac
 
 case "$REPLY" in
 	1) MULTICOM="--enable-multicom322"
-       cd ../driver/include/
-       if [ -L multicom ]; then
-          rm multicom
-       fi
+		cd ../driver/include/
+		if [ -L multicom ]; then
+			rm multicom
+		fi
 
-       ln -s multicom-3.2.2 multicom
-       cd -
+		ln -s multicom-3.2.2 multicom
+		cd - > /dev/null 2>&1
 
-       cd ../driver/
-       if [ -L multicom ]; then
-          rm multicom
-       fi
+		cd ../driver/
+		if [ -L multicom ]; then
+			rm multicom
+		fi
 
-       ln -s multicom-3.2.2 multicom
-       echo "export CONFIG_MULTICOM322=y" >> .config
-       cd -
-    ;;
+		ln -s multicom-3.2.2 multicom
+		echo "export CONFIG_MULTICOM322=y" >> .config
+		cd - > /dev/null 2>&1
+	;;
 	2 | 3) MULTICOM="--enable-multicom324"
-       cd ../driver/include/
-       if [ -L multicom ]; then
-          rm multicom
-       fi
+		cd ../driver/include/
+		if [ -L multicom ]; then
+			rm multicom
+		fi
 
-       ln -s ../multicom-3.2.4/include multicom
-       cd -
+		ln -s ../multicom-3.2.4/include multicom
+		cd - > /dev/null 2>&1
 
-       cd ../driver/
-       if [ -L multicom ]; then
-          rm multicom
-       fi
+		cd ../driver/
+		if [ -L multicom ]; then
+			rm multicom
+		fi
 
-       ln -s multicom-3.2.4 multicom
-       echo "export CONFIG_MULTICOM324=y" >> .config
-       cd -
-    ;;
+		ln -s multicom-3.2.4 multicom
+		echo "export CONFIG_MULTICOM324=y" >> .config
+		cd - > /dev/null 2>&1
+	;;
 	*) MULTICOM="--enable-multicom322";;
 esac
 
@@ -420,30 +420,30 @@ esac
 
 case "$REPLY" in
 	1) VDR=""
-       cd ../apps/vdr/
-       if [ -L vdr ]; then
-          rm vdr
-       fi
-       cd -
-    ;;
+		cd ../apps/vdr/
+		if [ -L vdr ]; then
+			rm vdr
+		fi
+		cd - > /dev/null 2>&1
+	;;
 	2) VDR="--enable-vdr1722"
-       cd ../apps/vdr/
-       if [ -L vdr ]; then
-          rm vdr
-       fi
+		cd ../apps/vdr/
+		if [ -L vdr ]; then
+			rm vdr
+		fi
 
-       ln -s vdr-1.7.22 vdr
-       cd -
-    ;;
-    	3) VDR="--enable-vdr1727"
-       cd ../apps/vdr/
-       if [ -L vdr ]; then
-          rm vdr
-       fi
+		ln -s vdr-1.7.22 vdr
+		cd - > /dev/null 2>&1
+	;;
+	3) VDR="--enable-vdr1727"
+		cd ../apps/vdr/
+		if [ -L vdr ]; then
+			rm vdr
+		fi
 
-       ln -s vdr-1.7.27 vdr
-       cd -
-    ;;
+		ln -s vdr-1.7.27 vdr
+		cd - > /dev/null 2>&1
+	;;
 	*) VDR="--enable-vdr1722";;
 esac
 
@@ -468,8 +468,9 @@ esac
 
 ##############################################
 
-# Check this option if you want to use the old version of GCC.
-#CONFIGPARAM="$CONFIGPARAM --enable-old-gcc-stm24"
+# Check this option if you want to use the version of GCC.
+#CONFIGPARAM="$CONFIGPARAM --enable-gcc434"
+#CONFIGPARAM="$CONFIGPARAM --enable-gcc472"
 
 ##############################################
 
@@ -490,15 +491,16 @@ echo && \
 #Dagobert: I find it sometimes useful to know
 #what I have build last in this directory ;)
 echo $CONFIGPARAM >lastChoice
-
-echo "-----------------------"
+echo " "
+echo "----------------------------------------"
 echo "Your build enivroment is ready :-)"
 echo "Your next step could be:"
+echo "----------------------------------------"
 echo "make yaud-enigma2-nightly"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-neutrino"
 echo "make yaud-neutrino-hd2-exp"
 echo "make yaud-vdr"
 echo "make yaud-xbmc-nightly"
-echo "-----------------------"
+echo "----------------------------------------"
 

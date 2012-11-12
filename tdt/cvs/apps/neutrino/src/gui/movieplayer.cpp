@@ -462,6 +462,16 @@ void updateLcd(const std::string & sel_filename)
 	CVFD::getInstance()->showMenuText(0, lcd.c_str(), -1, true);
 }
 
+#define VIDEOMENU_43MODE_OPTION_COUNT 4
+const CMenuOptionChooser::keyval VIDEOMENU_43MODE_OPTIONS[VIDEOMENU_43MODE_OPTION_COUNT] =
+{
+	{ DISPLAY_AR_MODE_PANSCAN, LOCALE_VIDEOMENU_PANSCAN },
+	{ DISPLAY_AR_MODE_PANSCAN2, LOCALE_VIDEOMENU_PANSCAN2 },
+	{ DISPLAY_AR_MODE_LETTERBOX, LOCALE_VIDEOMENU_LETTERBOX },
+	{ DISPLAY_AR_MODE_NONE, LOCALE_VIDEOMENU_FULLSCREEN }
+	//{ 2, LOCALE_VIDEOMENU_AUTO } // whatever is this auto mode, it seems its totally broken
+};
+
 extern bool has_hdd;
 #define TIMESHIFT_SECONDS 3
 void CMoviePlayerGui::PlayFile(void)
@@ -696,11 +706,12 @@ void CMoviePlayerGui::PlayFile(void)
 						CFile::FileType ftype;
 						ftype = file->getType();
 
-						if(ftype == CFile::FILE_AVI || ftype == CFile::FILE_MKV) {
-							is_file_player = true;	// Movie player AVI/MKV
+						if(ftype == CFile::FILE_TS) {
+							is_file_player = false;	// PLAYMODE_TS
 						} else {
-							is_file_player = false;	// Movie player AVI/MKV
+							is_file_player = true;	// PLAYMODE_FILE
 						}
+
 						filename = file->Name.c_str();
 						sel_filename = file->getFileName();
 
@@ -758,9 +769,7 @@ void CMoviePlayerGui::PlayFile(void)
 						ftype = file->getType();
 
 						if(ftype == CFile::FILE_TS) {
-
 							is_file_player = false;	// PLAYMODE_TS
-
 						} else {
 							is_file_player = true;	// PLAYMODE_FILE
 						}
@@ -884,16 +893,6 @@ void CMoviePlayerGui::PlayFile(void)
 			}
 			FileTime.updatePos(file_prozent);
 		}
-
-#define VIDEOMENU_43MODE_OPTION_COUNT 4
-const CMenuOptionChooser::keyval VIDEOMENU_43MODE_OPTIONS[VIDEOMENU_43MODE_OPTION_COUNT] =
-{
-	{ DISPLAY_AR_MODE_PANSCAN, LOCALE_VIDEOMENU_PANSCAN },
-	{ DISPLAY_AR_MODE_PANSCAN2, LOCALE_VIDEOMENU_PANSCAN2 },
-	{ DISPLAY_AR_MODE_LETTERBOX, LOCALE_VIDEOMENU_LETTERBOX },
-	{ DISPLAY_AR_MODE_NONE, LOCALE_VIDEOMENU_FULLSCREEN }
-	//{ 2, LOCALE_VIDEOMENU_AUTO } // whatever is this auto mode, it seems its totally broken
-};
 
 		if (start_play) {
 			printf("%s::%s Startplay at %d seconds\n", FILENAME, __FUNCTION__, startposition/1000);

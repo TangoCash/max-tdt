@@ -37,7 +37,7 @@ $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status
 	$(if $(PLAYER131), -DPLAYER131) \
 	$(if $(PLAYER179), -DPLAYER179) \
 	$(if $(PLAYER191), -DPLAYER191) \
-	$(if $(VDR1722), -DVDR1722) \
+	$(if $(VDR1722), -DVDR1722)"
 	[ "x$*" = "x" ] && touch $@ || true
 
 misc-tools-clean:

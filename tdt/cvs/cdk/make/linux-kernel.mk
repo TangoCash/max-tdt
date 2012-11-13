@@ -418,33 +418,6 @@ $(DEPDIR)/%linux-kernel: bootstrap $(DEPDIR)/linux-kernel.do_compile
 	$(INSTALL) -m644 $(KERNEL_DIR)/System.map $(prefix)/$*cdkroot/boot/System.map-sh4-$(KERNELVERSION) && \
 	$(INSTALL) -m644 $(KERNEL_DIR)/COPYING $(prefix)/$*cdkroot/boot/LICENSE
 	cp $(KERNEL_DIR)/arch/sh/boot/uImage $(prefix)/$*cdkroot/boot/
-	echo -e "ST Linux Distribution - Binary Kernel\n \
-	CPU: sh4\n \
-	$(if $(FORTIS_HDBOX),PLATFORM: stb7109ref\n) \
-	$(if $(ATEVIO7500),PLATFORM: stb7105ref\n) \
-	$(if $(OCTAGON1008),PLATFORM: stb7109ref\n) \
-	$(if $(UFS922),PLATFORM: stb7109ref\n) \
-	$(if $(TF7700),PLATFORM: stb7109ref\n) \
-	$(if $(HL101),PLATFORM: stb7109ref\n) \
-	$(if $(VIP1_V2),PLATFORM: stb7109ref\n) \
-	$(if $(VIP2_V1),PLATFORM: stb7109ref\n) \
-	$(if $(UFS910),PLATFORM: stb7100ref\n) \
-	$(if $(CUBEREVO),PLATFORM: stb7109ref\n) \
-	$(if $(CUBEREVO_MINI),PLATFORM: stb7109ref\n) \
-	$(if $(CUBEREVO_MINI2),PLATFORM: stb7109ref\n) \
-	$(if $(CUBEREVO_MINI_FTA),PLATFORM: stb7109ref\n) \
-	$(if $(CUBEREVO_250HD),PLATFORM: stb7109ref\n) \
-	$(if $(CUBEREVO_2000HD),PLATFORM: stb7109ref\n) \
-	$(if $(CUBEREVO_9500HD),PLATFORM: stb7109ref\n) \
-	$(if $(HOMECAST5101),PLATFORM: stb7109ref\n) \
-	$(if $(ADB_BOX),PLATFORM: stb7100ref\n) \
-	$(if $(IPBOX9900),PLATFORM: stb7109ref\n) \
-	$(if $(IPBOX99),PLATFORM: stb7109ref\n) \
-	$(if $(IPBOX55),PLATFORM: stb7109ref\n) \
-	KERNEL VERSION: $(KERNELVERSION)\n" > $(prefix)/$*cdkroot/README.ST && \
-	$(MAKE) -C $(KERNEL_DIR) ARCH=sh INSTALL_MOD_PATH=$(prefix)/$*cdkroot modules_install && \
-	rm $(prefix)/$*cdkroot/lib/modules/$(KERNELVERSION)/build || true && \
-	rm $(prefix)/$*cdkroot/lib/modules/$(KERNELVERSION)/source || true
 	@[ "x$*" = "x" ] && touch $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@
 

@@ -1,4 +1,28 @@
 #
+# DIVERSE STUFF / TOOLS
+#
+
+$(DEPDIR)/min-diverse-tools $(DEPDIR)/std-diverse-tools $(DEPDIR)/max-diverse-tools $(DEPDIR)/diverse-tools: \
+$(DEPDIR)/%diverse-tools: $(DIVERSE_TOOLS_ADAPTED_ETC_FILES:%=root/etc/%)
+	( cd root/etc && for i in $(DIVERSE_TOOLS_ADAPTED_ETC_FILES); do \
+		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
+		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done ) && \
+	( export HHL_CROSS_TARGET_DIR=$(prefix)/$*cdkroot && cd $(prefix)/$*cdkroot/etc/init.d && \
+		for s in $(DIVERSE_TOOLS_ADAPTED_ETC_FILES); do \
+			[ "$${s%%/*}" = "init.d" ] && ( \
+			$(hostprefix)/bin/target-initdconfig --add $${s#init.d/} || \
+			echo "Unable to enable initd service: $${s#init.d/}" ) ; done && rm *rpmsave 2>/dev/null || true ) && \
+	ln -sf /usr/share/zoneinfo/Europe/Berlin $(prefix)/$*cdkroot/etc/localtime
+#	( \
+#		[ -f root/usr/bin/dbox-perf-hdd.sh ] && $(INSTALL) -m 755 root/usr/bin/dbox-perf-hdd.sh $(prefix)/$*cdkroot/usr/bin || true && \
+#		[ -f root/usr/bin/dbox-perf-nfs.sh ] && $(INSTALL) -m 755 root/usr/bin/dbox-perf-nfs.sh $(prefix)/$*cdkroot/usr/bin || true )
+	$(INSTALL_BIN) root/usr/sbin/mountro $(prefix)/$*cdkroot/usr/sbin/
+	$(INSTALL_BIN) root/usr/sbin/mountrw $(prefix)/$*cdkroot/usr/sbin/
+#	$(INSTALL_BIN) root/bin/devinit $(prefix)/$*cdkroot/bin
+	[ "x$*" = "x" ] && touch $@ || true
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+#
 # Adapted etc files and etc read-write files
 #
 GLIBC_ADAPTED_ETC_FILES =
@@ -47,8 +71,8 @@ ETC_RW_FILES += network/interfaces gateways init.d/networking network network/op
 MODULE_INIT_TOOLS_ADAPTED_ETC_FILES = modules init.d/module-init-tools
 ETC_RW_FILES += modules init.d/module-init-tools
 
-AUTOFS_ADAPTED_ETC_FILES = auto.master auto.ufs910 timezone.xml default/autofs init.d/autofs
-ETC_RW_FILES += auto.master auto.ufs910 timezone.xml default/autofs init.d/autofs auto.misc
+AUTOFS_ADAPTED_ETC_FILES = auto.master auto.ufs910 timezone.xml init.d/autofs
+ETC_RW_FILES += auto.master auto.ufs910 timezone.xml init.d/autofs auto.misc
 
 TCP_WRAPPERS_ADAPTED_ETC_FILES =
 ETC_RW_FILES += hosts.allow hosts.deny
@@ -62,14 +86,11 @@ ETC_RW_FILES += exports init.d/nfs-common init.d/nfs-kernel-server
 E2FSPROGS_ADAPTED_ETC_FILES =
 ETC_RW_FILES += mke2fs.conf
 
-SG3_UTILS_ADAPTED_ETC_FILES = default/sg_down init.d/sg_down
-ETC_RW_FILES += default/sg_down init.d/sg_down
+SG3_UTILS_ADAPTED_ETC_FILES = init.d/sg_down
+ETC_RW_FILES += init.d/sg_down
 
-DIVERSE_TOOLS_ADAPTED_ETC_FILES = default/swap init.d/swap
-ETC_RW_FILES += default/swap init.d/swap
-
-STOCK_GUI_ADAPTED_ETC_FILES = default/ufs910-common default/ufs910 init.d/ufs910-common init.d/ufs910
-ETC_RW_FILES += default/ufs910-common default/ufs910 init.d/ufs910-common init.d/ufs910
+DIVERSE_TOOLS_ADAPTED_ETC_FILES = init.d/swap
+ETC_RW_FILES += init.d/swap
 
 FUSE_ADAPTED_ETC_FILES = init.d/fuse
 #ETC_RW_FILES +=

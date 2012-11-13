@@ -70,146 +70,90 @@ AC_ARG_WITH(boxtype,
 dnl		To-Do: extend CPU types and kernel versions when needed
 		ufs910)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		ufs912)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		ufs913)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		ufs922)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		ipbox55)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		ipbox99)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		ipbox9900)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo_mini)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo_mini2)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo_mini_fta)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo_250hd)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo_2000hd)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		cuberevo_9500hd)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		tf7700)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		fortis_hdbox)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		octagon1008)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		atevio7500)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		spark)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		spark7162)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		hl101)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		hs7110)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		hs7810a)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		adb_box)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		vip)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		whitebox)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		homecast5101)
 			BOXTYPE="$withval"
-			CPU_MODEL=""
-			CPU_ARCH="sh4"
 			;;
 		*)
 			AC_MSG_ERROR([bad value $withval for --with-boxtype]) ;;
 	esac], [BOXTYPE="ufs912"])
 
 AC_SUBST(BOXTYPE)
-AC_SUBST(CPU_ARCH)
-AC_SUBST(CPU_MODEL)
 
 AM_CONDITIONAL(BOXTYPE_UFS910, test "$BOXTYPE" = "ufs910")
 AM_CONDITIONAL(BOXTYPE_UFS912, test "$BOXTYPE" = "ufs912")

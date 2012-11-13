@@ -1,17 +1,4 @@
-##############################   BOOTSTRAP-HOST   ##############################
-#
-# HOST-FILESYSTEM
-#
-host-filesystem:
-	$(INSTALL) -d $(prefix)
-	$(INSTALL) -d $(configprefix)
-	$(INSTALL) -d $(devkitprefix)
-	$(INSTALL) -d $(hostprefix)
-	$(INSTALL) -d $(hostprefix)/{bin,doc,etc,include,info,lib,man,share,var}
-	ln -sf $(hostprefix)/lib $(hostprefix)/lib64
-	$(INSTALL) -d $(hostprefix)/man/man{1,2,3,4,5,6,7,8,9}
-	touch .deps/$@
-
+##############################   BOOTSTRAP-HOST    #############################
 #
 # HOST-RPMCONFIG
 #
@@ -304,39 +291,7 @@ $(DEPDIR)/$(HOST_GLIB2): $(HOST_GLIB2_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch $@
 
-#
-# BOOTSTRAP-HOST
-#
-$(DEPDIR)/bootstrap-host: | \
-		host-filesystem \
-		host-rpmconfig \
-		$(HOST_M4) \
-		host-base-passwd \
-		host-distributionutils \
-		host-autotools \
-		$(HOST_AUTOCONF) \
-		$(HOST_PKGCONFIG) \
-		$(HOST_AUTOMAKE) \
-		$(HOST_FLEX) \
-		$(HOST_MTD_UTILS)
-	$(if $(HOST_MTD_UTILS_RPM),[ "x$*" = "x" ] && touch -r $(HOST_MTD_UTILS_RPM) $@ || true)
-#		$(HOST_GLIB2)
-
 ##############################   BOOTSTRAP-CROSS   #############################
-#
-# CROSS_FILESYSTEM
-#
-CROSS_FILESYSTEM = cross-sh4-filesystem
-
-cross-sh4-filesystem:
-	$(INSTALL) -d $(targetprefix)
-	$(INSTALL) -d $(crossprefix)
-	$(INSTALL) -d $(crossprefix)/{bin,doc,etc,include,lib,man,sh4-linux,share,var}
-	ln -s /$(crossprefix)/lib $(crossprefix)/lib64
-	$(INSTALL) -d $(crossprefix)/man/man{1,2,3,4,5,6,7,8,9}
-	$(INSTALL) -d $(crossprefix)/sh4-linux/{bin,include,lib}
-	touch .deps/$@
-
 #
 # CROSS_DISTRIBUTIONUTILS
 #
@@ -561,6 +516,51 @@ $(DEPDIR)/%$(CROSS_LIBGCC): $(CROSS_LIBGCC_RPM) | $(DEPDIR)/%$(GLIBC)
 $(CROSS_PROTOIZE): $(CROSS_PROTOIZE_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch .deps/$(notdir $@)
+
+##############################                     #############################
+#
+# HOST-FILESYSTEM
+#
+host-filesystem:
+	$(INSTALL) -d $(prefix)
+	$(INSTALL) -d $(configprefix)
+	$(INSTALL) -d $(devkitprefix)
+	$(INSTALL) -d $(hostprefix)
+	$(INSTALL) -d $(hostprefix)/{bin,doc,etc,include,info,lib,man,share,var}
+	ln -sf $(hostprefix)/lib $(hostprefix)/lib64
+	$(INSTALL) -d $(hostprefix)/man/man{1,2,3,4,5,6,7,8,9}
+	touch .deps/$@
+
+#
+# CROSS_FILESYSTEM
+#
+CROSS_FILESYSTEM = cross-sh4-filesystem
+cross-sh4-filesystem:
+	$(INSTALL) -d $(targetprefix)
+	$(INSTALL) -d $(crossprefix)
+	$(INSTALL) -d $(crossprefix)/{bin,doc,etc,include,lib,man,sh4-linux,share,var}
+	ln -s /$(crossprefix)/lib $(crossprefix)/lib64
+	$(INSTALL) -d $(crossprefix)/man/man{1,2,3,4,5,6,7,8,9}
+	$(INSTALL) -d $(crossprefix)/sh4-linux/{bin,include,lib}
+	touch .deps/$@
+
+#
+# BOOTSTRAP-HOST
+#
+$(DEPDIR)/bootstrap-host: | \
+		host-filesystem \
+		host-rpmconfig \
+		$(HOST_M4) \
+		host-base-passwd \
+		host-distributionutils \
+		host-autotools \
+		$(HOST_AUTOCONF) \
+		$(HOST_PKGCONFIG) \
+		$(HOST_AUTOMAKE) \
+		$(HOST_FLEX) \
+		$(HOST_MTD_UTILS)
+	$(if $(HOST_MTD_UTILS_RPM),[ "x$*" = "x" ] && touch -r $(HOST_MTD_UTILS_RPM) $@ || true)
+#		$(HOST_GLIB2)
 
 #
 # BOOTSTRAP-CROSS

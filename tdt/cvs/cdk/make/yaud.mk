@@ -9,11 +9,15 @@ min-prepare-yaud std-prepare-yaud max-prepare-yaud: \
 #
 $(DEPDIR)/min-bootstrap $(DEPDIR)/std-bootstrap $(DEPDIR)/max-bootstrap $(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
-		%ccache \
+		%$(CCACHE) \
 		%libtool \
 		%$(FILESYSTEM) \
 		| %$(GLIBC) \
 		%$(CROSS_LIBGCC) \
+		%$(GLIBC_DEV) \
+		%$(GMP) \
+		%$(MPFR) \
+		%$(MPC) \
 		%$(LIBSTDC) \
 		%$(LIBSTDC_DEV)
 	@[ "x$*" = "x" ] && touch $@ || true
@@ -123,42 +127,18 @@ yaud-none: \
 #
 # MIN-YAUD
 #
-test-kati: min-yaud-stock
-
-min-yaud-stock: \
-%yaud-stock: %prepare-yaud %yaud-none
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 min-yaud-none: \
-%yaud-none:	%bare-os \
+%yaud-none: \
+		%bare-os \
 		%misc-tools \
 		%linux-kernel \
 		%net-utils \
 		%disk-utils
 	@TUXBOX_YAUD_CUSTOMIZE@
-#
-#min-yaud-stock: \
-#%yaud-stock: min-prepare-yaud min-yaud-none
-#	@TUXBOX_YAUD_CUSTOMIZE@
-#
-#min-yaud-none: \
-#%yaud-none: %bare-os \
-#		%$(RELEASE) \
-#		%linux-kernel \
-#		%busybox \
-#		%libz \
-#		%$(GREP)
-#	@TUXBOX_YAUD_CUSTOMIZE@
 
 #
 # STD-YAUD
 #
-yaud-kati: std-yaud-stock
-
-std-yaud-stock: \
-%yaud-stock: %prepare-yaud %yaud-none %stock
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 std-yaud-none: \
 %yaud-none: \
 		%bare-os \
@@ -171,12 +151,6 @@ std-yaud-none: \
 #
 # MAX-YAUD
 #
-usb-kati: max-yaud-stock
-
-max-yaud-stock: \
-%yaud-stock: %prepare-yaud %yaud-none %stock
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 max-yaud-none: \
 %yaud-none: \
 		%bare-os \

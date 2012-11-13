@@ -1,4 +1,13 @@
 #
+# TF7700 installer
+#
+tfinstaller:
+	@export PATH=$(hostprefix)/bin:$(PATH) && \
+	$(MAKE) $(MAKE_OPTS) -C tfinstaller
+
+.PHONY: tfinstaller
+
+#
 # U-BOOT for the TF7700
 #
 HOST_U_BOOT := host-u-boot

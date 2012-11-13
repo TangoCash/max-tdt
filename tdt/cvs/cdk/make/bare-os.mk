@@ -198,11 +198,11 @@ $(DEPDIR)/$(LIBELF): $(LIBELF_RPM)
 #
 # GCC LIBSTDC++
 #
-GCC := gcc
 LIBSTDC := libstdc++
 LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
 
+GCC := gcc
 if GCC_472
 GCC_VERSION = 4.7.2-116
 else
@@ -220,8 +220,7 @@ LIBGCC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBGCC)-$(GCC_VERSION).sh4.rpm
 
 $(GCC_RPM) $(LIBSTDC_RPM) $(LIBSTDC_DEV_RPM) $(LIBGCC_RPM): \
 		$(addprefix Patches/,$(GCC_SPEC_PATCH) $(GCC_PATCHES)) \
-		$(archivedir)/$(STLINUX)-target-$(GCC)-$(GCC_VERSION).src.rpm \
-		| $(DEPDIR)/$(GLIBC_DEV) $(GMP) $(MPFR) $(MPC) $(LIBELF)
+		$(archivedir)/$(STLINUX)-target-$(GCC)-$(GCC_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(GCC_SPEC_PATCH),( cd SPECS && patch -p1 $(GCC_SPEC) < $(buildprefix)/Patches/$(GCC_SPEC_PATCH) ) &&) \
 	$(if $(GCC_PATCHES),cp $(addprefix Patches/,$(GCC_PATCHES)) SOURCES/ &&) \
@@ -314,8 +313,7 @@ LIBTERMCAP_DOC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBTERMCAP_DOC)-$(LIBTERMCAP_VER
 $(LIBTERMCAP_RPM) $(LIBTERMCAP_DEV_RPM) $(LIBTERMCAP_DOC_RPM): \
 		$(if $(LIBTERMCAP_SPEC_PATCH),Patches/$(LIBTERMCAP_SPEC_PATCH)) \
 		$(if $(LIBTERMCAP_PATCHES),$(LIBTERMCAP_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STM_SRC)-target-$(LIBTERMCAP)-$(LIBTERMCAP_VERSION).src.rpm \
-		| $(DEPDIR)/$(GLIBC_DEV)
+		$(archivedir)/$(STM_SRC)-target-$(LIBTERMCAP)-$(LIBTERMCAP_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(LIBTERMCAP_SPEC_PATCH),( cd SPECS && patch -p1 $(LIBTERMCAP_SPEC) < $(buildprefix)/Patches/$(LIBTERMCAP_SPEC_PATCH) ) &&) \
 	$(if $(LIBTERMCAP_PATCHES),cp $(LIBTERMCAP_PATCHES:%=Patches/%) SOURCES/ &&) \

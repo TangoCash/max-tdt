@@ -46,14 +46,8 @@ include make/contrib-apps.mk
 # Include net apps
 include make/net-apps.mk
 
-# Include divers tools targets
-include make/diverse-tools.mk
-
 # Misc tools, not essential
 include make/misc_tools.mk
-
-# Plugins
-include make/plugins.mk
 
 # Include enigma2 plugins targets
 include make/enigma2-plugins.mk
@@ -101,9 +95,6 @@ include make/release_vdr.mk
 include make/release_vdrdev2.mk
 
 include make/release_xbmc.mk
-
-# installer image for TF7700
-include make/tfinstaller.mk
 
 # Give the user rope to hang himself :-).  (Note: read from the
 # generated Makefile during make run, automake or configure does not

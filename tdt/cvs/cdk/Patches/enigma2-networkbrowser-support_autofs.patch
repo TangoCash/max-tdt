@@ -75,7 +75,7 @@
  
  		def getValue(definitions, default):
  			# Initialize Output
-@@ -52,41 +47,56 @@
+@@ -52,41 +47,55 @@
  			Len = len(definitions)
  			return Len > 0 and definitions[Len-1].text or default
  		# Config is stored in "mountmanager" element
@@ -93,18 +93,7 @@
 -					data['mounttype'] = 'nfs'.encode("UTF-8")
 -					data['active'] = getValue(mount.findall("active"), False).encode("UTF-8")
 -					if data["active"] == 'True' or data["active"] == True:
-+					if "-fstype=nfs" in line:
-+						data['mounttype'] = 'nfs'.encode("UTF-8")
-+					elif "-fstype=cifs" in line:
-+						data['mounttype'] = 'cifs'.encode("UTF-8")
-+					if line[0] == "#":
-+					line = line[1:]
-+						data['active'] = 'False'.encode("UTF-8")
-+					else:
-+						data['active'] = 'True'.encode("UTF-8")
-+					
-+					if data["active"] == 'True':
- 						self.activeMountsCounter +=1
+-						self.activeMountsCounter +=1
 -					data['hdd_replacement'] = getValue(mount.findall("hdd_replacement"), "False").encode("UTF-8")
 -					data['ip'] = getValue(mount.findall("ip"), "192.168.0.0").encode("UTF-8")
 -					data['sharedir'] = getValue(mount.findall("sharedir"), "/exports/").encode("UTF-8")
@@ -122,7 +111,18 @@
 -					data['mounttype'] = 'cifs'.encode("UTF-8")
 -					data['active'] = getValue(mount.findall("active"), False).encode("UTF-8")
 -					if data["active"] == 'True' or data["active"] == True:
--						self.activeMountsCounter +=1
++					if "-fstype=nfs" in line:
++						data['mounttype'] = 'nfs'.encode("UTF-8")
++					elif "-fstype=cifs" in line:
++						data['mounttype'] = 'cifs'.encode("UTF-8")
++					if line[0] == "#":
++						line = line[1:]
++						data['active'] = 'False'.encode("UTF-8")
++					else:
++						data['active'] = 'True'.encode("UTF-8")
++
++					if data["active"] == 'True':
+ 						self.activeMountsCounter +=1
 -					data['hdd_replacement'] = getValue(mount.findall("hdd_replacement"), "False").encode("UTF-8")
 -					data['ip'] = getValue(mount.findall("ip"), "192.168.0.0").encode("UTF-8")
 -					data['sharedir'] = getValue(mount.findall("sharedir"), "/exports/").encode("UTF-8")
@@ -132,7 +132,7 @@
 -					data['password'] = getValue(mount.findall("password"), "").encode("UTF-8")
 +					fields = line.split("\t")
 +					data['sharename'] = fields[0].encode("UTF-8")
-+					
++
 +					data['username'] = 'guest'.encode("UTF-8")
 +					data['password'] = ''.encode("UTF-8")
 +					data['options'] = ""
@@ -148,8 +148,7 @@
 +					if len(data['options']) > 1:
 +						data['options'] = data['options'][:-1]
 +					data['options'] = data['options'].encode("UTF-8")
-+					
-+					
++
 +					if fields[2][:3] == "://": #cifs
 +						ip = fields[2][3:].split("/", 1)
 +					else:
@@ -163,7 +162,7 @@
  					self.automounts[data['sharename']] = data
  				except Exception, e:
  					print "[MountManager] Error reading Mounts:", e
-@@ -94,11 +104,12 @@
+@@ -94,11 +103,12 @@
  		self.checkList = self.automounts.keys()
  		if not self.checkList:
  			print "[AutoMount.py] self.automounts without mounts",self.automounts
@@ -178,7 +177,7 @@
  	def sanitizeOptions(self, origOptions, cifs=False):
  		options = origOptions.strip()
  		if not options:
-@@ -116,78 +127,21 @@
+@@ -116,78 +126,21 @@
  
  	def CheckMountPoint(self, item, callback):
  		data = self.automounts[item]
@@ -264,7 +263,7 @@
  
  	def makeHDDlink(self, path):
  		hdd_dir = '/media/hdd'
-@@ -210,13 +164,6 @@
+@@ -210,13 +163,6 @@
  			except Exception, ex:
  				print "[AutoMount.py] Failed to create ", movie, "Error:", ex
  
@@ -278,7 +277,7 @@
  
  	def getMountsList(self):
  		return self.automounts
-@@ -233,27 +180,31 @@
+@@ -233,27 +179,31 @@
  
  	def writeMountsConfig(self):
  		# Generate List in RAM
@@ -328,7 +327,7 @@
  
  		# Try Saving to Flash
  		try:
-@@ -261,9 +212,6 @@
+@@ -261,9 +211,6 @@
  		except Exception, e:
  			print "[AutoMount.py] Error Saving Mounts List:", e
  
@@ -338,7 +337,7 @@
  
  	def removeMount(self, mountpoint, callback = None):
  		print "[AutoMount.py] removing mount: ",mountpoint
-@@ -273,28 +221,6 @@
+@@ -273,28 +220,6 @@
  				self.newautomounts[sharename] = sharedata
  		self.automounts.clear()
  		self.automounts = self.newautomounts

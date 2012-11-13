@@ -7,6 +7,8 @@ $(DEPDIR)/enigma2-plugins: enigma2_openwebif enigma2_networkbrowser
 # enigma2-openwebif
 #
 $(DEPDIR)/enigma2_openwebif.do_prepare: bootstrap python pythoncheetah @DEPENDS_enigma2_openwebif@
+	[ -d "$(archivedir)/e2openplugin-OpenWebif.git" ] && \
+	(cd $(archivedir)/e2openplugin-OpenWebif.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
 	@PREPARE_enigma2_openwebif@
 	touch $@
 
@@ -26,7 +28,7 @@ $(DEPDIR)/%enigma2_openwebif: $(DEPDIR)/enigma2_openwebif.do_compile
 # enigma2-networkbrowser
 #
 $(DEPDIR)/enigma2_networkbrowser.do_prepare: @DEPENDS_enigma2_networkbrowser@
-	[ -d "$(archivedir)/enigma2-pli-nightly.git" ] && \
+	[ -d "$(archivedir)/enigma2-openpli-plugins-enigma2.git" ] && \
 	(cd $(archivedir)/enigma2-openpli-plugins-enigma2.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
 	@PREPARE_enigma2_networkbrowser@
 	touch $@

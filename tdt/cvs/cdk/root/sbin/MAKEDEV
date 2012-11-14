@@ -671,17 +671,17 @@ do
 		line=`suffix $arg ttySC`
 		minor=`math 8 + $line`
 		makedev ttySC$line c 204 $minor $dialout
- 		;;
+		;;
 	ttyFW[0-3])
 		line=`suffix $arg ttyFW`
 		minor=`math 12 + $line`
 		makedev ttyFW$line c 204 $minor $dialout
- 		;;
+		;;
 	ttyAS[0-3])
 		line=`suffix $arg ttyAS`
 		minor=`math 40 + $line`
 		makedev ttyAS$line c 204 $minor $dialout
- 		;;
+		;;
 	ttyB[0-7])
 		minor=`suffix $arg ttyB`
 		makedev ttyB$minor c 11 $minor $dialout
@@ -1062,14 +1062,14 @@ do
 		mkdir -p thinkpad
 		makedev thinkpad/thinkpad c $major 170 $mouse
 		;;
-        rtc)
+	rtc)
 		major=`Major mouse 10` || continue
 		makedev rtc       c $major 135 $mouse
 		;;
 	efirtc)
 		major=`Major mouse 10` || continue
 		makedev efirtc    c $major 136 $mouse
- 		;;
+		;;
 	mwave)
 		makedev mwave     c 10 219 $mouse
 		;;
@@ -1111,7 +1111,6 @@ do
 		makedev ${arg}u1440 b $major `math $base + 28` $floppy
 		makedev ${arg}u2880 b $major `math $base + 32` $floppy
 		makedev ${arg}CompaQ b $major `math $base + 36` $floppy
-
 		makedev ${arg}h1440 b $major `math $base + 40` $floppy
 		makedev ${arg}u1680 b $major `math $base + 44` $floppy
 		makedev ${arg}h410  b $major `math $base + 48` $floppy
@@ -1295,8 +1294,8 @@ do
 			base=$(( $base - 256 ))
 		fi
 		makedev sd$unit b $major $base $disk
-		#for part in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
-		for part in 1 2 3 4 5 6 7 8
+		for part in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+		#for part in 1 2 3 4 5 6 7 8
 		do
 			minor=$(( $base + $part ))
 			makedev sd$unit$part b $major $minor $disk
@@ -1324,13 +1323,13 @@ do
 			minor=$(( $base + $part ))
 			makedev sd$unit$part b $major $minor $disk
 		done
-                ;;
+		;;
 	i2o.hd[a-z])
 		[ -d i2o ] || {
 			mkdir i2o
 			chown root:root i2o
 			chmod 755 i2o
-      			[ -e i2o/ctl ] || makedev i2o/ctl c 10 166 $disk
+			[ -e i2o/ctl ] || makedev i2o/ctl c 10 166 $disk
 		}
 		unit=`suffix $arg i2o.hd`
 		base=`index abcdefghijklmnopqrstuvwxyz $unit`
@@ -1353,7 +1352,7 @@ do
 			mkdir i2o
 			chown root:root i2o
 			chmod 755 i2o
-      			[ -e i2o/ctl ] || makedev i2o/ctl c 10 166 $disk
+			[ -e i2o/ctl ] || makedev i2o/ctl c 10 166 $disk
 		}
 		unit=`suffix $arg i2o.hd`
 		unitmaj=`first $unit`

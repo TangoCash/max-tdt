@@ -45,6 +45,12 @@ STM_RELOCATE := /opt/STM/STLinux-2.4
 #
 #
 #
+PYTHON_VERSION = $(word 1,$(subst ., ,$(VERSION_python))).$(word 2,$(subst ., ,$(VERSION_python)))
+PYTHON_DIR = /usr/lib/python$(PYTHON_VERSION)
+
+#
+#
+#
 if ENABLE_CCACHE
 PATH := $(hostprefix)/ccache-bin:$(crossprefix)/bin:$(PATH):/usr/sbin
 else

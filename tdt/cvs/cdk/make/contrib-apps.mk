@@ -170,7 +170,6 @@ $(DEPDIR)/e2fsprogs.do_prepare: bootstrap @DEPENDS_e2fsprogs@
 	@PREPARE_e2fsprogs@
 	touch $@
 
-if STM24
 $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_e2fsprogs@ && \
@@ -200,38 +199,7 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 	$(MAKE) && \
 	$(MAKE) -C e2fsck e2fsck.static
 	touch $@
-else !STM24
-$(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_e2fsprogs@ && \
-	$(BUILDENV) \
-	cc=$(target)-gcc \
-	./configure \
-		--build=$(build) \
-		--host=$(target) \
-		--target=$(target) \
-		--with-linker=$(target)-ld \
-		--enable-htree \
-		--disable-profile \
-		--disable-e2initrd-helper \
-		--disable-swapfs \
-		--disable-debugfs \
-		--disable-imager \
-		--enable-resizer \
-		--enable-dynamic-e2fsck \
-		--enable-fsck \
-		--with-gnu-ld \
-		--disable-nls \
-		--prefix=/usr \
-		--enable-elf-shlibs \
-		--enable-dynamic-e2fsck \
-		--disable-evms \
-		--with-root-prefix= && \
-		$(MAKE) libs progs
-	touch $@
-endif !STM24
 
-if STM24
 $(DEPDIR)/e2fsprogs: $(DEPDIR)/e2fsprogs.do_compile
 	cd @DIR_e2fsprogs@ && \
 		@INSTALL_e2fsprogs@
@@ -240,18 +208,6 @@ $(DEPDIR)/e2fsprogs: $(DEPDIR)/e2fsprogs.do_compile
 	$(INSTALL) e2fsck/e2fsck.static $(targetprefix)/sbin ) || true
 	@DISTCLEANUP_e2fsprogs@
 	touch $@
-else !STM24
-$(DEPDIR)/min-e2fsprogs $(DEPDIR)/std-e2fsprogs $(DEPDIR)/max-e2fsprogs \
-$(DEPDIR)/e2fsprogs: \
-$(DEPDIR)/%e2fsprogs: $(DEPDIR)/e2fsprogs.do_compile
-	cd @DIR_e2fsprogs@ && \
-		@INSTALL_e2fsprogs@
-	[ "x$*" = "x" ] && ( cd @DIR_e2fsprogs@ && \
-		$(MAKE) install -C lib/uuid DESTDIR=$(targetprefix) && \
-		$(MAKE) install -C lib/blkid DESTDIR=$(targetprefix) ) || true
-	@DISTCLEANUP_e2fsprogs@
-	[ "x$*" = "x" ] && touch $@ || true
-endif !STM24
 
 #
 # XFSPROGS

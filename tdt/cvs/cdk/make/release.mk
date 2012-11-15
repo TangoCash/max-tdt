@@ -750,7 +750,7 @@ endif
 	find $(prefix)/release/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release/usr/lib/
-	rm -rf $(prefix)/release/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python2.6,sigc++-1.2,X11}
+	rm -rf $(prefix)/release/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11}
 	rm -f $(prefix)/release/usr/lib/*.{a,o,la}
 #	chmod 755 $(prefix)/release/usr/lib/*
 	find $(prefix)/release/usr/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
@@ -807,25 +807,25 @@ endif
 	rm -rf $(prefix)/release/usr/lib/enigma2/python/Plugins/Extensions/FileManager
 	rm -rf $(prefix)/release/usr/lib/enigma2/python/Plugins/Extensions/TuxboxPlugins
 
-	$(INSTALL_DIR) $(prefix)/release/usr/lib/python2.6
-	cp -a $(targetprefix)/usr/lib/python2.6/* $(prefix)/release/usr/lib/python2.6/
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/Cheetah-2.4.4-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/elementtree-1.2.6_20050316-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/lxml
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/lxml-2.2.8-py2.6.egg-info
-	rm -f $(prefix)/release/usr/lib/python2.6/site-packages/libxml2mod.so
-	rm -f $(prefix)/release/usr/lib/python2.6/site-packages/libxsltmod.so
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/OpenSSL/test
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/pyOpenSSL-0.9-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/python_wifi-0.5.0-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/pycrypto-2.5-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/pyusb-1.0.0a2-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/setuptools
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/setuptools-0.6c11-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/zope.interface-4.0.1-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/Twisted-12.1.0-py2.6.egg-info
-	rm -rf $(prefix)/release/usr/lib/python2.6/site-packages/twisted/{test,conch,mail,manhole,names,news,trial,words,application,enterprise,flow,lore,pair,runner,scripts,tap,topfiles}
-	rm -rf $(prefix)/release/usr/lib/python2.6/{bsddb,compiler,ctypes,curses,distutils,lib-old,lib-tk,plat-linux3,test}
+	$(INSTALL_DIR) $(prefix)/release$(PYTHON_DIR)
+	cp -a $(targetprefix)$(PYTHON_DIR)/* $(prefix)/release$(PYTHON_DIR)/
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/Cheetah-2.4.4-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/elementtree-1.2.6_20050316-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/lxml
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/lxml-2.2.8-py2.6.egg-info
+	rm -f $(prefix)/release$(PYTHON_DIR)/site-packages/libxml2mod.so
+	rm -f $(prefix)/release$(PYTHON_DIR)/site-packages/libxsltmod.so
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/OpenSSL/test
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pyOpenSSL-0.9-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/python_wifi-0.5.0-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pycrypto-2.5-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pyusb-1.0.0a2-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/setuptools
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/setuptools-0.6c11-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/zope.interface-4.0.1-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/Twisted-12.1.0-py2.6.egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/twisted/{test,conch,mail,manhole,names,news,trial,words,application,enterprise,flow,lore,pair,runner,scripts,tap,topfiles}
+	rm -rf $(prefix)/release$(PYTHON_DIR)/{bsddb,compiler,ctypes,curses,distutils,lib-old,lib-tk,plat-linux3,test}
 
 #
 # Dont remove pyo files, remove pyc instead
@@ -837,12 +837,12 @@ endif
 	find $(prefix)/release/usr/lib/enigma2/ -name '*.la' -exec rm -f {} \;
 	find $(prefix)/release/usr/lib/enigma2/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
 
-	find $(prefix)/release/usr/lib/python2.6/ -name '*.pyc' -exec rm -f {} \;
-#	find $(prefix)/release/usr/lib/python2.6/ -name '*.py' -exec rm -f {} \;
-	find $(prefix)/release/usr/lib/python2.6/ -name '*.a' -exec rm -f {} \;
-	find $(prefix)/release/usr/lib/python2.6/ -name '*.o' -exec rm -f {} \;
-	find $(prefix)/release/usr/lib/python2.6/ -name '*.la' -exec rm -f {} \;
-	find $(prefix)/release/usr/lib/python2.6/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
+	find $(prefix)/release$(PYTHON_DIR)/ -name '*.pyc' -exec rm -f {} \;
+#	find $(prefix)/release$(PYTHON_DIR)/ -name '*.py' -exec rm -f {} \;
+	find $(prefix)/release$(PYTHON_DIR)/ -name '*.a' -exec rm -f {} \;
+	find $(prefix)/release$(PYTHON_DIR)/ -name '*.o' -exec rm -f {} \;
+	find $(prefix)/release$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
+	find $(prefix)/release$(PYTHON_DIR)/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
 
 #
 # hotplug

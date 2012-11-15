@@ -1407,8 +1407,8 @@ $(DEPDIR)/libxml2: \
 $(DEPDIR)/%libxml2: $(DEPDIR)/libxml2.do_compile
 	cd @DIR_libxml2@ && \
 		@INSTALL_libxml2@; \
-		[ -f "$(targetprefix)/usr/lib/python2.6/site-packages/libxml2mod.la" ] && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libxml2.la,$(targetprefix)/usr/lib/libxml2.la,g" -i $(targetprefix)/usr/lib/python2.6/site-packages/libxml2mod.la; \
+		[ -f "$(targetprefix)$(PYTHON_DIR)/site-packages/libxml2mod.la" ] && \
+		sed -e "/^dependency_libs/ s,/usr/lib/libxml2.la,$(targetprefix)/usr/lib/libxml2.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxml2mod.la; \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < xml2-config > $(crossprefix)/bin/xml2-config; \
 		chmod 755 $(crossprefix)/bin/xml2-config; \
 		sed -e "/^XML2_LIBDIR/ s,/usr/lib,$(targetprefix)/usr/lib,g" -i $(targetprefix)/usr/lib/xml2Conf.sh; \
@@ -1447,8 +1447,8 @@ $(DEPDIR)/libxslt: \
 $(DEPDIR)/%libxslt: $(DEPDIR)/libxslt.do_compile
 	cd @DIR_libxslt@ && \
 		@INSTALL_libxslt@ && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)/usr/lib/python2.6/site-packages/libxsltmod.la && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libexslt.la,$(targetprefix)/usr/lib/libexslt.la,g" -i $(targetprefix)/usr/lib/python2.6/site-packages/libxsltmod.la && \
+		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxsltmod.la && \
+		sed -e "/^dependency_libs/ s,/usr/lib/libexslt.la,$(targetprefix)/usr/lib/libexslt.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxsltmod.la && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < xslt-config > $(crossprefix)/bin/xslt-config && \
 		chmod 755 $(crossprefix)/bin/xslt-config && \
 		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)/usr/lib/libexslt.la && \
@@ -1467,7 +1467,7 @@ $(DEPDIR)/lxml.do_prepare: bootstrap python @DEPENDS_lxml@
 $(DEPDIR)/lxml.do_compile: $(DEPDIR)/lxml.do_prepare
 	cd @DIR_lxml@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build \
 			--with-xml2-config=$(crossprefix)/bin/xml2-config \
 			--with-xslt-config=$(crossprefix)/bin/xslt-config
@@ -1478,7 +1478,7 @@ $(DEPDIR)/lxml: \
 $(DEPDIR)/%lxml: $(DEPDIR)/lxml.do_compile
 	cd @DIR_lxml@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_lxml@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1513,7 +1513,7 @@ $(DEPDIR)/twisted.do_prepare: bootstrap setuptools @DEPENDS_twisted@
 $(DEPDIR)/twisted.do_compile: $(DEPDIR)/twisted.do_prepare
 	cd @DIR_twisted@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
@@ -1522,7 +1522,7 @@ $(DEPDIR)/twisted: \
 $(DEPDIR)/%twisted: $(DEPDIR)/twisted.do_compile
 	cd @DIR_twisted@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_twisted@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1537,7 +1537,7 @@ $(DEPDIR)/twistedweb2.do_prepare: bootstrap setuptools @DEPENDS_twistedweb2@
 $(DEPDIR)/twistedweb2.do_compile: $(DEPDIR)/twistedweb2.do_prepare
 	cd @DIR_twistedweb2@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
@@ -1546,7 +1546,7 @@ $(DEPDIR)/twistedweb2: \
 $(DEPDIR)/%twistedweb2: $(DEPDIR)/twistedweb2.do_compile
 	cd @DIR_twistedweb2@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_twistedweb2@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1564,7 +1564,7 @@ $(DEPDIR)/pilimaging.do_compile: $(DEPDIR)/pilimaging.do_prepare
 		echo 'ZLIB_ROOT = "$(targetprefix)/usr/lib", "$(targetprefix)/usr/include"' >> setup_site.py && \
 		echo 'FREETYPE_ROOT = "$(targetprefix)/usr/lib", "$(targetprefix)/usr/include"' >> setup_site.py && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build
 	touch $@
 
@@ -1572,7 +1572,7 @@ $(DEPDIR)/min-pilimaging $(DEPDIR)/std-pilimaging $(DEPDIR)/max-pilimaging \
 $(DEPDIR)/pilimaging: \
 $(DEPDIR)/%pilimaging: $(DEPDIR)/pilimaging.do_compile
 	cd @DIR_pilimaging@ && \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pilimaging@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1598,7 +1598,7 @@ $(DEPDIR)/pycrypto: \
 $(DEPDIR)/%pycrypto: $(DEPDIR)/pycrypto.do_compile
 	cd @DIR_pycrypto@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pycrypto@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1613,7 +1613,7 @@ $(DEPDIR)/pyusb.do_prepare: bootstrap setuptools @DEPENDS_pyusb@
 $(DEPDIR)/pyusb.do_compile: $(DEPDIR)/pyusb.do_prepare
 	cd @DIR_pyusb@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build
 	touch $@
 
@@ -1621,7 +1621,7 @@ $(DEPDIR)/min-pyusb $(DEPDIR)/std-pyusb $(DEPDIR)/max-pyusb \
 $(DEPDIR)/pyusb: \
 $(DEPDIR)/%pyusb: $(DEPDIR)/pyusb.do_compile
 	cd @DIR_pyusb@ && \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pyusb@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1635,9 +1635,9 @@ $(DEPDIR)/pyopenssl.do_prepare: bootstrap setuptools @DEPENDS_pyopenssl@
 
 $(DEPDIR)/pyopenssl.do_compile: $(DEPDIR)/pyopenssl.do_prepare
 	cd @DIR_pyopenssl@ && \
-		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/python2.6" \
+		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/python$(PYTHON_VERSION)" \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build
 	touch $@
 
@@ -1645,7 +1645,7 @@ $(DEPDIR)/min-pyopenssl $(DEPDIR)/std-pyopenssl $(DEPDIR)/max-pyopenssl \
 $(DEPDIR)/pyopenssl: \
 $(DEPDIR)/%pyopenssl: $(DEPDIR)/pyopenssl.do_compile
 	cd @DIR_pyopenssl@ && \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pyopenssl@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1702,7 +1702,7 @@ $(DEPDIR)/%python: $(DEPDIR)/python.do_compile
 			HOSTPYTHON=$(crossprefix)/bin/python \
 			HOSTPGEN=$(crossprefix)/bin/pgen \
 			install DESTDIR=$(prefix)/$*cdkroot ) && \
-	$(LN_SF) ../../libpython2.6.so.1.0 $(prefix)/$*cdkroot/usr/lib/python2.6/config/libpython2.6.so
+	$(LN_SF) ../../libpython$(PYTHON_VERSION).so.1.0 $(prefix)/$*cdkroot$(PYTHON_DIR)/config/libpython$(PYTHON_VERSION).so
 	@DISTCLEANUP_python@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1716,7 +1716,7 @@ $(DEPDIR)/pythonwifi.do_prepare: bootstrap setuptools @DEPENDS_pythonwifi@
 $(DEPDIR)/pythonwifi.do_compile: $(DEPDIR)/pythonwifi.do_prepare
 	cd @DIR_pythonwifi@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build
 	touch $@
 
@@ -1724,7 +1724,7 @@ $(DEPDIR)/min-pythonwifi $(DEPDIR)/std-pythonwifi $(DEPDIR)/max-pythonwifi \
 $(DEPDIR)/pythonwifi: \
 $(DEPDIR)/%pythonwifi: $(DEPDIR)/pythonwifi.do_compile
 	cd @DIR_pythonwifi@ && \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pythonwifi@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1739,7 +1739,7 @@ $(DEPDIR)/pythoncheetah.do_prepare: bootstrap setuptools @DEPENDS_pythoncheetah@
 $(DEPDIR)/pythoncheetah.do_compile: $(DEPDIR)/pythoncheetah.do_prepare
 	cd @DIR_pythoncheetah@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build
 	touch $@
 
@@ -1747,7 +1747,7 @@ $(DEPDIR)/min-pythoncheetah $(DEPDIR)/std-pythoncheetah $(DEPDIR)/max-pythonchee
 $(DEPDIR)/pythoncheetah: \
 $(DEPDIR)/%pythoncheetah: $(DEPDIR)/pythoncheetah.do_compile
 	cd @DIR_pythoncheetah@ && \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pythoncheetah@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1762,7 +1762,7 @@ $(DEPDIR)/zope_interface.do_prepare: bootstrap python setuptools @DEPENDS_zope_i
 $(DEPDIR)/zope_interface.do_compile: $(DEPDIR)/zope_interface.do_prepare
 	cd @DIR_zope_interface@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py build
 	touch $@
 
@@ -1770,7 +1770,7 @@ $(DEPDIR)/min-zope_interface $(DEPDIR)/std-zope_interface $(DEPDIR)/max-zope_int
 $(DEPDIR)/zope_interface: \
 $(DEPDIR)/%zope_interface: $(DEPDIR)/zope_interface.do_compile
 	cd @DIR_zope_interface@ && \
-		PYTHONPATH=$(targetprefix)/usr/lib/python2.6/site-packages \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
 		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_zope_interface@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -2518,7 +2518,7 @@ $(DEPDIR)/tuxtxtlib.do_compile: $(DEPDIR)/tuxtxtlib.do_prepare
 		--host=$(target) \
 		--prefix=/usr \
 		--with-boxtype=generic \
-		--with-configdir=/usr \
+		--with-configdir=/etc \
 		--with-datadir=/usr/share/tuxtxt \
 		--with-fontdir=/usr/share/fonts && \
 	$(MAKE) all
@@ -2545,14 +2545,14 @@ $(DEPDIR)/tuxtxt32bpp.do_compile: $(DEPDIR)/tuxtxt32bpp.do_prepare
 	aclocal -I $(hostprefix)/share/aclocal && \
 	autoheader && \
 	autoconf && \
-	automake --foreign && \
+	automake --foreign --add-missing && \
 	libtoolize --force && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr \
 		--with-boxtype=generic \
-		--with-configdir=/usr \
+		--with-configdir=/etc \
 		--with-datadir=/usr/share/tuxtxt \
 		--with-fontdir=/usr/share/fonts && \
 	$(MAKE) all
@@ -2728,32 +2728,6 @@ $(DEPDIR)/%libmodplug: $(DEPDIR)/libmodplug.do_compile
 		@INSTALL_libmodplug@
 	@DISTCLEANUP_libmodplug@
 	[ "x$*" = "x" ] && touch $@ || true
-
-#
-# bzip - already in contrib-apps, check which is better
-#
-#$(DEPDIR)/bzip.do_prepare: bootstrap @DEPENDS_bzip@
-#	@PREPARE_bzip@
-#	touch $@
-#
-#$(DEPDIR)/bzip.do_compile: $(DEPDIR)/bzip.do_prepare
-#	export PATH=$(hostprefix)/bin:$(PATH) && \
-#	cd @DIR_bzip@ && \
-#	$(BUILDENV) \
-#	sed -i "s/CC=gcc/CC=sh4-linux-gcc/g" Makefile && \
-#	sed -i "s/AR=ar/AR=sh4-linux-ar/g" Makefile && \
-#	sed -i "s/RANLIB=ranlib/RANLIB=sh4-linux-ranlib/g" Makefile&& \
-#	sed -i -e 's|PREFIX=/usr/local|PREFIX=$(prefix)/cdkroot/usr|g' Makefile
-#	$(MAKE) all
-#	touch $@
-#
-#$(DEPDIR)/min-bzip $(DEPDIR)/std-bzip $(DEPDIR)/max-bzip \
-#$(DEPDIR)/bzip: \
-#$(DEPDIR)/%bzip: $(DEPDIR)/bzip.do_compile
-#	cd @DIR_bzip@ && \
-#		@INSTALL_bzip@
-#	@DISTCLEANUP_bzip@
-#	[ "x$*" = "x" ] && touch $@ || true
 
 #
 # tiff

@@ -135,8 +135,8 @@ taglib;make:install:DESTDIR=TARGETS
 #
 # PYTHON
 #
-libxml2;rewrite-pkgconfig:libxml-2.0.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxml2.la;rewrite-dependency:TARGETS/usr/lib/;rewrite-libtool:TARGETS/usr/lib/python2.6/site-packages/libxml2mod.la
-libxslt;rewrite-pkgconfig:libxslt.pc:libexslt.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxslt.la:TARGETS/usr/lib/libexslt.la:TARGETS/usr/lib/python2.6/site-packages/libxsltmod.la
+libxml2;rewrite-pkgconfig:libxml-2.0.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxml2.la;rewrite-dependency:TARGETS/usr/lib/libxml2.la
+libxslt;rewrite-pkgconfig:libxslt.pc:libexslt.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxslt.la:TARGETS/usr/lib/libexslt.la
 
 #
 # GSTREAMER

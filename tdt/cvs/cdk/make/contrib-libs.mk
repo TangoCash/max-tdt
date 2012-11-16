@@ -1387,7 +1387,6 @@ $(DEPDIR)/libxml2.do_prepare: bootstrap @DEPENDS_libxml2@
 	touch $@
 
 $(DEPDIR)/libxml2.do_compile: $(DEPDIR)/libxml2.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxml2@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1406,12 +1405,11 @@ $(DEPDIR)/min-libxml2 $(DEPDIR)/std-libxml2 $(DEPDIR)/max-libxml2 \
 $(DEPDIR)/libxml2: \
 $(DEPDIR)/%libxml2: $(DEPDIR)/libxml2.do_compile
 	cd @DIR_libxml2@ && \
-		@INSTALL_libxml2@; \
-		[ -f "$(targetprefix)$(PYTHON_DIR)/site-packages/libxml2mod.la" ] && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libxml2.la,$(targetprefix)/usr/lib/libxml2.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxml2mod.la; \
-		sed -e "s,^prefix=,prefix=$(targetprefix)," < xml2-config > $(crossprefix)/bin/xml2-config; \
-		chmod 755 $(crossprefix)/bin/xml2-config; \
-		sed -e "/^XML2_LIBDIR/ s,/usr/lib,$(targetprefix)/usr/lib,g" -i $(targetprefix)/usr/lib/xml2Conf.sh; \
+		@INSTALL_libxml2@ && \
+		sed -e "/^dependency_libs/ s,/usr/lib/libxml2.la,$(targetprefix)/usr/lib/libxml2.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxml2mod.la && \
+		sed -e "s,^prefix=,prefix=$(targetprefix)," < xml2-config > $(crossprefix)/bin/xml2-config && \
+		chmod 755 $(crossprefix)/bin/xml2-config && \
+		sed -e "/^XML2_LIBDIR/ s,/usr/lib,$(targetprefix)/usr/lib,g" -i $(targetprefix)/usr/lib/xml2Conf.sh && \
 		sed -e "/^XML2_INCLUDEDIR/ s,/usr/include,$(targetprefix)/usr/include,g" -i $(targetprefix)/usr/lib/xml2Conf.sh
 	@DISTCLEANUP_libxml2@
 	[ "x$*" = "x" ] && touch $@ || true
@@ -1658,7 +1656,6 @@ $(DEPDIR)/python.do_prepare: bootstrap host_python openssl openssl-dev sqlite @D
 	touch $@
 
 $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	( cd @DIR_python@ && \
 		CONFIG_SITE= \
 		$(BUILDENV) \
@@ -1684,7 +1681,9 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 			PYTHON_DISABLE_MODULES="_tkinter" \
 			PYTHON_MODULES_INCLUDE="$(prefix)/$*cdkroot/usr/include" \
 			PYTHON_MODULES_LIB="$(prefix)/$*cdkroot/usr/lib" \
-			CROSS_COMPILE=yes \
+			CROSS_COMPILE_TARGET=yes \
+			CROSS_COMPILE=$(target) \
+			HOSTARCH=sh4-linux \
 			CFLAGS="$(TARGET_CFLAGS) -fno-inline" \
 			LDFLAGS="$(TARGET_LDFLAGS)" \
 			LD="$(target)-gcc" \

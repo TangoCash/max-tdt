@@ -220,77 +220,6 @@ $(HOST_MTD_UTILS): $(HOST_MTD_UTILS_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch .deps/$(notdir $@)
 
-#
-# HOST FLEX
-#
-HOST_FLEX = host-flex
-HOST_FLEX_VERSION = 2.5.35-2
-HOST_FLEX_SPEC = stm-$(HOST_FLEX).spec
-HOST_FLEX_SPEC_PATCH =
-HOST_FLEX_PATCHES =
-
-HOST_FLEX_RPM = RPMS/sh4/$(STLINUX)-$(HOST_FLEX)-$(HOST_FLEX_VERSION).sh4.rpm
-
-$(HOST_FLEX_RPM): \
-		$(addprefix Patches/,$(HOST_FLEX_SPEC_PATCH) $(HOST_FLEX_PATCHES)) \
-		$(archivedir)/$(STLINUX)-$(HOST_FLEX)-$(HOST_FLEX_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_FLEX_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_FLEX_SPEC) < $(buildprefix)/Patches/$(HOST_FLEX_SPEC_PATCH) ) &&) \
-	$(if $(HOST_FLEX_PATCHES),cp $(addprefix Patches/,$(HOST_FLEX_PATCHES)) SOURCES/ &&) \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_FLEX_SPEC)
-
-$(DEPDIR)/$(HOST_FLEX): $(HOST_FLEX_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
-	touch $@
-
-#
-# HOST LIBFFI
-#
-HOST_LIBFFI = host-libffi-dev
-HOST_LIBFFI_VERSION = 3.0.10-2
-HOST_LIBFFI_SPEC = stm-$(HOST_LIBFFI).spec
-HOST_LIBFFI_SPEC_PATCH = #$(HOST_LIBFFI_SPEC).$(HOST_LIBFFI_VERSION).diff
-HOST_LIBFFI_PATCHES =
-
-HOST_LIBFFI_RPM = RPMS/sh4/$(STLINUX)-$(HOST_LIBFFI)-$(HOST_LIBFFI_VERSION).sh4.rpm
-
-$(HOST_LIBFFI_RPM): \
-		$(addprefix Patches/,$(HOST_LIBFFI_SPEC_PATCH) $(HOST_LIBFFI_PATCHES)) \
-		$(archivedir)/$(STLINUX:%23=%24)-$(HOST_LIBFFI)-$(HOST_LIBFFI_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_LIBFFI_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_LIBFFI_SPEC) < $(buildprefix)/Patches/$(HOST_LIBFFI_SPEC_PATCH) ) &&) \
-	$(if $(HOST_LIBFFI_PATCHES),cp $(addprefix Patches/,$(HOST_LIBFFI_PATCHES)) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_LIBFFI_SPEC)
-
-$(DEPDIR)/$(HOST_LIBFFI): $(HOST_LIBFFI_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
-	touch $@
-
-#
-# HOST GLIB2
-#
-HOST_GLIB2 = host-glib2
-HOST_GLIB2_VERSION = 2.32.1-26
-HOST_GLIB2_SPEC = stm-$(HOST_GLIB2).spec
-HOST_GLIB2_SPEC_PATCH = $(HOST_GLIB2_SPEC).$(HOST_GLIB2_VERSION).diff
-HOST_GLIB2_PATCHES =
-
-HOST_GLIB2_RPM = RPMS/sh4/$(STLINUX)-$(HOST_GLIB2)-$(HOST_GLIB2_VERSION).sh4.rpm
-
-$(HOST_GLIB2_RPM): \
-		$(addprefix Patches/,$(HOST_GLIB2_SPEC_PATCH) $(HOST_GLIB2_PATCHES)) \
-		$(archivedir)/$(STLINUX)-$(HOST_GLIB2)-$(HOST_GLIB2_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_GLIB2_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_GLIB2_SPEC) < $(buildprefix)/Patches/$(HOST_GLIB2_SPEC_PATCH) ) &&) \
-	$(if $(HOST_GLIB2_PATCHES),cp $(addprefix Patches/,$(HOST_GLIB2_PATCHES)) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild  $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_GLIB2_SPEC)
-
-$(DEPDIR)/$(HOST_GLIB2): $(HOST_GLIB2_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
-	touch $@
-
 ##############################   BOOTSTRAP-CROSS   #############################
 #
 # CROSS_DISTRIBUTIONUTILS
@@ -550,35 +479,32 @@ cross-sh4-filesystem:
 $(DEPDIR)/bootstrap-host: | \
 		host-filesystem \
 		host-rpmconfig \
-		$(HOST_M4) \
 		host-base-passwd \
 		host-distributionutils \
 		host-autotools \
 		$(HOST_AUTOCONF) \
 		$(HOST_PKGCONFIG) \
 		$(HOST_AUTOMAKE) \
-		$(HOST_FLEX) \
 		$(HOST_MTD_UTILS)
-	$(if $(HOST_MTD_UTILS_RPM),[ "x$*" = "x" ] && touch -r $(HOST_MTD_UTILS_RPM) $@ || true)
-#		$(HOST_GLIB2)
+	[ "x$*" = "x" ] && touch $@ || true
 
 #
 # BOOTSTRAP-CROSS
 #
 $(DEPDIR)/bootstrap-cross: | \
-		bootstrap-host \
-		cross-sh4-distributionutils \
-		cross-sh4-filesystem \
-		cross-sh4-binutils \
-		cross-sh4-binutils-dev \
-		$(CROSS_GMP) \
-		$(CROSS_MPFR) \
-		$(CROSS_MPC) \
-		$(CROSS_LIBELF) \
-		cross-sh4-cpp \
-		cross-sh4-gcc \
-		cross-sh4-g++ \
-		cross-sh4-libgcc
+	bootstrap-host \
+	cross-sh4-distributionutils \
+	cross-sh4-filesystem \
+	cross-sh4-binutils \
+	cross-sh4-binutils-dev \
+	cross-sh4-gmp \
+	cross-sh4-mpfr \
+	cross-sh4-mpc \
+	cross-sh4-libelf \
+	cross-sh4-cpp \
+	cross-sh4-gcc \
+	cross-sh4-g++ \
+	cross-sh4-libgcc
 	[ "x$*" = "x" ] && touch $@ || true
 
 $(DEPDIR)/setup-cross-doc: \

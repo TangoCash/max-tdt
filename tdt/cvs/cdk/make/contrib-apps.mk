@@ -28,7 +28,6 @@ $(DEPDIR)/module_init_tools.do_prepare: bootstrap @DEPENDS_module_init_tools@
 	touch $@
 
 $(DEPDIR)/module_init_tools.do_compile: $(DEPDIR)/module_init_tools.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_module_init_tools@ && \
 		$(BUILDENV) \
 		./configure \

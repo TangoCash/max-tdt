@@ -29,7 +29,7 @@ ccache-3.1.8.tar.gz;http://samba.org/ftp/ccache
 # root
 #
 busybox-1.20.2.tar.bz2;http://www.busybox.net/downloads
-lsb_3.2-28.1.tar.gz;http://ftp.de.debian.org/debian/pool/main/l/lsb;http://ftp.uni-erlangen.de/pub/debian/pool/main/l/lsb
+lsb_3.2-20.tar.gz;http://debian.sdinet.de/etch/sdinet/lsb
 ipkg-0.99.163.tar.gz;ftp://ftp.gwdg.de/linux/handhelds/packages/ipkg
 module-init-tools-3.16.tar.bz2;http://ftp.tlk-l.net/pub/mirrors/kernel.org/linux/utils/kernel/module-init-tools
 sysvinit-2.86.tar.gz;ftp://ftp.cistron.nl/pub/people/miquels/sysvinit

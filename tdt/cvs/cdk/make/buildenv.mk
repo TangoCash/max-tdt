@@ -36,17 +36,18 @@ KERNEL_PREPARE = @PREPARE_linux24@
 DEPMOD = /sbin/depmod
 
 #
-#
+# Stlinux Version
 #
 STLINUX := stlinux24
 STM_SRC := $(STLINUX)
 STM_RELOCATE := /opt/STM/STLinux-2.4
 
 #
-#
+# Python Version
 #
 PYTHON_VERSION = $(word 1,$(subst ., ,$(VERSION_python))).$(word 2,$(subst ., ,$(VERSION_python)))
 PYTHON_DIR = /usr/lib/python$(PYTHON_VERSION)
+PYTHON_INCLUDE_DIR = /usr/include/python$(PYTHON_VERSION)
 
 #
 #

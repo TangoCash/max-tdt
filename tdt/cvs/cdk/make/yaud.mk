@@ -9,17 +9,17 @@ min-prepare-yaud std-prepare-yaud max-prepare-yaud: \
 #
 $(DEPDIR)/min-bootstrap $(DEPDIR)/std-bootstrap $(DEPDIR)/max-bootstrap $(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
-		%$(CCACHE) \
-		%libtool \
-		%$(FILESYSTEM) \
-		| %$(GLIBC) \
-		%$(CROSS_LIBGCC) \
-		%$(GLIBC_DEV) \
-		%$(GMP) \
-		%$(MPFR) \
-		%$(MPC) \
-		%$(LIBSTDC) \
-		%$(LIBSTDC_DEV)
+	%$(CCACHE) \
+	%libtool \
+	%$(FILESYSTEM) \
+	| %$(GLIBC) \
+	%$(CROSS_LIBGCC) \
+	%$(GLIBC_DEV) \
+	%$(GMP) \
+	%$(MPFR) \
+	%$(MPC) \
+	%$(LIBSTDC) \
+	%$(LIBSTDC_DEV)
 	@[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -27,47 +27,97 @@ $(DEPDIR)/%bootstrap: \
 #
 min-bare-os std-bare-os max-bare-os bare-os: \
 %bare-os: \
-		%bootstrap \
-		%$(LIBTERMCAP) \
-		%$(NCURSES_BASE) \
-		%$(NCURSES) \
-		%$(BASE_PASSWD) \
-		%$(MAKEDEV) \
-		%$(BASE_FILES) \
-		%module_init_tools \
-		%busybox \
-		\
-		%libz \
-		%$(SYSVINIT) \
-		%$(SYSVINITTOOLS) \
-		%$(INITSCRIPTS) \
-		%openrdate \
-		%$(NETBASE) \
-		%$(BC) \
-		%$(DISTRIBUTIONUTILS) \
-		\
-		%u-boot-utils \
-		%diverse-tools
+	%bootstrap \
+	%$(LIBTERMCAP) \
+	%$(NCURSES_BASE) \
+	%$(NCURSES) \
+	%$(BASE_PASSWD) \
+	%$(MAKEDEV) \
+	%$(BASE_FILES) \
+	%module_init_tools \
+	%busybox \
+	\
+	%libz \
+	%$(SYSVINIT) \
+	%$(SYSVINITTOOLS) \
+	%$(INITSCRIPTS) \
+	%openrdate \
+	%$(NETBASE) \
+	%$(BC) \
+	%$(DISTRIBUTIONUTILS) \
+	\
+	%u-boot-utils \
+	%diverse-tools
 
 min-net-utils std-net-utils max-net-utils net-utils: \
 %net-utils: \
-		%$(NETKIT_FTP) \
-		%autofs \
-		%portmap \
-		%$(NFSSERVER) \
-		%vsftpd \
-		%ethtool \
-		%opkg \
-		%grep \
-		%$(CIFS)
+	%$(NETKIT_FTP) \
+	%autofs \
+	%portmap \
+	%$(NFSSERVER) \
+	%vsftpd \
+	%ethtool \
+	%opkg \
+	%grep \
+	%$(CIFS)
 
 min-disk-utils std-disk-utils max-disk-utils disk-utils: \
 %disk-utils: \
-		%e2fsprogs \
-		%$(XFSPROGS) \
-		%util-linux \
-		%jfsutils \
-		%$(SG3)
+	%e2fsprogs \
+	%$(XFSPROGS) \
+	%util-linux \
+	%jfsutils \
+	%$(SG3)
+
+#
+# YAUD
+#
+yaud-none: \
+	bare-os \
+	linux-kernel \
+	net-utils \
+	disk-utils \
+	driver \
+	misc-tools
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+#
+# MIN-YAUD
+#
+min-yaud-none: \
+%yaud-none: \
+	%bare-os \
+	%misc-tools \
+	%linux-kernel \
+	%net-utils \
+	%disk-utils
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+#
+# STD-YAUD
+#
+std-yaud-none: \
+%yaud-none: \
+	%bare-os \
+	%misc-tools \
+	%linux-kernel \
+	%net-utils \
+	%disk-utils
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+#
+# MAX-YAUD
+#
+max-yaud-none: \
+%yaud-none: \
+	%bare-os \
+	%misc-tools \
+	%$(UDEV) \
+	%$(HOTPLUG) \
+	%linux-kernel \
+	%net-utils \
+	%disk-utils
+	@TUXBOX_YAUD_CUSTOMIZE@
 
 #dummy targets
 #really ugly
@@ -76,7 +126,6 @@ min-:
 std-:
 
 max-:
-
 
 #
 # YAUD
@@ -114,50 +163,4 @@ yaud-enigma2-pli-nightly: yaud-none host_python lirc \
 
 yaud-xbmc-nightly: yaud-none host_python boot-elf firstboot xbmc-nightly release_xbmc
 	@TUXBOX_YAUD_CUSTOMIZE@
-	
-yaud-none: \
-		bare-os \
-		linux-kernel \
-		net-utils \
-		disk-utils \
-		driver \
-		misc-tools
-	@TUXBOX_YAUD_CUSTOMIZE@
 
-#
-# MIN-YAUD
-#
-min-yaud-none: \
-%yaud-none: \
-		%bare-os \
-		%misc-tools \
-		%linux-kernel \
-		%net-utils \
-		%disk-utils
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-#
-# STD-YAUD
-#
-std-yaud-none: \
-%yaud-none: \
-		%bare-os \
-		%misc-tools \
-		%linux-kernel \
-		%net-utils \
-		%disk-utils
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-#
-# MAX-YAUD
-#
-max-yaud-none: \
-%yaud-none: \
-		%bare-os \
-		%misc-tools \
-		%$(UDEV) \
-		%$(HOTPLUG) \
-		%linux-kernel \
-		%net-utils \
-		%disk-utils
-	@TUXBOX_YAUD_CUSTOMIZE@

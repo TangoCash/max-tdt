@@ -40,3 +40,11 @@ diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Modules/_ctypes/libffi/M
  lib_LTLIBRARIES = libffi.la
  noinst_LTLIBRARIES = libffi_convenience.la
  
+--- python-2.7.3.org/Modules/_ctypes/libffi/fficonfig.py.in	2010-01-16 19:05:15.000000000 +0100
++++ python-2.7.3/Modules/_ctypes/libffi/fficonfig.py.in	2012-04-09 19:38:57.000000000 +0200
+@@ -30,4 +30,4 @@
+ 
+ ffi_sources += ffi_platforms['@TARGET@']
+ 
+-ffi_cflags = '@CFLAGS@'
++ffi_cflags = '@CFLAGS@ -DPIC'

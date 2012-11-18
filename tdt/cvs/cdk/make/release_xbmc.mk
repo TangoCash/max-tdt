@@ -302,6 +302,16 @@ endif
 	rm -f $(prefix)/release/usr/lib/*.{a,o,la}
 	find $(prefix)/release/usr/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
 
+
+#
+# python2.7
+#
+	if [ $(PYTHON_VERSION) == 2.7 ]; then \
+		$(INSTALL_DIR) $(prefix)/release/usr/include; \
+		$(INSTALL_DIR) $(prefix)/release$(PYTHON_INCLUDE_DIR); \
+		cp $(targetprefix)$(PYTHON_INCLUDE_DIR)/pyconfig.h $(prefix)/release$(PYTHON_INCLUDE_DIR); \
+	fi
+
 #
 # Delete unnecessary plugins and files
 #

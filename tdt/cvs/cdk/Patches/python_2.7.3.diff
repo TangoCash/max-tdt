@@ -262,43 +262,6 @@ diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Makefile.pre.in python-2
  	   	--prefix=$(prefix) \
  		--install-scripts=$(BINDIR) \
  		--install-platlib=$(DESTSHARED) \
-diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Modules/gcmodule.c python-2.7.3/Modules/gcmodule.c
---- python-2.7.3.org/Modules/gcmodule.c	2012-04-10 01:07:34.000000000 +0200
-+++ python-2.7.3/Modules/gcmodule.c	2012-11-16 23:07:56.635237310 +0100
-@@ -323,7 +323,7 @@
-          * generation being collected, which can be recognized
-          * because only they have positive gc_refs.
-          */
--        assert(gc->gc.gc_refs != 0); /* else refcount was too small */
-+        //assert(gc->gc.gc_refs != 0); /* else refcount was too small */
-         if (gc->gc.gc_refs > 0)
-             gc->gc.gc_refs--;
-     }
-@@ -427,7 +427,7 @@
-              */
-             PyObject *op = FROM_GC(gc);
-             traverseproc traverse = Py_TYPE(op)->tp_traverse;
--            assert(gc->gc.gc_refs > 0);
-+            //assert(gc->gc.gc_refs > 0);
-             gc->gc.gc_refs = GC_REACHABLE;
-             (void) traverse(op,
-                             (visitproc)visit_reachable,
-diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Modules/termios.c python-2.7.3/Modules/termios.c
---- python-2.7.3.org/Modules/termios.c	2012-04-10 01:07:34.000000000 +0200
-+++ python-2.7.3/Modules/termios.c	2012-11-16 23:07:56.635237310 +0100
-@@ -17,6 +17,12 @@
- #include <termio.h>
- #endif
- #include <sys/ioctl.h>
-+ 
-+#if defined(__sh__)
-+#include <linux/serial.h>
-+#define TIOCGICOUNT    0x545D
-+#define TIOCSERGSTRUCT 0x5458
-+#endif
- 
- /* HP-UX requires that this be included to pick up MDCD, MCTS, MDSR,
-  * MDTR, MRI, and MRTS (appearantly used internally by some things
 diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Python/compile.c python-2.7.3/Python/compile.c
 --- python-2.7.3.org/Python/compile.c	2012-04-10 01:07:35.000000000 +0200
 +++ python-2.7.3/Python/compile.c	2012-11-16 23:07:56.635237310 +0100
@@ -311,96 +274,63 @@ diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Python/compile.c python-
  
  #define DEFAULT_BLOCK_SIZE 16
  #define DEFAULT_BLOCKS 8
-diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/Python/import.c python-2.7.3/Python/import.c
---- python-2.7.3.org/Python/import.c	2012-04-10 01:07:35.000000000 +0200
-+++ python-2.7.3/Python/import.c	2012-11-16 23:07:56.635237310 +0100
-@@ -886,6 +886,12 @@
-     mode_t mode = srcstat->st_mode & ~S_IXUSR & ~S_IXGRP & ~S_IXOTH;
- #endif
- 
-+    char *py_dontcompile = getenv("PYTHON_DONTCOMPILE");
-+    if (!py_dontcompile) 
-+        fp = open_exclusive(cpathname, mode);
-+    else
-+        fp = NULL;
-+
-     fp = open_exclusive(cpathname, mode);
-     if (fp == NULL) {
-         if (Py_VerboseFlag)
 diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/setup.py python-2.7.3/setup.py
 --- python-2.7.3.org/setup.py	2012-04-10 01:07:36.000000000 +0200
 +++ python-2.7.3/setup.py	2012-11-16 23:27:30.519285978 +0100
-@@ -21,7 +21,14 @@
- COMPILED_WITH_PYDEBUG = hasattr(sys, 'gettotalrefcount')
+@@ -145,6 +145,7 @@
+     def __init__(self, dist):
+         build_ext.__init__(self, dist)
+         self.failed = []
++        self.cross_compile = os.environ.get('CROSS_COMPILE_TARGET') == 'yes'
  
- # This global variable is used to hold the list of modules to be disabled.
--disabled_module_list = []
-+try:
-+    disabled_module_list = os.environ["PYTHON_DISABLE_MODULES"].split()
-+except KeyError:
-+    disabled_module_list = []
-+try:
-+    disable_ssl = os.environ["PYTHON_DISABLE_SSL"]
-+except KeyError:
-+    disable_ssl = 0
+     def build_extensions(self):
  
- def add_dir_to_list(dirlist, dir):
-     """Add the directory 'dir' to the list 'dirlist' (at the front) if
-@@ -310,6 +317,7 @@
-         try:
-             imp.load_dynamic(ext.name, ext_filename)
-         except ImportError, why:
-+            return
+@@ -278,6 +279,12 @@
+                           (ext.name, sys.exc_info()[1]))
              self.failed.append(ext.name)
-             self.announce('*** WARNING: renaming "%s" since importing it'
-                           ' failed: %s' % (ext.name, why), level=3)
-@@ -369,9 +377,19 @@
+             return
++        # Import check will not work when cross-compiling.
++        if os.environ.has_key('PYTHONXCPREFIX'):
++            self.announce(
++                'WARNING: skipping import check for cross-compiled: "%s"' %
++                ext.name)
++            return
+         # Workaround for Mac OS X: The Carbon-based modules cannot be
+         # reliably imported into a command-line Python
+         if 'Carbon' in ext.extra_link_args:
+@@ -368,9 +375,18 @@
+             os.unlink(tmpfile)
  
      def detect_modules(self):
-         # Ensure that /usr/local is always used
+-        # Ensure that /usr/local is always used
 -        add_dir_to_list(self.compiler.library_dirs, '/usr/local/lib')
 -        add_dir_to_list(self.compiler.include_dirs, '/usr/local/include')
--        self.add_multiarch_paths()
-+        global disable_ssl
 +        try:
 +            modules_include_dirs = os.environ["PYTHON_MODULES_INCLUDE"].split()
 +        except KeyError:
-+            modules_include_dirs = ['/usr/include']
++            modules_include_dirs = ['/usr/local/include']
 +        try:
 +            modules_lib_dirs = os.environ["PYTHON_MODULES_LIB"].split()
 +        except KeyError:
-+            modules_lib_dirs = ['/usr/lib']
++            modules_lib_dirs = ['/usr/local/lib']
 +        for dir in modules_include_dirs:
 +            add_dir_to_list(self.compiler.include_dirs, dir)
 +        for dir in modules_lib_dirs:
 +            add_dir_to_list(self.compiler.library_dirs, dir)
+         self.add_multiarch_paths()
  
          # Add paths specified in the environment variables LDFLAGS and
-         # CPPFLAGS for header and library files.
-@@ -407,16 +425,16 @@
-                     for directory in reversed(options.dirs):
+@@ -408,7 +424,8 @@
                          add_dir_to_list(dir_list, directory)
  
--        if os.path.normpath(sys.prefix) != '/usr' \
+         if os.path.normpath(sys.prefix) != '/usr' \
 -                and not sysconfig.get_config_var('PYTHONFRAMEWORK'):
-+#        if os.path.normpath(sys.prefix) != '/usr' \
-+#                and not sysconfig.get_config_var('PYTHONFRAMEWORK'):
++                and not sysconfig.get_config_var('PYTHONFRAMEWORK') \
++                and not self.cross_compile:
              # OSX note: Don't add LIBDIR and INCLUDEDIR to building a framework
              # (PYTHONFRAMEWORK is set) to avoid # linking problems when
              # building a framework with different architectures than
-             # the one that is currently installed (issue #7473)
--            add_dir_to_list(self.compiler.library_dirs,
--                            sysconfig.get_config_var("LIBDIR"))
--            add_dir_to_list(self.compiler.include_dirs,
--                            sysconfig.get_config_var("INCLUDEDIR"))
-+#            add_dir_to_list(self.compiler.library_dirs,
-+#                            sysconfig.get_config_var("LIBDIR"))
-+#            add_dir_to_list(self.compiler.include_dirs,
-+#                            sysconfig.get_config_var("INCLUDEDIR"))
- 
-         try:
-             have_unicode = unicode
-@@ -426,11 +444,13 @@
+@@ -426,11 +443,14 @@
          # lib_dirs and inc_dirs are used to search for files;
          # if a file is found in one of those directories, it can
          # be assumed that no additional -I,-L directives are needed.
@@ -409,58 +339,50 @@ diff -Nur '--exclude-from=diff-ignore' python-2.7.3.org/setup.py python-2.7.3/se
 -            '/lib', '/usr/lib',
 -            ]
 -        inc_dirs = self.compiler.include_dirs + ['/usr/include']
-+#        lib_dirs = self.compiler.library_dirs + [
-+#            '/lib64', '/usr/lib64',
-+#            '/lib', '/usr/lib',
-+#            ]
-+#        inc_dirs = self.compiler.include_dirs + ['/usr/include']
 +        lib_dirs = self.compiler.library_dirs
 +        inc_dirs = self.compiler.include_dirs
++        if not self.cross_compile:
++            lib_dirs += [
++                '/lib64', '/usr/lib64',
++                '/lib', '/usr/lib',
++                ]
++            inc_dirs += ['/usr/include']
          exts = []
          missing = []
  
-@@ -676,9 +696,11 @@
-                 pass # Issue 7384: Already linked against curses or tinfo.
-             elif curses_library:
-                 readline_libs.append(curses_library)
--            elif self.compiler.find_library_file(lib_dirs +
--                                                     ['/usr/lib/termcap'],
-+#            elif self.compiler.find_library_file(lib_dirs +
-+#                                                     ['/usr/lib/termcap'],
-+            elif self.compiler.find_library_file(lib_dirs,
-                                                      'termcap'):
-+
-                 readline_libs.append('termcap')
-             exts.append( Extension('readline', ['readline.c'],
-                                    library_dirs=['/usr/lib/termcap'],
-@@ -720,7 +742,7 @@
-                                      ] )
+@@ -440,6 +460,18 @@
+         platform = self.get_platform()
+         srcdir = sysconfig.get_config_var('srcdir')
  
-         if (ssl_incs is not None and
--            ssl_libs is not None):
-+            ssl_libs is not None and not disable_ssl):
-             exts.append( Extension('_ssl', ['_ssl.c'],
-                                    include_dirs = ssl_incs,
-                                    library_dirs = ssl_libs,
-@@ -1860,16 +1882,17 @@
-                                          ffi_configfile):
-                 from distutils.dir_util import mkpath
-                 mkpath(ffi_builddir)
--                config_args = []
-+                config_args = ['--host=%s' % os.environ["TARGET_OS"], ]
++        # add paths from CFLAGS and LDFLAGS
++        cflags, ldflags = sysconfig.get_config_vars(
++                    'CFLAGS', 'LDFLAGS')
++        for item in cflags.split():
++            if item.startswith('-I'):
++                inc_dirs.append(item[2:])
++
++        for item in ldflags.split():
++            if item.startswith('-L'):
++                lib_dirs.append(item[2:])
++        print (inc_dirs)
++
+         # Check for AtheOS which has libraries in non-standard locations
+         if platform == 'atheos':
+             lib_dirs += ['/system/libs', '/atheos/autolnk/lib']
+@@ -1864,8 +1896,14 @@
  
                  # Pass empty CFLAGS because we'll just append the resulting
                  # CFLAGS to Python's; -g or -O2 is to be avoided.
 -                cmd = "cd %s && env CFLAGS='' '%s/configure' %s" \
 -                      % (ffi_builddir, ffi_srcdir, " ".join(config_args))
-+                cmd = "(cd %s && autoconf -W cross) && (cd %s && env CFLAGS='' '%s/configure' %s)" \
-+                      % (ffi_srcdir, ffi_builddir, ffi_srcdir, " ".join(config_args))
++                if self.cross_compile:
++                    cmd = "cd %s && env CFLAGS='' %s/configure --host=%s %s" \
++                          % (ffi_builddir, ffi_srcdir,
++                             os.environ.get('HOSTARCH'),
++                             " ".join(config_args))
++                else:
++                    cmd = "cd %s && env CFLAGS='' '%s/configure' %s" \
++                          % (ffi_builddir, ffi_srcdir, " ".join(config_args))
  
                  res = os.system(cmd)
-+                res = os.system("echo \"" + cmd + "\"")
                  if res or not os.path.exists(ffi_configfile):
--                    print "Failed to configure _ctypes module"
-+                    print "Failed to configure _ctypes module (res=%d) or missing conffile=%s" % ( res, ffi_configfile )
-                     return False
- 
-             fficonfig = {}

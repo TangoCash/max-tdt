@@ -459,7 +459,6 @@ $(DEPDIR)/glib2.do_prepare: bootstrap libz @DEPENDS_glib2@
 	touch $@
 
 $(DEPDIR)/glib2.do_compile: $(DEPDIR)/glib2.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	echo "glib_cv_va_copy=no" > @DIR_glib2@/config.cache
 	echo "glib_cv___va_copy=yes" >> @DIR_glib2@/config.cache
 	echo "glib_cv_va_val_copy=yes" >> @DIR_glib2@/config.cache
@@ -683,9 +682,7 @@ $(DEPDIR)/expat.do_prepare: bootstrap @DEPENDS_expat@
 	touch $@
 
 $(DEPDIR)/expat.do_compile: $(DEPDIR)/expat.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_expat@ && \
-		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -827,7 +824,6 @@ $(DEPDIR)/libdvdnav.do_prepare: bootstrap libdvdread @DEPENDS_libdvdnav@
 	touch $@
 
 $(DEPDIR)/libdvdnav.do_compile: $(DEPDIR)/libdvdnav.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdnav@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		autoreconf -f -i -I$(hostprefix)/share/aclocal && \
@@ -862,7 +858,6 @@ $(DEPDIR)/libdvdread.do_prepare: bootstrap @DEPENDS_libdvdread@
 	touch $@
 
 $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdread@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \

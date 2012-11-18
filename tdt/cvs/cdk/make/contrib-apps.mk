@@ -6,7 +6,6 @@ $(DEPDIR)/bzip2.do_prepare: bootstrap @DEPENDS_bzip2@
 	touch $@
 
 $(DEPDIR)/bzip2.do_compile: $(DEPDIR)/bzip2.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_bzip2@ && \
 		mv Makefile-libbz2_so Makefile && \
 		$(MAKE) all CC=$(target)-gcc
@@ -59,7 +58,6 @@ $(DEPDIR)/grep.do_prepare: bootstrap @DEPENDS_grep@
 	touch $@
 
 $(DEPDIR)/grep.do_compile: $(DEPDIR)/grep.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_grep@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
@@ -111,7 +109,6 @@ $(DEPDIR)/portmap.do_prepare: bootstrap @DEPENDS_portmap@
 	touch $@
 
 $(DEPDIR)/portmap.do_compile: $(DEPDIR)/portmap.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_portmap@ && \
 		$(BUILDENV) \
 		$(MAKE)
@@ -135,7 +132,6 @@ $(DEPDIR)/openrdate.do_prepare: bootstrap @DEPENDS_openrdate@
 	touch $@
 
 $(DEPDIR)/openrdate.do_compile: $(DEPDIR)/openrdate.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_openrdate@ && \
 		$(BUILDENV) \
 		./configure \
@@ -170,7 +166,6 @@ $(DEPDIR)/e2fsprogs.do_prepare: bootstrap @DEPENDS_e2fsprogs@
 	touch $@
 
 $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_e2fsprogs@ && \
 	ln -sf /bin/true ./ldconfig; \
 	$(BUILDENV) \
@@ -255,7 +250,6 @@ $(DEPDIR)/mc.do_prepare: bootstrap glib2 @DEPENDS_mc@
 	touch $@
 
 $(DEPDIR)/mc.do_compile: $(DEPDIR)/mc.do_prepare | $(NCURSES_DEV)
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_mc@ && \
 		$(BUILDENV) \
 		./configure \
@@ -470,7 +464,6 @@ $(DEPDIR)/lm_sensors.do_prepare: bootstrap @DEPENDS_lm_sensors@
 	touch $@
 
 $(DEPDIR)/lm_sensors.do_compile: $(DEPDIR)/lm_sensors.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_lm_sensors@ && \
 		$(MAKE) $(MAKE_OPTS) MACHINE=sh PREFIX=/usr user
 	touch $@
@@ -497,7 +490,6 @@ $(DEPDIR)/fuse.do_prepare: bootstrap curl glib2 @DEPENDS_fuse@
 	touch $@
 
 $(DEPDIR)/fuse.do_compile: $(DEPDIR)/fuse.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_fuse@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -I$(buildprefix)/linux/arch/sh" \
@@ -728,7 +720,6 @@ $(DEPDIR)/jfsutils.do_prepare: bootstrap @DEPENDS_jfsutils@
 	touch $@
 
 $(DEPDIR)/jfsutils.do_compile: $(DEPDIR)/jfsutils.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_jfsutils@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
@@ -860,7 +851,6 @@ $(DEPDIR)/imagemagick.do_prepare: bootstrap @DEPENDS_imagemagick@
 	touch $@
 
 $(DEPDIR)/imagemagick.do_compile: $(DEPDIR)/imagemagick.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_imagemagick@ && \
 	$(BUILDENV) \
 	CFLAGS="-O1" \

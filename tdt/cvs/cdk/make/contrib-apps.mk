@@ -833,7 +833,6 @@ $(DEPDIR)/autofs.do_prepare: bootstrap @DEPENDS_autofs@
 	touch $@
 
 $(DEPDIR)/autofs.do_compile: $(DEPDIR)/autofs.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_autofs@ && \
 		cp aclocal.m4 acinclude.m4 && \
 		autoconf && \

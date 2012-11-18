@@ -201,8 +201,9 @@ echo -e "\nPlayer:"
 echo "   1) Player 131 (Deprecated)"
 echo "   2) Player 179"
 echo "   3) Player 191 (Recommended)"
+echo "   4) Player 191 (stmfb-3.1_stm24_0104)"
 case $4 in
-	[1-3]) REPLY=$4
+	[1-4]) REPLY=$4
 	echo -e "\nSelected player: $REPLY\n"
 	;;
 	*)
@@ -248,11 +249,7 @@ case "$REPLY" in
 			rm stmfb
 		fi
 		ln -s player2_179 player2
-		if [ "$STMFB" == "stm24" ]; then
-			ln -s stmfb-3.1_stm24_0102 stmfb
-		else
-			ln -s stmfb-3.1_stm23_0032 stmfb
-		fi
+		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - > /dev/null 2>&1
 
 		cd ../driver/
@@ -267,11 +264,7 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
-		if [ "$STMFB" == "stm24" ]; then
-			ln -s stmfb-3.1_stm24_0102 stmfb
-		else
-			ln -s stmfb-3.1_stm23_0032 stmfb
-		fi
+		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - > /dev/null 2>&1
 	;;
 	3) PLAYER="--enable-player191"
@@ -284,11 +277,7 @@ case "$REPLY" in
 			rm stmfb
 		fi
 		ln -s player2_179 player2
-		if [ "$STMFB" == "stm24" ]; then
-			ln -s stmfb-3.1_stm24_0102 stmfb
-		else
-			ln -s stmfb-3.1_stm23_0032 stmfb
-		fi
+		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - > /dev/null 2>&1
 
 		cd ../driver/
@@ -303,14 +292,38 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
-		if [ "$STMFB" == "stm24" ]; then
-			ln -s stmfb-3.1_stm24_0102 stmfb
-		else
-			ln -s stmfb-3.1_stm23_0032 stmfb
-		fi
+		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - > /dev/null 2>&1
 	;;
-	*) PLAYER="--enable-player131";;
+	4) PLAYER="--enable-player191"
+		cd ../driver/include/
+		if [ -L player2 ]; then
+			rm player2
+		fi
+
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s player2_179 player2
+		ln -s stmfb-3.1_stm24_0104 stmfb
+		cd - > /dev/null 2>&1
+
+		cd ../driver/
+		if [ -L player2 ]; then
+			rm player2
+		fi
+		ln -s player2_191 player2
+		echo "export CONFIG_PLAYER_191=y" >> .config
+		cd - > /dev/null 2>&1
+
+		cd ../driver/stgfb
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s stmfb-3.1_stm24_0104 stmfb
+		cd - > /dev/null 2>&1
+	;;
+	*) PLAYER="--enable-player191";;
 esac
 
 ##############################################

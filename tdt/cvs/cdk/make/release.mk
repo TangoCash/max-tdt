@@ -616,9 +616,7 @@ release_base:
 	cp -p $(targetprefix)/usr/bin/python $(prefix)/release/usr/bin/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release/sbin/ && \
 	cp -p $(targetprefix)/usr/sbin/ethtool $(prefix)/release/usr/sbin/
-if STM24
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release/sbin/
-endif
 
 #
 # Player
@@ -774,9 +772,13 @@ endif
 # enigma2
 #
 	if [ -e $(targetprefix)/usr/bin/enigma2 ]; then \
-		cp -f $(targetprefix)/usr/bin/enigma2 $(prefix)/release/usr/local/bin/enigma2;fi
+		cp -f $(targetprefix)/usr/bin/enigma2 $(prefix)/release/usr/local/bin/enigma2; \
+	fi
+
 	if [ -e $(targetprefix)/usr/local/bin/enigma2 ]; then \
-		cp -f $(targetprefix)/usr/local/bin/enigma2 $(prefix)/release/usr/local/bin/enigma2;fi
+		cp -f $(targetprefix)/usr/local/bin/enigma2 $(prefix)/release/usr/local/bin/enigma2; \
+	fi
+
 	find $(prefix)/release/usr/local/bin/ -name  enigma2 -exec sh4-linux-strip --strip-unneeded {} \;
 
 	cp -a $(targetprefix)/usr/local/share/enigma2/* $(prefix)/release/usr/local/share/enigma2
@@ -785,8 +787,19 @@ endif
 
 	$(INSTALL_DIR) $(prefix)/release/usr/lib/enigma2
 	cp -a $(targetprefix)/usr/lib/enigma2/* $(prefix)/release/usr/lib/enigma2/
+
 	if test -d $(targetprefix)/usr/local/lib/enigma2; then \
-		cp -a $(targetprefix)/usr/local/lib/enigma2/* $(prefix)/release/usr/lib/enigma2/; fi
+		cp -a $(targetprefix)/usr/local/lib/enigma2/* $(prefix)/release/usr/lib/enigma2; \
+	fi
+
+#
+# python2.7
+#
+	if [ $(PYTHON_VERSION) == 2.7 ]; then \
+		$(INSTALL_DIR) $(prefix)/release/usr/include; \
+		$(INSTALL_DIR) $(prefix)/release$(PYTHON_INCLUDE_DIR); \
+		cp $(targetprefix)$(PYTHON_INCLUDE_DIR)/pyconfig.h $(prefix)/release$(PYTHON_INCLUDE_DIR); \
+	fi
 
 #
 # tuxtxt
@@ -853,7 +866,7 @@ endif
 		rm -f $(prefix)/release/bin/hotplug; \
 	else \
 		cp -dp $(targetprefix)/bin/hotplug $(prefix)/release/sbin/; \
-	fi;
+	fi
 
 #
 # WLAN

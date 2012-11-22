@@ -76,10 +76,6 @@ MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
 ADAPTED_ETC_FILES =
 ETC_RW_FILES =
 
-if GCC_434
-OLDSTM24 = YES
-endif
-
 BUILDENV := \
 	CC=$(target)-gcc \
 	CXX=$(target)-g++ \

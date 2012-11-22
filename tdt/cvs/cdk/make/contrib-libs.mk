@@ -282,7 +282,6 @@ $(DEPDIR)/curl.do_prepare: bootstrap openssl rtmpdump libz @DEPENDS_curl@
 	touch $@
 
 $(DEPDIR)/curl.do_compile: $(DEPDIR)/curl.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_curl@ && \
 		$(BUILDENV) \
 		autoreconf -vif -I$(hostprefix)/share/aclocal && \
@@ -671,7 +670,7 @@ $(DEPDIR)/libstgles: \
 $(DEPDIR)/%libstgles: $(DEPDIR)/libstgles.do_compile
 	cd @DIR_libstgles@ && \
 		@INSTALL_libstgles@
-#	@DISTCLEANUP_libstgles@
+	@DISTCLEANUP_libstgles@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -824,9 +823,10 @@ $(DEPDIR)/libdvdnav.do_prepare: bootstrap libdvdread @DEPENDS_libdvdnav@
 	touch $@
 
 $(DEPDIR)/libdvdnav.do_compile: $(DEPDIR)/libdvdnav.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdnav@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
-		autoreconf -f -i -I$(hostprefix)/share/aclocal && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -858,10 +858,11 @@ $(DEPDIR)/libdvdread.do_prepare: bootstrap @DEPENDS_libdvdread@
 	touch $@
 
 $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdread@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
-		autoreconf -f -i -I$(hostprefix)/share/aclocal && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -1646,7 +1647,7 @@ $(DEPDIR)/%pyopenssl: $(DEPDIR)/pyopenssl.do_compile
 #
 # python
 #
-$(DEPDIR)/python.do_prepare: bootstrap host_python openssl openssl-dev sqlite @DEPENDS_python@
+$(DEPDIR)/python.do_prepare: bootstrap host_python openssl-dev sqlite libreadline libz bzip2 @DEPENDS_python@
 	@PREPARE_python@
 	touch $@
 
@@ -1673,7 +1674,6 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 			OPT="$(TARGET_CFLAGS)" && \
 		$(MAKE) $(MAKE_ARGS) \
 			TARGET_OS=$(target) \
-			PYTHON_DISABLE_MODULES="_tkinter" \
 			PYTHON_MODULES_INCLUDE="$(prefix)/$*cdkroot/usr/include" \
 			PYTHON_MODULES_LIB="$(prefix)/$*cdkroot/usr/lib" \
 			CROSS_COMPILE_TARGET=yes \
@@ -3265,6 +3265,5 @@ $(DEPDIR)/taglib: \
 $(DEPDIR)/%taglib: $(DEPDIR)/taglib.do_compile
 	cd @DIR_taglib@ && \
 		@INSTALL_taglib@
-#	@DISTCLEANUP_taglib@
+	@DISTCLEANUP_taglib@
 	[ "x$*" = "x" ] && touch $@ || true
-

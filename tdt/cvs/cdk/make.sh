@@ -482,7 +482,6 @@ esac
 ##############################################
 
 # Check this option if you want to use the version of GCC.
-#CONFIGPARAM="$CONFIGPARAM --enable-gcc434"
 #CONFIGPARAM="$CONFIGPARAM --enable-gcc472"
 
 ##############################################

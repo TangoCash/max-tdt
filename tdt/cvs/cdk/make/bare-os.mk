@@ -31,7 +31,7 @@ $(DEPDIR)/%filesystem: bootstrap-cross
 #
 GLIBC := glibc
 GLIBC_DEV := glibc-dev
-GLIBC_VERSION := $(if $(OLDSTM24),2.10.1-7,2.10.2-36)
+GLIBC_VERSION := 2.10.2-36
 GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
 GLIBC_SPEC := stm-target-$(GLIBC).spec
 GLIBC_SPEC_PATCH :=
@@ -69,9 +69,9 @@ $(DEPDIR)/%$(GLIBC_DEV): $(DEPDIR)/%$(GLIBC) $(GLIBC_DEV_RPM)
 #
 BINUTILS := binutils
 BINUTILS_DEV := binutils-dev
-BINUTILS_VERSION = $(if $(OLDSTM24),2.19.1-41,2.22-64)
+BINUTILS_VERSION = 2.22-64
 BINUTILS_SPEC := stm-target-$(BINUTILS).spec
-BINUTILS_SPEC_PATCH := $(if $(OLDSTM24),,$(BINUTILS_SPEC).$(BINUTILS_VERSION).diff)
+BINUTILS_SPEC_PATCH := $(BINUTILS_SPEC).$(BINUTILS_VERSION).diff
 BINUTILS_PATCHES :=
 
 BINUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(BINUTILS)-$(BINUTILS_VERSION).sh4.rpm
@@ -98,7 +98,7 @@ $(BINUTILS_DEV): $(BINUTILS_DEV_RPM)
 # GMP
 #
 GMP := gmp
-GMP_VERSION := $(if $(OLDSTM24),4.3.2-4,5.0.2-6)
+GMP_VERSION := 5.0.2-6
 GMP_SPEC := stm-target-$(GMP).spec
 GMP_SPEC_PATCH :=
 GMP_PATCHES :=
@@ -124,7 +124,7 @@ $(DEPDIR)/$(GMP): $(GMP_RPM)
 # MPFR
 #
 MPFR := mpfr
-MPFR_VERSION := $(if $(OLDSTM24),2.4.2-4,3.1.0-6)
+MPFR_VERSION := 3.1.0-6
 MPFR_SPEC := stm-target-$(MPFR).spec
 MPFR_SPEC_PATCH :=
 MPFR_PATCHES :=
@@ -150,10 +150,10 @@ $(DEPDIR)/$(MPFR): $(MPFR_RPM)
 # MPC
 #
 MPC := mpc
-MPC_VERSION := $(if $(OLDSTM24),0.8.2-2,0.9-3)
+MPC_VERSION := 0.9-3
 MPC_SPEC := stm-target-$(MPC).spec
-MPC_SPEC_PATCH := $(if $(OLDSTM24),$(MPC_SPEC).$(MPC_VERSION).diff,)
-MPC_PATCHES := $(if $(OLDSTM24),stm-target-$(MPC).$(MPC_VERSION).diff,)
+MPC_SPEC_PATCH := 
+MPC_PATCHES := 
 MPC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(MPC)-$(MPC_VERSION).sh4.rpm
 
 $(MPC_RPM): \
@@ -206,12 +206,12 @@ GCC := gcc
 if GCC_472
 GCC_VERSION = 4.7.2-116
 else
-GCC_VERSION = $(if $(OLDSTM24),4.3.4-66,4.6.3-115)
+GCC_VERSION = 4.6.3-115
 endif
 
 GCC_SPEC := stm-target-$(GCC).spec
-GCC_SPEC_PATCH := $(if $(OLDSTM24),,$(GCC_SPEC).$(GCC_VERSION).diff)
-GCC_PATCHES := $(if $(OLDSTM24),,stm-target-$(GCC).$(GCC_VERSION).diff)
+GCC_SPEC_PATCH := $(GCC_SPEC).$(GCC_VERSION).diff
+GCC_PATCHES := stm-target-$(GCC).$(GCC_VERSION).diff
 
 GCC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GCC)-$(GCC_VERSION).sh4.rpm
 LIBSTDC_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBSTDC)-$(GCC_VERSION).sh4.rpm

@@ -329,8 +329,8 @@ esac
 ##############################################
 
 echo -e "\nMulticom:"
-echo "   1) Multicom 3.2.2     (Recommended for Player179)"
-echo "   2) Multicom 3.2.4     (Recommended for Player191)"
+echo "   1) Multicom 3.2.2 (Recommended for Player179)"
+echo "   2) Multicom 3.2.4 (Recommended for Player191)"
 case $5 in
 	[1-3]) REPLY=$5
 	echo -e "\nSelected multicom: $REPLY\n"
@@ -382,8 +382,8 @@ esac
 ##############################################
 
 echo -e "\nMedia Framework:"
-echo "   1) eplayer3  (Recommended for Enigma1/2, Neutrino/HD, VDR)"
-echo "   2) gstreamer (Recommended for Enigma2 / PLI, XBMC)"
+echo "   1) eplayer3"
+echo "   2) gstreamer"
 case $6 in
 	[1-2]) REPLY=$6
 	echo -e "\nSelected media framwork: $REPLY\n"
@@ -418,7 +418,7 @@ case "$REPLY" in
 esac
 
 ##############################################
-
+# rest spaeter
 echo -e "\nVDR-1.7.XX:"
 echo "   1) No"
 echo "   2) VDR-1.7.22"
@@ -431,40 +431,11 @@ case $8 in
 	read -p "Select VDR (1-3)? ";;
 esac
 
-case "$REPLY" in
-	1) VDR=""
-		cd ../apps/vdr/
-		if [ -L vdr ]; then
-			rm vdr
-		fi
-		cd - > /dev/null 2>&1
-	;;
-	2) VDR="--enable-vdr1722"
-		cd ../apps/vdr/
-		if [ -L vdr ]; then
-			rm vdr
-		fi
-
-		ln -s vdr-1.7.22 vdr
-		cd - > /dev/null 2>&1
-	;;
-	3) VDR="--enable-vdr1727"
-		cd ../apps/vdr/
-		if [ -L vdr ]; then
-			rm vdr
-		fi
-
-		ln -s vdr-1.7.27 vdr
-		cd - > /dev/null 2>&1
-	;;
-	*) VDR="--enable-vdr1722";;
-esac
-
 ##############################################
 
 echo -e "\nGraphic Framework:"
-echo "   1) Framebuffer (Enigma1/2, Neutrino1/HD, VDR)"
-echo "   2) DirectFB    (XBMC for UFS912, UFS913, Atevio7500)"
+echo "   1) Framebuffer"
+echo "   2) DirectFB (Recommended XBMC)"
 case $9 in
 	[1-2]) REPLY=$9
 	echo -e "\nSelected Graphic Framework: $REPLY\n"
@@ -512,7 +483,6 @@ echo "make yaud-enigma2-nightly"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-neutrino"
 echo "make yaud-neutrino-hd2-exp"
-echo "make yaud-vdr"
 echo "make yaud-xbmc-nightly"
 echo "----------------------------------------"
 

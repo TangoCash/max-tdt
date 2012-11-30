@@ -64,10 +64,6 @@ include make/xbmc-nightly.mk
 # Include neutrino gui targets
 include make/neutrino.mk
 
-# Include vdr gui targets
-include make/vdr.mk
-include make/vdrdev2.mk
-
 # Include yaud targets
 include make/yaud.mk
 
@@ -89,10 +85,6 @@ include make/release.mk
 include make/release_neutrino.mk
 
 include make/release_neutrino_nightly.mk
-
-include make/release_vdr.mk
-
-include make/release_vdrdev2.mk
 
 include make/release_xbmc.mk
 

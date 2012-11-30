@@ -1,3 +1,0 @@
-//								-*- c++ -*-
-
-#include "cache.h"

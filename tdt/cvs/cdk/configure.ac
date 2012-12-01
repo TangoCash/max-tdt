@@ -466,27 +466,6 @@ AC_ARG_ENABLE(ipbox55,
 AM_CONDITIONAL(ENABLE_IPBOX55,test "$enable_ipbox55" = "yes")
 AC_SUBST(IPBOX55)
 
-AC_ARG_ENABLE(enable_vdr1711,
-	AS_HELP_STRING(--enable-vdr1711, set up the CDK to use vdr 1.7.11),
-	,[enable_vdr1711=no])
-AM_CONDITIONAL(ENABLE_VDR1711,test "$enable_vdr1711" = "yes")
-
-AC_ARG_ENABLE(vdr1722,
-	AS_HELP_STRING(--enable-vdr1722, enable vdr-1.7.22 stuff),
-	[case "${enableval}" in
-		yes) VDR1722=vdr1722 ;;
-	esac],[enable_vdr1722=no])
-AM_CONDITIONAL(ENABLE_VDR1722,test "$enable_vdr1722" = "yes")
-AC_SUBST(VDR1722)
-
-AC_ARG_ENABLE(vdr1727,
-	AS_HELP_STRING(--enable-vdr1727, enable vdr-1.7.27 stuff),
-	[case "${enableval}" in
-		yes) VDR1722=vdr1727 ;;
-	esac],[enable_vdr1727=no])
-AM_CONDITIONAL(ENABLE_VDR1727,test "$enable_vdr1727" = "yes")
-AC_SUBST(VDR1727)
-
 AC_SUBST(CFLAGS)
 AC_SUBST(TARGET_CFLAGS)
 AC_SUBST(TARGET_CXXFLAGS)
@@ -833,7 +812,6 @@ fi
 TUXBOX_RULES_MAKE(squashfs)
 TUXBOX_RULES_MAKE(ccache)
 TUXBOX_RULES_MAKE(cramfs)
-TUXBOX_RULES_MAKE(host_python)
 TUXBOX_RULES_MAKE(libtool)
 
 #
@@ -981,6 +959,7 @@ TUXBOX_RULES_MAKE(setuptools)
 TUXBOX_RULES_MAKE(twisted)
 TUXBOX_RULES_MAKE(twistedweb2)
 TUXBOX_RULES_MAKE(pilimaging)
+TUXBOX_RULES_MAKE(host_python)
 TUXBOX_RULES_MAKE(python)
 TUXBOX_RULES_MAKE(pycrypto)
 TUXBOX_RULES_MAKE(pyusb)
@@ -1121,9 +1100,6 @@ Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210
 Patchlevel P0211            : $enable_p0211
 Patchlevel P0302            : $enable_p0302
-vdr VDR 1.7.11              : $enable_vdr1711
-vdr VDR 1.7.22              : $enable_vdr1722
-vdr VDR 1.7.27              : $enable_vdr1727
 ccache                      : $enable_ccache
 target prefix               : $targetprefix
 boot prefix                 : $bootprefix
@@ -1146,7 +1122,6 @@ Samba Clients               : $enable_cifs
 NTFS support for IDE        : $enable_ntfs
 sg3 utils                   : $enable_sg3
 DEBUG                       : $enable_debug
-Player131                   : $enable_player131
 Player179                   : $enable_player179
 Player191                   : $enable_player191
 Multicom322                 : $enable_multicom322

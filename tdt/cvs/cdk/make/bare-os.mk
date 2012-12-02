@@ -626,15 +626,17 @@ $(DEPDIR)/%$(USBUTILS): $(USBUTILS_RPM)
 # UDEV
 #
 UDEV := udev
-UDEV_VERSION := 146-27
+UDEV_DEV := udev-dev
+UDEV_VERSION := 162-32
 UDEV_SPEC := stm-target-$(UDEV).spec
-UDEV_SPEC_PATCH :=
+UDEV_SPEC_PATCH := $(UDEV_SPEC).$(UDEV_VERSION).diff
 UDEV_PATCHES :=
 
 UDEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV)-$(UDEV_VERSION).sh4.rpm
 UDEV_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UDEV_DEV)-$(UDEV_VERSION).sh4.rpm
 
-$(UDEV_RPM): \
+$(UDEV_RPM) $(UDEV_DEV_RPM): \
+		glib2 glib2-dev libacl libacl-dev libusb usbutils \
 		$(if $(UDEV_SPEC_PATCH),Patches/$(UDEV_SPEC_PATCH)) \
 		$(if $(UDEV_PATCHES),$(UDEV_PATCHES:%=Patches/%)) \
 		$(archivedir)/$(STLINUX)-target-$(UDEV)-$(UDEV_VERSION).src.rpm
@@ -642,7 +644,13 @@ $(UDEV_RPM): \
 	$(if $(UDEV_SPEC_PATCH),( cd SPECS && patch -p1 $(UDEV_SPEC) < $(buildprefix)/Patches/$(UDEV_SPEC_PATCH) ) &&) \
 	$(if $(UDEV_PATCHES),cp $(UDEV_PATCHES:%=Patches/%) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(UDEV_SPEC)
+	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(UDEV_SPEC)
+
+$(DEPDIR)/min-$(UDEV_DEV) $(DEPDIR)/std-$(UDEV_DEV) $(DEPDIR)/max-$(UDEV_DEV) $(DEPDIR)/$(UDEV_DEV): \
+$(DEPDIR)/%$(UDEV_DEV): $(UDEV_DEV_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	[ "x$*" = "x" ] && touch $@ || true
 
 $(DEPDIR)/min-$(UDEV) $(DEPDIR)/std-$(UDEV) $(DEPDIR)/max-$(UDEV) $(DEPDIR)/$(UDEV): \
 $(DEPDIR)/%$(UDEV): $(UDEV_RPM)
@@ -653,4 +661,3 @@ $(DEPDIR)/%$(UDEV): $(UDEV_RPM)
 			$(hostprefix)/bin/target-initdconfig --add $$s || \
 			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
 	[ "x$*" = "x" ] && touch $@ || true
-

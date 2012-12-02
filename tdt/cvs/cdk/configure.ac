@@ -35,27 +35,6 @@ AC_ARG_ENABLE(gcc472,
 	,[enable_gcc472=no])
 AM_CONDITIONAL(GCC_472,test "$enable_gcc472" = "yes")
 
-
-if test -z "$CFLAGS" ; then
-	CFLAGS="-g -O2"
-fi
-
-if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
-	TARGET_CFLAGS="-pipe"
-	if test "$enable_debug" = "yes"; then
-		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
-		TARGET_LDFLAGS=""
-	else
-		TARGET_CFLAGS="$TARGET_CFLAGS -O2"
-		TARGET_LDFLAGS="-Wl,-O1"
-	fi
-	if test "$TOOLCHAIN_PATH" != "notset"; then
-		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/usr/lib -L\$(targetprefix)/lib"
-		TARGET_CFLAGS="$TARGET_CFLAGS -I\$(targetprefix)/usr/include"
-	fi
-	TARGET_CXXFLAGS="$TARGET_CFLAGS"
-fi
-
 AC_ARG_ENABLE(lirc,
 	AS_HELP_STRING(--enable-lirc, include lirc in yadds and images),
 	[case "${enableval}" in
@@ -128,22 +107,6 @@ AC_ARG_ENABLE(stm24,
 	,[enable_stm24=no])
 AM_CONDITIONAL(STM24,test "$enable_stm24" = "yes")
 
-AC_ARG_ENABLE(player131,
-	AS_HELP_STRING(--enable-player131, set up the CDK to use player131),
-	[case "${enableval}" in
-		yes) PLAYER131=player131 ;;
-	esac],[enable_player131=no])
-AM_CONDITIONAL(ENABLE_PLAYER131,test "$enable_player131" = "yes")
-AC_SUBST(PLAYER131)
-
-AC_ARG_ENABLE(player179,
-	AS_HELP_STRING(--enable-player179, set up the CDK to use player179),
-	[case "${enableval}" in
-		yes) PLAYER179=player179 ;;
-	esac],[enable_player179=no])
-AM_CONDITIONAL(ENABLE_PLAYER179,test "$enable_player179" = "yes")
-AC_SUBST(PLAYER179)
-
 AC_ARG_ENABLE(player191,
 	AS_HELP_STRING(--enable-player191, set up the CDK to use player191),
 	[case "${enableval}" in
@@ -199,14 +162,6 @@ AC_ARG_ENABLE(p0211,
 	esac], [enable_p0211=no])
 AM_CONDITIONAL(ENABLE_P0211,test "$enable_p0211" = "yes")
 AC_SUBST(P0211)
-
-AC_ARG_ENABLE(p0302,
-	AS_HELP_STRING(--enable-p0302, set up the CDK to use the STLinux 2.4 with patchlevel 0302),
-	[case "${enableval}" in
-		yes) P0302=p0302 ;;
-	esac], [enable_p0302=no])
-AM_CONDITIONAL(ENABLE_P0302,test "$enable_p0302" = "yes")
-AC_SUBST(P0302)
 
 AC_ARG_WITH(cpu,
 	[  --with-cpu=MODEL    cpu model [[sh4]]],
@@ -504,6 +459,36 @@ AC_ARG_WITH(updatehttpprefix,
 						"disable" completely disables internet update code [[NONE]]],
 	[updatehttpprefix="$with_updatehttpprefix"],[updatehttpprefix=])
 
+buildprefix=`pwd`
+AC_SUBST(buildprefix)
+AC_SUBST(targetprefix)
+AC_SUBST(hostprefix)
+AC_SUBST(bootprefix)
+AC_SUBST(serversupport)
+AC_SUBST(customizationsdir)
+AC_SUBST(updatehttpprefix)
+AM_CONDITIONAL(DISABLE_UPDATE_HTTP,test "$updatehttpprefix" = "disable")
+
+if test -z "$CFLAGS" ; then
+	CFLAGS="-g -O2"
+fi
+
+if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
+	TARGET_CFLAGS="-pipe"
+	if test "$enable_debug" = "yes"; then
+		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
+		TARGET_LDFLAGS=""
+	else
+		TARGET_CFLAGS="$TARGET_CFLAGS -O2"
+		TARGET_LDFLAGS=""
+	fi
+	if test "$TOOLCHAIN_PATH" != "notset"; then
+		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/usr/lib -L\$(targetprefix)/lib"
+		TARGET_CFLAGS="$TARGET_CFLAGS -I\$(targetprefix)/usr/include"
+	fi
+	TARGET_CXXFLAGS="$TARGET_CFLAGS"
+fi
+
 AC_ARG_WITH(checkImage,
 	[  --with-checkImage=[[none,rename,warn]] How/if to invoke checkImage [[none]]],
 	[CHECKIMAGE_BEHAVIOR="$withval"],[CHECKIMAGE_BEHAVIOR="true"])
@@ -515,16 +500,6 @@ else
 	TUXBOX_CHECKIMAGE=@true
 fi
 AC_SUBST(TUXBOX_CHECKIMAGE)
-
-buildprefix=`pwd`
-AC_SUBST(targetprefix)
-AC_SUBST(hostprefix)
-AC_SUBST(buildprefix)
-AC_SUBST(bootprefix)
-AC_SUBST(serversupport)
-AC_SUBST(customizationsdir)
-AC_SUBST(updatehttpprefix)
-AM_CONDITIONAL(DISABLE_UPDATE_HTTP,test "$updatehttpprefix" = "disable")
 
 AC_ARG_WITH(archivedir,
 	[  --with-archivedir=DIR    where to store downloaded files [[Archive/]]],
@@ -750,7 +725,6 @@ TUXBOX_RULES_MAKE(linuxp0207)
 TUXBOX_RULES_MAKE(linuxp0209)
 TUXBOX_RULES_MAKE(linuxp0210)
 TUXBOX_RULES_MAKE(linuxp0211)
-TUXBOX_RULES_MAKE(linuxp0302)
 
 if test "$enable_stm24" = "yes"; then
 	if test "$enable_p0207" == "yes"; then
@@ -769,10 +743,6 @@ if test "$enable_stm24" = "yes"; then
 		KERNELVERSION=${VERSION_linuxp0211}
 		KERNELSTMLABEL="_${VERSION_linuxp0211#*_}"
 		KERNELLABEL="211"
-	elif test "$enable_p0302" == "yes"; then
-		KERNELVERSION=${VERSION_linuxp0302}
-		KERNELSTMLABEL="_${VERSION_linuxp0302#*_}"
-		KERNELLABEL="302"
 	fi
 fi
 
@@ -1099,7 +1069,6 @@ Patchlevel P0207            : $enable_p0207
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210
 Patchlevel P0211            : $enable_p0211
-Patchlevel P0302            : $enable_p0302
 ccache                      : $enable_ccache
 target prefix               : $targetprefix
 boot prefix                 : $bootprefix
@@ -1122,9 +1091,7 @@ Samba Clients               : $enable_cifs
 NTFS support for IDE        : $enable_ntfs
 sg3 utils                   : $enable_sg3
 DEBUG                       : $enable_debug
-Player179                   : $enable_player179
 Player191                   : $enable_player191
-Multicom322                 : $enable_multicom322
 Multicom324                 : $enable_multicom324
 MediaFw Gstreamer           : $enable_mediafwgstreamer
 MediaFw                     : $MEDIAFW

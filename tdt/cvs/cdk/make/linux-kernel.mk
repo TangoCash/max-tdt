@@ -22,10 +22,6 @@ if ENABLE_P0211
 PATCH_STR=_0211
 endif
 
-if ENABLE_P0302
-PATCH_STR=_0302
-endif
-
 STM24_DVB_PATCH = linux-sh4-linuxdvb_stm24$(PATCH_STR).patch
 
 COMMONPATCHES_24 = \
@@ -220,16 +216,6 @@ KERNELPATCHES_24 = \
 #
 # KERNEL-HEADERS
 #
-if ENABLE_P0302
-$(DEPDIR)/kernel-headers: linux-kernel.do_prepare
-	cd $(KERNEL_DIR) && \
-		$(INSTALL) -d $(targetprefix)/usr/include && \
-		cp -a include/linux $(targetprefix)/usr/include && \
-		cp -a arch/sh/include/asm/ $(targetprefix)/usr/include/asm && \
-		cp -a include/asm-generic $(targetprefix)/usr/include && \
-		cp -a include/mtd $(targetprefix)/usr/include
-	touch $@
-else
 $(DEPDIR)/kernel-headers: linux-kernel.do_prepare
 	cd $(KERNEL_DIR) && \
 		$(INSTALL) -d $(targetprefix)/usr/include && \
@@ -238,7 +224,6 @@ $(DEPDIR)/kernel-headers: linux-kernel.do_prepare
 		cp -a include/asm-generic $(targetprefix)/usr/include && \
 		cp -a include/mtd $(targetprefix)/usr/include
 	touch $@
-endif
 
 KERNELHEADERS := linux-kernel-headers
 if ENABLE_P0207
@@ -253,11 +238,7 @@ else
 if ENABLE_P0211
 KERNELHEADERS_VERSION := 2.6.32.46-45
 else
-if ENABLE_P0302
-KERNELHEADERS_VERSION := 2.6.32.46-45
-else
 KERNELHEADERS_VERSION := 2.6.32.10_stm24_0201-42
-endif
 endif
 endif
 endif
@@ -312,30 +293,17 @@ else
 if ENABLE_P0211
 HOST_KERNEL_VERSION := 2.6.32.59$(KERNELSTMLABEL)-$(KERNELLABEL)
 else
-if ENABLE_P0302
-HOST_KERNEL_VERSION := 3.4.7$(KERNELSTMLABEL)-$(KERNELLABEL)
-else
-endif
 endif
 endif
 endif
 endif
 
-if ENABLE_P0302
-HOST_KERNEL_SPEC := stm-$(HOST_KERNEL)-stm.spec
-HOST_KERNEL_SPEC_PATCH :=
-HOST_KERNEL_PATCHES := $(KERNELPATCHES_24)
-HOST_KERNEL_CONFIG := linux-sh4-$(subst _stm24_,-,$(KERNELVERSION))_$(MODNAME).config$(DEBUG_STR)
-HOST_KERNEL_SRC_RPM := $(STLINUX)-$(HOST_KERNEL)-source-stm-$(HOST_KERNEL_VERSION).src.rpm
-HOST_KERNEL_RPM := RPMS/noarch/$(STLINUX)-$(HOST_KERNEL)-source-stm-$(HOST_KERNEL_VERSION).noarch.rpm
-else
 HOST_KERNEL_SPEC := stm-$(HOST_KERNEL)-sh4.spec
 HOST_KERNEL_SPEC_PATCH :=
 HOST_KERNEL_PATCHES := $(KERNELPATCHES_24)
 HOST_KERNEL_CONFIG := linux-sh4-$(subst _stm24_,-,$(KERNELVERSION))_$(MODNAME).config$(DEBUG_STR)
 HOST_KERNEL_SRC_RPM := $(STLINUX)-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).src.rpm
 HOST_KERNEL_RPM := RPMS/noarch/$(STLINUX)-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).noarch.rpm
-endif
 
 $(HOST_KERNEL_RPM): \
 		$(if $(HOST_KERNEL_SPEC_PATCH),Patches/$(HOST_KERNEL_SPEC_PATCH)) \
@@ -357,9 +325,7 @@ $(DEPDIR)/linux-kernel.do_prepare: \
 	echo "$(KERNELSTMLABEL)" > $(KERNEL_DIR)/localversion-stm
 	if [ `grep -c "CONFIG_BPA2_DIRECTFBOPTIMIZED" $(KERNEL_DIR)/.config` -eq 0 ]; then echo "# CONFIG_BPA2_DIRECTFBOPTIMIZED is not set" >> $(KERNEL_DIR)/.config; fi
 	$(MAKE) -C $(KERNEL_DIR) ARCH=sh oldconfig
-if !ENABLE_P0302
 	$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/asm
-endif !ENABLE_P0302
 	$(MAKE) -C $(KERNEL_DIR) ARCH=sh include/linux/version.h
 	rm $(KERNEL_DIR)/.config
 	touch $@
@@ -395,7 +361,6 @@ $(DEPDIR)/linux-kernel.do_compile: \
 		bootstrap-cross \
 		linux-kernel.do_prepare \
 		Patches/$(HOST_KERNEL_CONFIG) \
-		config.status \
 		| $(HOST_U_BOOT_TOOLS)
 	cd $(KERNEL_DIR) && \
 		export PATH=$(hostprefix)/bin:$(PATH) && \
@@ -437,6 +402,7 @@ $(DEPDIR)/driver: $(driverdir)/Makefile linux-kernel.do_compile
 		KERNEL_LOCATION=$(buildprefix)/$(KERNEL_DIR) \
 		BIN_DEST=$(targetprefix)/bin \
 		INSTALL_MOD_PATH=$(targetprefix) \
+		DEPMOD=$(DEPMOD) \
 		$(DRIVER_PLATFORM) \
 		install
 	$(DEPMOD) -ae -b $(targetprefix) -F $(buildprefix)/$(KERNEL_DIR)/System.map -r $(KERNELVERSION)

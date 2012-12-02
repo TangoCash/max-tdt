@@ -595,7 +595,6 @@ release_base:
 	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release/usr/share/zoneinfo/ && \
 	ln -sf /etc/timezone.xml $(prefix)/release/etc/tuxbox/timezone.xml && \
 	echo "576i50" > $(prefix)/release/etc/videomode && \
-	cp -R $(targetprefix)/etc/fonts/* $(prefix)/release/etc/fonts/ && \
 	cp $(buildprefix)/root/etc/fw_env.config$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(TF7700),_$(TF7700))$(if $(UFS910),_$(UFS910))$(if $(UFS912),_$(UFS912))$(if $(UFS922),_$(UFS922))$(if $(ADB_BOX),_$(ADB_BOX)) $(prefix)/release/etc/fw_env.config && \
 	cp $(buildprefix)/root/release/rcS_stm23$(if $(TF7700),_$(TF7700))$(if $(HL101),_$(HL101))$(if $(VIP1_V2),_$(VIP1_V2))$(if $(VIP2_V1),_$(VIP2_V1))$(if $(UFS910),_$(UFS910))$(if $(UFS912),_$(UFS912))$(if $(UFS913),_$(UFS913))$(if $(SPARK),_$(SPARK))$(if $(SPARK7162),_$(SPARK7162))$(if $(UFS922),_$(UFS922))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(HS7810A),_$(HS7810A))$(if $(HS7110),_$(HS7110))$(if $(WHITEBOX),_$(WHITEBOX))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD))$(if $(IPBOX9900),_$(IPBOX9900))$(if $(IPBOX99),_$(IPBOX99))$(if $(IPBOX55),_$(IPBOX55))$(if $(ADB_BOX),_$(ADB_BOX)) $(prefix)/release/etc/init.d/rcS && \
 	chmod 755 $(prefix)/release/etc/init.d/rcS && \
@@ -621,37 +620,6 @@ release_base:
 #
 # Player
 #
-if ENABLE_PLAYER179
-	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stm_v4l2.ko $(prefix)/release/lib/modules/
-	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvbi.ko $(prefix)/release/lib/modules/
-	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvout.ko $(prefix)/release/lib/modules/
-	cd $(targetprefix)/lib/modules/$(KERNELVERSION)/extra && \
-	for mod in \
-		sound/pseudocard/pseudocard.ko \
-		sound/silencegen/silencegen.ko \
-		stm/mmelog/mmelog.ko \
-		stm/monitor/stm_monitor.ko \
-		media/dvb/stm/dvb/stmdvb.ko \
-		sound/ksound/ksound.ko \
-		media/dvb/stm/mpeg2_hard_host_transformer/mpeg2hw.ko \
-		media/dvb/stm/backend/player2.ko \
-		media/dvb/stm/h264_preprocessor/sth264pp.ko \
-		media/dvb/stm/allocator/stmalloc.ko \
-		stm/platform/platform.ko \
-		stm/platform/p2div64.ko \
-		media/sysfs/stm/stmsysfs.ko \
-	;do \
-		echo `pwd` player2/linux/drivers/$$mod; \
-		if [ -e player2/linux/drivers/$$mod ]; then \
-			cp player2/linux/drivers/$$mod $(prefix)/release/lib/modules/; \
-			sh4-linux-strip --strip-unneeded $(prefix)/release/lib/modules/`basename $$mod`; \
-		else \
-			touch $(prefix)/release/lib/modules/`basename $$mod`; \
-		fi; \
-		echo "."; \
-	done
-	echo "touched";
-endif
 if ENABLE_PLAYER191
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stm_v4l2.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvbi.ko $(prefix)/release/lib/modules/

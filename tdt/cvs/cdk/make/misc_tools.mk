@@ -1,12 +1,12 @@
 #
 # misc/tools
 #
-$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev libdvdnav libdvdcss freetype expat fontconfig bzip2 libpng jpeg ffmpeg
+$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev libdvdnav libdvdcss bzip2 libpng jpeg ffmpeg
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/misc/tools && \
 	libtoolize -f -c && \
 	$(CONFIGURE) --prefix= \
-	$(if $(MULTICOM322), --enable-multicom322) $(if $(MULTICOM324), --enable-multicom324)
+	$(if $(MULTICOM324), --enable-multicom324)
 
 $(DEPDIR)/min-misc-tools $(DEPDIR)/std-misc-tools $(DEPDIR)/max-misc-tools $(DEPDIR)/misc-tools: \
 $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status
@@ -34,10 +34,7 @@ $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status
 	$(if $(IPBOX9900), -DPLATFORM_IPBOX9900) \
 	$(if $(IPBOX99), -DPLATFORM_IPBOX99) \
 	$(if $(IPBOX55), -DPLATFORM_IPBOX55) \
-	$(if $(PLAYER131), -DPLAYER131) \
-	$(if $(PLAYER179), -DPLAYER179) \
-	$(if $(PLAYER191), -DPLAYER191) \
-	$(if $(VDR1722), -DVDR1722)"
+	$(if $(PLAYER191), -DPLAYER191)"
 	[ "x$*" = "x" ] && touch $@ || true
 
 misc-tools-clean:

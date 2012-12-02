@@ -25,7 +25,6 @@ else
 if ENABLE_P0211
 KERNEL_DIR = @DIR_linuxp0211@
 else
-KERNEL_DIR = @DIR_linuxp0302@
 endif
 endif
 endif
@@ -50,7 +49,16 @@ PYTHON_DIR = /usr/lib/python$(PYTHON_VERSION)
 PYTHON_INCLUDE_DIR = /usr/include/python$(PYTHON_VERSION)
 
 #
+# rpm helper-"functions":
 #
+TARGETLIB = $(targetprefix)/usr/lib
+PKG_CONFIG_PATH = $(targetprefix)/usr/lib/pkgconfig
+REWRITE_LIBDIR = sed -i "s,^libdir=.*,libdir='$(TARGETLIB)'," $(TARGETLIB)
+REWRITE_LIBDEP = sed -i -e "s,\(^dependency_libs='\| \|-L\|^dependency_libs='\)/usr/lib,\$(TARGETLIB)," $(TARGETLIB)
+REWRITE_PKGCONF = sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr,"
+
+#
+# CCACHE
 #
 if ENABLE_CCACHE
 PATH := $(hostprefix)/ccache-bin:$(crossprefix)/bin:$(PATH):/usr/sbin
@@ -58,10 +66,9 @@ else
 PATH := $(crossprefix)/bin:$(PATH):/usr/sbin
 endif
 
-SOCKSIFY=
-CMD_CVS=$(SOCKSIFY) $(shell which cvs)
-WGET=$(SOCKSIFY) wget
-
+#
+#
+#
 INSTALL_DIR=$(INSTALL) -d
 INSTALL_BIN=$(INSTALL) -m 755
 INSTALL_FILE=$(INSTALL) -m 644
@@ -182,8 +189,6 @@ DRIVER_PLATFORM := \
 		$(if $(IPBOX9900),IPBOX9900=$(IPBOX9900)) \
 		$(if $(IPBOX99),IPBOX99=$(IPBOX99)) \
 		$(if $(IPBOX55),IPBOX55=$(IPBOX55)) \
-		$(if $(PLAYER131),PLAYER131=$(PLAYER131)) \
-		$(if $(PLAYER179),PLAYER179=$(PLAYER179)) \
 		$(if $(PLAYER191),PLAYER191=$(PLAYER191))
 
 DEPDIR = .deps

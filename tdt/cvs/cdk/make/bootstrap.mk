@@ -198,6 +198,30 @@ $(DEPDIR)/$(HOST_AUTOCONF): $(HOST_AUTOCONF_RPM)
 	touch $@
 
 #
+# HOST MODULE INIT TOOLS
+#
+HOST_MODINIT = host-module-init-tools
+HOST_MODINIT_VERSION = 3.16-3
+HOST_MODINIT_SPEC = stm-$(HOST_MODINIT).spec
+HOST_MODINIT_SPEC_PATCH = $(HOST_MODINIT_SPEC).$(HOST_MODINIT_VERSION).diff
+HOST_MODINIT_PATCHES = stm-$(HOST_MODINIT).$(HOST_MODINIT_VERSION)-no-man.diff
+
+HOST_MODINIT_RPM = RPMS/sh4/$(STLINUX)-$(HOST_MODINIT)-$(HOST_MODINIT_VERSION).sh4.rpm
+
+$(HOST_MODINIT_RPM): \
+		$(addprefix Patches/,$(HOST_MODINIT_SPEC_PATCH) $(HOST_MODINIT_PATCHES)) \
+		$(archivedir)/$(STLINUX)-$(HOST_MODINIT)-$(HOST_MODINIT_VERSION).src.rpm
+	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(HOST_MODINIT_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_MODINIT_SPEC) < $(buildprefix)/Patches/$(HOST_MODINIT_SPEC_PATCH) ) &&) \
+	$(if $(HOST_MODINIT_PATCHES),cp $(addprefix Patches/,$(HOST_MODINIT_PATCHES)) SOURCES/ &&) \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	rpmbuild  $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_MODINIT_SPEC)
+
+$(DEPDIR)/$(HOST_MODINIT): $(HOST_MODINIT_RPM)
+	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
+	touch $@
+
+#
 # HOST PKGCONFIG
 #
 HOST_PKGCONFIG = host-pkg-config

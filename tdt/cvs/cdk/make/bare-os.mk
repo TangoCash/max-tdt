@@ -596,6 +596,33 @@ $(DEPDIR)/%$(LIBACL_DEV): $(LIBACL_DEV_RPM)
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# USBUTILS
+#
+USBUTILS := usbutils
+USBUTILS_VERSION := 0.86-10
+USBUTILS_SPEC := stm-target-$(USBUTILS).spec
+USBUTILS_SPEC_PATCH :=
+USBUTILS_PATCHES :=
+USBUTILS_usbutils = libusb
+USBUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(USBUTILS)-$(USBUTILS_VERSION).sh4.rpm
+
+$(USBUTILS_RPM): \
+		$(if $(USBUTILS_SPEC_PATCH),Patches/$(USBUTILS_SPEC_PATCH)) \
+		$(if $(USBUTILS_PATCHES),$(USBUTILS_PATCHES:%=Patches/%)) \
+		$(archivedir)/$(STLINUX)-target-$(USBUTILS)-$(USBUTILS_VERSION).src.rpm
+	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(USBUTILS_SPEC_PATCH),( cd SPECS && patch -p1 $(USBUTILS_SPEC) < $(buildprefix)/Patches/$(USBUTILS_SPEC_PATCH) ) &&) \
+	$(if $(USBUTILS_PATCHES),cp $(USBUTILS_PATCHES:%=Patches/%) SOURCES/ &&) \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(USBUTILS_SPEC)
+
+$(DEPDIR)/min-$(USBUTILS) $(DEPDIR)/std-$(USBUTILS) $(DEPDIR)/max-$(USBUTILS) $(DEPDIR)/$(USBUTILS): \
+$(DEPDIR)/%$(USBUTILS): $(USBUTILS_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # UDEV
 #
 UDEV := udev

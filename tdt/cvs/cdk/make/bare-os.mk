@@ -558,6 +558,44 @@ $(DEPDIR)/%$(LIBATTR_DEV): $(LIBATTR_DEV_RPM)
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# LIBACL
+#
+LIBACL := libacl
+LIBACL_DEV := libacl-dev
+LIBACL_VERSION := 2.2.47-3
+LIBACL_SPEC := stm-target-$(LIBACL).spec
+LIBACL_SPEC_PATCH :=
+LIBACL_PATCHES :=
+
+LIBACL_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBACL)-$(LIBACL_VERSION).sh4.rpm
+LIBACL_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBACL_DEV)-$(LIBACL_VERSION).sh4.rpm
+
+$(LIBACL_RPM) $(LIBACL_DEV_RPM): \
+		libattr libattr-dev \
+		$(if $(LIBACL_SPEC_PATCH),Patches/$(LIBACL_SPEC_PATCH)) \
+		$(if $(LIBACL_PATCHES),$(LIBACL_PATCHES:%=Patches/%)) \
+		$(archivedir)/$(STLINUX)-target-$(LIBACL)-$(LIBACL_VERSION).src.rpm
+	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(LIBACL_SPEC_PATCH),( cd SPECS && patch -p1 $(LIBACL_SPEC) < $(buildprefix)/Patches/$(LIBACL_SPEC_PATCH) ) &&) \
+	$(if $(LIBACL_PATCHES),cp $(LIBACL_PATCHES:%=Patches/%) SOURCES/ &&) \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(LIBACL_SPEC)
+
+$(DEPDIR)/min-$(LIBACL) $(DEPDIR)/std-$(LIBACL) $(DEPDIR)/max-$(LIBACL) $(DEPDIR)/$(LIBACL): \
+$(DEPDIR)/%$(LIBACL): $(LIBACL_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	[ "x$*" = "x" ] && touch $@ || true
+
+$(DEPDIR)/min-$(LIBACL_DEV) $(DEPDIR)/std-$(LIBACL_DEV) $(DEPDIR)/max-$(LIBACL_DEV) $(DEPDIR)/$(LIBACL_DEV): \
+$(DEPDIR)/%$(LIBACL_DEV): $(LIBACL_DEV_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	$(REWRITE_LIBDIR)/libacl.la
+	$(REWRITE_LIBDEP)/libacl.la
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # UDEV
 #
 UDEV := udev

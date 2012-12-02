@@ -32,7 +32,7 @@ endif
 
 KERNEL_PREPARE = @PREPARE_linux24@
 
-DEPMOD = /sbin/depmod
+DEPMOD = $(hostprefix)/bin/depmod
 
 #
 # Stlinux Version

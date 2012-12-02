@@ -521,6 +521,43 @@ $(DEPDIR)/%$(BASE_FILES): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# LIBATTR
+#
+LIBATTR := libattr
+LIBATTR_DEV := libattr-dev
+LIBATTR_VERSION := 2.4.43-4
+LIBATTR_SPEC := stm-target-$(LIBATTR).spec
+LIBATTR_SPEC_PATCH :=
+LIBATTR_PATCHES :=
+
+LIBATTR_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBATTR)-$(LIBATTR_VERSION).sh4.rpm
+LIBATTR_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBATTR_DEV)-$(LIBATTR_VERSION).sh4.rpm
+
+$(LIBATTR_RPM) $(LIBATTR_DEV_RPM): \
+		$(if $(LIBATTR_SPEC_PATCH),Patches/$(LIBATTR_SPEC_PATCH)) \
+		$(if $(LIBATTR_PATCHES),$(LIBATTR_PATCHES:%=Patches/%)) \
+		$(archivedir)/$(STLINUX)-target-$(LIBATTR)-$(LIBATTR_VERSION).src.rpm
+	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(LIBATTR_SPEC_PATCH),( cd SPECS && patch -p1 $(LIBATTR_SPEC) < $(buildprefix)/Patches/$(LIBATTR_SPEC_PATCH) ) &&) \
+	$(if $(LIBATTR_PATCHES),cp $(LIBATTR_PATCHES:%=Patches/%) SOURCES/ &&) \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(LIBATTR_SPEC)
+
+$(DEPDIR)/min-$(LIBATTR) $(DEPDIR)/std-$(LIBATTR) $(DEPDIR)/max-$(LIBATTR) $(DEPDIR)/$(LIBATTR): \
+$(DEPDIR)/%$(LIBATTR): $(LIBATTR_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	[ "x$*" = "x" ] && touch $@ || true
+	
+
+$(DEPDIR)/min-$(LIBATTR_DEV) $(DEPDIR)/std-$(LIBATTR_DEV) $(DEPDIR)/max-$(LIBATTR_DEV) $(DEPDIR)/$(LIBATTR_DEV): \
+$(DEPDIR)/%$(LIBATTR_DEV): $(LIBATTR_DEV_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	$(REWRITE_LIBDIR)/libattr.la
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # UDEV
 #
 UDEV := udev

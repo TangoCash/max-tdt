@@ -497,7 +497,7 @@ $(CROSS_MPFR_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(CROSS_MPFR_SPEC)
 
-$(DEPDIR)/$(CROSS_MPFR): $(CROSS_GMP) $(CROSS_MPFR_RPM)
+$(DEPDIR)/$(CROSS_MPFR): $(CROSS_MPFR_RPM)
 	@rpm $(DRPM) --nodeps -Uhv $(lastword $^) && \
 	touch $@
 
@@ -557,13 +557,7 @@ CROSS_CPP = cross-sh4-cpp
 CROSS_G++ = cross-sh4-g++
 CROSS_PROTOIZE = cross-sh4-protoize
 CROSS_LIBGCC = cross-sh4-libgcc
-
-if GCC_472
-CROSS_GCC_VERSION = 4.7.2-112
-else
-CROSS_GCC_VERSION = 4.6.3-111
-endif
-
+CROSS_GCC_VERSION := $(if $(GCC_472),4.7.2-112,4.6.3-111)
 CROSS_GCC_RAWVERSION = $(firstword $(subst -, ,$(CROSS_GCC_VERSION)))
 CROSS_GCC_SPEC = stm-$(subst cross-sh4-,cross-,$(CROSS_GCC)).spec
 CROSS_GCC_SPEC_PATCH = $(CROSS_GCC_SPEC).$(CROSS_GCC_VERSION).diff
@@ -653,15 +647,21 @@ cross-sh4-filesystem:
 # BOOTSTRAP-HOST
 #
 $(DEPDIR)/bootstrap-host: | \
-		host-filesystem \
-		host-rpmconfig \
-		host-base-passwd \
-		host-distributionutils \
-		host-autotools \
-		$(HOST_AUTOCONF) \
-		$(HOST_PKGCONFIG) \
-		$(HOST_AUTOMAKE) \
-		$(HOST_MTD_UTILS)
+	host-filesystem \
+	host-rpmconfig \
+	host-base-passwd \
+	host-distributionutils \
+	$(HOST_M4) \
+	host-autotools \
+	$(HOST_AUTOMAKE) \
+	$(HOST_AUTOCONF) \
+	$(HOST_PKGCONFIG) \
+	$(HOST_ELFUTILS) \
+	$(HOST_ELFUTILS_DEV) \
+	$(HOST_LIBFFI) \
+	$(HOST_GLIB2) \
+	$(HOST_MTD_UTILS) \
+	$(HOST_MODINIT)
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -669,8 +669,9 @@ $(DEPDIR)/bootstrap-host: | \
 #
 $(DEPDIR)/bootstrap-cross: | \
 	bootstrap-host \
-	cross-sh4-distributionutils \
 	cross-sh4-filesystem \
+	cross-sh4-pkg-config \
+	cross-sh4-distributionutils \
 	cross-sh4-binutils \
 	cross-sh4-binutils-dev \
 	cross-sh4-gmp \
@@ -700,13 +701,9 @@ $(DEPDIR)/libtool.do_prepare: @DEPENDS_libtool@
 	touch $@
 
 $(DEPDIR)/libtool.do_compile: $(DEPDIR)/libtool.do_prepare
-	echo "sys_lib_search_path_spec='$(targetprefix)/lib $(targetprefix)/usr/lib'" > @DIR_libtool@/config.cache
-	echo "lt_cv_sys_lib_dlsearch_path_spec='$(targetprefix)/lib $(targetprefix)/usr/lib'" >> @DIR_libtool@/config.cache
 	cd @DIR_libtool@ && \
 	./configure \
-		lt_cv_sys_lib_search_path_spec="" \
 		lt_cv_sys_dlsearch_path="" \
-		--cache-file=config.cache \
 		--prefix=$(hostprefix) && \
 	$(MAKE)
 	touch $@
@@ -722,4 +719,3 @@ $(DEPDIR)/%libtool: $(DEPDIR)/libtool.do_compile
 		sed -i -r -e 's,(hardcode_into_libs)=yes,\1=no,g' $(hostprefix)/bin/libtool
 	@DISTCLEANUP_libtool@
 	[ "x$*" = "x" ] && touch $@ || true
-

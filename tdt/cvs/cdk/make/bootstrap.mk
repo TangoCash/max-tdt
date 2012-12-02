@@ -21,10 +21,33 @@ $(HOST_RPMCONFIG_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_RPMCONFIG_SPEC)
 
-$(HOST_RPMCONFIG): $(HOST_RPMCONFIG_RPM)
+$(DEPDIR)/$(HOST_RPMCONFIG): $(HOST_RPMCONFIG_RPM)
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(STM_RELOCATE)=$(prefix) $< && \
 	touch .deps/$(notdir $@)
+
+#
+# HOST M4
+#
+HOST_M4 = host-m4
+HOST_M4_VERSION = 1.4.13-2
+HOST_M4_SPEC = stm-$(HOST_M4).spec
+HOST_M4_SPEC_PATCH =
+HOST_M4_PATCHES =
+
+HOST_M4_RPM = RPMS/sh4/$(STLINUX)-$(HOST_M4)-$(HOST_M4_VERSION).sh4.rpm
+
+$(HOST_M4_RPM): \
+		$(addprefix Patches/,$(HOST_M4_SPEC_PATCH) $(HOST_M4_PATCHES)) \
+		$(archivedir)/$(STLINUX:%23=%24)-$(HOST_M4)-$(HOST_M4_VERSION).src.rpm
+	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(HOST_M4_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_M4_SPEC) < $(buildprefix)/Patches/$(HOST_M4_SPEC_PATCH) ) &&) \
+	$(if $(HOST_M4_PATCHES),cp $(addprefix Patches/,$(HOST_M4_PATCHES)) SOURCES/ &&) \
+	rpmbuild  $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_M4_SPEC)
+
+$(DEPDIR)/$(HOST_M4): $(HOST_M4_RPM)
+	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
+	touch $@
 
 #
 # HOST-BASE-PASSWD

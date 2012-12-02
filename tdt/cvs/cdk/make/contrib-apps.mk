@@ -165,10 +165,9 @@ $(DEPDIR)/e2fsprogs.do_prepare: bootstrap @DEPENDS_e2fsprogs@
 	@PREPARE_e2fsprogs@
 	touch $@
 
-$(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
+$(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare
 	cd @DIR_e2fsprogs@ && \
 	ln -sf /bin/true ./ldconfig; \
-	$(BUILDENV) \
 	CC=$(target)-gcc \
 	RANLIB=$(target)-ranlib \
 	CFLAGS="-Os" \
@@ -177,19 +176,19 @@ $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare | $(UTIL_LINUX)
 		--build=$(build) \
 		--host=$(target) \
 		--target=$(target) \
+		--prefix=/usr \
+		--libdir=/usr/lib \
 		--disable-rpath \
 		--disable-quota \
 		--disable-testio-debug \
 		--disable-defrag \
 		--disable-nls \
-		--disable-libuuid \
-		--disable-libblkid \
 		--enable-elf-shlibs \
 		--enable-verbose-makecmds \
 		--enable-symlink-install \
 		--without-libintl-prefix \
 		--without-libiconv-prefix \
-		--with-root-prefix= && \
+		--with-root-prefix="" && \
 	$(MAKE) && \
 	$(MAKE) -C e2fsck e2fsck.static
 	touch $@
@@ -282,7 +281,6 @@ $(DEPDIR)/sdparm.do_prepare: bootstrap @DEPENDS_sdparm@
 $(DEPDIR)/sdparm.do_compile: $(DEPDIR)/sdparm.do_prepare
 	cd @DIR_sdparm@ && \
 		export PATH=$(MAKE_PATH) && \
-		$(MAKE) clean || true && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \

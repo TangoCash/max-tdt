@@ -1,4 +1,6 @@
-
+#
+#
+#
 min-prepare-yaud std-prepare-yaud max-prepare-yaud: \
 %prepare-yaud:
 	-rm -rf $(prefix)/$*cdkroot
@@ -14,10 +16,16 @@ $(DEPDIR)/%bootstrap: \
 	%$(FILESYSTEM) \
 	| %$(GLIBC) \
 	%$(CROSS_LIBGCC) \
+	%$(GLIBC) \
 	%$(GLIBC_DEV) \
+	%$(BINUTILS) \
+	%$(BINUTILS_DEV) \
 	%$(GMP) \
 	%$(MPFR) \
 	%$(MPC) \
+	%$(ZLIB) \
+	%$(ZLIB_DEV) \
+	%$(ZLIB_BIN) \
 	%$(LIBSTDC) \
 	%$(LIBSTDC_DEV)
 	@[ "x$*" = "x" ] && touch $@ || true
@@ -37,7 +45,6 @@ min-bare-os std-bare-os max-bare-os bare-os: \
 	%module_init_tools \
 	%busybox \
 	\
-	%libz \
 	%$(SYSVINIT) \
 	%$(SYSVINITTOOLS) \
 	%$(INITSCRIPTS) \
@@ -49,6 +56,9 @@ min-bare-os std-bare-os max-bare-os bare-os: \
 	%u-boot-utils \
 	%diverse-tools
 
+#
+#
+#
 min-net-utils std-net-utils max-net-utils net-utils: \
 %net-utils: \
 	%$(NETKIT_FTP) \
@@ -61,6 +71,9 @@ min-net-utils std-net-utils max-net-utils net-utils: \
 	%grep \
 	%$(CIFS)
 
+#
+#
+#
 min-disk-utils std-disk-utils max-disk-utils disk-utils: \
 %disk-utils: \
 	%e2fsprogs \
@@ -70,7 +83,7 @@ min-disk-utils std-disk-utils max-disk-utils disk-utils: \
 	%$(SG3)
 
 #
-# YAUD
+# YAUD NONE
 #
 yaud-none: \
 	bare-os \
@@ -82,65 +95,8 @@ yaud-none: \
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 #
-# MIN-YAUD
-#
-min-yaud-none: \
-%yaud-none: \
-	%bare-os \
-	%misc-tools \
-	%linux-kernel \
-	%net-utils \
-	%disk-utils
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-#
-# STD-YAUD
-#
-std-yaud-none: \
-%yaud-none: \
-	%bare-os \
-	%misc-tools \
-	%linux-kernel \
-	%net-utils \
-	%disk-utils
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-#
-# MAX-YAUD
-#
-max-yaud-none: \
-%yaud-none: \
-	%bare-os \
-	%misc-tools \
-	%$(UDEV) \
-	%$(HOTPLUG) \
-	%linux-kernel \
-	%net-utils \
-	%disk-utils
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-#dummy targets
-#really ugly
-min-:
-
-std-:
-
-max-:
-
-#
 # YAUD
 #
-yaud-stock: yaud-none stock
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-yaud-vdr: yaud-none stslave openssl openssl-dev \
-		boot-elf misc-cp remote firstboot vdr release_vdr
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-yaud-vdrdev2: yaud-none stslave openssl openssl-dev \
-		boot-elf misc-cp remote firstboot vdrdev2 release_vdrdev2
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 yaud-neutrino: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
@@ -163,4 +119,3 @@ yaud-enigma2-pli-nightly: yaud-none host_python lirc \
 
 yaud-xbmc-nightly: yaud-none host_python boot-elf firstboot xbmc-nightly release_xbmc
 	@TUXBOX_YAUD_CUSTOMIZE@
-

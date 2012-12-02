@@ -11,27 +11,27 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 #
 # libz
 #
-$(DEPDIR)/libz.do_prepare: bootstrap binutils binutils-dev @DEPENDS_libz@
-	@PREPARE_libz@
-	touch $@
-
-$(DEPDIR)/libz.do_compile: $(DEPDIR)/libz.do_prepare
-	cd @DIR_libz@ && \
-		ln -sf /bin/true ./ldconfig; \
-		$(BUILDENV) \
-		./configure \
-			--prefix=/usr \
-			--shared && \
-		$(MAKE) all
-	touch $@
-
-$(DEPDIR)/min-libz $(DEPDIR)/std-libz $(DEPDIR)/max-libz \
-$(DEPDIR)/libz: \
-$(DEPDIR)/%libz: $(DEPDIR)/libz.do_compile
-	cd @DIR_libz@ && \
-		@INSTALL_libz@
-	@DISTCLEANUP_libz@
-	[ "x$*" = "x" ] && touch $@ || true
+#$(DEPDIR)/libz.do_prepare: bootstrap binutils binutils-dev @DEPENDS_libz@
+#	@PREPARE_libz@
+#	touch $@
+#
+#$(DEPDIR)/libz.do_compile: $(DEPDIR)/libz.do_prepare
+#	cd @DIR_libz@ && \
+#		ln -sf /bin/true ./ldconfig; \
+#		$(BUILDENV) \
+#		./configure \
+#			--prefix=/usr \
+#			--shared && \
+#		$(MAKE) all
+#	touch $@
+#
+#$(DEPDIR)/min-libz $(DEPDIR)/std-libz $(DEPDIR)/max-libz \
+#$(DEPDIR)/libz: \
+#$(DEPDIR)/%libz: $(DEPDIR)/libz.do_compile
+#	cd @DIR_libz@ && \
+#		@INSTALL_libz@
+#	@DISTCLEANUP_libz@
+#	[ "x$*" = "x" ] && touch $@ || true
 
 #
 # libreadline
@@ -193,7 +193,7 @@ $(DEPDIR)/%jpeg: $(DEPDIR)/jpeg.do_compile
 #
 # libpng
 #
-$(DEPDIR)/libpng.do_prepare: bootstrap libz @DEPENDS_libpng@
+$(DEPDIR)/libpng.do_prepare: bootstrap @DEPENDS_libpng@
 	@PREPARE_libpng@
 	touch $@
 
@@ -277,11 +277,12 @@ $(DEPDIR)/%libgif: $(DEPDIR)/libgif.do_compile
 #
 # libcurl
 #
-$(DEPDIR)/curl.do_prepare: bootstrap openssl rtmpdump libz @DEPENDS_curl@
+$(DEPDIR)/curl.do_prepare: bootstrap openssl rtmpdump @DEPENDS_curl@
 	@PREPARE_curl@
 	touch $@
 
 $(DEPDIR)/curl.do_compile: $(DEPDIR)/curl.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_curl@ && \
 		$(BUILDENV) \
 		autoreconf -vif -I$(hostprefix)/share/aclocal && \
@@ -401,7 +402,7 @@ $(DEPDIR)/%libmad: $(DEPDIR)/libmad.do_compile
 #
 # libid3tag
 #
-$(DEPDIR)/libid3tag.do_prepare: bootstrap libz @DEPENDS_libid3tag@
+$(DEPDIR)/libid3tag.do_prepare: bootstrap @DEPENDS_libid3tag@
 	@PREPARE_libid3tag@
 	touch $@
 
@@ -419,7 +420,7 @@ $(DEPDIR)/libid3tag.do_compile: $(DEPDIR)/libid3tag.do_prepare
 
 $(DEPDIR)/min-libid3tag $(DEPDIR)/std-libid3tag $(DEPDIR)/max-libid3tag \
 $(DEPDIR)/libid3tag: \
-$(DEPDIR)/%libid3tag: %libz $(DEPDIR)/libid3tag.do_compile
+$(DEPDIR)/%libid3tag: $(DEPDIR)/libid3tag.do_compile
 	cd @DIR_libid3tag@ && \
 		@INSTALL_libid3tag@
 	@DISTCLEANUP_libid3tag@
@@ -453,7 +454,7 @@ $(DEPDIR)/libvorbisidec: $(DEPDIR)/libvorbisidec.do_compile
 # libglib2
 # You need libglib2.0-dev on host system
 #
-$(DEPDIR)/glib2.do_prepare: bootstrap libz @DEPENDS_glib2@
+$(DEPDIR)/glib2.do_prepare: bootstrap @DEPENDS_glib2@
 	@PREPARE_glib2@
 	touch $@
 
@@ -518,7 +519,7 @@ $(DEPDIR)/%libiconv: $(DEPDIR)/libiconv.do_compile
 #
 # libmng
 #
-$(DEPDIR)/libmng.do_prepare: bootstrap libz jpeg lcms @DEPENDS_libmng@
+$(DEPDIR)/libmng.do_prepare: bootstrap jpeg lcms @DEPENDS_libmng@
 	@PREPARE_libmng@
 	touch $@
 
@@ -551,7 +552,7 @@ $(DEPDIR)/%libmng: $(DEPDIR)/libmng.do_compile
 #
 # lcms
 #
-$(DEPDIR)/lcms.do_prepare: bootstrap libz jpeg @DEPENDS_lcms@
+$(DEPDIR)/lcms.do_prepare: bootstrap jpeg @DEPENDS_lcms@
 	@PREPARE_lcms@
 	touch $@
 
@@ -588,7 +589,7 @@ $(DEPDIR)/directfb.do_compile: $(DEPDIR)/directfb.do_prepare
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 		libtoolize -f -c && \
-		autoreconf -vif -I$(hostprefix)/share/aclocal && \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -620,7 +621,7 @@ $(DEPDIR)/%directfb: $(DEPDIR)/directfb.do_compile
 #
 # DFB++
 #
-$(DEPDIR)/dfbpp.do_prepare: bootstrap libz jpeg directfb @DEPENDS_dfbpp@
+$(DEPDIR)/dfbpp.do_prepare: bootstrap jpeg directfb @DEPENDS_dfbpp@
 	@PREPARE_dfbpp@
 	touch $@
 
@@ -702,7 +703,7 @@ $(DEPDIR)/%expat: $(DEPDIR)/expat.do_compile
 #
 # fontconfig
 #
-$(DEPDIR)/fontconfig.do_prepare: bootstrap libz expat freetype @DEPENDS_fontconfig@
+$(DEPDIR)/fontconfig.do_prepare: bootstrap expat freetype @DEPENDS_fontconfig@
 	@PREPARE_fontconfig@
 	touch $@
 
@@ -710,7 +711,7 @@ $(DEPDIR)/fontconfig.do_compile: $(DEPDIR)/fontconfig.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_fontconfig@ && \
 		libtoolize -f -c && \
-		autoreconf -vif -I$(hostprefix)/share/aclocal && \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -803,7 +804,8 @@ $(DEPDIR)/libdvdcss.do_compile: $(DEPDIR)/libdvdcss.do_prepare
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr && \
+			--prefix=/usr \
+			--disable-doc && \
 		$(MAKE) all
 	touch $@
 
@@ -826,7 +828,7 @@ $(DEPDIR)/libdvdnav.do_compile: $(DEPDIR)/libdvdnav.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdnav@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
-		autoreconf -vif -I$(hostprefix)/share/aclocal && \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -862,7 +864,7 @@ $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
 	cd @DIR_libdvdread@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
-		autoreconf -vif -I$(hostprefix)/share/aclocal && \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -913,7 +915,7 @@ $(DEPDIR)/ffmpeg.do_prepare: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 
 $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 	cd @DIR_ffmpeg@ && \
-	$(BUILDENV) \
+	PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 	./configure \
 		$(FFMPEG_CUSTOM_NEU) \
 		--disable-static \
@@ -1129,7 +1131,7 @@ $(DEPDIR)/enchant.do_compile: $(DEPDIR)/enchant.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_enchant@ && \
 	libtoolize -f -c && \
-	autoreconf -vif -I$(hostprefix)/share/aclocal && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--build=$(build) \
@@ -1163,7 +1165,7 @@ $(DEPDIR)/lite.do_compile: $(DEPDIR)/lite.do_prepare
 	cd @DIR_lite@ && \
 	cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 	libtoolize -f -c && \
-	autoreconf -vif -I$(hostprefix)/share/aclocal && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1190,7 +1192,7 @@ $(DEPDIR)/sqlite.do_compile: $(DEPDIR)/sqlite.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sqlite@ && \
 	libtoolize -f -c && \
-	autoreconf -vif -I$(hostprefix)/share/aclocal && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1221,7 +1223,8 @@ $(DEPDIR)/libsoup.do_compile: $(DEPDIR)/libsoup.do_prepare
 		--host=$(target) \
 		--prefix=/usr \
 		--disable-more-warnings \
-		--without-gnome
+		--without-gnome && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libsoup $(DEPDIR)/std-libsoup $(DEPDIR)/max-libsoup \
@@ -1245,7 +1248,8 @@ $(DEPDIR)/pixman.do_compile: $(DEPDIR)/pixman.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-pixman $(DEPDIR)/std-pixman $(DEPDIR)/max-pixman \
@@ -1647,7 +1651,7 @@ $(DEPDIR)/%pyopenssl: $(DEPDIR)/pyopenssl.do_compile
 #
 # python
 #
-$(DEPDIR)/python.do_prepare: bootstrap host_python openssl-dev sqlite libreadline libz bzip2 @DEPENDS_python@
+$(DEPDIR)/python.do_prepare: bootstrap host_python openssl-dev sqlite libreadline bzip2 @DEPENDS_python@
 	@PREPARE_python@
 	touch $@
 
@@ -1783,7 +1787,7 @@ $(DEPDIR)/gstreamer.do_prepare: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 $(DEPDIR)/gstreamer.do_compile: $(DEPDIR)/gstreamer.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gstreamer@ && \
-	autoreconf -vif -I$(hostprefix)/share/aclocal && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -1814,7 +1818,7 @@ $(DEPDIR)/gst_plugins_base.do_prepare: bootstrap glib2 gstreamer libogg libalsa 
 $(DEPDIR)/gst_plugins_base.do_compile: $(DEPDIR)/gst_plugins_base.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
-	autoreconf -vif -I$(hostprefix)/share/aclocal && \
+	autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
@@ -2071,8 +2075,6 @@ $(DEPDIR)/%gst_plugins_dvbmediasink: $(DEPDIR)/gst_plugins_dvbmediasink.do_compi
 	@DISTCLEANUP_gst_plugins_dvbmediasink@
 	[ "x$*" = "x" ] && touch $@ || true
 
-
-
 ##############################   EXTERNAL_LCD   ################################
 
 #
@@ -2103,7 +2105,7 @@ $(DEPDIR)/%libusb: $(DEPDIR)/libusb.do_compile
 #
 # graphlcd
 #
-$(DEPDIR)/graphlcd.do_prepare: bootstrap fontconfig libusb @DEPENDS_graphlcd@
+$(DEPDIR)/graphlcd.do_prepare: bootstrap libusb @DEPENDS_graphlcd@
 	[ -d "$(archivedir)/graphlcd-base-touchcol.git" ] && \
 	(cd $(archivedir)/graphlcd-base-touchcol.git; git pull ; git checkout touchcol; cd "$(buildprefix)";); \
 	@PREPARE_graphlcd@
@@ -2205,7 +2207,7 @@ $(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
 #
 # libgd2
 #
-$(DEPDIR)/libgd2.do_prepare: bootstrap libz libpng jpeg libiconv freetype fontconfig @DEPENDS_libgd2@
+$(DEPDIR)/libgd2.do_prepare: bootstrap libpng jpeg libiconv freetype @DEPENDS_libgd2@
 	@PREPARE_libgd2@
 	touch $@
 
@@ -2443,7 +2445,7 @@ $(DEPDIR)/%libopenthreads: $(DEPDIR)/libopenthreads.do_compile
 #
 # rtmpdump
 #
-$(DEPDIR)/rtmpdump.do_prepare: bootstrap openssl openssl-dev libz @DEPENDS_rtmpdump@
+$(DEPDIR)/rtmpdump.do_prepare: bootstrap openssl openssl-dev @DEPENDS_rtmpdump@
 	@PREPARE_rtmpdump@
 	touch $@
 

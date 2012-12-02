@@ -289,14 +289,39 @@ $(DEPDIR)/%$(LIBGCC): $(LIBGCC_RPM)
 # END OF BOOTSTRAP
 
 #
+# LIBFFI
+#
+LIBFFI := libffi
+LIBFFI_VERSION := 3.0.10-1
+LIBFFI_SPEC := stm-target-$(LIBFFI).spec
+LIBFFI_SPEC_PATCH :=
+LIBFFI_PATCHES :=
+
+LIBFFI_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBFFI)-dev-$(LIBFFI_VERSION).sh4.rpm
+
+$(LIBFFI_RPM): \
+		$(addprefix Patches/,$(LIBFFI_SPEC_PATCH) $(LIBFFI_PATCHES)) \
+		$(archivedir)/$(STLINUX)-target-$(LIBFFI)-$(LIBFFI_VERSION).src.rpm
+	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(LIBFFI_SPEC_PATCH),( cd SPECS && patch -p1 $(LIBFFI_SPEC) < $(buildprefix)/Patches/$(LIBFFI_SPEC_PATCH) ) &&) \
+	$(if $(LIBFFI_PATCHES),cp $(addprefix Patches/,$(LIBFFI_PATCHES)) SOURCES/ &&) \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(LIBFFI_SPEC)
+
+$(DEPDIR)/$(LIBFFI): $(LIBFFI_RPM)
+	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^) && \
+	touch $@
+
+#
 # GLIB2
 #
 GLIB2 := #glib2
 GLIB2_DEV := glib2-dev
-GLIB2_VERSION := 2.32.1-32
+GLIB2_VERSION := 2.28.3-30
 GLIB2_SPEC := stm-target-$(GLIB2).spec
 GLIB2_SPEC_PATCH :=
 GLIB2_PATCHES :=
+
 GLIB2_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIB2)-$(GLIB2_VERSION).sh4.rpm
 GLIB2_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(GLIB2_DEV)-$(GLIB2_VERSION).sh4.rpm
 
@@ -312,7 +337,7 @@ $(GLIB2_RPM) $(GLIB2_DEV_RPM): \
 
 $(DEPDIR)/min-$(GLIB2) $(DEPDIR)/std-$(GLIB2) $(DEPDIR)/max-$(GLIB2) \
 $(DEPDIR)/$(GLIB2): \
-$(DEPDIR)/%$(GLIB2): bootstrap libz $(GLIB2_RPM)
+$(DEPDIR)/%$(GLIB2): bootstrap $(HOST_GLIB2) $(GLIB2_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	[ "x$*" = "x" ] && touch $@ || true

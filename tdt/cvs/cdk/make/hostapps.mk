@@ -57,17 +57,17 @@ $(DEPDIR)/host_python: @DEPENDS_host_python@
 		\
 		$(MAKE) distclean && \
 		./configure \
-			--prefix=$(crossprefix) \
-			--sysconfdir=$(crossprefix)/etc \
+			--prefix=$(hostprefix) \
+			--sysconfdir=$(hostprefix)/etc \
 			--without-cxx-main \
 			--without-threads && \
 		$(MAKE) \
 			TARGET_OS=$(build) \
-			PYTHON_MODULES_INCLUDE="$(crossprefix)/include" \
-			PYTHON_MODULES_LIB="$(crossprefix)/lib" \
+			PYTHON_MODULES_INCLUDE="$(hostprefix)/include" \
+			PYTHON_MODULES_LIB="$(hostprefix)/lib" \
 			HOSTPYTHON=./hostpython \
 			HOSTPGEN=./hostpgen \
 			all install && \
-		cp ./hostpgen $(crossprefix)/bin/pgen ) && \
+		cp ./hostpgen $(hostprefix)/bin/pgen ) && \
 	@DISTCLEANUP_host_python@
 	touch $@

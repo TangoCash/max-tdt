@@ -1375,7 +1375,7 @@ $(DEPDIR)/elementtree: \
 $(DEPDIR)/%elementtree: $(DEPDIR)/elementtree.do_compile
 	cd @DIR_elementtree@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_elementtree@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1394,7 +1394,7 @@ $(DEPDIR)/libxml2.do_compile: $(DEPDIR)/libxml2.do_prepare
 			--host=$(target) \
 			--prefix=/usr \
 			--mandir=/usr/share/man \
-			--with-python=$(crossprefix) \
+			--with-python=$(hostprefix) \
 			--without-c14n \
 			--without-debug \
 			--without-mem-debug && \
@@ -1433,7 +1433,7 @@ $(DEPDIR)/libxslt.do_compile: $(DEPDIR)/libxslt.do_prepare
 			--with-libxml-prefix="$(crossprefix)" \
 			--with-libxml-include-prefix="$(targetprefix)/usr/include" \
 			--with-libxml-libs-prefix="$(targetprefix)/usr/lib" \
-			--with-python=$(crossprefix) \
+			--with-python=$(hostprefix) \
 			--without-crypto \
 			--without-debug \
 			--without-mem-debug && \
@@ -1466,7 +1466,7 @@ $(DEPDIR)/lxml.do_compile: $(DEPDIR)/lxml.do_prepare
 	cd @DIR_lxml@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build \
+		$(hostprefix)/bin/python ./setup.py build \
 			--with-xml2-config=$(crossprefix)/bin/xml2-config \
 			--with-xslt-config=$(crossprefix)/bin/xslt-config
 	touch $@
@@ -1477,7 +1477,7 @@ $(DEPDIR)/%lxml: $(DEPDIR)/lxml.do_compile
 	cd @DIR_lxml@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_lxml@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1490,14 +1490,14 @@ $(DEPDIR)/setuptools.do_prepare: bootstrap python @DEPENDS_setuptools@
 
 $(DEPDIR)/setuptools.do_compile: $(DEPDIR)/setuptools.do_prepare
 	cd @DIR_setuptools@ && \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-setuptools $(DEPDIR)/std-setuptools $(DEPDIR)/max-setuptools \
 $(DEPDIR)/setuptools: \
 $(DEPDIR)/%setuptools: $(DEPDIR)/setuptools.do_compile
 	cd @DIR_setuptools@ && \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_setuptools@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1512,7 +1512,7 @@ $(DEPDIR)/twisted.do_compile: $(DEPDIR)/twisted.do_prepare
 	cd @DIR_twisted@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
+		$(hostprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
 $(DEPDIR)/min-twisted $(DEPDIR)/std-twisted $(DEPDIR)/max-twisted \
@@ -1521,7 +1521,7 @@ $(DEPDIR)/%twisted: $(DEPDIR)/twisted.do_compile
 	cd @DIR_twisted@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_twisted@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1536,7 +1536,7 @@ $(DEPDIR)/twistedweb2.do_compile: $(DEPDIR)/twistedweb2.do_prepare
 	cd @DIR_twistedweb2@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
+		$(hostprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
 $(DEPDIR)/min-twistedweb2 $(DEPDIR)/std-twistedweb2 $(DEPDIR)/max-twistedweb2 \
@@ -1545,7 +1545,7 @@ $(DEPDIR)/%twistedweb2: $(DEPDIR)/twistedweb2.do_compile
 	cd @DIR_twistedweb2@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_twistedweb2@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1563,7 +1563,7 @@ $(DEPDIR)/pilimaging.do_compile: $(DEPDIR)/pilimaging.do_prepare
 		echo 'FREETYPE_ROOT = "$(targetprefix)/usr/lib", "$(targetprefix)/usr/include"' >> setup_site.py && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-pilimaging $(DEPDIR)/std-pilimaging $(DEPDIR)/max-pilimaging \
@@ -1571,7 +1571,7 @@ $(DEPDIR)/pilimaging: \
 $(DEPDIR)/%pilimaging: $(DEPDIR)/pilimaging.do_compile
 	cd @DIR_pilimaging@ && \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pilimaging@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1597,7 +1597,7 @@ $(DEPDIR)/%pycrypto: $(DEPDIR)/pycrypto.do_compile
 	cd @DIR_pycrypto@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pycrypto@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1612,7 +1612,7 @@ $(DEPDIR)/pyusb.do_compile: $(DEPDIR)/pyusb.do_prepare
 	cd @DIR_pyusb@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-pyusb $(DEPDIR)/std-pyusb $(DEPDIR)/max-pyusb \
@@ -1620,7 +1620,7 @@ $(DEPDIR)/pyusb: \
 $(DEPDIR)/%pyusb: $(DEPDIR)/pyusb.do_compile
 	cd @DIR_pyusb@ && \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pyusb@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1636,7 +1636,7 @@ $(DEPDIR)/pyopenssl.do_compile: $(DEPDIR)/pyopenssl.do_prepare
 		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/python$(PYTHON_VERSION)" \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-pyopenssl $(DEPDIR)/std-pyopenssl $(DEPDIR)/max-pyopenssl \
@@ -1644,7 +1644,7 @@ $(DEPDIR)/pyopenssl: \
 $(DEPDIR)/%pyopenssl: $(DEPDIR)/pyopenssl.do_compile
 	cd @DIR_pyopenssl@ && \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pyopenssl@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1674,7 +1674,7 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 			--with-pymalloc \
 			--with-signal-module \
 			--with-wctype-functions \
-			HOSTPYTHON=$(crossprefix)/bin/python \
+			HOSTPYTHON=$(hostprefix)/bin/python \
 			OPT="$(TARGET_CFLAGS)" && \
 		$(MAKE) $(MAKE_ARGS) \
 			TARGET_OS=$(target) \
@@ -1686,8 +1686,8 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 			CFLAGS="$(TARGET_CFLAGS) -fno-inline" \
 			LDFLAGS="$(TARGET_LDFLAGS)" \
 			LD="$(target)-gcc" \
-			HOSTPYTHON=$(crossprefix)/bin/python \
-			HOSTPGEN=$(crossprefix)/bin/pgen \
+			HOSTPYTHON=$(hostprefix)/bin/python \
+			HOSTPGEN=$(hostprefix)/bin/pgen \
 			all ) && \
 	touch $@
 
@@ -1697,10 +1697,11 @@ $(DEPDIR)/%python: $(DEPDIR)/python.do_compile
 	( cd @DIR_python@ && \
 		$(MAKE) $(MAKE_ARGS) \
 			TARGET_OS=$(target) \
-			HOSTPYTHON=$(crossprefix)/bin/python \
-			HOSTPGEN=$(crossprefix)/bin/pgen \
+			HOSTPYTHON=$(hostprefix)/bin/python \
+			HOSTPGEN=$(hostprefix)/bin/pgen \
 			install DESTDIR=$(prefix)/$*cdkroot ) && \
-	$(LN_SF) ../../libpython$(PYTHON_VERSION).so.1.0 $(prefix)/$*cdkroot$(PYTHON_DIR)/config/libpython$(PYTHON_VERSION).so
+	$(LN_SF) ../../libpython$(PYTHON_VERSION).so.1.0 $(prefix)/$*cdkroot$(PYTHON_DIR)/config/libpython$(PYTHON_VERSION).so && \
+	$(LN_SF) $(prefix)/$*cdkroot$(PYTHON_INCLUDE_DIR) $(prefix)/$*cdkroot/usr/include/python
 	@DISTCLEANUP_python@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1715,7 +1716,7 @@ $(DEPDIR)/pythonwifi.do_compile: $(DEPDIR)/pythonwifi.do_prepare
 	cd @DIR_pythonwifi@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-pythonwifi $(DEPDIR)/std-pythonwifi $(DEPDIR)/max-pythonwifi \
@@ -1723,7 +1724,7 @@ $(DEPDIR)/pythonwifi: \
 $(DEPDIR)/%pythonwifi: $(DEPDIR)/pythonwifi.do_compile
 	cd @DIR_pythonwifi@ && \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pythonwifi@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1738,7 +1739,7 @@ $(DEPDIR)/pythoncheetah.do_compile: $(DEPDIR)/pythoncheetah.do_prepare
 	cd @DIR_pythoncheetah@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-pythoncheetah $(DEPDIR)/std-pythoncheetah $(DEPDIR)/max-pythoncheetah \
@@ -1746,7 +1747,7 @@ $(DEPDIR)/pythoncheetah: \
 $(DEPDIR)/%pythoncheetah: $(DEPDIR)/pythoncheetah.do_compile
 	cd @DIR_pythoncheetah@ && \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_pythoncheetah@
 	[ "x$*" = "x" ] && touch $@ || true
 
@@ -1761,7 +1762,7 @@ $(DEPDIR)/zope_interface.do_compile: $(DEPDIR)/zope_interface.do_prepare
 	cd @DIR_zope_interface@ && \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py build
+		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
 $(DEPDIR)/min-zope_interface $(DEPDIR)/std-zope_interface $(DEPDIR)/max-zope_interface \
@@ -1769,7 +1770,7 @@ $(DEPDIR)/zope_interface: \
 $(DEPDIR)/%zope_interface: $(DEPDIR)/zope_interface.do_compile
 	cd @DIR_zope_interface@ && \
 		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
-		$(crossprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_zope_interface@
 	[ "x$*" = "x" ] && touch $@ || true
 

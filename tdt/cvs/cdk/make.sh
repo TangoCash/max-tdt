@@ -2,20 +2,17 @@
 
 if [ "$1" == -h ] || [ "$1" == --help ]; then
  echo "Parameter 1: target system (1-28)"
- echo "Parameter 2: kernel (1-12)"
+ echo "Parameter 2: kernel (1-42)"
  echo "Parameter 3: debug (Y/N)"
- echo "Parameter 4: player (1-3)"
- echo "Parameter 5: Multicom (1-3)"
- echo "Parameter 6: Media Framework (1-2)"
- echo "Parameter 7: External LCD support (1-2)"
- echo "Parameter 8: VDR (1-3)"
- echo "Parameter 9: Graphic Framework (1-2)"
+ echo "Parameter 4: player (1-2)"
+ echo "Parameter 5: Media Framework (1-2)"
+ echo "Parameter 6: External LCD support (1-2)"
+ echo "Parameter 7: Graphic Framework (1-2)"
  exit
 fi
 
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
-#export PATH=/usr/sbin:/sbin:$PATH
 
 CONFIGPARAM=" \
  --enable-maintainer-mode \
@@ -154,15 +151,14 @@ echo " Maintained:"
 echo "   1) STM 24 P0207"
 echo "   2) STM 24 P0209 (Recommended)"
 echo " Experimental:"
-echo "   3) STM 24 P0210 (UFS910, octagon1008, Fortis based (HDBOX), SPARK, Atevio7500)"
-echo "   4) STM 24 P0211 (UFS910, octagon1008, Cuberevo (IPBOX 9000), Fortis based (HDBOX), SPARK, Atevio7500)"
-echo "   5) STM 24 P0302 (UFS913)"
+echo "   3) STM 24 P0210"
+echo "   4) STM 24 P0211"
 case $2 in
-	[1-9] | 1[0-9]) REPLY=$2
+	[1-4]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"
 	;;
 	*)
-	read -p "Select kernel (1-5)? ";;
+	read -p "Select kernel (1-4)? ";;
 esac
 
 case "$REPLY" in
@@ -170,7 +166,6 @@ case "$REPLY" in
 	2)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
 	3)  KERNEL="--enable-stm24 --enable-p0210";STMFB="stm24";;
 	4)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
-	5)  KERNEL="--enable-stm24 --enable-p0302";STMFB="stm24";;
 	*)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
 esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
@@ -193,25 +188,23 @@ echo "# Automatically generated config: don't edit" > .config
 echo "#" >> .config
 echo "export CONFIG_ZD1211REV_B=y" >> .config
 echo "export CONFIG_ZD1211=n" >> .config
-cd -
+cd - &>/dev/null
 
 ##############################################
 
 echo -e "\nPlayer:"
-echo "   1) Player 131 (Deprecated)"
-echo "   2) Player 179"
-echo "   3) Player 191 (Recommended)"
-echo "   4) Player 191 (stmfb-3.1_stm24_0104)"
+echo "   1) Player 191 (stmfb-3.1_stm24_0102)"
+echo "   2) Player 191 (stmfb-3.1_stm24_0104)"
 case $4 in
-	[1-4]) REPLY=$4
+	[1-2]) REPLY=$4
 	echo -e "\nSelected player: $REPLY\n"
 	;;
 	*)
-	read -p "Select player (1-3)? ";;
+	read -p "Select player (1-2)? ";;
 esac
 
 case "$REPLY" in
-	1) PLAYER="--enable-player131"
+	1) PLAYER="--enable-player191"
 		cd ../driver/include/
 		if [ -L player2 ]; then
 			rm player2
@@ -220,65 +213,9 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
-		ln -s player2_131 player2
-		ln -s stmfb_player131 stmfb
-		cd - > /dev/null 2>&1
-
-		cd ../driver/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-		ln -s player2_131 player2
-		echo "export CONFIG_PLAYER_131=y" >> .config
-		cd - > /dev/null 2>&1
-
-		cd ../driver/stgfb
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s stmfb_player131 stmfb
-		cd - > /dev/null 2>&1
-	;;
-	2) PLAYER="--enable-player179"
-		cd ../driver/include/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s player2_179 player2
+		ln -s player2_191 player2
 		ln -s stmfb-3.1_stm24_0102 stmfb
-		cd - > /dev/null 2>&1
-
-		cd ../driver/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-		ln -s player2_179 player2
-		echo "export CONFIG_PLAYER_179=y" >> .config
-		cd - > /dev/null 2>&1
-
-		cd ../driver/stgfb
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s stmfb-3.1_stm24_0102 stmfb
-		cd - > /dev/null 2>&1
-	;;
-	3) PLAYER="--enable-player191"
-		cd ../driver/include/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s player2_179 player2
-		ln -s stmfb-3.1_stm24_0102 stmfb
-		cd - > /dev/null 2>&1
+		cd - &>/dev/null
 
 		cd ../driver/
 		if [ -L player2 ]; then
@@ -286,86 +223,22 @@ case "$REPLY" in
 		fi
 		ln -s player2_191 player2
 		echo "export CONFIG_PLAYER_191=y" >> .config
-		cd - > /dev/null 2>&1
+		cd - &>/dev/null
 
 		cd ../driver/stgfb
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
 		ln -s stmfb-3.1_stm24_0102 stmfb
-		cd - > /dev/null 2>&1
-	;;
-	4) PLAYER="--enable-player191"
-		cd ../driver/include/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s player2_179 player2
-		ln -s stmfb-3.1_stm24_0104 stmfb
-		cd - > /dev/null 2>&1
-
-		cd ../driver/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-		ln -s player2_191 player2
-		echo "export CONFIG_PLAYER_191=y" >> .config
-		cd - > /dev/null 2>&1
-
-		cd ../driver/stgfb
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s stmfb-3.1_stm24_0104 stmfb
-		cd - > /dev/null 2>&1
-	;;
-	*) PLAYER="--enable-player191";;
-esac
-
-##############################################
-
-echo -e "\nMulticom:"
-echo "   1) Multicom 3.2.2 (Recommended for Player179)"
-echo "   2) Multicom 3.2.4 (Recommended for Player191)"
-case $5 in
-	[1-3]) REPLY=$5
-	echo -e "\nSelected multicom: $REPLY\n"
-	;;
-	*)
-	read -p "Select multicom (1-3)? ";;
-esac
-
-case "$REPLY" in
-	1) MULTICOM="--enable-multicom322"
-		cd ../driver/include/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s multicom-3.2.2 multicom
-		cd - > /dev/null 2>&1
-
-		cd ../driver/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s multicom-3.2.2 multicom
-		echo "export CONFIG_MULTICOM322=y" >> .config
-		cd - > /dev/null 2>&1
-	;;
-	2 | 3) MULTICOM="--enable-multicom324"
+		cd - &>/dev/null
+		MULTICOM="--enable-multicom324"
 		cd ../driver/include/
 		if [ -L multicom ]; then
 			rm multicom
 		fi
 
 		ln -s ../multicom-3.2.4/include multicom
-		cd - > /dev/null 2>&1
+		cd - &>/dev/null
 
 		cd ../driver/
 		if [ -L multicom ]; then
@@ -374,18 +247,62 @@ case "$REPLY" in
 
 		ln -s multicom-3.2.4 multicom
 		echo "export CONFIG_MULTICOM324=y" >> .config
-		cd - > /dev/null 2>&1
+		cd - &>/dev/null
 	;;
-	*) MULTICOM="--enable-multicom322";;
-esac
+	2) PLAYER="--enable-player191"
+		cd ../driver/include/
+		if [ -L player2 ]; then
+			rm player2
+		fi
 
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s player2_191 player2
+		ln -s stmfb-3.1_stm24_0104 stmfb
+		cd - &>/dev/null
+
+		cd ../driver/
+		if [ -L player2 ]; then
+			rm player2
+		fi
+		ln -s player2_191 player2
+		echo "export CONFIG_PLAYER_191=y" >> .config
+		cd - &>/dev/null
+
+		cd ../driver/stgfb
+		if [ -L stmfb ]; then
+			rm stmfb
+		fi
+		ln -s stmfb-3.1_stm24_0104 stmfb
+		cd - &>/dev/null
+		MULTICOM="--enable-multicom324"
+		cd ../driver/include/
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
+		ln -s ../multicom-3.2.4/include multicom
+		cd - &>/dev/null
+
+		cd ../driver/
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
+		ln -s multicom-3.2.4 multicom
+		echo "export CONFIG_MULTICOM324=y" >> .config
+		cd - &>/dev/null
+	;;
+	*) PLAYER="--enable-player191";;
+esac
 ##############################################
 
 echo -e "\nMedia Framework:"
 echo "   1) eplayer3"
 echo "   2) gstreamer"
-case $6 in
-	[1-2]) REPLY=$6
+case $5 in
+	[1-2]) REPLY=$5
 	echo -e "\nSelected media framwork: $REPLY\n"
 	;;
 	*)
@@ -403,8 +320,8 @@ esac
 echo -e "\nExternal LCD support:"
 echo "   1) No external LCD"
 echo "   2) graphlcd for external LCD"
-case $7 in
-	[1-2]) REPLY=$7
+case $6 in
+	[1-2]) REPLY=$6
 	echo -e "\nSelected LCD support: $REPLY\n"
 	;;
 	*)
@@ -418,26 +335,12 @@ case "$REPLY" in
 esac
 
 ##############################################
-# rest spaeter
-echo -e "\nVDR-1.7.XX:"
-echo "   1) No"
-echo "   2) VDR-1.7.22"
-echo "   3) VDR-1.7.27"
-case $8 in
-	[1-3]) REPLY=$8
-	echo -e "\nSelected VDR-1.7.XX: $REPLY\n"
-	;;
-	*)
-	read -p "Select VDR (1-3)? ";;
-esac
-
-##############################################
 
 echo -e "\nGraphic Framework:"
 echo "   1) Framebuffer"
 echo "   2) DirectFB (Recommended XBMC)"
-case $9 in
-	[1-2]) REPLY=$9
+case $7 in
+	[1-2]) REPLY=$7
 	echo -e "\nSelected Graphic Framework: $REPLY\n"
 	;;
 	*)
@@ -457,7 +360,7 @@ esac
 
 ##############################################
 
-CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $VDR $GFW"
+CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
 
 ##############################################
 
@@ -471,8 +374,8 @@ echo "-----------------------" && \
 echo && \
 ./configure $CONFIGPARAM
 
-#Dagobert: I find it sometimes useful to know
-#what I have build last in this directory ;)
+##############################################
+
 echo $CONFIGPARAM >lastChoice
 echo " "
 echo "----------------------------------------"

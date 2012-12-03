@@ -25,14 +25,6 @@
  
  # When cross compiling this fails because it needs to run code
  export ac_cv_header_stdc=yes
-@@ -267,7 +267,6 @@
- 	--enable-nls \
- 	--enable-c99 \
- 	--enable-long-long \
--	--with-system-zlib \
- 	--enable-shared \
- %if "%{_stm_target_arch}" != "armv7" && "%{_stm_target_arch}" != "armv7_uclibc"
- 	--disable-libgomp \
 @@ -388,6 +387,8 @@
  rm -r %{buildroot}%{_stm_cross_target_dir}%{_stm_target_man_dir}/man7
  rm -r %{buildroot}%{_gccdir}/install-tools

@@ -8,6 +8,7 @@ export DRPM
 export DRPMBUILD
 
 AUTOMAKE_OPTIONS = -Wno-portability
+MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
 
 #
 #
@@ -77,12 +78,14 @@ CP_D=$(shell which cp) -d
 CP_P=$(shell which cp) -p
 CP_RD=$(shell which cp) -rd
 SED=$(shell which sed)
-
-MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
-
 ADAPTED_ETC_FILES =
 ETC_RW_FILES =
+SOCKSIFY=
+WGET=$(SOCKSIFY) wget
 
+#
+#
+#
 BUILDENV := \
 	CC=$(target)-gcc \
 	CXX=$(target)-g++ \

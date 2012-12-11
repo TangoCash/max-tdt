@@ -1196,7 +1196,9 @@ $(DEPDIR)/sqlite.do_compile: $(DEPDIR)/sqlite.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr && \
+		--prefix=/usr \
+		--disable-tcl \
+		--disable-debug && \
 	$(MAKE)
 	touch $@
 
@@ -1387,6 +1389,7 @@ $(DEPDIR)/libxml2.do_prepare: bootstrap @DEPENDS_libxml2@
 	touch $@
 
 $(DEPDIR)/libxml2.do_compile: $(DEPDIR)/libxml2.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxml2@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1422,6 +1425,7 @@ $(DEPDIR)/libxslt.do_prepare: bootstrap libxml2 @DEPENDS_libxslt@
 	touch $@
 
 $(DEPDIR)/libxslt.do_compile: $(DEPDIR)/libxslt.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxslt@ && \
 		$(BUILDENV) \
 		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/libxml2 -Os" \
@@ -1499,6 +1503,30 @@ $(DEPDIR)/%setuptools: $(DEPDIR)/setuptools.do_compile
 	cd @DIR_setuptools@ && \
 		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
 	@DISTCLEANUP_setuptools@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# gdata
+#
+$(DEPDIR)/gdata.do_prepare: bootstrap setuptools @DEPENDS_gdata@
+	@PREPARE_gdata@
+	touch $@
+
+$(DEPDIR)/gdata.do_compile: $(DEPDIR)/gdata.do_prepare
+	cd @DIR_gdata@ && \
+		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
+		$(hostprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
+	touch $@
+
+$(DEPDIR)/min-gdata $(DEPDIR)/std-gdata $(DEPDIR)/max-gdata \
+$(DEPDIR)/gdata: \
+$(DEPDIR)/%gdata: $(DEPDIR)/gdata.do_compile
+	cd @DIR_gdata@ && \
+		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
+		PYTHONPATH=$(targetprefix)$(PYTHON_DIR)/site-packages \
+		$(hostprefix)/bin/python ./setup.py install --root=$(targetprefix) --prefix=/usr
+	@DISTCLEANUP_gdata@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -1795,6 +1823,7 @@ $(DEPDIR)/gstreamer.do_compile: $(DEPDIR)/gstreamer.do_prepare
 		--prefix=/usr \
 		--disable-dependency-tracking \
 		--disable-check \
+		--enable-introspection=no \
 		ac_cv_func_register_printf_function=no && \
 	$(MAKE)
 	touch $@
@@ -1812,7 +1841,7 @@ $(DEPDIR)/%gstreamer: $(DEPDIR)/gstreamer.do_compile
 #
 # GST-PLUGINS-BASE
 #
-$(DEPDIR)/gst_plugins_base.do_prepare: bootstrap glib2 gstreamer libogg libalsa @DEPENDS_gst_plugins_base@
+$(DEPDIR)/gst_plugins_base.do_prepare: bootstrap glib2 gstreamer libogg libalsa libvorbis @DEPENDS_gst_plugins_base@
 	@PREPARE_gst_plugins_base@
 	touch $@
 
@@ -1830,6 +1859,10 @@ $(DEPDIR)/gst_plugins_base.do_compile: $(DEPDIR)/gst_plugins_base.do_prepare
 		--disable-vorbis \
 		--disable-x \
 		--disable-examples \
+		--disable-oggtest \
+		--disable-vorbistest \
+		--disable-freetypetest \
+		--with-gudev \
 		--with-audioresample-format=int && \
 	$(MAKE)
 	touch $@
@@ -1861,8 +1894,7 @@ $(DEPDIR)/gst_plugins_good.do_compile: $(DEPDIR)/gst_plugins_good.do_prepare
 		--disable-aalib \
 		--disable-shout2 \
 		--disable-shout2test \
-		--disable-x \
-		--with-check=no && \
+		--disable-x && \
 	$(MAKE)
 	touch $@
 
@@ -1890,6 +1922,20 @@ $(DEPDIR)/gst_plugins_bad.do_compile: $(DEPDIR)/gst_plugins_bad.do_prepare
 		--prefix=/usr \
 		--disable-sdl \
 		--disable-modplug \
+		--disable-mpeg2enc \
+		--disable-mplex \
+		--disable-vdpau \
+		--disable-apexsink \
+		--disable-dvdnav \
+		--disable-cdaudio \
+		--disable-mpeg2enc \
+		--disable-mplex \
+		--disable-librfb \
+		--disable-vdpau \
+		--disable-examples \
+		--disable-sdltest \
+		--disable-curl \
+		--disable-rsvg \
 		ac_cv_openssldir=no && \
 	$(MAKE)
 	touch $@
@@ -2013,13 +2059,13 @@ $(DEPDIR)/gst_plugins_fluendo_mpegdemux: \
 $(DEPDIR)/%gst_plugins_fluendo_mpegdemux: $(DEPDIR)/gst_plugins_fluendo_mpegdemux.do_compile
 	cd @DIR_gst_plugins_fluendo_mpegdemux@ && \
 		@INSTALL_gst_plugins_fluendo_mpegdemux@
-	@DISTCLEANUP_gst_ffmpeg@
+	@DISTCLEANUP_gst_plugins_fluendo_mpegdemux@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
 # GST-PLUGIN-SUBSINK
 #
-$(DEPDIR)/gst_plugin_subsink.do_prepare: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly @DEPENDS_gst_plugin_subsink@
+$(DEPDIR)/gst_plugin_subsink.do_prepare: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugins_fluendo_mpegdemux @DEPENDS_gst_plugin_subsink@
 	@PREPARE_gst_plugin_subsink@
 	touch $@
 
@@ -2049,7 +2095,7 @@ $(DEPDIR)/%gst_plugin_subsink: $(DEPDIR)/gst_plugin_subsink.do_compile
 #
 # GST-PLUGINS-DVBMEDIASINK
 #
-$(DEPDIR)/gst_plugins_dvbmediasink.do_prepare: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugin_subsink @DEPENDS_gst_plugins_dvbmediasink@
+$(DEPDIR)/gst_plugins_dvbmediasink.do_prepare: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugin_subsink libdca @DEPENDS_gst_plugins_dvbmediasink@
 	@PREPARE_gst_plugins_dvbmediasink@
 	touch $@
 
@@ -2074,6 +2120,30 @@ $(DEPDIR)/%gst_plugins_dvbmediasink: $(DEPDIR)/gst_plugins_dvbmediasink.do_compi
 	cd @DIR_gst_plugins_dvbmediasink@ && \
 		@INSTALL_gst_plugins_dvbmediasink@
 	@DISTCLEANUP_gst_plugins_dvbmediasink@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# libdca
+#
+$(DEPDIR)/libdca.do_prepare: @DEPENDS_libdca@
+	@PREPARE_libdca@
+	touch $@
+
+$(DEPDIR)/libdca.do_compile: $(DEPDIR)/libdca.do_prepare
+	cd @DIR_libdca@ && \
+	$(BUILDENV) \
+	./configure \
+		--host=$(target) \
+		--prefix=/usr && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/min-libdca $(DEPDIR)/std-libdca $(DEPDIR)/max-libdca \
+$(DEPDIR)/libdca: \
+$(DEPDIR)/%libdca: $(DEPDIR)/libdca.do_compile
+	cd @DIR_libdca@ && \
+		@INSTALL_libdca@
+	@DISTCLEANUP_libdca@
 	[ "x$*" = "x" ] && touch $@ || true
 
 ##############################   EXTERNAL_LCD   ################################

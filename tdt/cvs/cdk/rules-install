@@ -55,9 +55,8 @@ imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/Ma
 #
 libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la
 libboost;remove:TARGETS/include/boost;move:boost:TARGETS/usr/include/boost
-ncurses;
 #libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
-libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;archive:TARGET/usr/lib/libz_pic.a:*.o
+#libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;archive:TARGETS/usr/lib/libz_pic.a:*.o
 libreadline;make:install:DESTDIR=TARGETS
 freetype_old;make:install:DESTDIR=BUILD/freetype-2.1.4/install_dir
 freetype;rewrite-pkgconfig:builds/unix/freetype2.pc;make:install:libdir=TARGETS/usr/lib:includedir=TARGETS/usr/include:bindir=TARGETS/usr/bin:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libfreetype.la
@@ -141,15 +140,16 @@ libxslt;rewrite-pkgconfig:libxslt.pc:libexslt.pc;make:install:DESTDIR=TARGETS;re
 #
 # GSTREAMER
 #
-gstreamer;rewrite-pkgconfig:pkgconfig/gstreamer.pc:pkgconfig/gstreamer-base.pc:pkgconfig/gstreamer-check.pc:pkgconfig/gstreamer-controller.pc:pkgconfig/gstreamer-dataprotocol.pc:pkgconfig/gstreamer-net.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgstreamer-0.10.la:TARGETS/usr/lib/libgstbase-0.10.la:TARGETS/usr/lib/libgstcheck-0.10.la:TARGETS/usr/lib/libgstcontroller-0.10.la:TARGETS/usr/lib/libgstdataprotocol-0.10.la:TARGETS/usr/lib/libgstnet-0.10.la;rewrite-dependency:TARGETS/usr/lib/libgstbase-0.10.la::TARGETS/usr/lib/libgstcheck-0.10.la:TARGETS/usr/lib/libgstcontroller-0.10.la:TARGETS/usr/lib/libgstdataprotocol-0.10.la:TARGETS/usr/lib/libgstnet-0.10.la
-gst_plugins_bad;rewrite-pkgconfig:pkgconfig/gstreamer-plugins-bad.pc:pkgconfig/gstreamer-basevideo.pc:pkgconfig/gstreamer-codecparsers.pc;make:install:DESTDIR=TARGETS
-gst_plugins_base;rewrite-pkgconfig:pkgconfig/gstreamer-plugins-base.pc:pkgconfig/gstreamer-app.pc:pkgconfig/gstreamer-audio.pc:pkgconfig/gstreamer-cdda.pc:pkgconfig/gstreamer-fft.pc:pkgconfig/gstreamer-floatcast.pc:pkgconfig/gstreamer-interfaces.pc:pkgconfig/gstreamer-netbuffer.pc:pkgconfig/gstreamer-pbutils.pc:pkgconfig/gstreamer-riff.pc:pkgconfig/gstreamer-rtp.pc:pkgconfig/gstreamer-rtsp.pc:pkgconfig/gstreamer-sdp.pc:pkgconfig/gstreamer-tag.pc:pkgconfig/gstreamer-video.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgstapp-0.10.la:TARGETS/usr/lib/libgstaudio-0.10.la:TARGETS/usr/lib/libgstcdda-0.10.la:TARGETS/usr/lib/libgstfft-0.10.la:TARGETS/usr/lib/libgstfloatcast-0.10.la:TARGETS/usr/lib/libgstinterfaces-0.10.la:TARGETS/usr/lib/libgstnetbuffer-0.10.la:TARGETS/usr/lib/libgstpbutils-0.10.la:TARGETS/usr/lib/libgstriff-0.10.la:TARGETS/usr/lib/libgstrtp-0.10.la:TARGETS/usr/lib/libgstrtsp-0.10.la:TARGETS/usr/lib/libgstsdp-0.10.la:TARGETS/usr/lib/libgsttag-0.10.la:TARGETS/usr/lib/libgstvideo-0.10.la;rewrite-dependency:TARGETS/usr/lib/libgstaudio-0.10.la:TARGETS/usr/lib/libgstcdda-0.10.la:TARGETS/usr/lib/libgstpbutils-0.10.la:TARGETS/usr/lib/libgstriff-0.10.la
+gstreamer;rewrite-pkgconfig:pkgconfig/gstreamer-0.10.pc:pkgconfig/gstreamer-base-0.10.pc:pkgconfig/gstreamer-controller-0.10.pc:pkgconfig/gstreamer-dataprotocol-0.10.pc:pkgconfig/gstreamer-net-0.10.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgstreamer-0.10.la:TARGETS/usr/lib/libgstbase-0.10.la:TARGETS/usr/lib/libgstcontroller-0.10.la:TARGETS/usr/lib/libgstdataprotocol-0.10.la:TARGETS/usr/lib/libgstnet-0.10.la;rewrite-dependency:TARGETS/usr/lib/libgstbase-0.10.la:TARGETS/usr/lib/libgstcheck-0.10.la:TARGETS/usr/lib/libgstcontroller-0.10.la:TARGETS/usr/lib/libgstdataprotocol-0.10.la:TARGETS/usr/lib/libgstnet-0.10.la
+gst_plugins_bad;rewrite-pkgconfig:pkgconfig/gstreamer-plugins-bad.pc:pkgconfig/gstreamer-basevideo.pc:pkgconfig/gstreamer-codecparsers.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgstbasecamerabinsrc-0.10.la:TARGETS/usr/lib/libgstbasevideo-0.10.la:TARGETS/usr/lib/libgstcodecparsers-0.10.la:TARGETS/usr/lib/libgstphotography-0.10.la:TARGETS/usr/lib/libgstsignalprocessor-0.10.la
+gst_plugins_base;rewrite-pkgconfig:pkgconfig/gstreamer-audio-0.10.pc:pkgconfig/gstreamer-app-0.10.pc:pkgconfig/gstreamer-cdda-0.10.pc:pkgconfig/gstreamer-cdda.pc:pkgconfig/gstreamer-fft-0.10.pc:pkgconfig/gstreamer-floatcast-0.10.pc:pkgconfig/gstreamer-interfaces-0.10.pc:pkgconfig/gstreamer-netbuffer-0.10.pc:pkgconfig/gstreamer-pbutils-0.10.pc:pkgconfig/gstreamer-riff-0.10.pc:pkgconfig/gstreamer-rtp-0.10.pc:pkgconfig/gstreamer-rtsp-0.10.pc:pkgconfig/gstreamer-sdp-0.10.pc:pkgconfig/gstreamer-tag-0.10.pc:pkgconfig/gstreamer-video-0.10.pc:pkgconfig/gstreamer-plugins-base-0.10.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgstapp-0.10.la:TARGETS/usr/lib/libgstaudio-0.10.la:TARGETS/usr/lib/libgstcdda-0.10.la:TARGETS/usr/lib/libgstfft-0.10.la:TARGETS/usr/lib/libgstinterfaces-0.10.la:TARGETS/usr/lib/libgstnetbuffer-0.10.la:TARGETS/usr/lib/libgstpbutils-0.10.la:TARGETS/usr/lib/libgstriff-0.10.la:TARGETS/usr/lib/libgstrtp-0.10.la:TARGETS/usr/lib/libgstrtsp-0.10.la:TARGETS/usr/lib/libgstsdp-0.10.la:TARGETS/usr/lib/libgsttag-0.10.la:TARGETS/usr/lib/libgstvideo-0.10.la;rewrite-dependency:TARGETS/usr/lib/libgstapp-0.10.la:TARGETS/usr/lib/libgstaudio-0.10.la:TARGETS/usr/lib/libgstcdda-0.10.la:TARGETS/usr/lib/libgstfft-0.10.la:TARGETS/usr/lib/libgstinterfaces-0.10.la:TARGETS/usr/lib/libgstnetbuffer-0.10.la:TARGETS/usr/lib/libgstpbutils-0.10.la:TARGETS/usr/lib/libgstriff-0.10.la:TARGETS/usr/lib/libgstrtp-0.10.la:TARGETS/usr/lib/libgstrtsp-0.10.la:TARGETS/usr/lib/libgstsdp-0.10.la:TARGETS/usr/lib/libgsttag-0.10.la:TARGETS/usr/lib/libgstvideo-0.10.la
 gst_plugins_good;make:install:DESTDIR=TARGETS
 gst_plugins_ugly;make:install:DESTDIR=TARGETS
 gst_ffmpeg;make:install:DESTDIR=TARGETS
 gst_plugins_fluendo_mpegdemux;make:install:DESTDIR=TARGETS
 gst_plugins_dvbmediasink;make:install:DESTDIR=TARGETS
 gst_plugin_subsink;make:install:DESTDIR=TARGETS
+libdca;make:install:DESTDIR=TARGETS
 
 #
 # ENGIMA2

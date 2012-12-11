@@ -455,6 +455,26 @@ $(DEPDIR)/%rsync: $(DEPDIR)/rsync.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# RFKILL
+#
+$(DEPDIR)/rfkill.do_prepare: bootstrap @DEPENDS_rfkill@
+	@PREPARE_rfkill@
+	touch $@
+
+$(DEPDIR)/rfkill.do_compile: $(DEPDIR)/rfkill.do_prepare
+	cd @DIR_rfkill@ && \
+		$(MAKE) $(MAKE_OPTS)
+	touch $@
+
+$(DEPDIR)/min-rfkill $(DEPDIR)/std-rfkill $(DEPDIR)/max-rfkill \
+$(DEPDIR)/rfkill: \
+$(DEPDIR)/%rfkill: $(DEPDIR)/rfkill.do_compile
+	cd @DIR_rfkill@ && \
+		@INSTALL_rfkill@
+	@DISTCLEANUP_rfkill@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # LM_SENSORS
 #
 $(DEPDIR)/lm_sensors.do_prepare: bootstrap @DEPENDS_lm_sensors@

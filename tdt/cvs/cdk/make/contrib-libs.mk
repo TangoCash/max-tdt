@@ -2672,7 +2672,7 @@ $(DEPDIR)/libdreamdvd2.do_prepare: bootstrap @DEPENDS_libdreamdvd2@
 	[ -d "libdreamdvd" ] && \
 	cd libdreamdvd && git pull; \
 	[ -d "libdreamdvd" ] || \
-	git clone git://schwerkraft.elitedvb.net/libdreamdvd/libdreamdvd.git;
+	git clone git://github.com/mirakels/libdreamdvd.git;
 	touch $@
 
 $(DEPDIR)/libdreamdvd2.do_compile: $(DEPDIR)/libdreamdvd2.do_prepare

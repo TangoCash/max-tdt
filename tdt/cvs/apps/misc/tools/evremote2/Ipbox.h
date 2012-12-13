@@ -1,5 +1,5 @@
-#ifndef __vip2__
-#define __vip2__
+#ifndef __ipbox__
+#define __ipbox__
 
 #define VFDICONDISPLAYONOFF		0xc0425a0a
 
@@ -39,7 +39,7 @@ struct set_time_s {
 	char time[5];
 };
 
-struct aotom_ioctl_data {
+struct proton_ioctl_data {
 	union
 	{
 		struct set_icon_s icon;

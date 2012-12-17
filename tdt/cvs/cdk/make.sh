@@ -171,6 +171,8 @@ esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
 
 ##############################################
+
+echo -e "\nKernel debug:"
 if [ "$3" ]; then
 	REPLY="$3"
 	echo "Activate debug (y/N)? "

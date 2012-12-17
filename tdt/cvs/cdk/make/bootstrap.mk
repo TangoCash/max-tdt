@@ -128,6 +128,31 @@ $(HOST_DISTRIBUTIONUTILS): $(HOST_DISTRIBUTIONUTILS_RPM)
 	touch .deps/$(notdir $@)
 
 #
+# HOST-LDD
+#
+HOST_LDD = host-ldd
+HOST_LDD_VERSION = 1.0-6
+HOST_LDD_SPEC = stm-$(HOST_LDD).spec
+HOST_LDD_SPEC_PATCH =
+HOST_LDD_PATCHES =
+
+HOST_LDD_RPM = RPMS/sh4/$(STLINUX)-$(HOST_LDD)-$(HOST_LDD_VERSION).sh4.rpm
+
+$(HOST_LDD_RPM): \
+		$(if $(HOST_LDD_SPEC_PATCH),Patches/$(HOST_LDD_SPEC_PATCH)) \
+		$(if $(HOST_LDD_PATCHES),$(HOST_LDD_PATCHES:%=Patches/%)) \
+		$(archivedir)/$(STM_SRC)-$(HOST_LDD)-$(HOST_LDD_VERSION).src.rpm
+	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+	$(if $(HOST_LDD_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_LDD_SPEC) < $(buildprefix)/Patches/$(HOST_LDD_SPEC_PATCH) ) &&) \
+	$(if $(HOST_LDD_PATCHES),cp $(HOST_LDD_PATCHES:%=Patches/%) SOURCES/ &&) \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	rpmbuild  $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_LDD_SPEC)
+
+$(HOST_LDD): $(HOST_LDD_RPM)
+	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
+	touch .deps/$(notdir $@)
+
+#
 # HOST AUTOTOOLS
 #
 HOST_AUTOTOOLS = host-autotools
@@ -668,6 +693,7 @@ $(DEPDIR)/bootstrap-host: | \
 	host-rpmconfig \
 	host-base-passwd \
 	host-distributionutils \
+	host-ldd \
 	$(HOST_M4) \
 	host-autotools \
 	$(HOST_AUTOMAKE) \

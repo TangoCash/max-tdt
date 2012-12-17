@@ -1,6 +1,6 @@
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/acinclude.m4 neutrino-hd2-exp/acinclude.m4
---- neutrino-hd2-exp.org/acinclude.m4	2012-12-02 23:13:34.052785833 +0100
-+++ neutrino-hd2-exp/acinclude.m4	2012-12-02 23:13:34.196785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/acinclude.m4 neutrino-hd2-exp/acinclude.m4
+--- neutrino-hd2-exp.org/acinclude.m4	2012-12-17 13:14:29.637472913 +0100
++++ neutrino-hd2-exp/acinclude.m4	2012-12-17 13:14:29.769472918 +0100
 @@ -225,10 +225,10 @@
  AC_DEFUN([_TUXBOX_APPS_LIB_PKGCONFIG],[
  AC_REQUIRE([TUXBOX_APPS_PKGCONFIG])
@@ -15,44 +15,20 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/acinclude.m4 neutrin
  else
  	AC_MSG_RESULT(no)
  fi
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/lib/libcoolstream/dvb-ci.cpp neutrino-hd2-exp/lib/libcoolstream/dvb-ci.cpp
---- neutrino-hd2-exp.org/lib/libcoolstream/dvb-ci.cpp	2012-11-13 22:59:52.084427239 +0100
-+++ neutrino-hd2-exp/lib/libcoolstream/dvb-ci.cpp	2012-11-13 23:06:58.096444897 +0100
-@@ -6,7 +6,7 @@
- #include <fcntl.h>
- #include <sys/ioctl.h>
- #include <asm/types.h>
--
-+#include <unistd.h>
- #include <linux/dvb/ca.h>
- #include <poll.h>
-  
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/lib/libcoolstream/record_cs.cpp neutrino-hd2-exp/lib/libcoolstream/record_cs.cpp
---- neutrino-hd2-exp.org/lib/libcoolstream/record_cs.cpp	2012-11-13 22:59:52.084427239 +0100
-+++ neutrino-hd2-exp/lib/libcoolstream/record_cs.cpp	2012-11-13 23:05:13.516440561 +0100
-@@ -21,7 +21,7 @@
- #include <stdio.h>
- #include <stdint.h>
- #include <string.h> 
--
-+#include <unistd.h>
- #include <sys/types.h>
- 
- #include "record_cs.h"
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/lib/libnet/network_interfaces.cpp neutrino-hd2-exp/lib/libnet/network_interfaces.cpp
---- neutrino-hd2-exp.org/lib/libnet/network_interfaces.cpp	2012-12-02 23:13:20.656785278 +0100
-+++ neutrino-hd2-exp/lib/libnet/network_interfaces.cpp	2012-12-02 23:13:34.196785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/lib/libnet/network_interfaces.cpp neutrino-hd2-exp/lib/libnet/network_interfaces.cpp
+--- neutrino-hd2-exp.org/lib/libnet/network_interfaces.cpp	2012-12-17 13:14:11.329472154 +0100
++++ neutrino-hd2-exp/lib/libnet/network_interfaces.cpp	2012-12-17 13:14:29.769472918 +0100
 @@ -24,6 +24,7 @@
  #include <map>
  #include <string>
  #include <sstream>
 +#include <unistd.h>
  
- /*
-  * Known bugs:
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/framebuffer.h neutrino-hd2-exp/src/driver/framebuffer.h
---- neutrino-hd2-exp.org/src/driver/framebuffer.h	2012-12-02 23:13:27.412785559 +0100
-+++ neutrino-hd2-exp/src/driver/framebuffer.h	2012-12-02 23:13:34.196785839 +0100
+ #include <unistd.h>
+ 
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/framebuffer.h neutrino-hd2-exp/src/driver/framebuffer.h
+--- neutrino-hd2-exp.org/src/driver/framebuffer.h	2012-12-17 13:14:22.985472637 +0100
++++ neutrino-hd2-exp/src/driver/framebuffer.h	2012-12-17 13:14:29.769472918 +0100
 @@ -55,11 +55,6 @@
  #define CORNER_BOTTOM		0x2
  #define CORNER_BOTH		0x3
@@ -65,9 +41,9 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/framebuff
  // resolution
  #define DEFAULT_XRES		960
  #define DEFAULT_YRES		720
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/gif.cpp neutrino-hd2-exp/src/driver/gif.cpp
---- neutrino-hd2-exp.org/src/driver/gif.cpp	2012-12-02 23:13:27.408785559 +0100
-+++ neutrino-hd2-exp/src/driver/gif.cpp	2012-12-02 23:13:34.196785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/gif.cpp neutrino-hd2-exp/src/driver/gif.cpp
+--- neutrino-hd2-exp.org/src/driver/gif.cpp	2012-12-17 13:14:22.985472637 +0100
++++ neutrino-hd2-exp/src/driver/gif.cpp	2012-12-17 13:14:29.769472918 +0100
 @@ -4,7 +4,7 @@
  
  #include <cstring>
@@ -77,10 +53,10 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/gif.cpp n
  #include "framebuffer.h"
  #include <stdio.h>
  #include <sys/types.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/nglcd.cpp neutrino-hd2-exp/src/driver/nglcd.cpp
---- neutrino-hd2-exp.org/src/driver/nglcd.cpp	2012-12-02 23:13:27.416785559 +0100
-+++ neutrino-hd2-exp/src/driver/nglcd.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -29,7 +29,7 @@
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/nglcd.cpp neutrino-hd2-exp/src/driver/nglcd.cpp
+--- neutrino-hd2-exp.org/src/driver/nglcd.cpp	2012-12-17 13:14:22.993472637 +0100
++++ neutrino-hd2-exp/src/driver/nglcd.cpp	2012-12-17 13:14:29.769472918 +0100
+@@ -32,7 +32,7 @@
  #include <algorithm>
  #include <system/debug.h>
  #include <system/set_threadname.h>
@@ -89,34 +65,10 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/nglcd.cpp
  #include "nglcd.h"
  
  #ifndef max
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/pictureviewer/pictureviewer.cpp neutrino-hd2-exp/src/driver/pictureviewer/pictureviewer.cpp
---- neutrino-hd2-exp.org/src/driver/pictureviewer/pictureviewer.cpp	2012-12-02 23:13:27.068785544 +0100
-+++ neutrino-hd2-exp/src/driver/pictureviewer/pictureviewer.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -8,7 +8,7 @@
- #include <stdio.h>
- #include <stdlib.h>
- #include <sys/types.h>
--
-+#include <unistd.h>
- #include <system/debug.h>
- 
- 
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/shutdown_count.cpp neutrino-hd2-exp/src/driver/shutdown_count.cpp
---- neutrino-hd2-exp.org/src/driver/shutdown_count.cpp	2012-12-02 23:13:27.412785559 +0100
-+++ neutrino-hd2-exp/src/driver/shutdown_count.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -34,7 +34,7 @@
- 
- #include <sys/timeb.h>
- #include <time.h>
--
-+#include <unistd.h>
- 
- SHTDCNT::SHTDCNT()
- 	: configfile('\t')
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/audioplayer.cpp neutrino-hd2-exp/src/gui/audioplayer.cpp
---- neutrino-hd2-exp.org/src/gui/audioplayer.cpp	2012-12-02 23:13:24.744785447 +0100
-+++ neutrino-hd2-exp/src/gui/audioplayer.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -72,6 +72,7 @@
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/audioplayer.cpp neutrino-hd2-exp/src/gui/audioplayer.cpp
+--- neutrino-hd2-exp.org/src/gui/audioplayer.cpp	2012-12-17 13:14:19.081472475 +0100
++++ neutrino-hd2-exp/src/gui/audioplayer.cpp	2012-12-17 13:14:29.769472918 +0100
+@@ -74,6 +74,7 @@
  #include <fstream>
  #include <iostream>
  #include <sstream>
@@ -124,10 +76,10 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/audioplayer.
  
  #include <gui/pictureviewer.h>
  #include <audio_cs.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/filebrowser.cpp neutrino-hd2-exp/src/gui/filebrowser.cpp
---- neutrino-hd2-exp.org/src/gui/filebrowser.cpp	2012-12-02 23:13:24.744785447 +0100
-+++ neutrino-hd2-exp/src/gui/filebrowser.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -55,6 +55,7 @@
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/filebrowser.cpp neutrino-hd2-exp/src/gui/filebrowser.cpp
+--- neutrino-hd2-exp.org/src/gui/filebrowser.cpp	2012-12-17 13:14:19.085472475 +0100
++++ neutrino-hd2-exp/src/gui/filebrowser.cpp	2012-12-17 13:14:29.769472918 +0100
+@@ -57,6 +57,7 @@
  #include <stdlib.h>
  #include <dirent.h>
  #include <sstream>
@@ -135,10 +87,10 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/filebrowser.
  
  #include <sys/stat.h>
  
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/moviebrowser.cpp neutrino-hd2-exp/src/gui/moviebrowser.cpp
---- neutrino-hd2-exp.org/src/gui/moviebrowser.cpp	2012-12-02 23:13:24.736785447 +0100
-+++ neutrino-hd2-exp/src/gui/moviebrowser.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -66,7 +66,7 @@
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/moviebrowser.cpp neutrino-hd2-exp/src/gui/moviebrowser.cpp
+--- neutrino-hd2-exp.org/src/gui/moviebrowser.cpp	2012-12-17 13:14:19.077472475 +0100
++++ neutrino-hd2-exp/src/gui/moviebrowser.cpp	2012-12-17 13:14:29.769472918 +0100
+@@ -69,7 +69,7 @@
  #include <utime.h>
  #include <gui/widget/progressbar.h>
  #include <gui/pictureviewer.h>
@@ -147,21 +99,21 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/moviebrowser
  #include <system/debug.h>
  
  #include <driver/vcrcontrol.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/movieinfo.cpp neutrino-hd2-exp/src/gui/movieinfo.cpp
---- neutrino-hd2-exp.org/src/gui/movieinfo.cpp	2012-12-02 23:13:24.736785447 +0100
-+++ neutrino-hd2-exp/src/gui/movieinfo.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -51,6 +51,7 @@
- #include <sys/types.h>
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/movieinfo.cpp neutrino-hd2-exp/src/gui/movieinfo.cpp
+--- neutrino-hd2-exp.org/src/gui/movieinfo.cpp	2012-12-17 13:14:19.077472475 +0100
++++ neutrino-hd2-exp/src/gui/movieinfo.cpp	2012-12-17 13:14:29.769472918 +0100
+@@ -54,6 +54,7 @@
+ 
  #include <gui/widget/msgbox.h>
  #include <gui/movieinfo.h>
 +#include <unistd.h>
  
  //#define XMLTREE_LIB
  #ifdef XMLTREE_LIB
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/opkg_manager.cpp neutrino-hd2-exp/src/gui/opkg_manager.cpp
---- neutrino-hd2-exp.org/src/gui/opkg_manager.cpp	2012-12-02 23:13:24.736785447 +0100
-+++ neutrino-hd2-exp/src/gui/opkg_manager.cpp	2012-12-02 23:13:34.196785839 +0100
-@@ -54,7 +54,7 @@
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/opkg_manager.cpp neutrino-hd2-exp/src/gui/opkg_manager.cpp
+--- neutrino-hd2-exp.org/src/gui/opkg_manager.cpp	2012-12-17 13:14:19.077472475 +0100
++++ neutrino-hd2-exp/src/gui/opkg_manager.cpp	2012-12-17 13:14:29.773472918 +0100
+@@ -55,7 +55,7 @@
  #include <system/debug.h>
  
  #include <stdio.h>
@@ -170,20 +122,20 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/gui/opkg_manager
  
  COPKGManager::COPKGManager()
  {
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/tuxboxapi/neutrinoapi.cpp neutrino-hd2-exp/src/nhttpd/tuxboxapi/neutrinoapi.cpp
---- neutrino-hd2-exp.org/src/nhttpd/tuxboxapi/neutrinoapi.cpp	2012-12-02 23:13:20.812785284 +0100
-+++ neutrino-hd2-exp/src/nhttpd/tuxboxapi/neutrinoapi.cpp	2012-12-02 23:13:34.200785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/tuxboxapi/neutrinoapi.cpp neutrino-hd2-exp/src/nhttpd/tuxboxapi/neutrinoapi.cpp
+--- neutrino-hd2-exp.org/src/nhttpd/tuxboxapi/neutrinoapi.cpp	2012-12-17 13:14:11.581472164 +0100
++++ neutrino-hd2-exp/src/nhttpd/tuxboxapi/neutrinoapi.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -17,6 +17,7 @@
  #include <fstream>
  #include <map>
  #include <sstream>
 +#include <unistd.h>
  
- // tuxbox
- #include <neutrinoMessages.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am
---- neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am	2012-12-02 23:13:21.212785301 +0100
-+++ neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am	2012-12-02 23:13:34.200785839 +0100
+ #include <unistd.h>
+ 
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am
+--- neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am	2012-12-17 13:14:12.177472189 +0100
++++ neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am	2012-12-17 13:14:29.773472918 +0100
 @@ -3,5 +3,5 @@
  install_DATA= api.sh _Y_Globals.sh _Y_Library.sh Y_Live.sh Y_Tools.sh
  
@@ -192,21 +144,9 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/web/scrip
 -	chmod 0755 $(DATADIR)/neutrino/httpd/scripts/Y_*.sh
 +	chmod 0755 $(DESTDIR)$(DATADIR)/neutrino/httpd/scripts/api.sh
 +	chmod 0755 $(DESTDIR)$(DATADIR)/neutrino/httpd/scripts/Y_*.sh
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/ylanguage.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/ylanguage.cpp
---- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/ylanguage.cpp	2012-12-02 23:13:20.956785291 +0100
-+++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/ylanguage.cpp	2012-12-02 23:13:34.200785839 +0100
-@@ -7,7 +7,7 @@
- #include <cstdarg>
- #include <cstdio>
- #include <cstdlib>
--
-+#include <unistd.h>
- // yhttpd
- #include "yconfig.h"
- #include "yhttpd.h"
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yrequest.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/yrequest.cpp
---- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yrequest.cpp	2012-12-02 23:13:20.956785291 +0100
-+++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/yrequest.cpp	2012-12-02 23:13:34.200785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yrequest.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/yrequest.cpp
+--- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yrequest.cpp	2012-12-17 13:14:11.873472176 +0100
++++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/yrequest.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -21,6 +21,8 @@
  #include <cstring>
  #include <cstdlib>
@@ -216,9 +156,9 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_co
  // system
  #include <fcntl.h>
  #include <sys/socket.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yresponse.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/yresponse.cpp
---- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yresponse.cpp	2012-12-02 23:13:20.956785291 +0100
-+++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/yresponse.cpp	2012-12-02 23:13:34.200785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yresponse.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/yresponse.cpp
+--- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/yresponse.cpp	2012-12-17 13:14:11.873472176 +0100
++++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/yresponse.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -9,6 +9,7 @@
  #include <errno.h>
  // c++
@@ -227,9 +167,9 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_co
  // system
  #include <fcntl.h>
  #include <sys/socket.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/ysocket.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/ysocket.cpp
---- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/ysocket.cpp	2012-12-02 23:13:20.956785291 +0100
-+++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/ysocket.cpp	2012-12-02 23:13:34.200785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/ysocket.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_core/ysocket.cpp
+--- neutrino-hd2-exp.org/src/nhttpd/yhttpd_core/ysocket.cpp	2012-12-17 13:14:11.873472176 +0100
++++ neutrino-hd2-exp/src/nhttpd/yhttpd_core/ysocket.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -5,7 +5,7 @@
  
  #include <cstring>
@@ -239,20 +179,9 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_co
  // system
  #include <arpa/inet.h>
  #include <netinet/tcp.h>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_mods/mod_sendfile.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_mods/mod_sendfile.cpp
---- neutrino-hd2-exp.org/src/nhttpd/yhttpd_mods/mod_sendfile.cpp	2012-12-02 23:13:22.516785355 +0100
-+++ neutrino-hd2-exp/src/nhttpd/yhttpd_mods/mod_sendfile.cpp	2012-12-02 23:13:34.200785839 +0100
-@@ -45,6 +45,7 @@
- #include <fcntl.h>
- #include <pthread.h>
- #include <sys/stat.h>
-+#include <unistd.h>
- // yhttpd
- #include "yconfig.h"
- #include "ytypes_globals.h"
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_mods/mod_weblog.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_mods/mod_weblog.cpp
---- neutrino-hd2-exp.org/src/nhttpd/yhttpd_mods/mod_weblog.cpp	2012-12-02 23:13:22.516785355 +0100
-+++ neutrino-hd2-exp/src/nhttpd/yhttpd_mods/mod_weblog.cpp	2012-12-02 23:13:34.200785839 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_mods/mod_weblog.cpp neutrino-hd2-exp/src/nhttpd/yhttpd_mods/mod_weblog.cpp
+--- neutrino-hd2-exp.org/src/nhttpd/yhttpd_mods/mod_weblog.cpp	2012-12-17 13:14:15.513472328 +0100
++++ neutrino-hd2-exp/src/nhttpd/yhttpd_mods/mod_weblog.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -5,7 +5,7 @@
  // Normally
  //=============================================================================
@@ -262,21 +191,21 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/yhttpd_mo
  #include <cstdarg>
  #include <cstring>
  #include <cstdlib>
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/system/configure_network.cpp neutrino-hd2-exp/src/system/configure_network.cpp
---- neutrino-hd2-exp.org/src/system/configure_network.cpp	2012-12-02 23:13:25.132785462 +0100
-+++ neutrino-hd2-exp/src/system/configure_network.cpp	2012-12-02 23:13:34.200785839 +0100
-@@ -33,7 +33,7 @@
- #include <sstream>
- #include <fstream>
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/system/configure_network.cpp neutrino-hd2-exp/src/system/configure_network.cpp
+--- neutrino-hd2-exp.org/src/system/configure_network.cpp	2012-12-17 13:14:19.797472505 +0100
++++ neutrino-hd2-exp/src/system/configure_network.cpp	2012-12-17 13:14:29.773472918 +0100
+@@ -36,7 +36,7 @@
+ #include <unistd.h>
+ 
  #include <system/safe_system.h>
 -
 +#include <unistd.h>
  
  CNetworkConfig::CNetworkConfig(void)
  {
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/zapit/src/getservices.cpp neutrino-hd2-exp/src/zapit/src/getservices.cpp
---- neutrino-hd2-exp.org/src/zapit/src/getservices.cpp	2012-12-02 23:13:26.040785502 +0100
-+++ neutrino-hd2-exp/src/zapit/src/getservices.cpp	2012-12-02 23:14:30.752788184 +0100
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/zapit/src/getservices.cpp neutrino-hd2-exp/src/zapit/src/getservices.cpp
+--- neutrino-hd2-exp.org/src/zapit/src/getservices.cpp	2012-12-17 13:14:21.017472555 +0100
++++ neutrino-hd2-exp/src/zapit/src/getservices.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -32,7 +32,7 @@
  #include <set>
  #include <sys/stat.h>
@@ -285,15 +214,15 @@ diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/zapit/src/getser
 +#include <unistd.h>
  #include <errno.h>
  
- /* system */
-diff -Nur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/zapit/src/nit.cpp neutrino-hd2-exp/src/zapit/src/nit.cpp
---- neutrino-hd2-exp.org/src/zapit/src/nit.cpp	2012-12-02 23:13:26.044785502 +0100
-+++ neutrino-hd2-exp/src/zapit/src/nit.cpp	2012-12-02 23:13:34.228785840 +0100
+ #include <unistd.h>
+diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/zapit/src/nit.cpp neutrino-hd2-exp/src/zapit/src/nit.cpp
+--- neutrino-hd2-exp.org/src/zapit/src/nit.cpp	2012-12-17 13:14:21.017472555 +0100
++++ neutrino-hd2-exp/src/zapit/src/nit.cpp	2012-12-17 13:14:29.773472918 +0100
 @@ -27,6 +27,7 @@
  #include <cerrno>
  #include <cstdio>
  #include <cstring>
 +#include <unistd.h>
  
- /* system */
- #include <system/debug.h>
+ #include <unistd.h>
+ 

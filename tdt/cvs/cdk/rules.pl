@@ -373,7 +373,7 @@ sub process_install_rule ($)
   {
     $output .= "TARGETNAME-ar cru " . join " ", @_;
   }
-  elsif ( $_ =~ m/^rewrite-(libtool|pkgconfig|dependency)/ )
+  elsif ( $_ =~ m/^rewrite-(libtool|dependency|pkgconfig)/ )
   {
     $output .= "perl -pi -e \"s,^libdir=.*\$\$,libdir='TARGET/usr/lib',\" ". join " ", @_ if $1 eq "libtool";
     $output .= "perl -pi -e \"s, /usr/lib, TARGET/usr/lib,g if /^dependency_libs/\"  ". join " ", @_ if $1 eq "dependency";

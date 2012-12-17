@@ -358,7 +358,7 @@ $(DEPDIR)/%$(GLIB2_DEV): $(DEPDIR)/%$(GLIB2) $(GLIB2_DEV_RPM)
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/{libgio,libglib,libgmodule,libgobject,libgthread}-2.0.la
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/{libgio,libglib,libgmodule,libgobject,libgthread}-2.0.la
-	sed -i '/^prefix=/{ s#/usr#$(targetprefix)/usr#g }' $(targetprefix)/usr/lib//pkgconfig/{gio,gio-unix,glib,gmodule,gmodule-export,gmodule-no-export,gobject}-2.0.pc
+	sed -i '/^prefix=/{ s#/usr#$(targetprefix)/usr#g }' $(targetprefix)/usr/lib/pkgconfig/{gio,gio-unix,glib,gmodule,gmodule-export,gmodule-no-export,gobject}-2.0.pc
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -480,8 +480,7 @@ $(BASE_PASSWD_RPM): \
 
 $(DEPDIR)/min-$(BASE_PASSWD) $(DEPDIR)/std-$(BASE_PASSWD) $(DEPDIR)/max-$(BASE_PASSWD) \
 $(DEPDIR)/$(BASE_PASSWD): \
-$(DEPDIR)/%$(BASE_PASSWD): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
-		$(BASE_PASSWD_RPM)
+$(DEPDIR)/%$(BASE_PASSWD): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) $(BASE_PASSWD_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps  --nopost -Uhv \
 		--replacepkgs --badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 		$(hostprefix)/bin/update-passwd -L -p $(prefix)/$*cdkroot/usr/share/base-passwd/passwd.master \
@@ -543,8 +542,7 @@ $(BASE_FILES_RPM): \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(BASE_FILES_SPEC)
 
 $(DEPDIR)/min-$(BASE_FILES) $(DEPDIR)/std-$(BASE_FILES) $(DEPDIR)/max-$(BASE_FILES) $(DEPDIR)/$(BASE_FILES): \
-$(DEPDIR)/%$(BASE_FILES): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) \
-		$(BASE_FILES_RPM)
+$(DEPDIR)/%$(BASE_FILES): $(BASE_FILES_ADAPTED_ETC_FILES:%=root/etc/%) $(BASE_FILES_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch  -Uhv \
 		--replacepkgs --badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	( cd root/etc && for i in $(BASE_FILES_ADAPTED_ETC_FILES); do \
@@ -582,7 +580,6 @@ $(DEPDIR)/%$(LIBATTR): $(LIBATTR_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	[ "x$*" = "x" ] && touch $@ || true
-	
 
 $(DEPDIR)/min-$(LIBATTR_DEV) $(DEPDIR)/std-$(LIBATTR_DEV) $(DEPDIR)/max-$(LIBATTR_DEV) $(DEPDIR)/$(LIBATTR_DEV): \
 $(DEPDIR)/%$(LIBATTR_DEV): $(LIBATTR_DEV_RPM)
@@ -680,12 +677,6 @@ $(UDEV_RPM) $(UDEV_DEV_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(UDEV_SPEC)
 
-$(DEPDIR)/min-$(UDEV_DEV) $(DEPDIR)/std-$(UDEV_DEV) $(DEPDIR)/max-$(UDEV_DEV) $(DEPDIR)/$(UDEV_DEV): \
-$(DEPDIR)/%$(UDEV_DEV): $(UDEV_DEV_RPM)
-	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
-	[ "x$*" = "x" ] && touch $@ || true
-
 $(DEPDIR)/min-$(UDEV) $(DEPDIR)/std-$(UDEV) $(DEPDIR)/max-$(UDEV) $(DEPDIR)/$(UDEV): \
 $(DEPDIR)/%$(UDEV): $(UDEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
@@ -694,4 +685,10 @@ $(DEPDIR)/%$(UDEV): $(UDEV_RPM)
 		for s in sysfs udev ; do \
 			$(hostprefix)/bin/target-initdconfig --add $$s || \
 			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
+	[ "x$*" = "x" ] && touch $@ || true
+
+$(DEPDIR)/min-$(UDEV_DEV) $(DEPDIR)/std-$(UDEV_DEV) $(DEPDIR)/max-$(UDEV_DEV) $(DEPDIR)/$(UDEV_DEV): \
+$(DEPDIR)/%$(UDEV_DEV): $(UDEV_DEV_RPM)
+	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --noscripts -Uhv \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	[ "x$*" = "x" ] && touch $@ || true

@@ -8,6 +8,12 @@
 # Most distributions contain the required packages or
 # get the sources from http://samba.org/ftp/ccache
 
+if GCC_472
+VERSION_gcc = 4.7.2
+else
+VERSION_gcc = 4.6.3
+endif
+
 if ENABLE_CCACHE
 # tuxbox-cdk ccache install path
 CCACHE_TUXBOX_BIN = $(ccachedir)/ccache
@@ -16,19 +22,22 @@ CCACHE_TUXBOX_BIN = $(ccachedir)/ccache
 CCACHE_BINDIR = $(hostprefix)/ccache-bin
 
 # generate links
-CCACHE_LINKS =  ln -sfv $(ccachedir)/ccache $(CCACHE_BINDIR)/gcc; \
-				ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/g++; \
-				ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc; \
-				ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-g++; \
-				ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-cpp
+CCACHE_LINKS = \
+	ln -sfv $(ccachedir)/ccache $(CCACHE_BINDIR)/gcc; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/g++; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-g++; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-cpp; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc-$(VERSION_gcc)
 
 # ccache test will show you ccache statistics
 CCACHE_TEST = $(CCACHE_TUXBOX_BIN) -s
 
 # sets the options for ccache which are configured
-CCACHE_SETUP =  test "$(maxcachesize)" != -1 && $(CCACHE_TUXBOX_BIN) -M $(maxcachesize); \
-		test "$(maxcachefiles)" != -1 && $(CCACHE_TUXBOX_BIN) -F $(maxcachefiles); \
-		true
+CCACHE_SETUP = \
+	test "$(maxcachesize)" != -1 && $(CCACHE_TUXBOX_BIN) -M $(maxcachesize); \
+	test "$(maxcachefiles)" != -1 && $(CCACHE_TUXBOX_BIN) -F $(maxcachefiles); \
+	true
 
 # create ccache environment
 CCACHE_ENV = $(INSTALL) -d $(CCACHE_BINDIR); \
@@ -73,3 +82,4 @@ $(DEPDIR)/%ccache: $(DEPDIR)/ccache.do_compile
 endif
 
 endif
+

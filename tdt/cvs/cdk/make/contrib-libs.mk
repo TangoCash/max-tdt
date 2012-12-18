@@ -245,13 +245,13 @@ $(DEPDIR)/%libgif: $(DEPDIR)/libgif.do_compile
 #
 # libcurl
 #
-$(DEPDIR)/curl.do_prepare: bootstrap openssl rtmpdump @DEPENDS_curl@
-	@PREPARE_curl@
+$(DEPDIR)/libcurl.do_prepare: bootstrap openssl rtmpdump @DEPENDS_libcurl@
+	@PREPARE_libcurl@
 	touch $@
 
-$(DEPDIR)/curl.do_compile: $(DEPDIR)/curl.do_prepare
+$(DEPDIR)/libcurl.do_compile: $(DEPDIR)/libcurl.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_curl@ && \
+	cd @DIR_libcurl@ && \
 		$(BUILDENV) \
 		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
@@ -268,15 +268,15 @@ $(DEPDIR)/curl.do_compile: $(DEPDIR)/curl.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-curl $(DEPDIR)/std-curl $(DEPDIR)/max-curl \
-$(DEPDIR)/curl: \
-$(DEPDIR)/%curl: $(DEPDIR)/curl.do_compile
-	cd @DIR_curl@ && \
+$(DEPDIR)/min-libcurl $(DEPDIR)/std-libcurl $(DEPDIR)/max-libcurl \
+$(DEPDIR)/libcurl: \
+$(DEPDIR)/%libcurl: $(DEPDIR)/libcurl.do_compile
+	cd @DIR_libcurl@ && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < curl-config > $(crossprefix)/bin/curl-config && \
 		chmod 755 $(crossprefix)/bin/curl-config && \
 		@INSTALL_curl@
 		rm -f $(targetprefix)/usr/bin/curl-config
-	@DISTCLEANUP_curl@
+	@DISTCLEANUP_libcurl@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -1006,7 +1006,7 @@ $(DEPDIR)/%libass: $(DEPDIR)/libass.do_compile
 #
 # WebKitDFB
 #
-$(DEPDIR)/webkitdfb.do_prepare: bootstrap glib2 icu4c libxml2 enchant lite curl fontconfig sqlite libsoup cairo libjpeg @DEPENDS_webkitdfb@
+$(DEPDIR)/webkitdfb.do_prepare: bootstrap glib2 icu4c libxml2 enchant lite libcurl fontconfig sqlite libsoup cairo libjpeg @DEPENDS_webkitdfb@
 	@PREPARE_webkitdfb@
 	touch $@
 
@@ -3202,7 +3202,7 @@ $(DEPDIR)/%gmediarender: $(DEPDIR)/gmediarender.do_compile
 #
 # mediatomb
 #
-$(DEPDIR)/mediatomb.do_prepare: bootstrap libstdc++-dev ffmpeg curl sqlite libexpat @DEPENDS_mediatomb@
+$(DEPDIR)/mediatomb.do_prepare: bootstrap libstdc++-dev ffmpeg libcurl sqlite libexpat @DEPENDS_mediatomb@
 	@PREPARE_mediatomb@
 	touch $@
 

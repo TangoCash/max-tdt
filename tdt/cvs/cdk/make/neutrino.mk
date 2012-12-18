@@ -44,7 +44,7 @@ $(DEPDIR)/neutrino-twin.do_prepare:
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp freetype libjpeg libpng libungif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
+$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp freetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin && \
 		$(BUILDENV) \

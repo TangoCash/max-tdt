@@ -503,7 +503,7 @@ $(DEPDIR)/%lm_sensors: $(DEPDIR)/lm_sensors.do_compile
 #
 # FUSE
 #
-$(DEPDIR)/fuse.do_prepare: bootstrap curl glib2 @DEPENDS_fuse@
+$(DEPDIR)/fuse.do_prepare: bootstrap libcurl glib2 @DEPENDS_fuse@
 	@PREPARE_fuse@
 	touch $@
 
@@ -523,7 +523,7 @@ $(DEPDIR)/fuse.do_compile: $(DEPDIR)/fuse.do_prepare
 
 $(DEPDIR)/min-fuse $(DEPDIR)/std-fuse $(DEPDIR)/max-fuse \
 $(DEPDIR)/fuse: \
-$(DEPDIR)/%fuse: %curl %glib2 $(DEPDIR)/fuse.do_compile
+$(DEPDIR)/%fuse: %libcurl %glib2 $(DEPDIR)/fuse.do_compile
 	cd @DIR_fuse@ && \
 		@INSTALL_fuse@
 	-rm $(prefix)/$*cdkroot/etc/udev/rules.d/99-fuse.rules

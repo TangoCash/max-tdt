@@ -73,7 +73,6 @@ openthreads-1.00.tar.gz
 zlib-1.2.7.tar.bz2;http://zlib.net
 readline-5.2.tar.gz;ftp://ftp.cwru.edu/pub/bash
 freetype-2.3.12.tar.bz2;http://prdownloads.sourceforge.net/sourceforge/freetype
-lirc-0.8.2.tar.gz;http://prdownloads.sourceforge.net/lirc
 lirc-0.9.0.tar.gz;http://prdownloads.sourceforge.net/lirc
 jpegsrc.v8d.tar.gz;http://www.ijg.org/files
 libpng-1.2.44.tar.bz2;http://prdownloads.sourceforge.net/sourceforge/libpng
@@ -89,18 +88,16 @@ libsigc++-1.2.5.tar.gz;http://ftp.gnome.org/pub/GNOME/sources/libsigc++/1.2
 libmad-0.15.1b.tar.gz;ftp://ftp.mars.org/pub/mpeg
 libid3tag-0.15.1b.tar.gz;http://bent.latency.net/bent/darcs/libid3tag-0.15.1b/src
 glib-2.28.3.tar.gz;http://ftp.acc.umu.se/pub/GNOME/sources/glib/2.28
-glib-2.32.4.tar.gz;http://fossies.org/unix/misc
 libiconv-1.14.tar.gz;http://ftp.gnu.org/gnu/libiconv
 libmng-1.0.10.tar.bz2;http://dfn.dl.sourceforge.net/sourceforge/libmng
 lcms-1.17.tar.gz;http://dfn.dl.sourceforge.net/sourceforge/lcms
-openssl-0.9.6m.tar.gz;ftp://ftp.openssl.org/source
-openssl-0.9.8.tar.gz;ftp://ftp.openssl.org/source
 DirectFB-1.4.11.tar.gz;http://directfb.org/downloads/Core/DirectFB-1.4
 DFB++-1.0.0.tar.gz;http://www.directfb.org/downloads/Extras
 webkitdfb_2010-11-18.tar.gz;http://www.duckbox.info/files/packages
 icu4c-4_4_1-src.tgz;http://download.icu-project.org/files/icu4c/4.4.1
 sqlite-3.6.0.tar.gz;http://www.duckbox.info/files/packages
 sqlite-autoconf-3071100.tar.gz;http://www.sqlite.org
+sqlite-autoconf-3071500.tar.gz;http://www.sqlite.org
 enchant-1.5.0.tar.gz;http://www.abisource.com/downloads/enchant/1.5.0
 lite-0.9.0+git0.7982ccc.tar.bz2;http://www.duckbox.info/files/packages
 libsoup-2.33.90.tar.gz;http://download.gnome.org/sources/libsoup/2.33
@@ -124,6 +121,7 @@ libogg-1.2.2.tar.gz;http://downloads.xiph.org/releases/ogg
 flac-1.2.1.tar.gz;http://ignum.dl.sourceforge.net/project/flac/flac-src/flac-1.2.1-src
 BroFS1.2.tgz;http://www.avalpa.com/assets/freesoft/other
 alsa-lib-1.0.21a.tar.bz2;ftp://ftp.alsa-project.org/pub/lib
+alsa-lib-1.0.25.tar.bz2;ftp://gd.tuwien.ac.at/opsys/linux/alsa/lib
 rtmpdump-2.4.tar.gz;http://rtmpdump.mplayerhq.hu/download
 libdvbsi++-0.3.6.tar.bz2;http://www.saftware.de/libdvbsi++
 libmpeg2-0.5.1.tar.gz;http://libmpeg2.sourceforge.net/files
@@ -193,6 +191,7 @@ gst-plugins-bad-0.10.23.tar.bz2;http://gstreamer.freedesktop.org/src/gst-plugins
 gst-plugins-ugly-0.10.19.tar.bz2;http://gstreamer.freedesktop.org/src/gst-plugins-ugly
 gst-fluendo-mpegdemux-0.10.71.tar.gz;http://core.fluendo.com/gstreamer/src/gst-fluendo-mpegdemux
 libdca-0.0.5.tar.bz2;http://download.videolan.org/pub/videolan/libdca/0.0.5
+orc-0.4.16.tar.gz;http://code.entropywave.com/download/orc
 gst-ffmpeg-0.10.13.tar.bz2;http://gstreamer.freedesktop.org/src/gst-ffmpeg
 gst-plugin-subsink.git;git://openpli.git.sourceforge.net/gitroot/openpli/gstsubsink;8182abe751364f6eb1ed45377b0625102aeb68d5;HEAD
 

@@ -64,14 +64,14 @@ $(DEPDIR)/%libreadline: $(DEPDIR)/libreadline.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
-# FREETYPE_OLD
+# libfreetype
 #
-$(DEPDIR)/freetype-old.do_prepare: bootstrap @DEPENDS_freetype_old@
-	@PREPARE_freetype_old@
+$(DEPDIR)/libfreetype.do_prepare: bootstrap @DEPENDS_libfreetype@
+	@PREPARE_libfreetype@
 	touch $@
 
-$(DEPDIR)/freetype-old.do_compile: $(DEPDIR)/freetype-old.do_prepare
-	cd @DIR_freetype_old@ && \
+$(DEPDIR)/libfreetype.do_compile: $(DEPDIR)/libfreetype.do_prepare
+	cd @DIR_libfreetype@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -80,49 +80,17 @@ $(DEPDIR)/freetype-old.do_compile: $(DEPDIR)/freetype-old.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/freetype-old: $(DEPDIR)/freetype-old.do_compile
-	cd @DIR_freetype_old@ && \
-		@INSTALL_freetype_old@
-	cd freetype-2.1.4; \
-		$(INSTALL_DIR) $(crossprefix)/bin; \
-		cp install_dir/usr/bin/freetype-config $(crossprefix)/bin/freetype-old-config; \
-		$(INSTALL_DIR) $(targetprefix)/usr/include/freetype-old; \
-		$(CP_RD) install_dir/usr/include/* $(targetprefix)/usr/include/freetype-old/; \
-		$(INSTALL_DIR) $(targetprefix)/usr/lib/freetype-old; \
-		$(CP_RD) install_dir/usr/lib/libfreetype.{a,so*} $(targetprefix)/usr/lib/freetype-old/; \
-		sed 's,-I$${prefix}/include/freetype2,-I$(targetprefix)/usr/include/freetype-old -I$(targetprefix)/usr/include/freetype-old/freetype2,g' -i $(crossprefix)/bin/freetype-old-config; \
-		sed 's,/usr/include/freetype2/,$(targetprefix)/usr/include/freetype-old/freetype2/,g' -i $(crossprefix)/bin/freetype-old-config
-	@DISTCLEANUP_freetype_old@
-	[ "x$*" = "x" ] && touch $@ || true
-
-#
-# freetype
-#
-$(DEPDIR)/freetype.do_prepare: bootstrap @DEPENDS_freetype@
-	@PREPARE_freetype@
-	touch $@
-
-$(DEPDIR)/freetype.do_compile: $(DEPDIR)/freetype.do_prepare
-	cd @DIR_freetype@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all
-	touch $@
-
-$(DEPDIR)/min-freetype $(DEPDIR)/std-freetype $(DEPDIR)/max-freetype \
-$(DEPDIR)/freetype: \
-$(DEPDIR)/%freetype: $(DEPDIR)/freetype.do_compile
-	cd @DIR_freetype@ && \
+$(DEPDIR)/min-libfreetype $(DEPDIR)/std-libfreetype $(DEPDIR)/max-libfreetype \
+$(DEPDIR)/libfreetype: \
+$(DEPDIR)/%libfreetype: $(DEPDIR)/libfreetype.do_compile
+	cd @DIR_libfreetype@ && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < builds/unix/freetype-config > $(crossprefix)/bin/freetype-config && \
 		chmod 755 $(crossprefix)/bin/freetype-config && \
 		ln -sf $(crossprefix)/bin/freetype-config $(crossprefix)/bin/$(target)-freetype-config && \
 		ln -sf $(targetprefix)/usr/include/freetype2/freetype $(targetprefix)/usr/include/freetype && \
-		@INSTALL_freetype@
+		@INSTALL_libfreetype@
 		rm -f $(targetprefix)/usr/bin/freetype-config
-	@DISTCLEANUP_freetype@
+	@DISTCLEANUP_libfreetype@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -703,7 +671,7 @@ $(DEPDIR)/%libexpat: $(DEPDIR)/libexpat.do_compile
 #
 # fontconfig
 #
-$(DEPDIR)/fontconfig.do_prepare: bootstrap libexpat freetype @DEPENDS_fontconfig@
+$(DEPDIR)/fontconfig.do_prepare: bootstrap libexpat libfreetype @DEPENDS_fontconfig@
 	@PREPARE_fontconfig@
 	touch $@
 
@@ -1011,7 +979,7 @@ $(DEPDIR)/%ffmpeg: $(DEPDIR)/ffmpeg.do_compile
 #
 # libass
 #
-$(DEPDIR)/libass.do_prepare: bootstrap freetype libfribidi @DEPENDS_libass@
+$(DEPDIR)/libass.do_prepare: bootstrap libfreetype libfribidi @DEPENDS_libass@
 	@PREPARE_libass@
 	touch $@
 
@@ -2278,7 +2246,7 @@ $(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
 #
 # libgd2
 #
-$(DEPDIR)/libgd2.do_prepare: bootstrap libpng libjpeg libiconv freetype @DEPENDS_libgd2@
+$(DEPDIR)/libgd2.do_prepare: bootstrap libpng libjpeg libiconv libfreetype @DEPENDS_libgd2@
 	@PREPARE_libgd2@
 	touch $@
 

@@ -72,9 +72,7 @@ ImageMagick-6.7.7-7.tar.bz2;ftp://ftp.fifi.org/pub/ImageMagick
 openthreads-1.00.tar.gz
 zlib-1.2.7.tar.bz2;http://zlib.net
 readline-5.2.tar.gz;ftp://ftp.cwru.edu/pub/bash
-freetype-2.3.5.tar.bz2;http://download.savannah.gnu.org/releases/freetype
-freetype-2.4.8.tar.bz2;http://download.savannah.gnu.org/releases/freetype
-freetype-2.4.9.tar.bz2;http://download.savannah.gnu.org/releases/freetype
+freetype-2.3.12.tar.bz2;http://prdownloads.sourceforge.net/sourceforge/freetype
 lirc-0.8.2.tar.gz;http://prdownloads.sourceforge.net/lirc
 lirc-0.9.0.tar.gz;http://prdownloads.sourceforge.net/lirc
 jpegsrc.v8d.tar.gz;http://www.ijg.org/files

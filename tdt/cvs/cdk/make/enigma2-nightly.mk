@@ -52,7 +52,7 @@ $(DEPDIR)/enigma2-nightly.do_prepare:
 	cp -ra $(appsdir)/enigma2-nightly $(appsdir)/enigma2-nightly.patched
 	touch $@
 
-$(appsdir)/enigma2-nightly/config.status: bootstrap freetype expat fontconfig libpng jpeg libgif libfribidi libid3tag libmad libsigc libreadline \
+$(appsdir)/enigma2-nightly/config.status: bootstrap freetype expat fontconfig libpng libjpeg libgif libfribidi libid3tag libmad libsigc libreadline \
 		libdvbsi++ python libxml2 libxslt elementtree zope_interface twisted pyopenssl lxml libxmlccwrap ncurses-dev libdreamdvd sdparm $(MEDIAFW_DEP) $(EXTERNALLCD_DEP)
 	cd $(appsdir)/enigma2-nightly && \
 		./autogen.sh && \

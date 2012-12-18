@@ -44,7 +44,7 @@ $(DEPDIR)/neutrino-twin.do_prepare:
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp freetype jpeg libpng libungif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
+$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp freetype libjpeg libpng libungif libid3tag curl libmad libvorbisidec libboost openssl libopenthreads sdparm
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin && \
 		$(BUILDENV) \
@@ -100,7 +100,7 @@ $(DEPDIR)/neutrino-hd2-exp.do_prepare:
 	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.exp.diff"
 	touch $@
 
-$(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) freetype jpeg libpng libgif libid3tag curl libmad libvorbisidec libboost libflac openssl sdparm
+$(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) freetype libjpeg libpng libgif libid3tag curl libmad libvorbisidec libboost libflac openssl sdparm
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-hd2-exp && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \

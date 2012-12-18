@@ -164,14 +164,14 @@ $(DEPDIR)/%lirc: $(DEPDIR)/lirc.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
-# jpeg
+# libjpeg
 #
-$(DEPDIR)/jpeg.do_prepare: bootstrap @DEPENDS_jpeg@
-	@PREPARE_jpeg@
+$(DEPDIR)/libjpeg.do_prepare: bootstrap @DEPENDS_libjpeg@
+	@PREPARE_libjpeg@
 	touch $@
 
-$(DEPDIR)/jpeg.do_compile: $(DEPDIR)/jpeg.do_prepare
-	cd @DIR_jpeg@ && \
+$(DEPDIR)/libjpeg.do_compile: $(DEPDIR)/libjpeg.do_prepare
+	cd @DIR_libjpeg@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -182,12 +182,12 @@ $(DEPDIR)/jpeg.do_compile: $(DEPDIR)/jpeg.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-jpeg $(DEPDIR)/std-jpeg $(DEPDIR)/max-jpeg \
-$(DEPDIR)/jpeg: \
-$(DEPDIR)/%jpeg: $(DEPDIR)/jpeg.do_compile
-	cd @DIR_jpeg@ && \
-		@INSTALL_jpeg@
-	@DISTCLEANUP_jpeg@
+$(DEPDIR)/min-libjpeg $(DEPDIR)/std-libjpeg $(DEPDIR)/max-libjpeg \
+$(DEPDIR)/libjpeg: \
+$(DEPDIR)/%libjpeg: $(DEPDIR)/libjpeg.do_compile
+	cd @DIR_libjpeg@ && \
+		@INSTALL_libjpeg@
+	@DISTCLEANUP_libjpeg@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -519,7 +519,7 @@ $(DEPDIR)/%libiconv: $(DEPDIR)/libiconv.do_compile
 #
 # libmng
 #
-$(DEPDIR)/libmng.do_prepare: bootstrap jpeg lcms @DEPENDS_libmng@
+$(DEPDIR)/libmng.do_prepare: bootstrap libjpeg lcms @DEPENDS_libmng@
 	@PREPARE_libmng@
 	touch $@
 
@@ -552,7 +552,7 @@ $(DEPDIR)/%libmng: $(DEPDIR)/libmng.do_compile
 #
 # lcms
 #
-$(DEPDIR)/lcms.do_prepare: bootstrap jpeg @DEPENDS_lcms@
+$(DEPDIR)/lcms.do_prepare: bootstrap libjpeg @DEPENDS_lcms@
 	@PREPARE_lcms@
 	touch $@
 
@@ -621,7 +621,7 @@ $(DEPDIR)/%directfb: $(DEPDIR)/directfb.do_compile
 #
 # DFB++
 #
-$(DEPDIR)/dfbpp.do_prepare: bootstrap jpeg directfb @DEPENDS_dfbpp@
+$(DEPDIR)/dfbpp.do_prepare: bootstrap libjpeg directfb @DEPENDS_dfbpp@
 	@PREPARE_dfbpp@
 	touch $@
 
@@ -1038,7 +1038,7 @@ $(DEPDIR)/%libass: $(DEPDIR)/libass.do_compile
 #
 # WebKitDFB
 #
-$(DEPDIR)/webkitdfb.do_prepare: bootstrap glib2 icu4c libxml2 enchant lite curl fontconfig sqlite libsoup cairo jpeg @DEPENDS_webkitdfb@
+$(DEPDIR)/webkitdfb.do_prepare: bootstrap glib2 icu4c libxml2 enchant lite curl fontconfig sqlite libsoup cairo libjpeg @DEPENDS_webkitdfb@
 	@PREPARE_webkitdfb@
 	touch $@
 
@@ -2278,7 +2278,7 @@ $(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
 #
 # libgd2
 #
-$(DEPDIR)/libgd2.do_prepare: bootstrap libpng jpeg libiconv freetype @DEPENDS_libgd2@
+$(DEPDIR)/libgd2.do_prepare: bootstrap libpng libjpeg libiconv freetype @DEPENDS_libgd2@
 	@PREPARE_libgd2@
 	touch $@
 
@@ -3032,7 +3032,7 @@ $(DEPDIR)/%libexif: $(DEPDIR)/libexif.do_compile
 #
 # minidlna
 #
-$(DEPDIR)/minidlna.do_prepare: bootstrap ffmpeg libflac libogg libvorbis libid3tag sqlite libexif jpeg @DEPENDS_minidlna@
+$(DEPDIR)/minidlna.do_prepare: bootstrap ffmpeg libflac libogg libvorbis libid3tag sqlite libexif libjpeg @DEPENDS_minidlna@
 	@PREPARE_minidlna@
 	touch $@
 

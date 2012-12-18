@@ -62,7 +62,7 @@ freetype_old;make:install:DESTDIR=BUILD/freetype-2.1.4/install_dir
 freetype;rewrite-pkgconfig:builds/unix/freetype2.pc;make:install:libdir=TARGETS/usr/lib:includedir=TARGETS/usr/include:bindir=TARGETS/usr/bin:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libfreetype.la
 fontconfig;rewrite-pkgconfig:fontconfig.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libfontconfig.la;rewrite-dependency:TARGETS/usr/lib/libfontconfig.la
 lirc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/liblirc_client.la
-jpeg;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libjpeg.la
+libjpeg;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libjpeg.la
 libpng;rewrite-pkgconfig:libpng15.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng15.la
 libungif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libungif.la
 libgif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgif.la

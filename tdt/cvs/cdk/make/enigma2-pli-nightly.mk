@@ -58,7 +58,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	touch $@
 
 $(appsdir)/enigma2-pli-nightly/config.status: \
-		bootstrap freetype expat libpng jpeg libgif libfribidi libid3tag libmad libsigc libreadline libdvbsipp \
+		bootstrap freetype expat libpng libjpeg libgif libfribidi libid3tag libmad libsigc libreadline libdvbsipp \
 		python libxml2 libxslt elementtree zope_interface twisted pyopenssl pythonwifi pilimaging pyusb pycrypto \
 		lxml libxmlccwrap ncurses-dev libdreamdvd2 tuxtxt32bpp sdparm hotplug_e2 wpa_supplicant \
 		$(MEDIAFW_DEP) $(EXTERNALLCD_DEP)

@@ -675,14 +675,14 @@ $(DEPDIR)/%libstgles: $(DEPDIR)/libstgles.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
-# expat
+# libexpat
 #
-$(DEPDIR)/expat.do_prepare: bootstrap @DEPENDS_expat@
-	@PREPARE_expat@
+$(DEPDIR)/libexpat.do_prepare: bootstrap @DEPENDS_libexpat@
+	@PREPARE_libexpat@
 	touch $@
 
-$(DEPDIR)/expat.do_compile: $(DEPDIR)/expat.do_prepare
-	cd @DIR_expat@ && \
+$(DEPDIR)/libexpat.do_compile: $(DEPDIR)/libexpat.do_prepare
+	cd @DIR_libexpat@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
@@ -692,18 +692,18 @@ $(DEPDIR)/expat.do_compile: $(DEPDIR)/expat.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-expat $(DEPDIR)/std-expat $(DEPDIR)/max-expat \
-$(DEPDIR)/expat: \
-$(DEPDIR)/%expat: $(DEPDIR)/expat.do_compile
-	cd @DIR_expat@ && \
-		@INSTALL_expat@
-	@DISTCLEANUP_expat@
+$(DEPDIR)/min-libexpat $(DEPDIR)/std-libexpat $(DEPDIR)/max-libexpat \
+$(DEPDIR)/libexpat: \
+$(DEPDIR)/%libexpat: $(DEPDIR)/libexpat.do_compile
+	cd @DIR_libexpat@ && \
+		@INSTALL_libexpat@
+	@DISTCLEANUP_libexpat@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
 # fontconfig
 #
-$(DEPDIR)/fontconfig.do_prepare: bootstrap expat freetype @DEPENDS_fontconfig@
+$(DEPDIR)/fontconfig.do_prepare: bootstrap libexpat freetype @DEPENDS_fontconfig@
 	@PREPARE_fontconfig@
 	touch $@
 
@@ -3234,7 +3234,7 @@ $(DEPDIR)/%gmediarender: $(DEPDIR)/gmediarender.do_compile
 #
 # mediatomb
 #
-$(DEPDIR)/mediatomb.do_prepare: bootstrap libstdc++-dev ffmpeg curl sqlite expat @DEPENDS_mediatomb@
+$(DEPDIR)/mediatomb.do_prepare: bootstrap libstdc++-dev ffmpeg curl sqlite libexpat @DEPENDS_mediatomb@
 	@PREPARE_mediatomb@
 	touch $@
 

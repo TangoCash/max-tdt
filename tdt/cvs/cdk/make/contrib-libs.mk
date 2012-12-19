@@ -274,7 +274,7 @@ $(DEPDIR)/%libcurl: $(DEPDIR)/libcurl.do_compile
 	cd @DIR_libcurl@ && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < curl-config > $(crossprefix)/bin/curl-config && \
 		chmod 755 $(crossprefix)/bin/curl-config && \
-		@INSTALL_curl@
+		@INSTALL_libcurl@
 		rm -f $(targetprefix)/usr/bin/curl-config
 	@DISTCLEANUP_libcurl@
 	[ "x$*" = "x" ] && touch $@ || true

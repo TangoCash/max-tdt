@@ -62,8 +62,7 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS)" \
-			CXXFLAGS="$(TARGET_CFLAGS) -Os"
+			CPPFLAGS="$(N_CPPFLAGS)"
 
 $(DEPDIR)/neutrino-twin.do_compile: $(appsdir)/neutrino-twin/config.status
 	cd $(appsdir)/neutrino-twin && \

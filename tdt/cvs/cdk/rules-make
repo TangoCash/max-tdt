@@ -191,6 +191,7 @@ zope_interface;4.0.1;zope.interface-4.0.1;zope.interface-4.0.1.tar.gz;extract:zo
 #gst_plugins_bad;0.10.23;gst-plugins-bad-0.10.23;gst-plugins-bad-0.10.23.tar.bz2;extract:gst-plugins-bad-0.10.23.tar.bz2;patch:gst-plugins-bad-0.10.23.patch
 #gst_plugins_ugly;0.10.19;gst-plugins-ugly-0.10.19;gst-plugins-ugly-0.10.19.tar.bz2;extract:gst-plugins-ugly-0.10.19.tar.bz2;patch:gst-plugins-ugly-0.10.19.patch
 libdca;0.0.5;libdca-0.0.5;libdca-0.0.5.tar.bz2;extract:libdca-0.0.5.tar.bz2
+liborc;0.4.16;orc-0.4.16;orc-0.4.16.tar.gz;extract:orc-0.4.16.tar.gz
 
 gstreamer;0.10.36;gstreamer-0.10.36;gstreamer-0.10.36.tar.bz2;extract:gstreamer-0.10.36.tar.bz2
 gst_plugins_base;0.10.36;gst-plugins-base-0.10.36;gst-plugins-base-0.10.36.tar.bz2;extract:gst-plugins-base-0.10.36.tar.bz2

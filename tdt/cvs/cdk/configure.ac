@@ -445,8 +445,7 @@ AC_ARG_WITH(bootprefix,
 	[bootprefix="$with_bootprefix"],[bootprefix="${prefix}/cdkroot-tftpboot"])
 
 AC_ARG_WITH(serversupport,
-	[  --with-serversupport=DIR
-						prefix for server file templates [[PREFIX/serversupport]]],
+	[  --with-serversupport=DIR    prefix for server file templates [[PREFIX/serversupport]]],
 	[serversupport="$with_serversupport"],[serversupport="${prefix}/serversupport"])
 
 AC_ARG_WITH(customizationsdir,
@@ -454,15 +453,13 @@ AC_ARG_WITH(customizationsdir,
 	[customizationsdir="$with_customizationsdir"],[customizationsdir="`pwd`"])
 
 AC_ARG_WITH(updatehttpprefix,
-	[  --with-updatehttpprefix=URL
-						optional URL containing the URL of a directory with update images
-						"disable" completely disables internet update code [[NONE]]],
+	[  --with-updatehttpprefix=URL  optional URL containing the URL of a directory with update images [[NONE]]],
 	[updatehttpprefix="$with_updatehttpprefix"],[updatehttpprefix=])
 
 buildprefix=`pwd`
-AC_SUBST(buildprefix)
 AC_SUBST(targetprefix)
 AC_SUBST(hostprefix)
+AC_SUBST(buildprefix)
 AC_SUBST(bootprefix)
 AC_SUBST(serversupport)
 AC_SUBST(customizationsdir)
@@ -526,13 +523,11 @@ AC_ARG_WITH(hostappsdir,
 	[hostappsdir="$with_hostappsdir"],[hostappsdir="NONE"])
 
 AC_ARG_WITH(gnuserver,
-	[  --with-gnuserver=ADDRESS
-						the gnu server for gnu-stuff (without ftp://)],
+	[  --with-gnuserver=ADDRESS   the gnu server for gnu-stuff (without ftp://)],
 	[gnuserver="$with_gnuserver"],[gnuserver=ftp.gwdg.de/pub/misc/gnu/ftp/gnu])
 
 AC_ARG_WITH(defaultserver,
-	[  --with-defaultserver=ADDRESS
-						the server that is taken if no server is given/works (without http://)],
+	[  --with-defaultserver=ADDRESS   the server that is taken if no server is given/works (without http://)],
 	[defaultserver="$with_defaultserver"],[defaultserver="NONE"])
 
 if test "$defaultserver" = "NONE"; then
@@ -861,7 +856,6 @@ TUXBOX_RULES_MAKE(glib2)
 TUXBOX_RULES_MAKE(libiconv)
 TUXBOX_RULES_MAKE(libmng)
 TUXBOX_RULES_MAKE(lcms)
-TUXBOX_RULES_MAKE(openssl)
 TUXBOX_RULES_MAKE(directfb)
 TUXBOX_RULES_MAKE(dfbpp)
 TUXBOX_RULES_MAKE(libstgles)
@@ -950,6 +944,7 @@ TUXBOX_RULES_MAKE(gst_plugins_fluendo_mpegdemux)
 TUXBOX_RULES_MAKE(gst_plugins_dvbmediasink)
 TUXBOX_RULES_MAKE(gst_plugin_subsink)
 TUXBOX_RULES_MAKE(libdca)
+TUXBOX_RULES_MAKE(liborc)
 
 #
 # enigma2
@@ -1059,7 +1054,7 @@ ${srcdir}/rules-archive.pl ${srcdir}/rules-archive > Makefile-archive
 AC_MSG_RESULT([
 summary:
 ----------------------------------------
-target cpu/boxtype          : $CPU_ARCH / $BOXTYPE
+target cpu/boxtype          : $CPU_MODEL / $BOXTYPE
 linux kernel                : ${KERNELVERSION%.*}
 kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL

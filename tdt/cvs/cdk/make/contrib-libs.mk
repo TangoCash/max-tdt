@@ -2114,6 +2114,30 @@ $(DEPDIR)/%libdca: $(DEPDIR)/libdca.do_compile
 	@DISTCLEANUP_libdca@
 	[ "x$*" = "x" ] && touch $@ || true
 
+#
+# liborc
+#
+$(DEPDIR)/liborc.do_prepare: @DEPENDS_liborc@
+	@PREPARE_liborc@
+	touch $@
+
+$(DEPDIR)/liborc.do_compile: $(DEPDIR)/liborc.do_prepare
+	cd @DIR_liborc@ && \
+	$(BUILDENV) \
+	./configure \
+		--host=$(target) \
+		--prefix=/usr && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/min-liborc $(DEPDIR)/std-liborc $(DEPDIR)/max-liborc \
+$(DEPDIR)/liborc: \
+$(DEPDIR)/%liborc: $(DEPDIR)/liborc.do_compile
+	cd @DIR_liborc@ && \
+		@INSTALL_liborc@
+	@DISTCLEANUP_liborc@
+	[ "x$*" = "x" ] && touch $@ || true
+
 ##############################   EXTERNAL_LCD   ################################
 
 #

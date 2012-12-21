@@ -2439,9 +2439,13 @@ $(DEPDIR)/libalsa.do_compile: $(DEPDIR)/libalsa.do_prepare
 		--host=$(target) \
 		--prefix=/usr \
 		--with-debug=no \
-		--enable-static \
+		--disable-aload \
+		--disable-rawmidi \
+		--disable-old-symbols \
+		--disable-alisp \
+		--disable-hwdep \
 		--disable-python && \
-	$(MAKE) all
+	$(MAKE)
 	touch $@
 
 $(DEPDIR)/min-libalsa $(DEPDIR)/std-libalsa $(DEPDIR)/max-libalsa \

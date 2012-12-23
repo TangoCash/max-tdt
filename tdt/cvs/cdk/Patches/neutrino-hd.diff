@@ -1,0 +1,37 @@
+--- neutrino-hd/src/driver/framebuffer.h	2012-07-30 12:15:20.943710648 +0200
++++ neutrino-hd/src/driver/framebuffer.h	2012-09-25 21:19:28.041555256 +0200
+@@ -136,8 +136,10 @@
+ 
+ #ifdef MARTII
+ 		void blitIcon(int src_width, int src_height, int fb_x, int fb_y, int width, int height);
+-#endif
++		void init(const char * const fbDevice = "/dev/fb0");
++#else
+ 		void init(const char * const fbDevice = "/dev/fb/0");
++#endif
+ 		int setMode(unsigned int xRes, unsigned int yRes, unsigned int bpp);
+--- neutrino-hd/lib/libtuxtxt/tuxtxt.cpp	2012-09-17 21:23:35.581705237 +0200
++++ neutrino-hd/lib/libtuxtxt/tuxtxt.cpp	2012-09-25 21:27:08.764985990 +0200
+@@ -1725,13 +1725,19 @@
+ 	sscanf(cvs_revision, "%*s %s", versioninfo);
+ 	printf("TuxTxt %s\n", versioninfo);
+ 	printf("for 32bpp framebuffer\n");
+-
++#ifdef MARTII
++        if ((fb=open("/dev/fb0", O_RDWR)) == -1)
++        {
++                perror("TuxTxt <open /dev/fb0>");
++                return 0;
++        }
++#else
+         if ((fb=open("/dev/fb/0", O_RDWR)) == -1)
+         {
+                 perror("TuxTxt <open /dev/fb/0>");
+                 return 0;
+         }
+-
++#endif
+ 	rc = _rc;
+ 	CFrameBuffer *fbp = CFrameBuffer::getInstance();
+ #ifdef MARTII
+ 

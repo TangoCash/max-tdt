@@ -14,7 +14,7 @@ $(targetprefix)/var/etc/.version:
 #
 #
 #
-N_CPPFLAGS = -DNEW_LIBCURL -DFB_BLIT -DBGP_JPG -I$(driverdir)/frontcontroller/aotom -I$(driverdir)/bpamem
+N_CPPFLAGS = -DNEW_LIBCURL -DFB_BLIT -DBGP_JPG -I$(driverdir)/bpamem
 
 N_CONFIG_OPTS = --enable-silent-rules --enable-freesatepg
 
@@ -82,6 +82,7 @@ $(DEPDIR)/neutrino-hd.do_prepare:
 	git clone git://gitorious.org/~martii/neutrino-hd/martiis-neutrino-hd-tripledragon.git $(archivedir)/neutrino-hd.git; \
 	cp -ra $(archivedir)/neutrino-hd.git $(appsdir)/neutrino-hd; \
 	cp -ra $(appsdir)/neutrino-hd $(appsdir)/neutrino-hd.org
+	cd $(appsdir)/neutrino-hd && patch -p1 < "$(buildprefix)/Patches/neutrino-hd.diff"
 	touch $@
 
 $(appsdir)/neutrino-hd/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa libstb-hal
@@ -105,7 +106,7 @@ $(appsdir)/neutrino-hd/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS) -DMARTII"
+			CPPFLAGS="$(N_CPPFLAGS) -DMARTII -I$(driverdir)/frontcontroller/aotom"
 
 $(DEPDIR)/neutrino-hd.do_compile: $(appsdir)/neutrino-hd/config.status
 	cd $(appsdir)/neutrino-hd && \
@@ -146,8 +147,8 @@ $(DEPDIR)/neutrino-twin.do_prepare:
 	(cd $(appsdir)/neutrino-twin; git checkout dvbsi++; cd "$(buildprefix)";); \
 	rm -rf $(appsdir)/neutrino-twin/lib/libcoolstream/*.*
 	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
-	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.diff"
-	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino.twin.libcool.diff"
+	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin.diff"
+	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-libcool.diff"
 	touch $@
 
 $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm
@@ -202,7 +203,7 @@ $(DEPDIR)/neutrino-hd2-exp.do_prepare:
 	rm -rf $(appsdir)/neutrino-hd2-exp.org
 	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(appsdir)/neutrino-hd2-exp
 	cp -ra $(appsdir)/neutrino-hd2-exp $(appsdir)/neutrino-hd2-exp.org
-	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino.hd2.exp.diff"
+	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 	touch $@
 
 $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libgif libid3tag libcurl libmad libvorbisidec libboost libflac openssl sdparm

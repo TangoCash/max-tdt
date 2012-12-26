@@ -15,21 +15,6 @@ diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/acinclude.m4 neutri
  else
  	AC_MSG_RESULT(no)
  fi
-diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/driver/framebuffer.h neutrino-hd2-exp/src/driver/framebuffer.h
---- neutrino-hd2-exp.org/src/driver/framebuffer.h	2012-12-17 13:14:22.985472637 +0100
-+++ neutrino-hd2-exp/src/driver/framebuffer.h	2012-12-17 13:14:29.769472918 +0100
-@@ -55,11 +55,6 @@
- #define CORNER_BOTTOM		0x2
- #define CORNER_BOTH		0x3
- 
--// FB HW BLIT
--#if !defined (PLATFORM_GENERIC)
--#define FB_BLIT
--#endif
--
- // resolution
- #define DEFAULT_XRES		960
- #define DEFAULT_YRES		720
 diff -Naur '--exclude-from=diff-ignore' neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am
 --- neutrino-hd2-exp.org/src/nhttpd/web/scripts/Makefile.am	2012-12-17 13:14:12.177472189 +0100
 +++ neutrino-hd2-exp/src/nhttpd/web/scripts/Makefile.am	2012-12-17 13:14:29.773472918 +0100

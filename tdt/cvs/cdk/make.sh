@@ -120,7 +120,7 @@ case "$REPLY" in
 	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
 	27) TARGET="--enable-whitebox";BOXTYPE="--with-boxtype=whitebox";;
 	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
-	 *) TARGET="--enable-ufs912";BOXTYPE="--with-boxtype=ufs912";;
+	 *) TARGET="--enable-atevio7500";BOXTYPE="--with-boxtype=atevio7500";;
 esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
 
@@ -149,7 +149,7 @@ esac
 echo -e "\nKernel:"
 echo " Maintained:"
 echo "   1) STM 24 P0207"
-echo "   2) STM 24 P0209 (Recommended)"
+echo "   2) STM 24 P0209"
 echo " Experimental:"
 echo "   3) STM 24 P0210"
 echo "   4) STM 24 P0211"
@@ -166,7 +166,7 @@ case "$REPLY" in
 	2)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
 	3)  KERNEL="--enable-stm24 --enable-p0210";STMFB="stm24";;
 	4)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
-	*)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
+	*)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
 esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
 
@@ -314,7 +314,7 @@ esac
 case "$REPLY" in
 	1) MEDIAFW="--enable-eplayer3";;
 	2) MEDIAFW="--enable-mediafwgstreamer";;
-	*) MEDIAFW="";;
+	*) MEDIAFW="--enable-eplayer3";;
 esac
 
 ##############################################
@@ -333,7 +333,7 @@ esac
 case "$REPLY" in
 	1) EXTERNAL_LCD="";;
 	2) EXTERNAL_LCD="--enable-externallcd";;
-	*) EXTERNAL_LCD="";;
+	*) EXTERNAL_LCD="--enable-externallcd";;
 esac
 
 ##############################################
@@ -387,7 +387,6 @@ echo "----------------------------------------"
 echo "make yaud-enigma2-nightly"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-neutrino"
-echo "make yaud-neutrino (experimental SPARK)"
 echo "make yaud-neutrino-hd2-exp"
 echo "make yaud-xbmc-nightly"
 echo "----------------------------------------"

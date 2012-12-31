@@ -21,7 +21,8 @@ $(HOST_U_BOOT_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_U_BOOT_SPEC)
 
-$(DEPDIR)/$(HOST_U_BOOT): $(HOST_U_BOOT_RPM)
+$(DEPDIR)/$(HOST_U_BOOT): \
+$(DEPDIR)/%$(BINUTILS): $(HOST_U_BOOT_RPM)
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^) && \
 	touch $@
 
@@ -38,14 +39,13 @@ $(DEPDIR)/u-boot-utils.do_compile: bootstrap $(DEPDIR)/u-boot-utils.do_prepare
 		$(MAKE) -C tools/env TOPDIR=$(buildprefix)/$(HOST_U_BOOT_DIR) ARCH=sh4 CROSS_COMPILE=$(target)- all TARGETS=fw_printenv TARGETDIR=$(targetprefix)
 	touch $@
 
-$(DEPDIR)/min-u-boot-utils $(DEPDIR)/std-u-boot-utils $(DEPDIR)/max-u-boot-utils \
 $(DEPDIR)/u-boot-utils: \
 $(DEPDIR)/%u-boot-utils: $(DEPDIR)/u-boot-utils.do_compile
 	$(INSTALL) -d $(prefix)/$*cdkroot/{etc,usr/sbin} && \
 	cd $(HOST_U_BOOT_DIR) && \
 		$(INSTALL) -m 755 tools/env/fw_printenv $(prefix)/$*cdkroot/usr/sbin && \
 		$(LN_SF) fw_printenv $(prefix)/$*cdkroot/usr/sbin/fw_setenv
-	$(INSTALL) -m 644 $(buildprefix)/root/etc/fw_env.config $(prefix)/$*cdkroot/etc/
+	$(INSTALL) -m 644 $(buildprefix)/root/etc/fw_env.config$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(TF7700),_$(TF7700))$(if $(UFS910),_$(UFS910))$(if $(UFS912),_$(UFS912))$(if $(UFS913),_$(UFS913))$(if $(UFS922),_$(UFS922))$(if $(SPARK),_$(SPARK))$(if $(ADB_BOX),_$(ADB_BOX))$(if $(IPBOX9900),_$(IPBOX9900))$(if $(IPBOX99),_$(IPBOX99))$(if $(IPBOX55),_$(IPBOX55)) $(prefix)/$*cdkroot/etc/fw_env.config
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -69,6 +69,7 @@ $(HOST_U_BOOT_TOOLS_RPM): \
 	$(if $(HOST_U_BOOT_TOOLS_PATCHES),cp $(HOST_U_BOOT_TOOLS_PATCHES:%=Patches/%) SOURCES/ &&) \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_U_BOOT_TOOLS_SPEC)
 
-$(DEPDIR)/$(HOST_U_BOOT_TOOLS): u-boot-utils.do_prepare $(HOST_U_BOOT_TOOLS_RPM) | bootstrap-cross
+$(DEPDIR)/$(HOST_U_BOOT_TOOLS): \
+$(DEPDIR)/%$(HOST_U_BOOT_TOOLS): u-boot-utils.do_prepare $(HOST_U_BOOT_TOOLS_RPM) | bootstrap-cross
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^) && \
 	touch $@

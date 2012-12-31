@@ -145,8 +145,6 @@ release_xbmc_base:
 	cp -dp $(buildprefix)/root/etc/init.d/udhcpc $(prefix)/release/etc/init.d/ && \
 	cp -dp $(targetprefix)/sbin/MAKEDEV $(prefix)/release/sbin/MAKEDEV && \
 	cp -f $(buildprefix)/root/release/makedev $(prefix)/release/etc/init.d/ && \
-	cp -dp $(targetprefix)/usr/bin/grep $(prefix)/release/bin/ && \
-	cp -dp $(targetprefix)/usr/bin/egrep $(prefix)/release/bin/ && \
 	cp $(targetprefix)/boot/audio.elf $(prefix)/release/boot/audio.elf && \
 	cp -a $(targetprefix)/dev/* $(prefix)/release/dev/ && \
 	cp -dp $(targetprefix)/etc/fstab $(prefix)/release/etc/ && \

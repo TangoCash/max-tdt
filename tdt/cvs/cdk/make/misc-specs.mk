@@ -91,7 +91,7 @@ $(SPLASHUTILS_RPM): \
 	export PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(SPLASHUTILS_SPEC)
 
-$(DEPDIR)/min-$(SPLASHUTILS) $(DEPDIR)/std-$(SPLASHUTILS) $(DEPDIR)/max-$(SPLASHUTILS) $(DEPDIR)/$(SPLASHUTILS): \
+$(DEPDIR)/$(SPLASHUTILS): \
 $(DEPDIR)/%$(SPLASHUTILS): $(SPLASHUTILS_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -124,7 +124,7 @@ $(STSLAVE_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(STSLAVE_SPEC)
 
-$(DEPDIR)/min-$(STSLAVE) $(DEPDIR)/std-$(STSLAVE) $(DEPDIR)/max-$(STSLAVE) $(DEPDIR)/$(STSLAVE): \
+$(DEPDIR)/$(STSLAVE): \
 $(DEPDIR)/%$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -154,7 +154,7 @@ $(OPENSSL_RPM) $(OPENSSL_DEV_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(OPENSSL_SPEC)
 
-$(DEPDIR)/min-$(OPENSSL) $(DEPDIR)/std-$(OPENSSL) $(DEPDIR)/max-$(OPENSSL) $(DEPDIR)/$(OPENSSL): \
+$(DEPDIR)/$(OPENSSL): \
 $(DEPDIR)/%$(OPENSSL): $(OPENSSL_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -194,7 +194,7 @@ $(ALSALIB_RPM) $(ALSALIB_DEV_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(ALSALIB_SPEC)
 
-$(DEPDIR)/min-$(ALSALIB) $(DEPDIR)/std-$(ALSALIB) $(DEPDIR)/max-$(ALSALIB) $(DEPDIR)/$(ALSALIB): \
+$(DEPDIR)/$(ALSALIB): \
 $(DEPDIR)/%$(ALSALIB): $(ALSALIB_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -230,7 +230,7 @@ $(ALSAUTILS_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(ALSAUTILS_SPEC)
 
-$(DEPDIR)/min-$(ALSAUTILS) $(DEPDIR)/std-$(ALSAUTILS) $(DEPDIR)/max-$(ALSAUTILS) $(DEPDIR)/$(ALSAUTILS): \
+$(DEPDIR)/$(ALSAUTILS): \
 $(DEPDIR)/%$(ALSAUTILS): $(ALSAUTILS_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -262,7 +262,7 @@ $(ALSAPLAYER_RPM) $(ALSAPLAYER_DEV_RPM): \
 	export PKG_CONFIG_PATH=$(targetprefix)/usr/include/pkgconfig && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(ALSAPLAYER_SPEC)
 
-$(DEPDIR)/min-$(ALSAPLAYER) $(DEPDIR)/std-$(ALSAPLAYER) $(DEPDIR)/max-$(ALSAPLAYER) $(DEPDIR)/$(ALSAPLAYER): \
+$(DEPDIR)/$(ALSAPLAYER): \
 $(DEPDIR)/%$(ALSAPLAYER): $(ALSAPLAYER_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -275,4 +275,3 @@ $(DEPDIR)/%$(ALSAPLAYER_DEV): $(ALSAPLAYER_DEV_RPM)
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@
-

@@ -25,7 +25,6 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 #		$(MAKE) all
 #	touch $@
 #
-#$(DEPDIR)/min-libz $(DEPDIR)/std-libz $(DEPDIR)/max-libz \
 #$(DEPDIR)/libz: \
 #$(DEPDIR)/%libz: $(DEPDIR)/libz.do_compile
 #	cd @DIR_libz@ && \
@@ -55,7 +54,6 @@ $(DEPDIR)/libreadline.do_compile: $(DEPDIR)/libreadline.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libreadline $(DEPDIR)/std-libreadline $(DEPDIR)/max-libreadline \
 $(DEPDIR)/libreadline: \
 $(DEPDIR)/%libreadline: $(DEPDIR)/libreadline.do_compile
 	cd @DIR_libreadline@ && \
@@ -80,7 +78,6 @@ $(DEPDIR)/libfreetype.do_compile: $(DEPDIR)/libfreetype.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libfreetype $(DEPDIR)/std-libfreetype $(DEPDIR)/max-libfreetype \
 $(DEPDIR)/libfreetype: \
 $(DEPDIR)/%libfreetype: $(DEPDIR)/libfreetype.do_compile
 	cd @DIR_libfreetype@ && \
@@ -104,7 +101,7 @@ $(DEPDIR)/lirc.do_compile: $(DEPDIR)/lirc.do_prepare
 	cd @DIR_lirc@ && \
 		$(BUILDENV) \
 		ac_cv_path_LIBUSB_CONFIG= \
-		CFLAGS="$(TARGET_CFLAGS) -Os -D__KERNEL_STRICT_NAMES" \
+		CFLAGS="$(TARGET_CFLAGS) -D__KERNEL_STRICT_NAMES" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -123,7 +120,6 @@ $(DEPDIR)/lirc.do_compile: $(DEPDIR)/lirc.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-lirc $(DEPDIR)/std-lirc $(DEPDIR)/max-lirc \
 $(DEPDIR)/lirc: \
 $(DEPDIR)/%lirc: $(DEPDIR)/lirc.do_compile
 	cd @DIR_lirc@ && \
@@ -150,12 +146,42 @@ $(DEPDIR)/libjpeg.do_compile: $(DEPDIR)/libjpeg.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libjpeg $(DEPDIR)/std-libjpeg $(DEPDIR)/max-libjpeg \
 $(DEPDIR)/libjpeg: \
 $(DEPDIR)/%libjpeg: $(DEPDIR)/libjpeg.do_compile
 	cd @DIR_libjpeg@ && \
 		@INSTALL_libjpeg@
 	@DISTCLEANUP_libjpeg@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
+# libpng12
+#
+$(DEPDIR)/libpng12.do_prepare: bootstrap @DEPENDS_libpng12@
+	@PREPARE_libpng12@
+	touch $@
+
+$(DEPDIR)/libpng12.do_compile: $(DEPDIR)/libpng12.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd @DIR_libpng12@ && \
+		./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr && \
+		export ECHO="echo" && \
+		echo "Echo cmd =" $(ECHO) && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/libpng12: \
+$(DEPDIR)/%libpng12: $(DEPDIR)/libpng12.do_compile
+	cd @DIR_libpng12@ && \
+		sed -e "s,^prefix=,prefix=$(PKDIR)," < libpng-config > $(crossprefix)/bin/libpng-config && \
+		chmod 755 $(crossprefix)/bin/libpng-config && \
+		@INSTALL_libpng12@
+		rm -f $(PKDIR)/usr/bin/libpng*-config
+	@DISTCLEANUP_libpng12@
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -179,7 +205,6 @@ $(DEPDIR)/libpng.do_compile: $(DEPDIR)/libpng.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libpng $(DEPDIR)/std-libpng $(DEPDIR)/max-libpng \
 $(DEPDIR)/libpng: \
 $(DEPDIR)/%libpng: $(DEPDIR)/libpng.do_compile
 	cd @DIR_libpng@ && \
@@ -208,7 +233,6 @@ $(DEPDIR)/libungif.do_compile: $(DEPDIR)/libungif.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libungif $(DEPDIR)/std-libungif $(DEPDIR)/max-libungif \
 $(DEPDIR)/libungif: \
 $(DEPDIR)/%libungif: $(DEPDIR)/libungif.do_compile
 	cd @DIR_libungif@ && \
@@ -234,7 +258,6 @@ $(DEPDIR)/libgif.do_compile: $(DEPDIR)/libgif.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libgif $(DEPDIR)/std-libgif $(DEPDIR)/max-libgif \
 $(DEPDIR)/libgif: \
 $(DEPDIR)/%libgif: $(DEPDIR)/libgif.do_compile
 	cd @DIR_libgif@ && \
@@ -254,7 +277,6 @@ $(DEPDIR)/libcurl.do_compile: $(DEPDIR)/libcurl.do_prepare
 	cd @DIR_libcurl@ && \
 		$(BUILDENV) \
 		autoreconf -vif -I$(hostprefix)/share/aclocal && \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -268,7 +290,6 @@ $(DEPDIR)/libcurl.do_compile: $(DEPDIR)/libcurl.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libcurl $(DEPDIR)/std-libcurl $(DEPDIR)/max-libcurl \
 $(DEPDIR)/libcurl: \
 $(DEPDIR)/%libcurl: $(DEPDIR)/libcurl.do_compile
 	cd @DIR_libcurl@ && \
@@ -289,7 +310,6 @@ $(DEPDIR)/libfribidi.do_prepare: bootstrap @DEPENDS_libfribidi@
 $(DEPDIR)/libfribidi.do_compile: $(DEPDIR)/libfribidi.do_prepare
 	cd @DIR_libfribidi@ && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -298,7 +318,6 @@ $(DEPDIR)/libfribidi.do_compile: $(DEPDIR)/libfribidi.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libfribidi $(DEPDIR)/std-libfribidi $(DEPDIR)/max-libfribidi \
 $(DEPDIR)/libfribidi: \
 $(DEPDIR)/%libfribidi: $(DEPDIR)/libfribidi.do_compile
 	cd @DIR_libfribidi@ && \
@@ -324,7 +343,6 @@ $(DEPDIR)/libsigc.do_compile: $(DEPDIR)/libsigc.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libsigc $(DEPDIR)/std-libsigc $(DEPDIR)/max-libsigc \
 $(DEPDIR)/libsigc: \
 $(DEPDIR)/%libsigc: $(DEPDIR)/libsigc.do_compile
 	cd @DIR_libsigc@ && \
@@ -359,7 +377,6 @@ $(DEPDIR)/libmad.do_compile: $(DEPDIR)/libmad.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libmad $(DEPDIR)/std-libmad $(DEPDIR)/max-libmad \
 $(DEPDIR)/libmad: \
 $(DEPDIR)/%libmad: $(DEPDIR)/libmad.do_compile
 	cd @DIR_libmad@ && \
@@ -377,7 +394,6 @@ $(DEPDIR)/libid3tag.do_prepare: bootstrap @DEPENDS_libid3tag@
 $(DEPDIR)/libid3tag.do_compile: $(DEPDIR)/libid3tag.do_prepare
 	cd @DIR_libid3tag@ && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -386,7 +402,6 @@ $(DEPDIR)/libid3tag.do_compile: $(DEPDIR)/libid3tag.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libid3tag $(DEPDIR)/std-libid3tag $(DEPDIR)/max-libid3tag \
 $(DEPDIR)/libid3tag: \
 $(DEPDIR)/%libid3tag: $(DEPDIR)/libid3tag.do_compile
 	cd @DIR_libid3tag@ && \
@@ -436,8 +451,6 @@ $(DEPDIR)/glib2.do_compile: $(DEPDIR)/glib2.do_prepare
 	echo "glib_cv_uscore=no" >> @DIR_glib2@/config.cache
 	cd @DIR_glib2@ && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
-		PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 		./configure \
 			--cache-file=config.cache \
 			--disable-gtk-doc \
@@ -450,7 +463,6 @@ $(DEPDIR)/glib2.do_compile: $(DEPDIR)/glib2.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-glib2 $(DEPDIR)/std-glib2 $(DEPDIR)/max-glib2 \
 $(DEPDIR)/glib2: \
 $(DEPDIR)/%glib2: $(DEPDIR)/glib2.do_compile
 	cd @DIR_glib2@ && \
@@ -475,7 +487,6 @@ $(DEPDIR)/libiconv.do_compile: $(DEPDIR)/libiconv.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libiconv $(DEPDIR)/std-libiconv $(DEPDIR)/max-libiconv \
 $(DEPDIR)/libiconv: \
 $(DEPDIR)/%libiconv: $(DEPDIR)/libiconv.do_compile
 	cd @DIR_libiconv@ && \
@@ -509,7 +520,6 @@ $(DEPDIR)/libmng.do_compile: $(DEPDIR)/libmng.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libmng $(DEPDIR)/std-libmng $(DEPDIR)/max-libmng \
 $(DEPDIR)/libmng: \
 $(DEPDIR)/%libmng: $(DEPDIR)/libmng.do_compile
 	cd @DIR_libmng@ && \
@@ -536,7 +546,6 @@ $(DEPDIR)/lcms.do_compile: $(DEPDIR)/lcms.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-lcms $(DEPDIR)/std-lcms $(DEPDIR)/max-lcms \
 $(DEPDIR)/lcms: \
 $(DEPDIR)/%lcms: $(DEPDIR)/lcms.do_compile
 	cd @DIR_lcms@ && \
@@ -578,7 +587,6 @@ $(DEPDIR)/directfb.do_compile: $(DEPDIR)/directfb.do_prepare
 		$(MAKE) LD=$(target)-ld
 	touch $@
 
-$(DEPDIR)/min-directfb $(DEPDIR)/std-directfb $(DEPDIR)/max-directfb \
 $(DEPDIR)/directfb: \
 $(DEPDIR)/%directfb: $(DEPDIR)/directfb.do_compile
 	cd @DIR_directfb@ && \
@@ -604,7 +612,6 @@ $(DEPDIR)/dfbpp.do_compile: $(DEPDIR)/dfbpp.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-dfbpp $(DEPDIR)/std-dfbpp $(DEPDIR)/max-dfbpp \
 $(DEPDIR)/dfbpp: \
 $(DEPDIR)/%dfbpp: $(DEPDIR)/dfbpp.do_compile
 	cd @DIR_dfbpp@ && \
@@ -634,7 +641,6 @@ $(DEPDIR)/libstgles.do_compile: $(DEPDIR)/libstgles.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libstgles $(DEPDIR)/std-libstgles $(DEPDIR)/max-libstgles \
 $(DEPDIR)/libstgles: \
 $(DEPDIR)/%libstgles: $(DEPDIR)/libstgles.do_compile
 	cd @DIR_libstgles@ && \
@@ -652,7 +658,6 @@ $(DEPDIR)/libexpat.do_prepare: bootstrap @DEPENDS_libexpat@
 $(DEPDIR)/libexpat.do_compile: $(DEPDIR)/libexpat.do_prepare
 	cd @DIR_libexpat@ && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -660,7 +665,6 @@ $(DEPDIR)/libexpat.do_compile: $(DEPDIR)/libexpat.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libexpat $(DEPDIR)/std-libexpat $(DEPDIR)/max-libexpat \
 $(DEPDIR)/libexpat: \
 $(DEPDIR)/%libexpat: $(DEPDIR)/libexpat.do_compile
 	cd @DIR_libexpat@ && \
@@ -681,7 +685,6 @@ $(DEPDIR)/fontconfig.do_compile: $(DEPDIR)/fontconfig.do_prepare
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -697,7 +700,6 @@ $(DEPDIR)/fontconfig.do_compile: $(DEPDIR)/fontconfig.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-fontconfig $(DEPDIR)/std-fontconfig $(DEPDIR)/max-fontconfig \
 $(DEPDIR)/fontconfig: \
 $(DEPDIR)/%fontconfig: $(DEPDIR)/fontconfig.do_compile
 	cd @DIR_fontconfig@ && \
@@ -723,7 +725,6 @@ $(DEPDIR)/libxmlccwrap.do_compile: $(DEPDIR)/libxmlccwrap.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libxmlccwrap $(DEPDIR)/std-libxmlccwrap $(DEPDIR)/max-libxmlccwrap \
 $(DEPDIR)/libxmlccwrap: \
 $(DEPDIR)/%libxmlccwrap: $(DEPDIR)/libxmlccwrap.do_compile
 	cd @DIR_libxmlccwrap@ && \
@@ -750,7 +751,6 @@ $(DEPDIR)/a52dec.do_compile: $(DEPDIR)/a52dec.do_prepare
 		$(MAKE) install
 	touch $@
 
-$(DEPDIR)/min-a52dec $(DEPDIR)/std-a52dec $(DEPDIR)/max-a52dec \
 $(DEPDIR)/a52dec: \
 $(DEPDIR)/%a52dec: $(DEPDIR)/a52dec.do_compile
 	cd @DIR_a52dec@ && \
@@ -768,7 +768,6 @@ $(DEPDIR)/libdvdcss.do_prepare: bootstrap @DEPENDS_libdvdcss@
 $(DEPDIR)/libdvdcss.do_compile: $(DEPDIR)/libdvdcss.do_prepare
 	cd @DIR_libdvdcss@ && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -777,7 +776,6 @@ $(DEPDIR)/libdvdcss.do_compile: $(DEPDIR)/libdvdcss.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdvdcss $(DEPDIR)/std-libdvdcss $(DEPDIR)/max-libdvdcss \
 $(DEPDIR)/libdvdcss: \
 $(DEPDIR)/%libdvdcss: $(DEPDIR)/libdvdcss.do_compile
 	cd @DIR_libdvdcss@ && \
@@ -798,7 +796,6 @@ $(DEPDIR)/libdvdnav.do_compile: $(DEPDIR)/libdvdnav.do_prepare
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -809,7 +806,6 @@ $(DEPDIR)/libdvdnav.do_compile: $(DEPDIR)/libdvdnav.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdvdnav $(DEPDIR)/std-libdvdnav $(DEPDIR)/max-libdvdnav \
 $(DEPDIR)/libdvdnav: \
 $(DEPDIR)/%libdvdnav: $(DEPDIR)/libdvdnav.do_compile
 	cd @DIR_libdvdnav@ && \
@@ -834,7 +830,6 @@ $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -844,7 +839,6 @@ $(DEPDIR)/libdvdread.do_compile: $(DEPDIR)/libdvdread.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libdvdread $(DEPDIR)/std-libdvdread $(DEPDIR)/max-libdvdread \
 $(DEPDIR)/libdvdread: \
 $(DEPDIR)/%libdvdread: $(DEPDIR)/libdvdread.do_compile
 	cd @DIR_libdvdread@ && \
@@ -968,7 +962,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-ffmpeg $(DEPDIR)/std-ffmpeg $(DEPDIR)/max-ffmpeg \
 $(DEPDIR)/ffmpeg: \
 $(DEPDIR)/%ffmpeg: $(DEPDIR)/ffmpeg.do_compile
 	cd @DIR_ffmpeg@ && \
@@ -986,7 +979,6 @@ $(DEPDIR)/libass.do_prepare: bootstrap libfreetype libfribidi @DEPENDS_libass@
 $(DEPDIR)/libass.do_compile: $(DEPDIR)/libass.do_prepare
 	cd @DIR_libass@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--disable-fontconfig \
@@ -995,7 +987,6 @@ $(DEPDIR)/libass.do_compile: $(DEPDIR)/libass.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libass $(DEPDIR)/std-libass $(DEPDIR)/max-libass \
 $(DEPDIR)/libass: \
 $(DEPDIR)/%libass: $(DEPDIR)/libass.do_compile
 	cd @DIR_libass@ && \
@@ -1041,7 +1032,6 @@ $(DEPDIR)/webkitdfb.do_compile: $(DEPDIR)/webkitdfb.do_prepare
 		--with-networking-backend=soup
 	touch $@
 
-$(DEPDIR)/min-webkitdfb $(DEPDIR)/std-webkitdfb $(DEPDIR)/max-webkitdfb \
 $(DEPDIR)/webkitdfb: \
 $(DEPDIR)/%webkitdfb: $(DEPDIR)/webkitdfb.do_compile
 	cd @DIR_webkitdfb@ && \
@@ -1079,7 +1069,6 @@ $(DEPDIR)/icu4c.do_compile: $(DEPDIR)/icu4c.do_prepare
 		--disable-samples
 	touch $@
 
-$(DEPDIR)/min-icu4c $(DEPDIR)/std-icu4c $(DEPDIR)/max-icu4c \
 $(DEPDIR)/icu4c: \
 $(DEPDIR)/%icu4c: $(DEPDIR)/icu4c.do_compile
 	cd @DIR_icu4c@ && \
@@ -1113,7 +1102,6 @@ $(DEPDIR)/enchant.do_compile: $(DEPDIR)/enchant.do_prepare
 	$(MAKE) LD=$(target)-ld
 	touch $@
 
-$(DEPDIR)/min-enchant $(DEPDIR)/std-enchant $(DEPDIR)/max-enchant \
 $(DEPDIR)/enchant: \
 $(DEPDIR)/%enchant: $(DEPDIR)/enchant.do_compile
 	cd @DIR_enchant@ && \
@@ -1141,7 +1129,6 @@ $(DEPDIR)/lite.do_compile: $(DEPDIR)/lite.do_prepare
 		--disable-debug
 	touch $@
 
-$(DEPDIR)/min-lite $(DEPDIR)/std-lite $(DEPDIR)/max-lite \
 $(DEPDIR)/lite: \
 $(DEPDIR)/%lite: $(DEPDIR)/lite.do_compile
 	cd @DIR_lite@ && \
@@ -1170,7 +1157,6 @@ $(DEPDIR)/sqlite.do_compile: $(DEPDIR)/sqlite.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-sqlite $(DEPDIR)/std-sqlite $(DEPDIR)/max-sqlite \
 $(DEPDIR)/sqlite: \
 $(DEPDIR)/%sqlite: $(DEPDIR)/sqlite.do_compile
 	cd @DIR_sqlite@ && \
@@ -1197,7 +1183,6 @@ $(DEPDIR)/libsoup.do_compile: $(DEPDIR)/libsoup.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libsoup $(DEPDIR)/std-libsoup $(DEPDIR)/max-libsoup \
 $(DEPDIR)/libsoup: \
 $(DEPDIR)/%libsoup: $(DEPDIR)/libsoup.do_compile
 	cd @DIR_libsoup@ && \
@@ -1222,7 +1207,6 @@ $(DEPDIR)/pixman.do_compile: $(DEPDIR)/pixman.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-pixman $(DEPDIR)/std-pixman $(DEPDIR)/max-pixman \
 $(DEPDIR)/pixman: \
 $(DEPDIR)/%pixman: $(DEPDIR)/pixman.do_compile
 	cd @DIR_pixman@ && \
@@ -1257,7 +1241,6 @@ $(DEPDIR)/cairo.do_compile: $(DEPDIR)/cairo.do_prepare
 		--program-suffix=-directfb
 	touch $@
 
-$(DEPDIR)/min-cairo $(DEPDIR)/std-cairo $(DEPDIR)/max-cairo \
 $(DEPDIR)/cairo: \
 $(DEPDIR)/%cairo: $(DEPDIR)/cairo.do_compile
 	cd @DIR_cairo@ && \
@@ -1319,7 +1302,6 @@ $(DEPDIR)/libflac.do_compile: $(DEPDIR)/libflac.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libflac $(DEPDIR)/std-libflac $(DEPDIR)/max-libflac \
 $(DEPDIR)/libflac: \
 $(DEPDIR)/%libflac: $(DEPDIR)/libflac.do_compile
 	cd @DIR_libflac@ && \
@@ -1340,7 +1322,6 @@ $(DEPDIR)/elementtree.do_prepare: bootstrap @DEPENDS_elementtree@
 $(DEPDIR)/elementtree.do_compile: $(DEPDIR)/elementtree.do_prepare
 	touch $@
 
-$(DEPDIR)/min-elementtree $(DEPDIR)/std-elementtree $(DEPDIR)/max-elementtree \
 $(DEPDIR)/elementtree: \
 $(DEPDIR)/%elementtree: $(DEPDIR)/elementtree.do_compile
 	cd @DIR_elementtree@ && \
@@ -1372,7 +1353,6 @@ $(DEPDIR)/libxml2.do_compile: $(DEPDIR)/libxml2.do_prepare
 		$(MAKE) all 
 	touch $@
 
-$(DEPDIR)/min-libxml2 $(DEPDIR)/std-libxml2 $(DEPDIR)/max-libxml2 \
 $(DEPDIR)/libxml2: \
 $(DEPDIR)/%libxml2: $(DEPDIR)/libxml2.do_compile
 	cd @DIR_libxml2@ && \
@@ -1396,8 +1376,7 @@ $(DEPDIR)/libxslt.do_compile: $(DEPDIR)/libxslt.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxslt@ && \
 		$(BUILDENV) \
-		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/libxml2 -Os" \
-		CFLAGS="$(TARGET_CFLAGS) -Os" \
+		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/libxml2" \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -1412,9 +1391,8 @@ $(DEPDIR)/libxslt.do_compile: $(DEPDIR)/libxslt.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libxslt $(DEPDIR)/std-libxslt $(DEPDIR)/max-libxslt \
 $(DEPDIR)/libxslt: \
-$(DEPDIR)/%libxslt: $(DEPDIR)/libxslt.do_compile
+$(DEPDIR)/%libxslt: %libxml2 $(DEPDIR)/libxslt.do_compile
 	cd @DIR_libxslt@ && \
 		@INSTALL_libxslt@ && \
 		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxsltmod.la && \
@@ -1443,7 +1421,6 @@ $(DEPDIR)/lxml.do_compile: $(DEPDIR)/lxml.do_prepare
 			--with-xslt-config=$(crossprefix)/bin/xslt-config
 	touch $@
 
-$(DEPDIR)/min-lxml $(DEPDIR)/std-lxml $(DEPDIR)/max-lxml \
 $(DEPDIR)/lxml: \
 $(DEPDIR)/%lxml: $(DEPDIR)/lxml.do_compile
 	cd @DIR_lxml@ && \
@@ -1465,7 +1442,6 @@ $(DEPDIR)/setuptools.do_compile: $(DEPDIR)/setuptools.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-setuptools $(DEPDIR)/std-setuptools $(DEPDIR)/max-setuptools \
 $(DEPDIR)/setuptools: \
 $(DEPDIR)/%setuptools: $(DEPDIR)/setuptools.do_compile
 	cd @DIR_setuptools@ && \
@@ -1487,7 +1463,6 @@ $(DEPDIR)/gdata.do_compile: $(DEPDIR)/gdata.do_prepare
 		$(hostprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
-$(DEPDIR)/min-gdata $(DEPDIR)/std-gdata $(DEPDIR)/max-gdata \
 $(DEPDIR)/gdata: \
 $(DEPDIR)/%gdata: $(DEPDIR)/gdata.do_compile
 	cd @DIR_gdata@ && \
@@ -1511,7 +1486,6 @@ $(DEPDIR)/twisted.do_compile: $(DEPDIR)/twisted.do_prepare
 		$(hostprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
-$(DEPDIR)/min-twisted $(DEPDIR)/std-twisted $(DEPDIR)/max-twisted \
 $(DEPDIR)/twisted: \
 $(DEPDIR)/%twisted: $(DEPDIR)/twisted.do_compile
 	cd @DIR_twisted@ && \
@@ -1535,7 +1509,6 @@ $(DEPDIR)/twistedweb2.do_compile: $(DEPDIR)/twistedweb2.do_prepare
 		$(hostprefix)/bin/python -c "import setuptools; execfile('setup.py')" build
 	touch $@
 
-$(DEPDIR)/min-twistedweb2 $(DEPDIR)/std-twistedweb2 $(DEPDIR)/max-twistedweb2 \
 $(DEPDIR)/twistedweb2: \
 $(DEPDIR)/%twistedweb2: $(DEPDIR)/twistedweb2.do_compile
 	cd @DIR_twistedweb2@ && \
@@ -1562,7 +1535,6 @@ $(DEPDIR)/pilimaging.do_compile: $(DEPDIR)/pilimaging.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-pilimaging $(DEPDIR)/std-pilimaging $(DEPDIR)/max-pilimaging \
 $(DEPDIR)/pilimaging: \
 $(DEPDIR)/%pilimaging: $(DEPDIR)/pilimaging.do_compile
 	cd @DIR_pilimaging@ && \
@@ -1587,7 +1559,6 @@ $(DEPDIR)/pycrypto.do_compile: $(DEPDIR)/pycrypto.do_prepare
 			--prefix=/usr
 	touch $@
 
-$(DEPDIR)/min-pycrypto $(DEPDIR)/std-pycrypto $(DEPDIR)/max-pycrypto \
 $(DEPDIR)/pycrypto: \
 $(DEPDIR)/%pycrypto: $(DEPDIR)/pycrypto.do_compile
 	cd @DIR_pycrypto@ && \
@@ -1611,7 +1582,6 @@ $(DEPDIR)/pyusb.do_compile: $(DEPDIR)/pyusb.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-pyusb $(DEPDIR)/std-pyusb $(DEPDIR)/max-pyusb \
 $(DEPDIR)/pyusb: \
 $(DEPDIR)/%pyusb: $(DEPDIR)/pyusb.do_compile
 	cd @DIR_pyusb@ && \
@@ -1635,7 +1605,6 @@ $(DEPDIR)/pyopenssl.do_compile: $(DEPDIR)/pyopenssl.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-pyopenssl $(DEPDIR)/std-pyopenssl $(DEPDIR)/max-pyopenssl \
 $(DEPDIR)/pyopenssl: \
 $(DEPDIR)/%pyopenssl: $(DEPDIR)/pyopenssl.do_compile
 	cd @DIR_pyopenssl@ && \
@@ -1687,7 +1656,6 @@ $(DEPDIR)/python.do_compile: $(DEPDIR)/python.do_prepare
 			all ) && \
 	touch $@
 
-$(DEPDIR)/min-python $(DEPDIR)/std-python $(DEPDIR)/max-python \
 $(DEPDIR)/python: \
 $(DEPDIR)/%python: $(DEPDIR)/python.do_compile
 	( cd @DIR_python@ && \
@@ -1715,7 +1683,6 @@ $(DEPDIR)/pythonwifi.do_compile: $(DEPDIR)/pythonwifi.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-pythonwifi $(DEPDIR)/std-pythonwifi $(DEPDIR)/max-pythonwifi \
 $(DEPDIR)/pythonwifi: \
 $(DEPDIR)/%pythonwifi: $(DEPDIR)/pythonwifi.do_compile
 	cd @DIR_pythonwifi@ && \
@@ -1738,7 +1705,6 @@ $(DEPDIR)/pythoncheetah.do_compile: $(DEPDIR)/pythoncheetah.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-pythoncheetah $(DEPDIR)/std-pythoncheetah $(DEPDIR)/max-pythoncheetah \
 $(DEPDIR)/pythoncheetah: \
 $(DEPDIR)/%pythoncheetah: $(DEPDIR)/pythoncheetah.do_compile
 	cd @DIR_pythoncheetah@ && \
@@ -1761,7 +1727,6 @@ $(DEPDIR)/zope_interface.do_compile: $(DEPDIR)/zope_interface.do_prepare
 		$(hostprefix)/bin/python ./setup.py build
 	touch $@
 
-$(DEPDIR)/min-zope_interface $(DEPDIR)/std-zope_interface $(DEPDIR)/max-zope_interface \
 $(DEPDIR)/zope_interface: \
 $(DEPDIR)/%zope_interface: $(DEPDIR)/zope_interface.do_compile
 	cd @DIR_zope_interface@ && \
@@ -1796,7 +1761,6 @@ $(DEPDIR)/gstreamer.do_compile: $(DEPDIR)/gstreamer.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gstreamer $(DEPDIR)/std-gstreamer $(DEPDIR)/max-gstreamer \
 $(DEPDIR)/gstreamer: \
 $(DEPDIR)/%gstreamer: $(DEPDIR)/gstreamer.do_compile
 	cd @DIR_gstreamer@ && \
@@ -1835,7 +1799,6 @@ $(DEPDIR)/gst_plugins_base.do_compile: $(DEPDIR)/gst_plugins_base.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugins_base $(DEPDIR)/std-gst_plugins_base $(DEPDIR)/max-gst_plugins_base \
 $(DEPDIR)/gst_plugins_base: \
 $(DEPDIR)/%gst_plugins_base: $(DEPDIR)/gst_plugins_base.do_compile
 	cd @DIR_gst_plugins_base@ && \
@@ -1866,7 +1829,6 @@ $(DEPDIR)/gst_plugins_good.do_compile: $(DEPDIR)/gst_plugins_good.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugins_good $(DEPDIR)/std-gst_plugins_good $(DEPDIR)/max-gst_plugins_good \
 $(DEPDIR)/gst_plugins_good: \
 $(DEPDIR)/%gst_plugins_good: $(DEPDIR)/gst_plugins_good.do_compile
 	cd @DIR_gst_plugins_good@ && \
@@ -1908,7 +1870,6 @@ $(DEPDIR)/gst_plugins_bad.do_compile: $(DEPDIR)/gst_plugins_bad.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugins_bad $(DEPDIR)/std-gst_plugins_bad $(DEPDIR)/max-gst_plugins_bad \
 $(DEPDIR)/gst_plugins_bad: \
 $(DEPDIR)/%gst_plugins_bad: $(DEPDIR)/gst_plugins_bad.do_compile
 	cd @DIR_gst_plugins_bad@ && \
@@ -1934,7 +1895,6 @@ $(DEPDIR)/gst_plugins_ugly.do_compile: $(DEPDIR)/gst_plugins_ugly.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugins_ugly $(DEPDIR)/std-gst_plugins_ugly $(DEPDIR)/max-gst_plugins_ugly \
 $(DEPDIR)/gst_plugins_ugly: \
 $(DEPDIR)/%gst_plugins_ugly: $(DEPDIR)/gst_plugins_ugly.do_compile
 	cd @DIR_gst_plugins_ugly@ && \
@@ -1996,7 +1956,6 @@ $(DEPDIR)/gst_ffmpeg.do_compile: $(DEPDIR)/gst_ffmpeg.do_prepare
 		--enable-bzlib"
 	touch $@
 
-$(DEPDIR)/min-gst_ffmpeg $(DEPDIR)/std-gst_ffmpeg $(DEPDIR)/max-gst_ffmpeg \
 $(DEPDIR)/gst_ffmpeg: \
 $(DEPDIR)/%gst_ffmpeg: $(DEPDIR)/gst_ffmpeg.do_compile
 	cd @DIR_gst_ffmpeg@ && \
@@ -2022,7 +1981,6 @@ $(DEPDIR)/gst_plugins_fluendo_mpegdemux.do_compile: $(DEPDIR)/gst_plugins_fluend
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugins_fluendo_mpegdemux $(DEPDIR)/std-gst_plugins_fluendo_mpegdemux $(DEPDIR)/max-gst_plugins_fluendo_mpegdemux \
 $(DEPDIR)/gst_plugins_fluendo_mpegdemux: \
 $(DEPDIR)/%gst_plugins_fluendo_mpegdemux: $(DEPDIR)/gst_plugins_fluendo_mpegdemux.do_compile
 	cd @DIR_gst_plugins_fluendo_mpegdemux@ && \
@@ -2033,7 +1991,7 @@ $(DEPDIR)/%gst_plugins_fluendo_mpegdemux: $(DEPDIR)/gst_plugins_fluendo_mpegdemu
 #
 # GST-PLUGIN-SUBSINK
 #
-$(DEPDIR)/gst_plugin_subsink.do_prepare: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugins_fluendo_mpegdemux @DEPENDS_gst_plugin_subsink@
+$(DEPDIR)/gst_plugin_subsink.do_prepare: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly @DEPENDS_gst_plugin_subsink@
 	@PREPARE_gst_plugin_subsink@
 	touch $@
 
@@ -2052,7 +2010,6 @@ $(DEPDIR)/gst_plugin_subsink.do_compile: $(DEPDIR)/gst_plugin_subsink.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugin_subsink $(DEPDIR)/std-gst_plugin_subsink $(DEPDIR)/max-gst_plugin_subsink \
 $(DEPDIR)/gst_plugin_subsink: \
 $(DEPDIR)/%gst_plugin_subsink: $(DEPDIR)/gst_plugin_subsink.do_compile
 	cd @DIR_gst_plugin_subsink@ && \
@@ -2082,7 +2039,6 @@ $(DEPDIR)/gst_plugins_dvbmediasink.do_compile: $(DEPDIR)/gst_plugins_dvbmediasin
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-gst_plugins_dvbmediasink $(DEPDIR)/std-gst_plugins_dvbmediasink $(DEPDIR)/max-gst_plugins_dvbmediasink \
 $(DEPDIR)/gst_plugins_dvbmediasink: \
 $(DEPDIR)/%gst_plugins_dvbmediasink: $(DEPDIR)/gst_plugins_dvbmediasink.do_compile
 	cd @DIR_gst_plugins_dvbmediasink@ && \
@@ -2106,7 +2062,6 @@ $(DEPDIR)/libdca.do_compile: $(DEPDIR)/libdca.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdca $(DEPDIR)/std-libdca $(DEPDIR)/max-libdca \
 $(DEPDIR)/libdca: \
 $(DEPDIR)/%libdca: $(DEPDIR)/libdca.do_compile
 	cd @DIR_libdca@ && \
@@ -2130,7 +2085,6 @@ $(DEPDIR)/liborc.do_compile: $(DEPDIR)/liborc.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-liborc $(DEPDIR)/std-liborc $(DEPDIR)/max-liborc \
 $(DEPDIR)/liborc: \
 $(DEPDIR)/%liborc: $(DEPDIR)/liborc.do_compile
 	cd @DIR_liborc@ && \
@@ -2157,7 +2111,6 @@ $(DEPDIR)/libusb.do_compile: $(DEPDIR)/libusb.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libusb $(DEPDIR)/std-libusb $(DEPDIR)/max-libusb \
 $(DEPDIR)/libusb: \
 $(DEPDIR)/%libusb: $(DEPDIR)/libusb.do_compile
 	cd @DIR_libusb@ && \
@@ -2181,7 +2134,6 @@ $(DEPDIR)/graphlcd.do_compile: $(DEPDIR)/graphlcd.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-graphlcd $(DEPDIR)/std-graphlcd $(DEPDIR)/max-graphlcd \
 $(DEPDIR)/graphlcd: \
 $(DEPDIR)/%graphlcd: $(DEPDIR)/graphlcd.do_compile
 	cd @DIR_graphlcd@ && \
@@ -2221,7 +2173,6 @@ $(DEPDIR)/lcd4_linux.do_compile: $(DEPDIR)/lcd4_linux.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-lcd4_linux $(DEPDIR)/std-lcd4_linux $(DEPDIR)/max-lcd4_linux \
 $(DEPDIR)/lcd4_linux: \
 $(DEPDIR)/%lcd4_linux: $(DEPDIR)/lcd4_linux.do_compile
 	cd @DIR_lcd4_linux@ && \
@@ -2242,7 +2193,6 @@ $(DEPDIR)/libdpfax.do_compile: $(DEPDIR)/libdpfax.do_prepare
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdpfax $(DEPDIR)/std-libdpfax $(DEPDIR)/max-libdpfax \
 $(DEPDIR)/libdpfax: \
 $(DEPDIR)/%libdpfax: $(DEPDIR)/libdpfax.do_compile
 	cd @DIR_libdpfax@ && \
@@ -2288,7 +2238,6 @@ $(DEPDIR)/libgd2.do_compile: $(DEPDIR)/libgd2.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libgd2 $(DEPDIR)/std-libgd2 $(DEPDIR)/max-libgd2 \
 $(DEPDIR)/libgd2: \
 $(DEPDIR)/%libgd2: $(DEPDIR)/libgd2.do_compile
 	cd @DIR_libgd2@ && \
@@ -2314,7 +2263,6 @@ $(DEPDIR)/libusb2.do_compile: $(DEPDIR)/libusb2.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libusb2 $(DEPDIR)/std-libusb2 $(DEPDIR)/max-libusb2 \
 $(DEPDIR)/libusb2: \
 $(DEPDIR)/%libusb2: $(DEPDIR)/libusb2.do_compile
 	cd @DIR_libusb2@ && \
@@ -2339,7 +2287,6 @@ $(DEPDIR)/libusbcompat.do_compile: $(DEPDIR)/libusbcompat.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libusbcompat $(DEPDIR)/std-libusbcompat $(DEPDIR)/max-libusbcompat \
 $(DEPDIR)/libusbcompat: \
 $(DEPDIR)/%libusbcompat: $(DEPDIR)/libusbcompat.do_compile
 	cd @DIR_libusbcompat@ && \
@@ -2372,7 +2319,6 @@ $(DEPDIR)/evebrowser.do_compile: $(DEPDIR)/evebrowser.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-evebrowser $(DEPDIR)/std-evebrowser $(DEPDIR)/max-evebrowser \
 $(DEPDIR)/evebrowser: \
 $(DEPDIR)/%evebrowser: $(DEPDIR)/evebrowser.do_compile
 	cd @DIR_evebrowser@ && \
@@ -2395,7 +2341,6 @@ $(DEPDIR)/brofs.do_compile: $(DEPDIR)/brofs.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-brofs $(DEPDIR)/std-brofs $(DEPDIR)/max-brofs \
 $(DEPDIR)/brofs: \
 $(DEPDIR)/%brofs: $(DEPDIR)/brofs.do_compile
 	cd @DIR_brofs@ && \
@@ -2425,7 +2370,6 @@ $(DEPDIR)/libcap.do_compile: $(DEPDIR)/libcap.do_prepare
 	CC=sh4-linux-gcc
 	touch $@
 
-$(DEPDIR)/min-libcap $(DEPDIR)/std-libcap $(DEPDIR)/max-libcap \
 $(DEPDIR)/libcap: \
 $(DEPDIR)/%libcap: $(DEPDIR)/libcap.do_compile
 	@[ "x$*" = "x" ] && touch $@ || true
@@ -2472,7 +2416,6 @@ $(DEPDIR)/libalsa.do_compile: $(DEPDIR)/libalsa.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libalsa $(DEPDIR)/std-libalsa $(DEPDIR)/max-libalsa \
 $(DEPDIR)/libalsa: \
 $(DEPDIR)/%libalsa: $(DEPDIR)/libalsa.do_compile
 	cd @DIR_libalsa@ && \
@@ -2501,7 +2444,6 @@ $(DEPDIR)/libopenthreads.do_compile: $(DEPDIR)/libopenthreads.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libopenthreads $(DEPDIR)/std-libopenthreads $(DEPDIR)/max-libopenthreads \
 $(DEPDIR)/libopenthreads: \
 $(DEPDIR)/%libopenthreads: $(DEPDIR)/libopenthreads.do_compile
 	cd @DIR_libopenthreads@ && \
@@ -2525,7 +2467,6 @@ $(DEPDIR)/rtmpdump.do_compile: $(DEPDIR)/rtmpdump.do_prepare
 		make CROSS_COMPILE=$(target)-
 	touch $@
 
-$(DEPDIR)/min-rtmpdump $(DEPDIR)/std-rtmpdump $(DEPDIR)/max-rtmpdump \
 $(DEPDIR)/rtmpdump: \
 $(DEPDIR)/%rtmpdump: $(DEPDIR)/rtmpdump.do_compile
 	cd @DIR_rtmpdump@ && \
@@ -2555,7 +2496,6 @@ $(DEPDIR)/libdvbsipp.do_compile: $(DEPDIR)/libdvbsipp.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdvbsipp $(DEPDIR)/std-libdvbsipp $(DEPDIR)/max-libdvbsipp \
 $(DEPDIR)/libdvbsipp: \
 $(DEPDIR)/%libdvbsipp: $(DEPDIR)/libdvbsipp.do_compile
 	cd @DIR_libdvbsipp@ && \
@@ -2589,7 +2529,6 @@ $(DEPDIR)/tuxtxtlib.do_compile: $(DEPDIR)/tuxtxtlib.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-tuxtxtlib $(DEPDIR)/std-tuxtxtlib $(DEPDIR)/max-tuxtxtlib \
 $(DEPDIR)/tuxtxtlib: \
 $(DEPDIR)/%tuxtxtlib: $(DEPDIR)/tuxtxtlib.do_compile
 	cd @DIR_tuxtxtlib@ && \
@@ -2623,7 +2562,6 @@ $(DEPDIR)/tuxtxt32bpp.do_compile: $(DEPDIR)/tuxtxt32bpp.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-tuxtxt32bpp $(DEPDIR)/std-tuxtxt32bpp $(DEPDIR)/max-tuxtxt32bpp \
 $(DEPDIR)/tuxtxt32bpp: \
 $(DEPDIR)/%tuxtxt32bpp: $(DEPDIR)/tuxtxt32bpp.do_compile
 	cd @DIR_tuxtxt32bpp@ && \
@@ -2653,7 +2591,6 @@ $(DEPDIR)/libdreamdvd.do_compile: $(DEPDIR)/libdreamdvd.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdreamdvd $(DEPDIR)/std-libdreamdvd $(DEPDIR)/max-libdreamdvd \
 $(DEPDIR)/libdreamdvd: \
 $(DEPDIR)/%libdreamdvd: $(DEPDIR)/libdreamdvd.do_compile
 	cd @DIR_libdreamdvd@ && \
@@ -2686,7 +2623,6 @@ $(DEPDIR)/libdreamdvd2.do_compile: $(DEPDIR)/libdreamdvd2.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libdreamdvd2 $(DEPDIR)/std-libdreamdvd2 $(DEPDIR)/max-libdreamdvd2 \
 $(DEPDIR)/libdreamdvd2: \
 $(DEPDIR)/%libdreamdvd2: $(DEPDIR)/libdreamdvd2.do_compile
 	cd @DIR_libdreamdvd2@ && \
@@ -2711,7 +2647,6 @@ $(DEPDIR)/libmpeg2.do_compile: $(DEPDIR)/libmpeg2.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libmpeg2 $(DEPDIR)/std-libmpeg2 $(DEPDIR)/max-libmpeg2 \
 $(DEPDIR)/libmpeg2: \
 $(DEPDIR)/%libmpeg2: $(DEPDIR)/libmpeg2.do_compile
 	cd @DIR_libmpeg2@ && \
@@ -2736,7 +2671,6 @@ $(DEPDIR)/libsamplerate.do_compile: $(DEPDIR)/libsamplerate.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libsamplerate $(DEPDIR)/std-libsamplerate $(DEPDIR)/max-libsamplerate \
 $(DEPDIR)/libsamplerate: \
 $(DEPDIR)/%libsamplerate: $(DEPDIR)/libsamplerate.do_compile
 	cd @DIR_libsamplerate@ && \
@@ -2761,7 +2695,6 @@ $(DEPDIR)/libvorbis.do_compile: $(DEPDIR)/libvorbis.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libvorbis $(DEPDIR)/std-libvorbis $(DEPDIR)/max-libvorbis \
 $(DEPDIR)/libvorbis: \
 $(DEPDIR)/%libvorbis: $(DEPDIR)/libvorbis.do_compile
 	cd @DIR_libvorbis@ && \
@@ -2786,7 +2719,6 @@ $(DEPDIR)/libmodplug.do_compile: $(DEPDIR)/libmodplug.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libmodplug $(DEPDIR)/std-libmodplug $(DEPDIR)/max-libmodplug \
 $(DEPDIR)/libmodplug: \
 $(DEPDIR)/%libmodplug: $(DEPDIR)/libmodplug.do_compile
 	cd @DIR_libmodplug@ && \
@@ -2811,7 +2743,6 @@ $(DEPDIR)/tiff.do_compile: $(DEPDIR)/tiff.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-tiff $(DEPDIR)/std-tiff $(DEPDIR)/max-tiff \
 $(DEPDIR)/tiff: \
 $(DEPDIR)/%tiff: $(DEPDIR)/tiff.do_compile
 	cd @DIR_tiff@ && \
@@ -2836,7 +2767,6 @@ $(DEPDIR)/lzo.do_compile: $(DEPDIR)/lzo.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-lzo $(DEPDIR)/std-lzo $(DEPDIR)/max-lzo \
 $(DEPDIR)/lzo: \
 $(DEPDIR)/%lzo: $(DEPDIR)/lzo.do_compile
 	cd @DIR_lzo@ && \
@@ -2861,7 +2791,6 @@ $(DEPDIR)/yajl.do_compile: $(DEPDIR)/yajl.do_prepare
 	$(MAKE) distro
 	touch $@
 
-$(DEPDIR)/min-yajl $(DEPDIR)/std-yajl $(DEPDIR)/max-yajl \
 $(DEPDIR)/yajl: \
 $(DEPDIR)/%yajl: $(DEPDIR)/yajl.do_compile
 	cd @DIR_yajl@ && \
@@ -2889,7 +2818,6 @@ $(DEPDIR)/libpcre.do_compile: $(DEPDIR)/libpcre.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libpcre $(DEPDIR)/std-libpcre $(DEPDIR)/max-libpcre \
 $(DEPDIR)/libpcre: \
 $(DEPDIR)/%libpcre: $(DEPDIR)/libpcre.do_compile
 	cd @DIR_libpcre@ && \
@@ -2917,7 +2845,6 @@ $(DEPDIR)/libcdio.do_compile: $(DEPDIR)/libcdio.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libcdio $(DEPDIR)/std-libcdio $(DEPDIR)/max-libcdio \
 $(DEPDIR)/libcdio: \
 $(DEPDIR)/%libcdio: $(DEPDIR)/libcdio.do_compile
 	cd @DIR_libcdio@ && \
@@ -2942,7 +2869,6 @@ $(DEPDIR)/jasper.do_compile: $(DEPDIR)/jasper.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-jasper $(DEPDIR)/std-jasper $(DEPDIR)/max-jasper \
 $(DEPDIR)/jasper: \
 $(DEPDIR)/%jasper: $(DEPDIR)/jasper.do_compile
 	cd @DIR_jasper@ && \
@@ -2967,14 +2893,12 @@ $(DEPDIR)/mysql.do_compile: $(DEPDIR)/mysql.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-mysql $(DEPDIR)/std-mysql $(DEPDIR)/max-mysql \
 $(DEPDIR)/mysql: \
 $(DEPDIR)/%mysql: $(DEPDIR)/mysql.do_compile
 	cd @DIR_mysql@ && \
 		@INSTALL_mysql@
 	@DISTCLEANUP_mysql@
 	[ "x$*" = "x" ] && touch $@ || true
-
 
 #
 # libmicrohttpd
@@ -2993,7 +2917,6 @@ $(DEPDIR)/libmicrohttpd.do_compile: $(DEPDIR)/libmicrohttpd.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libmicrohttpd $(DEPDIR)/std-libmicrohttpd $(DEPDIR)/max-libmicrohttpd \
 $(DEPDIR)/libmicrohttpd: \
 $(DEPDIR)/%libmicrohttpd: $(DEPDIR)/libmicrohttpd.do_compile
 	cd @DIR_libmicrohttpd@ && \
@@ -3014,10 +2937,10 @@ $(DEPDIR)/libexif.do_compile: $(DEPDIR)/libexif.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
-		--prefix=/usr
+		--prefix=/usr && \
+	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libexif $(DEPDIR)/std-libexif $(DEPDIR)/max-libexif \
 $(DEPDIR)/libexif: \
 $(DEPDIR)/%libexif: $(DEPDIR)/libexif.do_compile
 	cd @DIR_libexif@ && \
@@ -3038,16 +2961,15 @@ $(DEPDIR)/minidlna.do_compile: $(DEPDIR)/minidlna.do_prepare
 	libtoolize -f -c && \
 	$(BUILDENV) \
 	DESTDIR=$(prefix)/cdkroot \
-	$(MAKE) \
 	PREFIX=$(prefix)/cdkroot/usr \
 	LIBDIR=$(prefix)/cdkroot/usr/lib \
 	SBINDIR=$(prefix)/cdkroot/usr/sbin \
 	INCDIR=$(prefix)/cdkroot/usr/include \
 	PAM_CAP=no \
-	LIBATTR=no
+	LIBATTR=no && \
+	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-minidlna $(DEPDIR)/std-minidlna $(DEPDIR)/max-minidlna \
 $(DEPDIR)/minidlna: \
 $(DEPDIR)/%minidlna: $(DEPDIR)/minidlna.do_compile
 	cd @DIR_minidlna@ && \
@@ -3065,7 +2987,6 @@ $(DEPDIR)/vlc.do_prepare: bootstrap libstdc++-dev libfribidi ffmpeg @DEPENDS_vlc
 $(DEPDIR)/vlc.do_compile: $(DEPDIR)/vlc.do_prepare
 	cd @DIR_vlc@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--disable-fontconfig \
@@ -3088,7 +3009,6 @@ $(DEPDIR)/vlc.do_compile: $(DEPDIR)/vlc.do_prepare
 		--enable-run-as-root
 	touch $@
 
-$(DEPDIR)/min-vlc $(DEPDIR)/std-vlc $(DEPDIR)/max-vlc \
 $(DEPDIR)/vlc: \
 $(DEPDIR)/%vlc: $(DEPDIR)/vlc.do_compile
 	cd @DIR_vlc@ && \
@@ -3106,14 +3026,12 @@ $(DEPDIR)/djmount.do_prepare: bootstrap fuse @DEPENDS_djmount@
 $(DEPDIR)/djmount.do_compile: $(DEPDIR)/djmount.do_prepare
 	cd @DIR_djmount@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr && \
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-djmount $(DEPDIR)/std-djmount $(DEPDIR)/max-djmount \
 $(DEPDIR)/djmount: \
 $(DEPDIR)/%djmount: $(DEPDIR)/djmount.do_compile
 	cd @DIR_djmount@ && \
@@ -3131,14 +3049,12 @@ $(DEPDIR)/libupnp.do_prepare: bootstrap @DEPENDS_libupnp@
 $(DEPDIR)/libupnp.do_compile: $(DEPDIR)/libupnp.do_prepare
 	cd @DIR_libupnp@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr && \
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libupnp $(DEPDIR)/std-libupnp $(DEPDIR)/max-libupnp \
 $(DEPDIR)/libupnp: \
 $(DEPDIR)/%libupnp: $(DEPDIR)/libupnp.do_compile
 	cd @DIR_libupnp@ && \
@@ -3158,7 +3074,7 @@ $(DEPDIR)/rarfs.do_compile: $(DEPDIR)/rarfs.do_prepare
 	cd @DIR_rarfs@ && \
 	export PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os -D_FILE_OFFSET_BITS=64" \
+	CFLAGS="$(TARGET_CFLAGS) -D_FILE_OFFSET_BITS=64" \
 	./configure \
 		--host=$(target) \
 		--disable-option-checking \
@@ -3167,7 +3083,6 @@ $(DEPDIR)/rarfs.do_compile: $(DEPDIR)/rarfs.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-rarfs $(DEPDIR)/std-rarfs $(DEPDIR)/max-rarfs \
 $(DEPDIR)/rarfs: \
 $(DEPDIR)/%rarfs: $(DEPDIR)/rarfs.do_compile
 	cd @DIR_rarfs@ && \
@@ -3186,13 +3101,11 @@ $(DEPDIR)/sshfs.do_compile: $(DEPDIR)/sshfs.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sshfs@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr
 	touch $@
 
-$(DEPDIR)/min-sshfs $(DEPDIR)/std-sshfs $(DEPDIR)/max-sshfs \
 $(DEPDIR)/sshfs: \
 $(DEPDIR)/%sshfs: $(DEPDIR)/sshfs.do_compile
 	cd @DIR_sshfs@ && \
@@ -3211,7 +3124,6 @@ $(DEPDIR)/gmediarender.do_compile: $(DEPDIR)/gmediarender.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gmediarender@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr \
@@ -3219,7 +3131,6 @@ $(DEPDIR)/gmediarender.do_compile: $(DEPDIR)/gmediarender.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-gmediarender $(DEPDIR)/std-gmediarender $(DEPDIR)/max-gmediarender \
 $(DEPDIR)/gmediarender: \
 $(DEPDIR)/%gmediarender: $(DEPDIR)/gmediarender.do_compile
 	cd @DIR_gmediarender@ && \
@@ -3238,7 +3149,6 @@ $(DEPDIR)/mediatomb.do_compile: $(DEPDIR)/mediatomb.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_mediatomb@ && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--disable-ffmpegthumbnailer \
@@ -3256,7 +3166,6 @@ $(DEPDIR)/mediatomb.do_compile: $(DEPDIR)/mediatomb.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-mediatomb $(DEPDIR)/std-mediatomb $(DEPDIR)/max-mediatomb \
 $(DEPDIR)/mediatomb: \
 $(DEPDIR)/%mediatomb: $(DEPDIR)/mediatomb.do_compile
 	cd @DIR_mediatomb@ && \
@@ -3273,11 +3182,11 @@ $(DEPDIR)/tinyxml.do_prepare: @DEPENDS_tinyxml@
 
 $(DEPDIR)/tinyxml.do_compile: $(DEPDIR)/tinyxml.do_prepare
 	cd @DIR_tinyxml@ && \
+	libtoolize -f -c && \
 	$(BUILDENV) \
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-tinyxml $(DEPDIR)/std-tinyxml $(DEPDIR)/max-tinyxml \
 $(DEPDIR)/tinyxml: \
 $(DEPDIR)/%tinyxml: $(DEPDIR)/tinyxml.do_compile
 	cd @DIR_tinyxml@ && \
@@ -3300,14 +3209,12 @@ $(DEPDIR)/libnfs.do_compile: $(DEPDIR)/libnfs.do_prepare
 	automake --foreign && \
 	libtoolize --force && \
 	$(BUILDENV) \
-	CFLAGS="$(TARGET_CFLAGS) -Os" \
 	./configure \
 		--host=$(target) \
 		--prefix=/usr && \
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-libnfs $(DEPDIR)/std-libnfs $(DEPDIR)/max-libnfs \
 $(DEPDIR)/libnfs: \
 $(DEPDIR)/%libnfs: $(DEPDIR)/libnfs.do_compile
 	cd @DIR_libnfs@ && \
@@ -3329,7 +3236,6 @@ $(DEPDIR)/taglib.do_compile: $(DEPDIR)/taglib.do_prepare
 	$(MAKE) all
 	touch $@
 
-$(DEPDIR)/min-taglib $(DEPDIR)/std-taglib $(DEPDIR)/max-taglib \
 $(DEPDIR)/taglib: \
 $(DEPDIR)/%taglib: $(DEPDIR)/taglib.do_compile
 	cd @DIR_taglib@ && \

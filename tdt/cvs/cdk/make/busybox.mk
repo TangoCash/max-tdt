@@ -6,7 +6,8 @@ $(DEPDIR)/busybox.do_prepare: @DEPENDS_busybox@
 	cd @DIR_busybox@ && \
 		patch -p1 < ../Patches/busybox-1.20.2-kernel_ver.patch && \
 		patch -p1 < ../Patches/busybox-1.20.2-pkg-config-selinux.patch && \
-		patch -p1 < ../Patches/busybox-1.20.2-sys-resource.patch
+		patch -p1 < ../Patches/busybox-1.20.2-sys-resource.patch && \
+		patch -p1 < ../Patches/busybox.patch
 	touch $@
 
 $(DEPDIR)/busybox.do_compile: bootstrap $(DEPDIR)/busybox.do_prepare Patches/busybox.config$(if $(UFS912)$(SPARK),_nandwrite) | $(DEPDIR)/$(GLIBC_DEV)
@@ -19,7 +20,6 @@ $(DEPDIR)/busybox.do_compile: bootstrap $(DEPDIR)/busybox.do_prepare Patches/bus
 			CFLAGS_EXTRA="$(TARGET_CFLAGS)"
 	touch $@
 
-$(DEPDIR)/min-busybox $(DEPDIR)/std-busybox $(DEPDIR)/max-busybox \
 $(DEPDIR)/busybox: \
 $(DEPDIR)/%busybox: $(DEPDIR)/busybox.do_compile
 	cd @DIR_busybox@ && \

@@ -14,7 +14,7 @@ $(targetprefix)/var/etc/.version:
 #
 #
 #
-N_CPPFLAGS = -DNEW_LIBCURL -DFB_BLIT -DBGP_JPG -I$(driverdir)/bpamem
+N_CPPFLAGS = -DFB_BLIT -I$(driverdir)/bpamem
 
 N_CONFIG_OPTS = --enable-silent-rules --enable-freesatepg
 
@@ -66,9 +66,8 @@ libstb-hal-clean:
 		$(MAKE) distclean
 
 libstb-hal-distclean:
-	rm -f $(DEPDIR)/libstb-hal
-	rm -f $(DEPDIR)/libstb-hal.do_compile
-	rm -f $(DEPDIR)/libstb-hal.do_prepare
+	rm -f $(DEPDIR)/libstb-hal*
+
 
 #
 # NEUTRINO MARTII
@@ -99,7 +98,7 @@ $(appsdir)/neutrino-hd/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/var/tuxbox/plugins \
+			--with-plugindir=/var/plugins \
 			--with-boxtype=spark \
 			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
 			--with-stb-hal-build=$(appsdir)/libstb-hal \
@@ -128,10 +127,7 @@ neutrino-hd-clean:
 		$(MAKE) distclean
 
 neutrino-hd-distclean:
-	rm -f $(DEPDIR)/neutrino-hd
-	rm -f $(DEPDIR)/neutrino-hd.do_compile
-	rm -f $(DEPDIR)/neutrino-hd.do_prepare
-
+	rm -f $(DEPDIR)/neutrino-hd*
 
 #
 # NEUTRINO TWIN
@@ -151,7 +147,7 @@ $(DEPDIR)/neutrino-twin.do_prepare:
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm
+$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin && \
 		$(BUILDENV) \
@@ -165,7 +161,7 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/var/tuxbox/plugins \
+			--with-plugindir=/var/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -191,9 +187,8 @@ neutrino-twin-clean:
 		$(MAKE) distclean
 
 neutrino-twin-distclean:
-	rm -f $(DEPDIR)/neutrino-twin
-	rm -f $(DEPDIR)/neutrino-twin.do_compile
-	rm -f $(DEPDIR)/neutrino-twin.do_prepare
+	rm -f $(DEPDIR)/neutrino-twin*
+
 
 #
 # neutrino-hd2-exp branch
@@ -221,7 +216,7 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libfreet
 			--with-fontdir=/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/var/tuxbox/plugins \
+			--with-plugindir=/var/plugins \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -246,9 +241,7 @@ neutrino-hd2-exp-clean:
 		$(MAKE) clean
 
 neutrino-hd2-exp-distclean:
-	rm -f $(DEPDIR)/neutrino-hd2-exp
-	rm -f $(DEPDIR)/neutrino-hd2-exp.do_compile
-	rm -f $(DEPDIR)/neutrino-hd2-exp.do_prepare
+	rm -f $(DEPDIR)/neutrino-hd2-exp*
 
 #
 #NORMAL

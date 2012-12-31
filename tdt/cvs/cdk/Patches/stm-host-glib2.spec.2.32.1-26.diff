@@ -5,6 +5,8 @@
  Prefix:		%{_stm_install_prefix}
  BuildRequires:	%{_stm_pkg_prefix}-host-rpmconfig
 -BuildRequires:	%{_stm_pkg_prefix}-host-zlib-dev >= 1.2.3
+ BuildRequires:	%{_stm_pkg_prefix}-host-libffi-dev
+ 
  AutoReq:	no
  
- %define _docdir			%{_stm_host_doc_dir}
+

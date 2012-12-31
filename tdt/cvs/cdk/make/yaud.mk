@@ -1,15 +1,7 @@
 #
-#
-#
-min-prepare-yaud std-prepare-yaud max-prepare-yaud: \
-%prepare-yaud:
-	-rm -rf $(prefix)/$*cdkroot
-	-rm -rf $(prefix)/$*cdkroot-rpmdb
-
-#
 # BOOTSTRAP
 #
-$(DEPDIR)/min-bootstrap $(DEPDIR)/std-bootstrap $(DEPDIR)/max-bootstrap $(DEPDIR)/bootstrap: \
+$(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
 	%$(CCACHE) \
 	%$(FILESYSTEM) \
@@ -33,7 +25,7 @@ $(DEPDIR)/%bootstrap: \
 #
 # BARE-OS
 #
-min-bare-os std-bare-os max-bare-os bare-os: \
+bare-os: \
 %bare-os: \
 	%bootstrap \
 	%$(LIBTERMCAP) \
@@ -57,9 +49,9 @@ min-bare-os std-bare-os max-bare-os bare-os: \
 	%diverse-tools
 
 #
+# NET-UTILS
 #
-#
-min-net-utils std-net-utils max-net-utils net-utils: \
+net-utils: \
 %net-utils: \
 	%$(NETKIT_FTP) \
 	%autofs \
@@ -68,13 +60,12 @@ min-net-utils std-net-utils max-net-utils net-utils: \
 	%vsftpd \
 	%ethtool \
 	%opkg \
-	%grep \
 	%$(CIFS)
 
 #
+# DISK-UTILS
 #
-#
-min-disk-utils std-disk-utils max-disk-utils disk-utils: \
+disk-utils: \
 %disk-utils: \
 	%e2fsprogs \
 	%$(XFSPROGS) \

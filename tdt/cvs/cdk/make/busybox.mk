@@ -6,8 +6,7 @@ $(DEPDIR)/busybox.do_prepare: @DEPENDS_busybox@
 	cd @DIR_busybox@ && \
 		patch -p1 < ../Patches/busybox-1.20.2-kernel_ver.patch && \
 		patch -p1 < ../Patches/busybox-1.20.2-pkg-config-selinux.patch && \
-		patch -p1 < ../Patches/busybox-1.20.2-sys-resource.patch && \
-		patch -p1 < ../Patches/busybox.patch
+		patch -p1 < ../Patches/busybox-1.20.2-sys-resource.patch
 	touch $@
 
 $(DEPDIR)/busybox.do_compile: bootstrap $(DEPDIR)/busybox.do_prepare Patches/busybox.config$(if $(UFS912)$(SPARK),_nandwrite) | $(DEPDIR)/$(GLIBC_DEV)

@@ -21,7 +21,6 @@ $(DEPDIR)/nfs_utils.do_compile: $(DEPDIR)/nfs_utils.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-nfs_utils $(DEPDIR)/std-nfs_utils $(DEPDIR)/max-nfs_utils \
 $(DEPDIR)/nfs_utils: \
 $(DEPDIR)/%nfs_utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) $(DEPDIR)/nfs_utils.do_compile
 	$(INSTALL) -d $(prefix)/$*cdkroot/etc/{default,init.d} && \
@@ -47,7 +46,6 @@ $(DEPDIR)/libevent.do_compile: $(DEPDIR)/libevent.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libevent $(DEPDIR)/std-libevent $(DEPDIR)/max-libevent \
 $(DEPDIR)/libevent: \
 $(DEPDIR)/%libevent: $(DEPDIR)/libevent.do_compile
 	cd @DIR_libevent@ && \
@@ -69,7 +67,6 @@ $(DEPDIR)/libnfsidmap.do_compile: $(DEPDIR)/libnfsidmap.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libnfsidmap $(DEPDIR)/std-libnfsidmap $(DEPDIR)/max-libnfsidmap \
 $(DEPDIR)/libnfsidmap: \
 $(DEPDIR)/%libnfsidmap: $(DEPDIR)/libnfsidmap.do_compile
 	cd @DIR_libnfsidmap@ && \
@@ -90,7 +87,6 @@ $(DEPDIR)/vsftpd.do_compile: $(DEPDIR)/vsftpd.do_prepare
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
 
-$(DEPDIR)/min-vsftpd $(DEPDIR)/std-vsftpd $(DEPDIR)/max-vsftpd \
 $(DEPDIR)/vsftpd: \
 $(DEPDIR)/%vsftpd: $(DEPDIR)/vsftpd.do_compile
 	cd @DIR_vsftpd@ && \
@@ -117,7 +113,6 @@ $(DEPDIR)/ethtool.do_compile: $(DEPDIR)/ethtool.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-ethtool $(DEPDIR)/std-ethtool $(DEPDIR)/max-ethtool \
 $(DEPDIR)/ethtool: \
 $(DEPDIR)/%ethtool: $(DEPDIR)/ethtool.do_compile
 	cd @DIR_ethtool@ && \
@@ -156,7 +151,6 @@ $(DEPDIR)/samba.do_compile: $(DEPDIR)/samba.do_prepare
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
 
-$(DEPDIR)/min-samba $(DEPDIR)/std-samba $(DEPDIR)/max-samba \
 $(DEPDIR)/samba: \
 $(DEPDIR)/%samba: $(DEPDIR)/samba.do_compile
 	cd @DIR_samba@ && \
@@ -185,7 +179,6 @@ $(DEPDIR)/netio.do_compile: $(DEPDIR)/netio.do_prepare
 		$(MAKE) all O=.o X= CFLAGS="-DUNIX" LIBS="$(LDFLAGS) -lpthread" OUT=-o
 	touch $@
 
-$(DEPDIR)/min-netio $(DEPDIR)/std-netio $(DEPDIR)/max-netio \
 $(DEPDIR)/netio: \
 $(DEPDIR)/%netio: $(DEPDIR)/netio.do_compile
 	cd @DIR_netio@ && \
@@ -213,7 +206,6 @@ $(DEPDIR)/lighttpd.do_compile: $(DEPDIR)/lighttpd.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-lighttpd $(DEPDIR)/std-lighttpd $(DEPDIR)/max-lighttpd \
 $(DEPDIR)/lighttpd: \
 $(DEPDIR)/%lighttpd: $(DEPDIR)/lighttpd.do_compile
 	cd @DIR_lighttpd@ && \
@@ -245,7 +237,6 @@ $(DEPDIR)/netkit_ftp.do_compile: $(DEPDIR)/netkit_ftp.do_prepare
 		$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-netkit_ftp $(DEPDIR)/std-netkit_ftp $(DEPDIR)/max-netkit_ftp \
 $(DEPDIR)/netkit_ftp: \
 $(DEPDIR)/%netkit_ftp: $(DEPDIR)/netkit_ftp.do_compile
 	cd @DIR_netkit_ftp@ && \
@@ -265,7 +256,6 @@ $(DEPDIR)/wireless_tools.do_compile: $(DEPDIR)/wireless_tools.do_prepare
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
 
-$(DEPDIR)/min-wireless_tools $(DEPDIR)/std-wireless_tools $(DEPDIR)/max-wireless_tools \
 $(DEPDIR)/wireless_tools: \
 $(DEPDIR)/%wireless_tools: $(DEPDIR)/wireless_tools.do_compile
 	cd @DIR_wireless_tools@ && \
@@ -286,7 +276,6 @@ $(DEPDIR)/wpa_supplicant.do_compile: Patches/wpa_supplicant.config $(DEPDIR)/wpa
 		$(MAKE) $(MAKE_OPTS)
 	touch $@
 
-$(DEPDIR)/min-wpa_supplicant $(DEPDIR)/std-wpa_supplicant $(DEPDIR)/max-wpa_supplicant \
 $(DEPDIR)/wpa_supplicant: \
 $(DEPDIR)/%wpa_supplicant: $(DEPDIR)/wpa_supplicant.do_compile
 	cd @DIR_wpa_supplicant@/wpa_supplicant && \

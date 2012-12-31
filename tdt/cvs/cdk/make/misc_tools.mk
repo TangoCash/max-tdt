@@ -8,7 +8,7 @@ $(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev libdvdnav li
 	$(CONFIGURE) --prefix= \
 	$(if $(MULTICOM324), --enable-multicom324)
 
-$(DEPDIR)/min-misc-tools $(DEPDIR)/std-misc-tools $(DEPDIR)/max-misc-tools $(DEPDIR)/misc-tools: \
+$(DEPDIR)/misc-tools: \
 $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status
 	$(MAKE) -C $(appsdir)/misc/tools all install DESTDIR=$(prefix)/$*cdkroot \
 	CPPFLAGS="\

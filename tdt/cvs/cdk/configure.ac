@@ -467,7 +467,7 @@ AC_SUBST(updatehttpprefix)
 AM_CONDITIONAL(DISABLE_UPDATE_HTTP,test "$updatehttpprefix" = "disable")
 
 if test -z "$CFLAGS" ; then
-	CFLAGS="-g -O2"
+	CFLAGS="-O2"
 fi
 
 if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
@@ -476,8 +476,8 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
 		TARGET_LDFLAGS=""
 	else
-		TARGET_CFLAGS="$TARGET_CFLAGS -O2"
-		TARGET_LDFLAGS=""
+		TARGET_CFLAGS="$TARGET_CFLAGS -Os -I$targetprefix/usr/include"
+		TARGET_LDFLAGS="-Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$targetprefix/usr/lib -L$targetprefix/lib -L$targetprefix/usr/lib"
 	fi
 	if test "$TOOLCHAIN_PATH" != "notset"; then
 		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/usr/lib -L\$(targetprefix)/lib"

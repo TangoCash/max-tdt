@@ -31,10 +31,13 @@ acinclude.m4
 libtool
 ltmain.sh
 missing
+
+cvs/apps/
+cvs/apps/
+cvs/apps/
 cvs/apps/misc/tools/Makefile
 cvs/apps/misc/tools/depcomp
 cvs/driver/Modules.symvers
-
 cvs/apps/misc/tools/devinit/Makefile
 cvs/apps/misc/tools/devinit/devinit
 cvs/apps/misc/tools/evremote2/Makefile

@@ -131,46 +131,14 @@ cvs/apps/misc/tools/vfdctl/vfdctl
 
 cvs/cdk/Makefile
 cvs/cdk/Makefile-archive
-cvs/cdk/RPMS/
-cvs/cdk/SRPMS/
-cvs/cdk/autofs-4.1.4/
-cvs/cdk/boost_1_40_0/
-cvs/cdk/busybox-1.19.3/
 cvs/cdk/config
-cvs/cdk/curl-*
 cvs/cdk/depcomp
-cvs/cdk/e2fsprogs-1.40.2/
-cvs/cdk/ethtool-6/
-cvs/cdk/freetype-2.3.5/
-cvs/cdk/giflib-4.1.6/
-cvs/cdk/grep-2.5.1/
-cvs/cdk/host-python-2.6/
 cvs/cdk/install-sh
-cvs/cdk/jpeg-6b/
 cvs/cdk/lastChoice
-cvs/cdk/libdvdcss-1.2.10/
-cvs/cdk/libdvdnav-4.1.3/
-cvs/cdk/libdvdread-4.1.3/
-cvs/cdk/libid3tag-0.15.1b/
-cvs/cdk/libmad-0.15.1b/
-cvs/cdk/libpng-1.2.16/
-cvs/cdk/linux-sh4
-cvs/cdk/linux-sh4-2.6.23.17_stm23_0119/
-cvs/cdk/lirc-0.8.2/
+cvs/cdk/linux-sh4*
 cvs/cdk/localmacros
-cvs/cdk/lsb-3.2/
-cvs/cdk/module-init-tools-3.3-pre1/
-cvs/cdk/openrdate-1.1.2/
-cvs/cdk/openvpn-2.1.1/
-cvs/cdk/opkg-0.1.8/
-cvs/cdk/portmap_6.0/
 cvs/cdk/rules-downcheck.pl
 cvs/cdk/u-boot/
-cvs/cdk/util-linux-2.12r/
-cvs/cdk/vsftpd-2.0.7/
-cvs/cdk/zlib-1.2.3/
-cvs/cdk/ffmpeg-*
-cvs/cdk/libass-*
 cvs/driver/.config
 cvs/driver/.tmp_versions/
 #make.sh changes something in this file, so dont commit by default
@@ -180,9 +148,15 @@ tufsbox/
 .version
 cvs/cdk/BUILD/
 cvs/cdk/SOURCES/
+cvs/cdk/RPMS/
+cvs/cdk/SRPMS/
 cvs/cdk/SPECS/
 cvs/cdk/linux
 cvs/cdk/linux-*
+cvs/cdk/own_build/enigma2
+cvs/cdk/own_build/neutrino
+cvs/cdk/own_build/neutrino-hd
+cvs/cdk/own_build/xbmc
 cvs/cdk/root/var/etc/.version
 
 #Theses are only links which are created by make.sh

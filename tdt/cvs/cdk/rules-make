@@ -90,7 +90,7 @@ libfribidi;0.19.4;fribidi-0.19.4;fribidi-0.19.4.tar.bz2;extract:fribidi-0.19.4.t
 libsigc;1.2.5;libsigc++-1.2.5;libsigc++-1.2.5.tar.gz;extract:libsigc++-1.2.5.tar.gz
 libmad;0.15.1b;libmad-0.15.1b;libmad-0.15.1b.tar.gz:libmad.diff;extract:libmad-0.15.1b.tar.gz;patch:libmad.diff
 libid3tag;0.15.1b;libid3tag-0.15.1b;libid3tag-0.15.1b.tar.gz:libid3tag.diff;extract:libid3tag-0.15.1b.tar.gz;patch:libid3tag.diff
-libvorbisidec;1.0.2+svn16259;libvorbisidec-1.0.2+svn16259;libvorbisidec_1.0.2+svn16259.orig.tar.gz:tremor.diff;extract:libvorbisidec_1.0.2+svn16259.orig.tar.gz;patch:tremor.diff
+libvorbisidec;1.0.2+svn18153;libvorbisidec-1.0.2+svn18153;libvorbisidec_1.0.2+svn18153.orig.tar.gz:tremor.diff;extract:libvorbisidec_1.0.2+svn18153.orig.tar.gz;patch:tremor.diff
 glib2;2.28.3;glib-2.28.3;glib-2.28.3.tar.gz:glib-2.28.3.patch;extract:glib-2.28.3.tar.gz;patch:glib-2.28.3.patch
 libiconv;1.14;libiconv-1.14;libiconv-1.14.tar.gz;extract:libiconv-1.14.tar.gz
 libmng;1.0.10;libmng-1.0.10;libmng-1.0.10.tar.bz2;extract:libmng-1.0.10.tar.bz2

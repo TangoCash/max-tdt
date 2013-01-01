@@ -437,13 +437,13 @@ $(DEPDIR)/%libid3tag: $(DEPDIR)/libid3tag.do_compile
 #
 # libvorbisidec
 #
-
-$(DEPDIR)/libvorbisidec.do_prepare: bootstrap @DEPENDS_libvorbisidec@
+$(DEPDIR)/libvorbisidec.do_prepare: bootstrap libogg @DEPENDS_libvorbisidec@
 	@PREPARE_libvorbisidec@
 	touch $@
 
 $(DEPDIR)/libvorbisidec.do_compile: $(DEPDIR)/libvorbisidec.do_prepare
 	cd @DIR_libvorbisidec@ && \
+		ACLOCAL_FLAGS="-I . -I $(targetprefix)/usr/share/aclocal" \
 		$(BUILDENV) \
 		./autogen.sh \
 			--build=$(build) \

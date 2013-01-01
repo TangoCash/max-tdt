@@ -611,7 +611,7 @@ release_base:
 	cp -p $(targetprefix)/usr/bin/opkg-cl $(prefix)/release/usr/bin/opkg && \
 	cp -p $(targetprefix)/usr/bin/python $(prefix)/release/usr/bin/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release/sbin/ && \
-	cp -p $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/
+	cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release/sbin/
 
 #

@@ -266,6 +266,31 @@ $(DEPDIR)/%libgif: $(DEPDIR)/libgif.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# libgif_current
+#
+$(DEPDIR)/libgif_current.do_prepare: bootstrap @DEPENDS_libgif_current@
+	@PREPARE_libgif_current@
+	touch $@
+
+$(DEPDIR)/libgif_current.do_compile: $(DEPDIR)/libgif_current.do_prepare
+	cd @DIR_libgif_current@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr \
+			--without-x && \
+		$(MAKE)
+	touch $@
+
+$(DEPDIR)/libgif_current: \
+$(DEPDIR)/%libgif_current: $(DEPDIR)/libgif_current.do_compile
+	cd @DIR_libgif_current@ && \
+		@INSTALL_libgif_current@
+	@DISTCLEANUP_libgif_current@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # libcurl
 #
 $(DEPDIR)/libcurl.do_prepare: bootstrap openssl rtmpdump @DEPENDS_libcurl@

@@ -189,14 +189,17 @@ neutrino-twin-clean:
 neutrino-twin-distclean:
 	rm -f $(DEPDIR)/neutrino-twin*
 
-
 #
 # neutrino-hd2-exp branch
 #
 $(DEPDIR)/neutrino-hd2-exp.do_prepare:
 	rm -rf $(appsdir)/neutrino-hd2-exp
 	rm -rf $(appsdir)/neutrino-hd2-exp.org
-	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(appsdir)/neutrino-hd2-exp
+	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \
+	(cd $(archivedir)/neutrino-hd2-exp.svn; svn up ; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] || \
+	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(archivedir)/neutrino-hd2-exp.svn; \
+	cp -ra $(archivedir)/neutrino-hd2-exp.svn $(appsdir)/neutrino-hd2-exp; \
 	cp -ra $(appsdir)/neutrino-hd2-exp $(appsdir)/neutrino-hd2-exp.org
 	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 	touch $@

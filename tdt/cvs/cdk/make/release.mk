@@ -611,7 +611,6 @@ release_base:
 	cp -p $(targetprefix)/usr/bin/opkg-cl $(prefix)/release/usr/bin/opkg && \
 	cp -p $(targetprefix)/usr/bin/python $(prefix)/release/usr/bin/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release/sbin/ && \
-	cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release/sbin/
 
 #
@@ -771,6 +770,13 @@ endif
 #
 	if [ -e $(targetprefix)/usr/bin/tuxtxt ]; then \
 		cp -p $(targetprefix)/usr/bin/tuxtxt $(prefix)/release/usr/bin/; \
+	fi
+
+#
+# fw_printenv / fw_setenv
+#
+	if [ -e $(targetprefix)/usr/sbin/fw_printenv ]; then \
+		cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/; \
 	fi
 
 #

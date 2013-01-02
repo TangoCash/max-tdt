@@ -586,7 +586,6 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release_neutrino/sbin/ && \
 	cp $(buildprefix)/root/release/getfb.awk $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
-	cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release_neutrino/usr/sbin/
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release_neutrino/sbin/
 
 #
@@ -692,6 +691,13 @@ endif
 	rm -f $(prefix)/release_neutrino/usr/lib/*.{a,o,la}
 	chmod 755 $(prefix)/release_neutrino/usr/lib/*
 	find $(prefix)/release_neutrino/usr/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
+
+#
+# fw_printenv / fw_setenv
+#
+	if [ -e $(targetprefix)/usr/sbin/fw_printenv ]; then \
+		cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/; \
+	fi
 
 #
 # fonts

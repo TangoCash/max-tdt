@@ -193,7 +193,6 @@ release_xbmc_base:
 	cp -p $(targetprefix)/usr/bin/killall $(prefix)/release/usr/bin/ && \
 	cp -p $(targetprefix)/usr/bin/opkg-cl $(prefix)/release/usr/bin/opkg && \
 	cp -p $(targetprefix)/usr/bin/python $(prefix)/release/usr/bin/ && \
-	cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release/sbin/
 
 #
@@ -308,6 +307,13 @@ endif
 		$(INSTALL_DIR) $(prefix)/release/usr/include; \
 		$(INSTALL_DIR) $(prefix)/release$(PYTHON_INCLUDE_DIR); \
 		cp $(targetprefix)$(PYTHON_INCLUDE_DIR)/pyconfig.h $(prefix)/release$(PYTHON_INCLUDE_DIR); \
+	fi
+
+#
+# fw_printenv / fw_setenv
+#
+	if [ -e $(targetprefix)/usr/sbin/fw_printenv ]; then \
+		cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/; \
 	fi
 
 #

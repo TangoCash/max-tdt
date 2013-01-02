@@ -737,7 +737,7 @@ $(DEPDIR)/opkg.do_compile: $(DEPDIR)/opkg.do_prepare
 			--prefix=/usr \
 			--disable-curl \
 			--disable-gpg \
-			--with-opkglibdir=/usr/lib && \
+			--with-opkglibdir=/var && \
 		$(MAKE) all
 	touch $@
 

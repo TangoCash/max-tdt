@@ -696,7 +696,7 @@ endif
 # fw_printenv / fw_setenv
 #
 	if [ -e $(targetprefix)/usr/sbin/fw_printenv ]; then \
-		cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release/usr/sbin/; \
+		cp -dp $(targetprefix)/usr/sbin/fw_* $(prefix)/release_neutrino/usr/sbin/; \
 	fi
 
 #

@@ -69,23 +69,25 @@ libstb-hal-distclean:
 	rm -f $(DEPDIR)/libstb-hal*
 
 #
-# NEUTRINO MARTII
+# NEUTRINO MP
 #
-$(DEPDIR)/neutrino-hd.do_prepare:
-	rm -rf $(appsdir)/neutrino-hd
-	rm -rf $(appsdir)/neutrino-hd.org
-	[ -d "$(archivedir)/neutrino-hd.git" ] && \
-	(cd $(archivedir)/neutrino-hd.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/neutrino-hd.git" ] || \
-	git clone git://gitorious.org/~martii/neutrino-hd/martiis-neutrino-hd-tripledragon.git $(archivedir)/neutrino-hd.git; \
-	cp -ra $(archivedir)/neutrino-hd.git $(appsdir)/neutrino-hd; \
-	cp -ra $(appsdir)/neutrino-hd $(appsdir)/neutrino-hd.org
-	cd $(appsdir)/neutrino-hd && patch -p1 < "$(buildprefix)/Patches/neutrino-hd.diff"
+$(DEPDIR)/neutrino-mp.do_prepare:
+	rm -rf $(appsdir)/neutrino-mp
+	rm -rf $(appsdir)/neutrino-mp.org
+	[ -d "$(archivedir)/neutrino-mp.git" ] && \
+	(cd $(archivedir)/neutrino-mp.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp.git" ] || \
+	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp; \
+	rm -rf $(appsdir)/neutrino-mp/lib/libcoolstream/*.*
+	cp -ra $(appsdir)/neutrino-mp $(appsdir)/neutrino-mp.org
+	cd $(appsdir)/neutrino-mp && patch -p1 < "$(buildprefix)/Patches/neutrino-mp.diff"
+	cd $(appsdir)/neutrino-mp && patch -p1 < "$(buildprefix)/Patches/neutrino-mp-libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-hd/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa libstb-hal
+$(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd $(appsdir)/neutrino-hd && \
+	cd $(appsdir)/neutrino-mp && \
 		$(BUILDENV) \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		./configure \
@@ -98,21 +100,19 @@ $(appsdir)/neutrino-hd/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
-			--with-boxtype=spark \
-			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
-			--with-stb-hal-build=$(appsdir)/libstb-hal \
+			--with-boxtype=$(BOXTYPE) \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS) -DMARTII -I$(driverdir)/frontcontroller/aotom"
+			CPPFLAGS=" -I$(driverdir)/bpamem -I$(appsdir)/misc/tools/libeplayer3/include"
 
-$(DEPDIR)/neutrino-hd.do_compile: $(appsdir)/neutrino-hd/config.status
-	cd $(appsdir)/neutrino-hd && \
+$(DEPDIR)/neutrino-mp.do_compile: $(appsdir)/neutrino-mp/config.status
+	cd $(appsdir)/neutrino-mp && \
 		$(MAKE) all
 	touch $@
 
-$(DEPDIR)/neutrino-hd: neutrino-hd.do_prepare neutrino-hd.do_compile
-	$(MAKE) -C $(appsdir)/neutrino-hd install DESTDIR=$(targetprefix) && \
+$(DEPDIR)/neutrino-mp: neutrino-mp.do_prepare neutrino-mp.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-mp install DESTDIR=$(targetprefix) && \
 	make $(targetprefix)/var/etc/.version
 	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
 	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
@@ -120,13 +120,13 @@ $(DEPDIR)/neutrino-hd: neutrino-hd.do_prepare neutrino-hd.do_compile
 	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
 	touch $@
 
-neutrino-hd-clean:
-	rm -f $(DEPDIR)/neutrino-hd
-	cd $(appsdir)/neutrino-hd && \
+neutrino-mp-clean:
+	rm -f $(DEPDIR)/neutrino-mp
+	cd $(appsdir)/neutrino-mp && \
 		$(MAKE) distclean
 
-neutrino-hd-distclean:
-	rm -f $(DEPDIR)/neutrino-hd*
+neutrino-mp-distclean:
+	rm -f $(DEPDIR)/neutrino-mp*
 
 #
 # NEUTRINO TWIN
@@ -156,6 +156,7 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			$(N_CONFIG_OPTS) \
 			--with-tremor \
 			--enable-giflib \
+			--enable-fb_blit \
 			--with-libdir=/usr/lib \
 			--with-datadir=/share/tuxbox \
 			--with-fontdir=/share/fonts \
@@ -165,7 +166,7 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS)"
+			CPPFLAGS=" -I$(driverdir)/bpamem -I$(appsdir)/misc/tools/libeplayer3/include"
 
 $(DEPDIR)/neutrino-twin.do_compile: $(appsdir)/neutrino-twin/config.status
 	cd $(appsdir)/neutrino-twin && \

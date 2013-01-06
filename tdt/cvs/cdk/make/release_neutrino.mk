@@ -1,5 +1,14 @@
 kernelpath=linux-sh4
 
+$(targetprefix)/var/etc/.version:
+	echo "imagename=Neutrino" > $@
+	echo "homepage=http://gitorious.org/open-duckbox-project-sh4" >> $@
+	echo "creator=`id -un`" >> $@
+	echo "docs=http://gitorious.org/open-duckbox-project-sh4/pages/Home" >> $@
+	echo "forum=http://gitorious.org/open-duckbox-project-sh4" >> $@
+	echo "version=0100`date +%Y%m%d%H%M`" >> $@
+	echo "git=`git describe`" >> $@
+
 #Trick ALPHA-Version ;)
 $(DEPDIR)/min-release_neutrino $(DEPDIR)/std-release_neutrino $(DEPDIR)/max-release_neutrino $(DEPDIR)/release_neutrino: \
 $(DEPDIR)/%release_neutrino:
@@ -68,7 +77,9 @@ $(DEPDIR)/%release_neutrino:
 	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/etc/init.d/portmap $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -dp $(buildprefix)/root/etc/init.d/udhcpc $(prefix)/release_neutrino/etc/init.d/ && \
-	cp -dp $(buildprefix)/root/var/etc/.version $(prefix)/release_neutrino/var/etc/ && \
+	make $(targetprefix)/var/etc/.version && \
+	mv $(targetprefix)/var/etc/.version $(prefix)/release_neutrino/ && \
+	ln -sf /.version $(prefix)/release_neutrino/var/etc/.version && \
 	cp -dp $(targetprefix)/sbin/MAKEDEV $(prefix)/release_neutrino/sbin/MAKEDEV && \
 	cp -f $(buildprefix)/root/release/makedev $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -dp $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
@@ -1456,7 +1467,6 @@ endif
 #######################################################################################
 	echo "duckbox-rev#: " > $(prefix)/release_neutrino/etc/imageinfo
 	git describe >> $(prefix)/release_neutrino/etc/imageinfo
-	$(buildprefix)/root/release/neutrino_version.sh
 #######################################################################################
 
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/lib

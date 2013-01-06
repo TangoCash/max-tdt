@@ -1,14 +1,5 @@
 kernelpath=linux-sh4
 
-$(targetprefix)/var/etc/.version:
-	echo "imagename=Neutrino" > $@
-	echo "homepage=http://gitorious.org/open-duckbox-project-sh4" >> $@
-	echo "creator=`id -un`" >> $@
-	echo "docs=http://gitorious.org/open-duckbox-project-sh4/pages/Home" >> $@
-	echo "forum=http://gitorious.org/open-duckbox-project-sh4" >> $@
-	echo "version=0100`date +%Y%m%d%H%M`" >> $@
-	echo "git=`git describe`" >> $@
-
 #Trick ALPHA-Version ;)
 $(DEPDIR)/min-release_neutrino $(DEPDIR)/std-release_neutrino $(DEPDIR)/max-release_neutrino $(DEPDIR)/release_neutrino: \
 $(DEPDIR)/%release_neutrino:

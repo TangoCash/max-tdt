@@ -3,7 +3,7 @@
 #
 
 $(targetprefix)/var/etc/.version:
-	echo "imagename=Neutrino-HD" > $@
+	echo "imagename=Neutrino" > $@
 	echo "homepage=http://gitorious.org/open-duckbox-project-sh4" >> $@
 	echo "creator=`id -un`" >> $@
 	echo "docs=http://gitorious.org/open-duckbox-project-sh4/pages/Home" >> $@
@@ -67,7 +67,6 @@ libstb-hal-clean:
 
 libstb-hal-distclean:
 	rm -f $(DEPDIR)/libstb-hal*
-
 
 #
 # NEUTRINO MARTII

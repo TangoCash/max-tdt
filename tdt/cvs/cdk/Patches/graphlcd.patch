@@ -48,12 +48,15 @@
  
  # uncomment one of the following two lines if you want either GraphicsMagick/ImageMagick support
  #HAVE_IMAGEMAGICK=1
-@@ -63,4 +64,4 @@
+@@ -63,7 +64,7 @@
  
  # uncomment this variable if you want to enable the experimental AX 206 based digital photo frame driver
  # Read DRIVER.ax206dpf before use!
 -#HAVE_AX206DPF_EXPERIMENTAL=1
 +HAVE_AX206DPF_EXPERIMENTAL=1
+ 
+ # uncomment this variable if you want to enable the experimental support for picoLCD 256x64 
+ #HAVE_picoLCD_256x64_EXPERIMENTAL=1
 --- graphlcd-base/Makefile	2011-12-06 23:03:38.986910111 +0100
 +++ graphlcd-base/Makefile.fix	2011-12-06 23:03:18.216901196 +0100
 @@ -7,6 +7,7 @@

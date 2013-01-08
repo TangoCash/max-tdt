@@ -15,6 +15,6 @@ neutrino-twin
 neutrino-twin.org
 diff-ignore
 diff-enigma2-pli-nightly.sh
-diff-neutrino.hd.sh
+diff-neutrino.mp.sh
 diff-neutrino.hd2-exp.sh
 diff-neutrino.twin.sh

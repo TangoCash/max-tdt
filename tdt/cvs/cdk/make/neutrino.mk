@@ -31,7 +31,7 @@ $(DEPDIR)/libstb-hal.do_prepare:
 	[ -d "$(archivedir)/libstb-hal.git" ] && \
 	(cd $(archivedir)/libstb-hal.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal.git" ] || \
-	git clone git://gitorious.org/~martii/neutrino-hd/martiis-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
 	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal;\
 	cp -ra $(appsdir)/libstb-hal $(appsdir)/libstb-hal.org
 	touch $@
@@ -45,11 +45,11 @@ $(appsdir)/libstb-hal/config.status: bootstrap
 			--host=$(target) \
 			--build=$(build) \
 			--prefix=/usr \
-			--with-boxtype=spark \
+			--with-boxtype=$(BOXTYPE) \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(CPPFLAGS) -DMARTII -I$(driverdir)/frontcontroller/aotom"
+			CPPFLAGS="$(CPPFLAGS)"
 
 $(DEPDIR)/libstb-hal.do_compile: $(appsdir)/libstb-hal/config.status
 	cd $(appsdir)/libstb-hal && \
@@ -79,13 +79,10 @@ $(DEPDIR)/neutrino-mp.do_prepare:
 	[ -d "$(archivedir)/neutrino-mp.git" ] || \
 	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp; \
-	rm -rf $(appsdir)/neutrino-mp/lib/libcoolstream/*.*
 	cp -ra $(appsdir)/neutrino-mp $(appsdir)/neutrino-mp.org
-	cd $(appsdir)/neutrino-mp && patch -p1 < "$(buildprefix)/Patches/neutrino-mp.diff"
-	cd $(appsdir)/neutrino-mp && patch -p1 < "$(buildprefix)/Patches/neutrino-mp-libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa
+$(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa libstb-hal
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-mp && \
 		$(BUILDENV) \
@@ -101,10 +98,12 @@ $(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
 			--with-boxtype=$(BOXTYPE) \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS=" -I$(driverdir)/bpamem -I$(appsdir)/misc/tools/libeplayer3/include"
+			CPPFLAGS=" -I$(driverdir)/bpamem"
 
 $(DEPDIR)/neutrino-mp.do_compile: $(appsdir)/neutrino-mp/config.status
 	cd $(appsdir)/neutrino-mp && \

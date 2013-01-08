@@ -677,6 +677,11 @@ endif
 	[ -e $(targetprefix)/lib/modules/$(KERNELVERSION)/kernel/fs/mini_fo/mini_fo.ko ] && cp $(targetprefix)/lib/modules/$(KERNELVERSION)/kernel/fs/mini_fo/mini_fo.ko $(prefix)/release_neutrino/lib/modules || true
 
 #
+# sh4-linux-strip ko
+#
+	find $(prefix)/release_neutrino/lib/modules/ -name '*.ko' -exec sh4-linux-strip --strip-unneeded {} \;
+
+#
 # lib usr/lib
 #
 	cp -R $(targetprefix)/lib/* $(prefix)/release_neutrino/lib/

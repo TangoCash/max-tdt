@@ -73,7 +73,7 @@ imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:Imag
 #
 # contrib libs
 #
-libopenthreads;1.00;openthreads-1.00;openthreads-1.00.tar.gz;extract:openthreads-1.00.tar.gz
+libopenthreads;1.00;openthreads;;
 libboost;boost-1.52.0;boost_1_52_0;boost_1_52_0.tar.bz2;extract:boost_1_52_0.tar.bz2;patch:libboost.diff
 libz;1.2.7;zlib-1.2.7;zlib-1.2.7.tar.bz2;extract:zlib-1.2.7.tar.bz2;patch:zlib-1.2.7.patch
 libreadline;5.2;readline-5.2;readline-5.2.tar.gz;extract:readline-5.2.tar.gz;patch:readline-5.2-termcap_shlibs.patch

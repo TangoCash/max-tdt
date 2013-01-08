@@ -2453,7 +2453,11 @@ $(DEPDIR)/%libalsa: $(DEPDIR)/libalsa.do_compile
 #
 $(DEPDIR)/libopenthreads.do_prepare: bootstrap @DEPENDS_libopenthreads@
 	@PREPARE_libopenthreads@
-#	git clone --recurse-submodules git://c00lstreamtech.de/cst-public-libraries-openthreads.git
+	[ -d "$(archivedir)/cst-public-libraries-openthreads.git" ] && \
+	(cd $(archivedir)/cst-public-libraries-openthreads.git; git pull ; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/cst-public-libraries-openthreads.git" ] || \
+	git clone --recurse-submodules git://c00lstreamtech.de/cst-public-libraries-openthreads.git $(archivedir)/cst-public-libraries-openthreads.git; \
+	cp -ra $(archivedir)/cst-public-libraries-openthreads.git $(buildprefix)/openthreads; \
 	touch $@
 
 $(DEPDIR)/libopenthreads.do_compile: $(DEPDIR)/libopenthreads.do_prepare

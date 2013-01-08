@@ -488,7 +488,7 @@ release_neutrino_tf7700: release_neutrino_common_utils
 release_neutrino_base:
 	rm -rf $(prefix)/release_neutrino || true
 	$(INSTALL_DIR) $(prefix)/release_neutrino && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,share,sys,tmp,usr,var} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,sys,tmp,usr,var} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/{fonts,init.d,network} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/network/{if-down.d,if-post-down.d,if-pre-up.d,if-up.d} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/modules && \
@@ -496,10 +496,10 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/media/{dvd,nfs,usb} && \
 	ln -sf /hdd $(prefix)/release_neutrino/media/hdd && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/mnt/{hdd,nfs,usb} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/share/tuxbox/neutrino && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib} && \
-	ln -sf /share $(prefix)/release_neutrino/usr/share && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib,share} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino && \
+	ln -sf /usr/share $(prefix)/release_neutrino/share && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,etc,httpd,lib,plugins,tuxbox,update} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/{locale,zapit} && \
@@ -565,8 +565,8 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/etc/init.d/umountfs $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -dp $(targetprefix)/etc/init.d/sendsigs $(prefix)/release_neutrino/etc/init.d/ && \
 	cp $(buildprefix)/root/release/reboot $(prefix)/release_neutrino/etc/init.d/ && \
-	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release_neutrino/share/udhcpc/ && \
-	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release_neutrino/share/zoneinfo/ && \
+	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release_neutrino/usr/share/udhcpc/ && \
+	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release_neutrino/usr/share/zoneinfo/ && \
 	echo "576i50" > $(prefix)/release_neutrino/etc/videomode && \
 	cp $(buildprefix)/root/release/rcS_stm23_neutrino$(if $(TF7700),_$(TF7700))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(HS7810A),_$(HS7810A))$(if $(HS7110),_$(HS7110))$(if $(WHITEBOX),_$(WHITEBOX))$(if $(HL101),_$(HL101))$(if $(VIP1_V2),_$(VIP1_V2))$(if $(VIP2_V1),_$(VIP2_V1))$(if $(ADB_BOX),_$(ADB_BOX))$(if $(UFS922),_$(UFS922))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD))$(if $(UFS912),_$(UFS912))$(if $(SPARK),_$(SPARK))$(if $(SPARK7162),_$(SPARK7162)) $(prefix)/release_neutrino/etc/init.d/rcS
 	chmod 755 $(prefix)/release_neutrino/etc/init.d/rcS && \
@@ -676,21 +676,17 @@ endif
 	[ -e $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/wireless/rtl8192cu/8192cu.ko ] && cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/wireless/rtl8192cu/8192cu.ko $(prefix)/release_neutrino/lib/modules || true
 	[ -e $(targetprefix)/lib/modules/$(KERNELVERSION)/kernel/fs/mini_fo/mini_fo.ko ] && cp $(targetprefix)/lib/modules/$(KERNELVERSION)/kernel/fs/mini_fo/mini_fo.ko $(prefix)/release_neutrino/lib/modules || true
 
-	find $(prefix)/release_neutrino/lib/modules/ -name '*.ko' -exec sh4-linux-strip --strip-unneeded {} \;
-
 #
 # lib usr/lib
 #
 	cp -R $(targetprefix)/lib/* $(prefix)/release_neutrino/lib/
 	rm -f $(prefix)/release_neutrino/lib/*.{a,o,la}
 	chmod 755 $(prefix)/release_neutrino/lib/*
-	find $(prefix)/release_neutrino/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release_neutrino/usr/lib/
 	rm -rf $(prefix)/release_neutrino/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11}
 	rm -f $(prefix)/release_neutrino/usr/lib/*.{a,o,la}
 	chmod 755 $(prefix)/release_neutrino/usr/lib/*
-	find $(prefix)/release_neutrino/usr/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
 
 #
 # fw_printenv / fw_setenv
@@ -702,7 +698,7 @@ endif
 #
 # fonts
 #
-	cp -aR $(targetprefix)/share/fonts $(prefix)/release_neutrino/share/
+	cp -aR $(targetprefix)/usr/share/fonts $(prefix)/release_neutrino/usr/share/
 
 #
 # neutrino
@@ -722,12 +718,12 @@ endif
 #
 # iso-codes
 #
-	cp -aR $(targetprefix)/usr/local/share/iso-codes $(prefix)/release_neutrino/share/
+	cp -aR $(targetprefix)/usr/local/share/iso-codes $(prefix)/release_neutrino/usr/share/
 
 #
 # httpd/icons/locale/themes
 #
-	cp -aR $(targetprefix)/share/tuxbox/neutrino/* $(prefix)/release_neutrino/share/tuxbox/neutrino/
+	cp -aR $(targetprefix)/usr/share/tuxbox/neutrino/* $(prefix)/release_neutrino/usr/share/tuxbox/neutrino
 
 #
 # Delete unnecessary plugins and files
@@ -785,6 +781,10 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 #
 	cp -RP $(buildprefix)/own_build/neutrino-hd/* $(prefix)/release_neutrino/
 
+#
+# sh4-linux-strip
+#
+	find $(prefix)/release_neutrino/ -type f -perm  755 -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
 
 #
 # release-clean

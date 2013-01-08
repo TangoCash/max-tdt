@@ -90,14 +90,14 @@ $(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 		./configure \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
 			--with-tremor \
 			--with-libdir=/usr/lib \
-			--with-datadir=/share/tuxbox \
-			--with-fontdir=/share/fonts \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
-			--with-boxtype=$(BOXTYPE) \
 			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
 			--with-stb-hal-build=$(appsdir)/libstb-hal \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
@@ -157,8 +157,8 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			--enable-giflib \
 			--enable-fb_blit \
 			--with-libdir=/usr/lib \
-			--with-datadir=/share/tuxbox \
-			--with-fontdir=/share/fonts \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
@@ -215,8 +215,8 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libfreet
 			--with-boxtype=$(BOXTYPE) \
 			--with-tremor \
 			--with-libdir=/usr/lib \
-			--with-datadir=/share/tuxbox \
-			--with-fontdir=/share/fonts \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \

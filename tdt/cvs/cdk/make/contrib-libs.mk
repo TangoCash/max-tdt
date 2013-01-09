@@ -462,7 +462,7 @@ $(DEPDIR)/libvorbisidec: $(DEPDIR)/libvorbisidec.do_compile
 # libglib2
 # You need libglib2.0-dev on host system
 #
-$(DEPDIR)/glib2.do_prepare: bootstrap @DEPENDS_glib2@
+$(DEPDIR)/glib2.do_prepare: bootstrap libffi @DEPENDS_glib2@
 	@PREPARE_glib2@
 	touch $@
 

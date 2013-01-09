@@ -9,7 +9,6 @@ $(DEPDIR)/%bootstrap: \
 	%$(CROSS_LIBGCC) \
 	%$(GLIBC) \
 	%$(GLIBC_DEV) \
-	%$(LIBFFI) \
 	%$(BINUTILS) \
 	%$(BINUTILS_DEV) \
 	%$(GMP) \

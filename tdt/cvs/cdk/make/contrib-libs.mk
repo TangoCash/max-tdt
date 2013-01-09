@@ -2456,7 +2456,7 @@ $(DEPDIR)/libopenthreads.do_prepare: bootstrap @DEPENDS_libopenthreads@
 	[ -d "$(archivedir)/cst-public-libraries-openthreads.git" ] && \
 	(cd $(archivedir)/cst-public-libraries-openthreads.git; git pull ; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/cst-public-libraries-openthreads.git" ] || \
-	git clone --recurse-submodules git://c00lstreamtech.de/cst-public-libraries-openthreads.git $(archivedir)/cst-public-libraries-openthreads.git; \
+	git clone --recursive git://c00lstreamtech.de/cst-public-libraries-openthreads.git $(archivedir)/cst-public-libraries-openthreads.git; \
 	cp -ra $(archivedir)/cst-public-libraries-openthreads.git $(buildprefix)/openthreads; \
 	cd $(buildprefix)/openthreads && patch -p1 < "$(buildprefix)/Patches/libopenthreads.patch"
 	touch $@

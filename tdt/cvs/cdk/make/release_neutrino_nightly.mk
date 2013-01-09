@@ -499,8 +499,7 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib,share} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino && \
-	ln -sf /usr/share $(prefix)/release_neutrino/share && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,etc,httpd,lib,plugins,tuxbox,update} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,boot,etc,httpd,lib,plugins,tuxbox,update} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/{locale,zapit} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/httpd/logos && \
@@ -677,11 +676,6 @@ endif
 	[ -e $(targetprefix)/lib/modules/$(KERNELVERSION)/kernel/fs/mini_fo/mini_fo.ko ] && cp $(targetprefix)/lib/modules/$(KERNELVERSION)/kernel/fs/mini_fo/mini_fo.ko $(prefix)/release_neutrino/lib/modules || true
 
 #
-# sh4-linux-strip ko
-#
-	find $(prefix)/release_neutrino/lib/modules/ -name '*.ko' -exec sh4-linux-strip --strip-unneeded {} \;
-
-#
 # lib usr/lib
 #
 	cp -R $(targetprefix)/lib/* $(prefix)/release_neutrino/lib/
@@ -731,30 +725,42 @@ endif
 	cp -aR $(targetprefix)/usr/share/tuxbox/neutrino/* $(prefix)/release_neutrino/usr/share/tuxbox/neutrino
 
 #
-# Delete unnecessary plugins and files
+#
+#
+	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/scan.jpg $(prefix)/release_neutrino/var/boot/
+	ln -s /var/boot/scan.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
+	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/mp3.jpg $(prefix)/release_neutrino/var/boot/
+	ln -s /var/boot/mp3.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/mp3-?.jpg
+	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/shutdown.jpg $(prefix)/release_neutrino/var/boot/
+	ln -s /var/boot/shutdown.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
+	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/radiomode.jpg $(prefix)/release_neutrino/var/boot/
+	ln -s /var/boot/radiomode.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
+
+#
+# Delete unnecessary files
 #
 	rm -rf $(prefix)/release_neutrino/lib/autofs
 	rm -rf $(prefix)/release_neutrino/lib/modules/$(KERNELVERSION)
 	rm -rf $(prefix)/release_neutrino/usr/lib/alsa-lib
 	rm -rf $(prefix)/release_neutrino/usr/lib/alsaplayer
-
-
-########################################################################
-#	mkdir -p $(prefix)/release_neutrino/var/plugins
-#	mkdir -p $(prefix)/release_neutrino/lib/tuxbox
-#	mkdir -p $(prefix)/release_neutrino/var/tuxbox/config
-#	mkdir -p $(prefix)/release_neutrino/share/tuxbox
-#	mkdir -p $(prefix)/release_neutrino/var/share/icons
-#	mkdir -p $(prefix)/release_neutrino/var/usr/local/share/config
-#	( cd $(prefix)/release_neutrino/share/tuxbox && ln -s /usr/local/share/neutrino )
-#	( cd $(prefix)/release_neutrino/var/share/icons/ && ln -s /usr/local/share/neutrino/icons/logo )
-#	( cd $(prefix)/release_neutrino/ && ln -s /usr/local/share/neutrino/icons/logo logos )
-#	( cd $(prefix)/release_neutrino/lib/tuxbox && ln -s /var/plugins )
-#	( cd $(prefix)/release_neutrino/var/tuxbox && ln -s /var/plugins )
-#	( cd $(prefix)/release_neutrino/usr/lib/tuxbox && ln -s /var/plugins )
-#	mkdir -p $(prefix)/release_neutrino/usr/local/share/config/tuxtxt/
-#	cp $(buildprefix)/root/etc/tuxbox/tuxtxt2.conf $(prefix)/release_neutrino/usr/local/share/config/tuxtxt/
-########################################################################
+	rm -f $(prefix)/release_neutrino/usr/lib/libgmp*
+	rm -f $(prefix)/release_neutrino/usr/lib/libmpfr*
+	rm -f $(prefix)/release_neutrino/usr/lib/libexpat*
+	rm -f $(prefix)/release_neutrino/usr/lib/libfontconfig*
+	rm -f $(prefix)/release_neutrino/usr/lib/libtermcap*
+	rm -f $(prefix)/release_neutrino/usr/lib/libmenu*
+	rm -f $(prefix)/release_neutrino/usr/lib/libpanel*
+	rm -f $(prefix)/release_neutrino/usr/lib/libdvdcss*
+	rm -f $(prefix)/release_neutrino/usr/lib/libdvdnav*
+	rm -f $(prefix)/release_neutrino/usr/lib/libdvdread*
+	rm -f $(prefix)/release_neutrino/lib/libncurses*
+	rm -f $(prefix)/release_neutrino/lib/libSegFault*
+	rm -f $(prefix)/release_neutrino/lib/libthread_db*
+	rm -f $(prefix)/release_neutrino/usr/lib/libthread_db*
+	rm -f $(prefix)/release_neutrino/lib/libanl*
+	rm -f $(prefix)/release_neutrino/usr/lib/libanl*
+	rm -rf $(prefix)/release_neutrino/lib/m4-nofpu/
 
 #
 # AUTOFS
@@ -774,6 +780,11 @@ endif
 	fi
 
 #
+# Delete unnecessary plugins and files
+#
+
+
+#
 # The main target depends on the model.
 # IMPORTANT: it is assumed that only one variable is set. Otherwise the target name won't be resolved.
 #
@@ -787,12 +798,12 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 	cp -RP $(buildprefix)/own_build/neutrino-hd/* $(prefix)/release_neutrino/
 
 #
-# sh4-linux-strip
+# sh4-linux-strip all
 #
-	find $(prefix)/release_neutrino/ -type f -perm  755 -exec sh4-linux-strip --strip-unneeded --remove-section=.comment --remove-section=.note {} \;
+	find $(prefix)/release_neutrino/ -name '*' -exec sh4-linux-strip --strip-unneeded {} &>/dev/null \;
 
 #
 # release-clean
 #
-release-neutrino-clean:
+release_neutrino_nightly-clean:
 	rm -f $(DEPDIR)/release_neutrino_nightly

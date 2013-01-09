@@ -555,8 +555,8 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/etc/shells $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/shells.conf $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/vsftpd.conf $(prefix)/release_neutrino/etc/ && \
-	cp -dp $(targetprefix)/var/etc/.version $(prefix)/release_neutrino/var/etc/ && \
-	ln -sf /var/etc/.version $(prefix)/release_neutrino/.version && \
+	mv $(targetprefix)/var/etc/.version $(prefix)/release_neutrino/ && \
+	ln -sf /.version $(prefix)/release_neutrino/var/etc/.version && \
 	cp -dp $(targetprefix)/etc/timezone.xml $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/vdstandby.cfg $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/network/interfaces $(prefix)/release_neutrino/etc/network/ && \

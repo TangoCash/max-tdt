@@ -9,7 +9,7 @@ $(targetprefix)/var/etc/.version:
 	echo "docs=http://gitorious.org/open-duckbox-project-sh4/pages/Home" >> $@
 	echo "forum=http://gitorious.org/open-duckbox-project-sh4" >> $@
 	echo "version=0100`date +%Y%m%d%H%M`" >> $@
-	echo "git =`git describe`" >> $@
+	echo "git=`git describe`" >> $@
 
 #
 #

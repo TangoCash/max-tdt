@@ -499,6 +499,7 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib,share} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino && \
+	ln -sf /usr/share $(prefix)/release_neutrino/share && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,boot,etc,httpd,lib,plugins,tuxbox,update} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/{locale,zapit} && \
@@ -796,6 +797,7 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 # FOR YOUR OWN CHANGES use these folder in cdk/own_build/neutrino-hd
 #
 	cp -RP $(buildprefix)/own_build/neutrino-hd/* $(prefix)/release_neutrino/
+	rm -f $(prefix)/release_neutrino/for_your_own_changes
 
 #
 # sh4-linux-strip all

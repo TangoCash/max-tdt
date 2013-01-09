@@ -161,6 +161,7 @@ $(DEPDIR)/e2fsprogs.do_prepare: bootstrap @DEPENDS_e2fsprogs@
 $(DEPDIR)/e2fsprogs.do_compile: $(DEPDIR)/e2fsprogs.do_prepare
 	cd @DIR_e2fsprogs@ && \
 	ln -sf /bin/true ./ldconfig; \
+	CFLAGS="$(TARGET_CFLAGS)" \
 	CC=$(target)-gcc \
 	RANLIB=$(target)-ranlib \
 	PATH=$(buildprefix)/@DIR_e2fsprogs@:$(PATH) \

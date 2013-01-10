@@ -766,6 +766,7 @@ endif
 
 	rm -f $(prefix)/release_neutrino/usr/lib/libcurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libncurses.so
+	rm -f $(prefix)/release_neutrino/usr/lib/libopkg*
 
 #
 # AUTOFS

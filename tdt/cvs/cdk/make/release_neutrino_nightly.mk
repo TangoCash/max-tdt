@@ -110,7 +110,6 @@ release_neutrino_common_ipbox:
 	rm -f $(prefix)/release_neutrino/lib/firmware/*
 	rm -f $(prefix)/release_neutrino/lib/modules/boxtype.ko
 	rm -f $(prefix)/release_neutrino/lib/modules/bpamem.ko
-	rm -f $(prefix)/release_neutrino/lib/modules/lzo*.ko
 	rm -f $(prefix)/release_neutrino/lib/modules/ramzswap.ko
 	rm -f $(prefix)/release_neutrino/lib/modules/simu_button.ko
 	rm -f $(prefix)/release_neutrino/lib/modules/stmvbi.ko
@@ -600,9 +599,6 @@ if ENABLE_PLAYER191
 		stm/monitor/stm_monitor.ko \
 		media/dvb/stm/dvb/stmdvb.ko \
 		sound/ksound/ksound.ko \
-		sound/kreplay/kreplay.ko \
-		sound/kreplay/kreplay-fdma.ko \
-		sound/ksound/ktone.ko \
 		media/dvb/stm/mpeg2_hard_host_transformer/mpeg2hw.ko \
 		media/dvb/stm/backend/player2.ko \
 		media/dvb/stm/h264_preprocessor/sth264pp.ko \
@@ -629,8 +625,6 @@ endif
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/avs/avs.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/bpamem/bpamem.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/boxtype/boxtype.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/compcache/lzo-kmod/lzo1x_compress.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/compcache/lzo-kmod/lzo1x_decompress.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/compcache/ramzswap.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/e2_proc/e2_proc.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/multicom/embxshell/embxshell.ko $(prefix)/release_neutrino/lib/modules/
@@ -767,6 +761,7 @@ endif
 	rm -f $(prefix)/release_neutrino/usr/lib/libcurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libncurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libopkg*
+	rm -f $(prefix)/release_neutrino/lib/modules/lzo*.ko
 
 #
 # AUTOFS

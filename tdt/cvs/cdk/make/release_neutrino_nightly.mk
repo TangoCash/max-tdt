@@ -764,6 +764,9 @@ endif
 	rm -f $(prefix)/release_neutrino/usr/lib/libanl*
 	rm -rf $(prefix)/release_neutrino/lib/m4-nofpu/
 
+	rm -f $(prefix)/release_neutrino/usr/lib/libcurses.so
+	rm -f $(prefix)/release_neutrino/usr/lib/libncurses.so
+
 #
 # AUTOFS
 #
@@ -779,6 +782,7 @@ endif
 #
 	if [ -e $(prefix)/release_neutrino/usr/lib/libglcddrivers.so ]; then \
 		cp -f $(targetprefix)/etc/graphlcd.conf $(prefix)/release_neutrino/etc/graphlcd.conf; \
+		rm -f $(prefix)/release_neutrino/usr/lib/libglcdskin.so*; \
 	fi
 
 #

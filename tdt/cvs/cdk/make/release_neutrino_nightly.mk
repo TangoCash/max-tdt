@@ -803,7 +803,7 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 # nicht die feine Art, aber funktioniert ;)
 	rm -f $(prefix)/release_neutrino/var/tuxbox/config/neutrino.conf
 	cp -dpfr $(prefix)/release_neutrino/etc $(prefix)/release_neutrino/var
-	rm -dfr $(prefix)/release_neutrino/etc
+	rm -fr $(prefix)/release_neutrino/etc
 	ln -sf /var/etc $(prefix)/release_neutrino
 
 	ln -s /tmp $(prefix)/release_neutrino/lib/init

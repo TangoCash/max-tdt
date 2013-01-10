@@ -84,6 +84,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    stfbcontrol a 0
 
    echo "init lircd"
+   mkdir -p /var/run/lirc
    /usr/bin/lircd
 
    major=$(awk "\$2==\"sparkid\" {print \$1}" /proc/devices)

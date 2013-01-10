@@ -111,13 +111,14 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/bpamem.ko
    insmod $MODDIR/smartcard.ko
 
-   /usr/local/bin/dvbtest -4 -f l /boot/bootlogo.mvi
+   /usr/local/bin/dvbtest -4 -f l /var/boot/bootlogo.mvi
 
    echo "init frontpanel"
    insmod $MODDIR/boxtype.ko
    insmod $MODDIR/simu_button.ko
 
    echo "init lircd"
+   mkdir -p /var/run/lirc
    /usr/bin/lircd
 
    /bin/evremote2 &

@@ -107,7 +107,6 @@ release_neutrino_common_ipbox:
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
 	cp -dp $(buildprefix)/root/etc/lircd_ipbox.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(buildprefix)/root/release/lircd_ipbox $(prefix)/release_neutrino/usr/bin/lircd
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	rm -f $(prefix)/release_neutrino/lib/firmware/*
 	rm -f $(prefix)/release_neutrino/lib/modules/boxtype.ko
 	rm -f $(prefix)/release_neutrino/lib/modules/bpamem.ko
@@ -160,7 +159,6 @@ release_neutrino_ufs910: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/dvb-fe-cx21143.fw $(prefix)/release_neutrino/lib/firmware/dvb-fe-cx24116.fw
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 
 #
@@ -237,7 +235,6 @@ release_neutrino_spark: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	cp -dp $(buildprefix)/root/etc/lircd_spark.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	cp -f $(buildprefix)/root/sbin/flash_* $(prefix)/release_neutrino/sbin
 	cp -f $(buildprefix)/root/sbin/nand* $(prefix)/release_neutrino/sbin
 
@@ -262,7 +259,6 @@ release_neutrino_spark7162: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	cp -dp $(buildprefix)/root/etc/lircd_spark7162.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	cp -f $(buildprefix)/root/sbin/flashcp $(prefix)/release_neutrino/sbin
 	cp -f $(buildprefix)/root/sbin/flash_* $(prefix)/release_neutrino/sbin
 	cp -f $(buildprefix)/root/sbin/nand* $(prefix)/release_neutrino/sbin
@@ -394,7 +390,6 @@ release_neutrino_hl101: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	cp -dp $(buildprefix)/root/etc/lircd_hl101.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
@@ -418,7 +413,6 @@ release_neutrino_adb_box: release_neutrino_common_utils
 	cp -f $(buildprefix)/root/release/fstab_adb_box $(prefix)/release_neutrino/etc/fstab
 	cp -dp $(buildprefix)/root/etc/lircd_adb_box.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/lircd
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
@@ -439,7 +433,6 @@ release_neutrino_vip1_v2: release_neutrino_common_utils
 	cp $(targetprefix)/bin/stslave $(prefix)/release_neutrino/bin
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
@@ -461,7 +454,6 @@ release_neutrino_hs5101: release_neutrino_common_utils
 	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/boot/video.elf
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	mkdir -p $(prefix)/release_neutrino/var/run/lirc
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx21143,stv6306}.fw
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 
@@ -579,7 +571,7 @@ release_neutrino_base:
 	cp $(buildprefix)/root/release/bootclean.sh $(prefix)/release_neutrino/etc/init.d/ && \
 	cp $(buildprefix)/root/release/network $(prefix)/release_neutrino/etc/init.d/ && \
 	cp $(buildprefix)/root/release/networking $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/bootscreen/bootlogo.mvi $(prefix)/release_neutrino/boot/ && \
+	cp $(buildprefix)/root/bootscreen/bootlogo.mvi $(prefix)/release_neutrino/var/boot/ && \
 	cp $(buildprefix)/root/bin/autologin $(prefix)/release_neutrino/bin/ && \
 	cp -p $(targetprefix)/usr/bin/killall $(prefix)/release_neutrino/usr/bin/ && \
 	cp -dp $(targetprefix)/bin/hotplug $(prefix)/release_neutrino/sbin/ && \
@@ -798,6 +790,19 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 #
 	cp -RP $(buildprefix)/own_build/neutrino-hd/* $(prefix)/release_neutrino/
 	rm -f $(prefix)/release_neutrino/for_your_own_changes
+
+# nicht die feine Art, aber funktioniert ;)
+	rm -f $(prefix)/release_neutrino/var/tuxbox/config/neutrino.conf
+	cp -dpfr $(prefix)/release_neutrino/etc $(prefix)/release_neutrino/var
+	rm -dfr $(prefix)/release_neutrino/etc
+	ln -sf /var/etc $(prefix)/release_neutrino
+
+	ln -s /tmp $(prefix)/release_neutrino/lib/init
+	ln -s /tmp $(prefix)/release_neutrino/var/lib/urandom
+	ln -s /tmp $(prefix)/release_neutrino/var/lock
+	ln -s /tmp $(prefix)/release_neutrino/var/log
+	ln -s /tmp $(prefix)/release_neutrino/var/run
+	ln -s /tmp $(prefix)/release_neutrino/var/tmp
 
 #
 # sh4-linux-strip all

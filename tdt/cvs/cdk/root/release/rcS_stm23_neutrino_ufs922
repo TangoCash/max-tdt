@@ -66,7 +66,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/platform.ko
    insmod $MODDIR/silencegen.ko
 
-   #showiframe -p /boot/bootlogo.mvi &
+   #showiframe -p /var/boot/bootlogo.mvi &
    #stfbcontrol a 0
 
    insmod $MODDIR/bpamem.ko
@@ -95,7 +95,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    /usr/sbin/inetd
 
    #timefix e2
-   date -s "121220001970"
+   date -s "200901011200"
 
    #stfbcontrol a 255
 
@@ -121,7 +121,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 		3) echo "3"
 		   echo "RESTART"
 		   echo "0" > /proc/progress
-		   showiframe -p /boot/bootlogo.mvi &;;
+		   showiframe -p /var/boot/bootlogo.mvi &;;
 		*) echo "*"
 		   echo "ERROR"
            init 6;;

@@ -68,7 +68,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    mknod /dev/bpamem c 153 0 
 fi
 
-#showiframe -p /boot/bootlogo.mvi &
+#showiframe -p /var/boot/bootlogo.mvi &
 stfbcontrol a 0
 
 if [ ! -e /var/etc/.firstboot ]; then
@@ -84,6 +84,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/vsftpd start
    /usr/sbin/inetd
    mknod /dev/input/uinput c 10 223
+   mkdir -p /var/run/lirc
    /usr/bin/lircd -u
 
    if [ -e /etc/network/interfaces ]; then

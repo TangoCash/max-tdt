@@ -114,7 +114,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    insmod $MODDIR/bpamem.ko
 
-   #showiframe -p /boot/bootlogo.mvi &
+   #showiframe -p /var/boot/bootlogo.mvi &
    stfbcontrol a 0
 
    echo "init frontpanel"

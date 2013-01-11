@@ -9,9 +9,19 @@ start()
     MAKEDEV="./MAKEDEV -p /etc/passwd -g /etc/group"
     HOST=`cat /etc/hostname`
   else
+#    # Expecting to be in /dev
+#    MAKEDEV="sudo ../sbin/MAKEDEV -p ../etc/passwd -g ../etc/group"
+#    HOST=`cat ../etc/hostname`
+#--------------------------------------
     # Expecting to be in /dev
-    MAKEDEV="sudo ../sbin/MAKEDEV -p ../etc/passwd -g ../etc/group"
-    HOST=`cat ../etc/hostname`
+    if [ ! -e ../etc/passwd ] || [ ! -e ../etc/group ]; then
+	MAKEDEV="sudo ../sbin/MAKEDEV -p ../var/etc/passwd -g ../var/etc/group"
+	HOST=`cat ../var/etc/hostname`
+    else
+	MAKEDEV="sudo ../sbin/MAKEDEV -p ../etc/passwd -g ../etc/group"
+	HOST=`cat ../etc/hostname`
+    fi
+#--------------------------------------
   fi
 
   # Decide if we have CI and/or TWIN/TRIPLET

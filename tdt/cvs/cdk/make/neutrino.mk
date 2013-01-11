@@ -85,8 +85,8 @@ $(DEPDIR)/neutrino-mp.do_prepare:
 $(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa libstb-hal
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-mp && \
-		$(BUILDENV) \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
 		./configure \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
@@ -148,8 +148,8 @@ $(DEPDIR)/neutrino-twin.do_prepare:
 $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads sdparm libusb2 libalsa
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin && \
-		$(BUILDENV) \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
 		./configure \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \

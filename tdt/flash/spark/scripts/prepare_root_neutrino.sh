@@ -9,7 +9,7 @@ TMPKERNELDIR=$4
 cp -a $RELEASEDIR/* $TMPROOTDIR
 
 cd $TMPROOTDIR/dev/
-$TMPROOTDIR/etc/init.d/makedev start
+$TMPROOTDIR/var/etc/init.d/makedev start
 cd -
 
 # --- BOOT ---

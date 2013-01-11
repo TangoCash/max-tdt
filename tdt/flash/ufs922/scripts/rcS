@@ -1,0 +1,5 @@
+#!/bin/sh
+mount -n -t proc proc /proc
+mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock3 /var
+mount --bind /var/etc /etc
+/etc/init.d/rcS &

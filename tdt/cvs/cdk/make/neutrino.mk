@@ -112,7 +112,8 @@ $(DEPDIR)/neutrino-mp.do_compile: $(appsdir)/neutrino-mp/config.status
 
 $(DEPDIR)/neutrino-mp: neutrino-mp.do_prepare neutrino-mp.do_compile
 	$(MAKE) -C $(appsdir)/neutrino-mp install DESTDIR=$(targetprefix) && \
-	make -B $(targetprefix)/var/etc/.version
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
 	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
 	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
 	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
@@ -174,7 +175,8 @@ $(DEPDIR)/neutrino-twin.do_compile: $(appsdir)/neutrino-twin/config.status
 
 $(DEPDIR)/neutrino-twin: neutrino-twin.do_prepare neutrino-twin.do_compile
 	$(MAKE) -C $(appsdir)/neutrino-twin install DESTDIR=$(targetprefix) && \
-	make -B $(targetprefix)/var/etc/.version
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
 	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
 	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
 	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
@@ -227,7 +229,8 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libfreet
 
 $(DEPDIR)/neutrino-hd2-exp: neutrino-hd2-exp.do_prepare neutrino-hd2-exp.do_compile
 	$(MAKE) -C $(appsdir)/neutrino-hd2-exp install DESTDIR=$(targetprefix) && \
-	make -B $(targetprefix)/var/etc/.version
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
 	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
 	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
 	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol

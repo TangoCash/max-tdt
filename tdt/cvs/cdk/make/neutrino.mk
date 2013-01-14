@@ -1,7 +1,6 @@
 #
 # Makefile to build NEUTRINO
 #
-
 $(targetprefix)/var/etc/.version:
 	echo "imagename=Neutrino" > $@
 	echo "homepage=http://gitorious.org/open-duckbox-project-sh4" >> $@

@@ -24,8 +24,13 @@ mv $TMPROOTDIR/boot/video.elf $TMPFWDIR/video.elf
 
 rm -f $TMPROOTDIR/boot/*
 
-echo "/dev/mtdblock2	/boot	jffs2	defaults	0	0" >> $TMPROOTDIR/var/etc/fstab
-#echo "/dev/mtdblock4	/var	jffs2	defaults	0	0" >> $TMPROOTDIR/var/etc/fstab
+if [ -e $TMPROOTDIR/var/etc/fstab ]; then
+	echo "/dev/mtdblock2	/boot	jffs2	defaults	0	0" >> $TMPROOTDIR/var/etc/fstab
+	#echo "/dev/mtdblock4	/var	jffs2	defaults	0	0" >> $TMPROOTDIR/var/etc/fstab
+else
+	echo "/dev/mtdblock2	/boot	jffs2	defaults	0	0" >> $TMPROOTDIR/etc/fstab
+	#echo "/dev/mtdblock4	/var	jffs2	defaults	0	0" >> $TMPROOTDIR/etc/fstab
+fi
 
 mv $TMPROOTDIR/usr/local/share/enigma2/po $TMPROOTDIR/usr/local/share/enigma2/po.old
 mkdir $TMPROOTDIR/usr/local/share/enigma2/po

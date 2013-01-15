@@ -38,7 +38,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-sti7111.ko
-   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
+   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
    echo "LOADING MODULES"   
    fp_control -t "LOADING MODULES"
@@ -79,7 +79,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stm_monitor.ko
    insmod $MODDIR/stmsysfs.ko
    insmod $MODDIR/stmdvb.ko
-   insmod $MODDIR/player2.ko
+   insmod $MODDIR/player2.ko discardlateframe=0
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko

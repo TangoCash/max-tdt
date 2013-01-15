@@ -10,7 +10,11 @@ TMPKERNELDIR=$5
 find $RELEASEDIR -mindepth 1 -maxdepth 1 -exec cp -at$TMPROOTDIR -- {} +
 
 cd $TMPROOTDIR/dev/
-$TMPROOTDIR/var/etc/init.d/makedev start
+if [ -e $TMPROOTDIR/var/etc/init.d/makedev ]; then
+	$TMPROOTDIR/var/etc/init.d/makedev start
+else
+	$TMPROOTDIR/etc/init.d/makedev start
+fi
 cd -
 
 # mini rcS fürs root

@@ -10,7 +10,11 @@ TMPFWDIR=$5
 cp -a $RELEASEDIR/* $TMPROOTDIR
 
 cd $TMPROOTDIR/dev/
-$TMPROOTDIR/var/etc/init.d/makedev start
+if [ -e $TMPROOTDIR/var/etc/init.d/makedev ]; then
+	$TMPROOTDIR/var/etc/init.d/makedev start
+else
+	$TMPROOTDIR/etc/init.d/makedev start
+fi
 cd -
 
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage

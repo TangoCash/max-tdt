@@ -6,13 +6,9 @@ start()
   # Check if started on target or on host
   MACHINE=`uname -m`
   if [ $MACHINE == "sh4" ]; then
-    MAKEDEV="./MAKEDEV -p /etc/passwd -g /etc/group"
+    MAKEDEV="/sbin/MAKEDEV -p /etc/passwd -g /etc/group"
     HOST=`cat /etc/hostname`
   else
-#    # Expecting to be in /dev
-#    MAKEDEV="sudo ../sbin/MAKEDEV -p ../etc/passwd -g ../etc/group"
-#    HOST=`cat ../etc/hostname`
-#--------------------------------------
     # Expecting to be in /dev
     if [ ! -e ../etc/passwd ] || [ ! -e ../etc/group ]; then
 	MAKEDEV="sudo ../sbin/MAKEDEV -p ../var/etc/passwd -g ../var/etc/group"
@@ -21,7 +17,6 @@ start()
 	MAKEDEV="sudo ../sbin/MAKEDEV -p ../etc/passwd -g ../etc/group"
 	HOST=`cat ../etc/hostname`
     fi
-#--------------------------------------
   fi
 
   # Decide if we have CI and/or TWIN/TRIPLET

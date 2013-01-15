@@ -45,7 +45,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    fp_control -c
 
    # green led on
-   fp_control -l 2 1
+   #fp_control -l 2 1
    # led brightness
    fp_control -led 80
 

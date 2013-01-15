@@ -481,7 +481,7 @@ release_neutrino_tf7700: release_neutrino_common_utils
 release_neutrino_base:
 	rm -rf $(prefix)/release_neutrino || true
 	$(INSTALL_DIR) $(prefix)/release_neutrino && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,sys,tmp,usr,var} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,swap,sys,tmp,usr,var} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/{fonts,init.d,network} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/network/{if-down.d,if-post-down.d,if-pre-up.d,if-up.d} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/modules && \
@@ -489,7 +489,6 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/media/{dvd,nfs,usb} && \
 	ln -sf /hdd $(prefix)/release_neutrino/media/hdd && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/mnt/{hdd,nfs,usb} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/swap && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib,share} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino && \

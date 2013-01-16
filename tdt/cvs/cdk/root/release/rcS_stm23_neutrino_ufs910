@@ -37,15 +37,15 @@ if [ ! -e /var/etc/.firstboot ]; then
    #used by fp_control! otherwise crash
    insmod $MODDIR/boxtype.ko
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -c
-   
+
    echo "init embxshell"
    insmod $MODDIR/embxshell.ko
    echo "init embxmailbox"
-   insmod $MODDIR/embxmailbox.ko mailbox0=0xb9211000:136:set2 mailbox1=0xb9212000:137:set2 ;
+   insmod $MODDIR/embxmailbox.ko mailbox0=0xb9211000:136:set2 mailbox1=0xb9212000:137:set2
    echo "init embxshm"
-   insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:256:256:0:512:0xa4000000:0x10000000 ;
+   insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:256:256:0:512:0xa4000000:0x10000000
    echo "init mme_host"
    insmod $MODDIR/mme_host.ko transport0=shm
 
@@ -58,11 +58,9 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init player"
    insmod $MODDIR/mmelog.ko
-   insmod $MODDIR/mpeg2hw.ko mmeName=MPEG2_TRANSFORMER0;
+   insmod $MODDIR/mpeg2hw.ko mmeName=MPEG2_TRANSFORMER0
    insmod $MODDIR/ksound.ko
-# only for stm23
    insmod $MODDIR/p2div64.ko
-# only for stm23
    insmod $MODDIR/stm_v4l2.ko
    insmod $MODDIR/stmvout.ko
    insmod $MODDIR/stmvbi.ko
@@ -145,4 +143,4 @@ fi
 #never reached
 echo "REBOOT UFS910" > /dev/vfd
 echo "REBOOT UFS910"
-reboot
+init 6

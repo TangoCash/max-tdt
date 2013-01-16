@@ -85,8 +85,6 @@ if [ ! -e /var/etc/.firstboot ]; then
 
  echo "init AVS"
    insmod $MODDIR/avs.ko type=stv6417
-
-
    insmod $MODDIR/mmelog.ko
    insmod $MODDIR/ksound.ko
    insmod $MODDIR/p2div64.ko
@@ -156,4 +154,4 @@ fi
 #never reached
 echo "REBOOT UFS913" > /dev/vfd
 echo "REBOOT UFS913"
-reboot
+init 6

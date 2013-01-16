@@ -160,4 +160,4 @@ fi
 #never reached
 echo "REBOOT UFS912" > /dev/vfd
 echo "REBOOT UFS912"
-reboot
+init 6

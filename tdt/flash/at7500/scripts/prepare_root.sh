@@ -8,6 +8,7 @@ TMPKERNELDIR=$4
 TMPFWDIR=$5
 
 cp -a $RELEASEDIR/* $TMPROOTDIR
+cp $RELEASEDIR/.version $TMPROOTDIR
 
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage
 
@@ -39,7 +40,7 @@ ${MAKEDEV} ttyAS0 ttyAS1 ttyAS2 ttyAS3
 ${MAKEDEV} lp par audio video fb rtc lirc st200 alsasnd mme bpamem
 ${MAKEDEV} ppp busmice
 ${MAKEDEV} input i2c mtd
-${MAKEDEV} dvb
+${MAKEDEV} dvb dvb_2nd
 ${MAKEDEV} vfd
 ${MAKEDEV} hdmi_cec
 cd -

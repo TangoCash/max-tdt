@@ -28,7 +28,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    fp_control -c
 
    #green led on
-   fp_control -l 2 1
+   #fp_control -l 2 1
+
    #led brightness
    fp_control -led 80
 
@@ -37,7 +38,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-sti7111.ko
-   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:15m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
+   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
    echo "LOADING MODULES"   
    fp_control -t "LOADING MODULES"
@@ -67,29 +68,29 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/ksound.ko
    insmod $MODDIR/p2div64.ko
    insmod $MODDIR/stm_v4l2.ko
+   insmod $MODDIR/stmvout.ko
+   insmod $MODDIR/stmvbi.ko
    insmod $MODDIR/pseudocard.ko
 
    insmod $MODDIR/stv090x.ko
    insmod $MODDIR/ufs912_cic.ko
    insmod $MODDIR/pti.ko
-   insmod $MODDIR/stmdvb.ko
+
    insmod $MODDIR/stm_monitor.ko
-   insmod $MODDIR/player2.ko
+   insmod $MODDIR/stmsysfs.ko
+   insmod $MODDIR/stmdvb.ko
+   insmod $MODDIR/player2.ko discardlateframe=0
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
    insmod $MODDIR/silencegen.ko
-
    insmod $MODDIR/bpamem.ko
-   mknod /dev/bpamem c 153 0 
 
    #showiframe -p /var/boot/bootlogo.mvi &
    #stfbcontrol a 0
 
    echo "init frontpanel"
    insmod $MODDIR/simu_button.ko
-
-   mknod /dev/rc c 147 1 
 
    #params:
    #period
@@ -121,7 +122,7 @@ if [ ! -e /var/etc/.firstboot ]; then
          ip addr flush eth0 
          /etc/init.d/networking stop 
          TEST=$(grep -c 'dhcp' /etc/network/interfaces) 
-         if [ "$(TEST)" -eq "1" ]; then 
+         if [ "$TEST" -eq "1" ]; then 
             echo dhcp
             /etc/init.d/udhcpc start 
          fi

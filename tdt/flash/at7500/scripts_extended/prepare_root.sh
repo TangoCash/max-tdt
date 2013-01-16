@@ -9,6 +9,7 @@ TMPKERNELDIR=$5
 TMPFWDIR=$6
 
 cp -a $RELEASEDIR/* $TMPROOTDIR
+cp $RELEASEDIR/.version $TMPROOTDIR
 
 mv $TMPROOTDIR/etc/enigma2/ $TMPROOTDIR/var/etc/enigma2/
 ln -s /var/etc/enigma2 $TMPROOTDIR/etc/enigma2

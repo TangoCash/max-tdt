@@ -39,13 +39,13 @@ bare-os: \
 	%$(SYSVINIT) \
 	%$(SYSVINITTOOLS) \
 	%$(INITSCRIPTS) \
-	%openrdate \
 	%$(NETBASE) \
 	%$(BC) \
 	%$(DISTRIBUTIONUTILS) \
 	\
 	%u-boot-utils \
 	%diverse-tools
+#	%openrdate
 
 #
 # NET-UTILS
@@ -57,8 +57,8 @@ net-utils: \
 	%portmap \
 	%$(NFSSERVER) \
 	%vsftpd \
-	%opkg \
 	%$(CIFS)
+#	%opkg
 
 #
 # DISK-UTILS

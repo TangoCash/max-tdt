@@ -33,7 +33,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-sti7105.ko
-   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:15m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
+   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
    echo "LOADING MODULES"   
    fp_control -t "LOADING MODULES"
@@ -49,28 +49,21 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init embx"
    insmod $MODDIR/embxshell.ko
-   insmod $MODDIR/embxmailbox.ko mailbox0=0xfe211000:136:set2 mailbox1=0xfe212000:0 ;
-   insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:256:256:0:512:0x40000000:0x10000000 ;
+   insmod $MODDIR/embxmailbox.ko mailbox0=0xfe211000:136:set2 mailbox1=0xfe212000:0
+   insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:256:256:0:512:0x40000000:0x10000000
    insmod $MODDIR/mme_host.ko transport0=shm
 
    echo "init AVS"
    insmod $MODDIR/avs.ko type=stv6418
 
-   player=`cat /proc/stb/player/version`
-   if [ $player=='player191' ]; then
-      echo "init player 191"
-   elif [ $player=='player179' ]; then
-      echo "init player 179"
-   else
-      echo "init player 131"
-   fi
-
    insmod $MODDIR/mmelog.ko
    #there is no mpeg2hw on atevio7500, will be handled by fw & copos
-   #insmod $MODDIR/mpeg2hw.ko mmeName=MPEG2_TRANSFORMER0;
+   #insmod $MODDIR/mpeg2hw.ko mmeName=MPEG2_TRANSFORMER0
    insmod $MODDIR/ksound.ko
    insmod $MODDIR/p2div64.ko
    insmod $MODDIR/stm_v4l2.ko
+   insmod $MODDIR/stmvout.ko
+   insmod $MODDIR/stmvbi.ko
    insmod $MODDIR/pseudocard.ko
 
    insmod $MODDIR/frontend_platform.ko
@@ -80,38 +73,24 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/avl2108.ko
 #   insmod $MODDIR/tda10024.ko
 
-   insmod $MODDIR/starci.ko 
-   if [ $player=='player191' ]; then
-      insmod $MODDIR/pti.ko waitMS=20 videoMem=4096
-      insmod $MODDIR/stm_monitor.ko
-      insmod $MODDIR/stmsysfs.ko
-      insmod $MODDIR/stmdvb.ko
-   elif [ $player=='player179' ]; then
-      insmod $MODDIR/pti.ko waitMS=20 videoMem=4096
-      insmod $MODDIR/stm_monitor.ko
-      insmod $MODDIR/stmsysfs.ko
-      insmod $MODDIR/stmdvb.ko
-   else
-      insmod $MODDIR/pti.ko
-      insmod $MODDIR/stmdvb.ko
-      insmod $MODDIR/stm_monitor.ko
-   fi
-   insmod $MODDIR/player2.ko
+   insmod $MODDIR/starci.ko
+   insmod $MODDIR/smartcard.ko
+   insmod $MODDIR/pti.ko
+   insmod $MODDIR/stm_monitor.ko
+   insmod $MODDIR/stmsysfs.ko
+   insmod $MODDIR/stmdvb.ko
+   insmod $MODDIR/player2.ko discardlateframe=0
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
    insmod $MODDIR/silencegen.ko
-
    insmod $MODDIR/bpamem.ko
-   mknod /dev/bpamem c 153 0 
 
    #showiframe -p /var/boot/bootlogo.mvi &
    #stfbcontrol a 0
 
    echo "init frontpanel"
    insmod $MODDIR/simu_button.ko
-
-   mknod /dev/rc c 147 1 
 
    #params:
    #period
@@ -127,7 +106,6 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "LOADING neutrino"
 
    /etc/init.d/mountall start
-
    /etc/init.d/hostname start
 
    echo "starting telnetd"
@@ -136,31 +114,31 @@ if [ ! -e /var/etc/.firstboot ]; then
    /usr/sbin/inetd
 
    NFS=`grep -c nfs /proc/cmdline`
-   if [ "$NFS" -eq "1" ]; then 
-      echo "Booting from nfs, don't set network" 
+   if [ "$NFS" -eq "1" ]; then
+      echo "Booting from nfs, don't set network"
    else 
-      if [ -e /etc/network/interfaces ]; then 
-	 ip addr flush eth0 
-	 /etc/init.d/networking stop 
+      if [ -e /etc/network/interfaces ]; then
+	 ip addr flush eth0
+	 /etc/init.d/networking stop
 	 DHCP=`grep -c dhcp /etc/network/interfaces`
-	 if [ "$DHCP" -eq "1" ]; then 
+	 if [ "$DHCP" -eq "1" ]; then
 	    echo "Starting dhcp"
-            /etc/init.d/udhcpc start 
-	 fi 
-	 /etc/init.d/networking start 
-      fi 
+            /etc/init.d/udhcpc start
+	 fi
+	 /etc/init.d/networking start
+      fi
    fi
 
    until false
    do
       echo "starting neutrino ->"
-      /usr/local/bin/neutrino -f -u
+      /usr/local/bin/neutrino
       rtv=$?
       echo "neutrino ended <- RTV: " $rtv
       case "$rtv" in
 		0) echo "0"
 		   echo "ERROR"
-      	   init 6;;
+		   init 6;;
 		1) echo "1"
 		   echo "SHUTDOWN"
 		   init 0;;
@@ -173,10 +151,12 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   showiframe -p /var/boot/bootlogo.mvi &;;
 		*) echo "*"
 		   echo "ERROR"
-           init 6;;
+		   init 6;;
       esac
-   done 
+   done
 fi
 
 #never reached
-
+echo "REBOOT AV7500" > /dev/vfd
+echo "REBOOT AV7500"
+init 6

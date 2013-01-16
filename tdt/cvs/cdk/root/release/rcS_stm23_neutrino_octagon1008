@@ -30,8 +30,8 @@ if [ ! -e /var/etc/.firstboot ]; then
 
   echo "init stmfb"
    insmod $MODDIR/stmcore-display-stx7109c3.ko
-   insmod $MODDIR/stmfb.ko display0=1280x720-32@60:12m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
-  
+   insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
+
   echo "STB7100-VIDEO"
 	/bin/stslave -t stb7100.0 -R /boot/video.elf
   echo "STB7100-AUDIO"
@@ -42,8 +42,8 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init embx"
    insmod $MODDIR/embxshell.ko
-   insmod $MODDIR/embxmailbox.ko mailbox0=0xb9211000:136:set2 mailbox1=0xb9212000:0 ;
-   insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:256:256:0:1024:0xa4000000:0x10000000 ;
+   insmod $MODDIR/embxmailbox.ko mailbox0=0xb9211000:136:set2 mailbox1=0xb9212000:0
+   insmod $MODDIR/embxshm.ko mailbox0=shm:0:7:0x60000000:0:256:256:0:1024:0xa4000000:0x10000000
    insmod $MODDIR/mme_host.ko transport0=shm
 
    echo "init AVS"
@@ -51,29 +51,27 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "init player"
    insmod $MODDIR/mmelog.ko
-   insmod $MODDIR/mpeg2hw.ko mmeName=MPEG2_TRANSFORMER1;
+   insmod $MODDIR/mpeg2hw.ko mmeName=MPEG2_TRANSFORMER1
    insmod $MODDIR/ksound.ko
    insmod $MODDIR/p2div64.ko
    insmod $MODDIR/stm_v4l2.ko
+   insmod $MODDIR/stmvout.ko
+   insmod $MODDIR/stmvbi.ko
    insmod $MODDIR/pseudocard.ko
 
    insmod $MODDIR/avl2108_platform.ko
    insmod $MODDIR/avl2108.ko
    insmod $MODDIR/cimax.ko
+   insmod $MODDIR/smartcard.ko
    insmod $MODDIR/pti.ko
    insmod $MODDIR/stm_monitor.ko
-   if [ -e $MODDIR/stmsysfs.ko ]; then
-      insmod $MODDIR/stmsysfs.ko #for player179
-   fi
+   insmod $MODDIR/stmsysfs.ko
    insmod $MODDIR/stmdvb.ko
-   insmod $MODDIR/player2.ko noaudiosync=1; discardlateframe=0; useoldaudiofw=1 ;
+   insmod $MODDIR/player2.ko discardlateframe=0
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
-
-   if [ -e $MODDIR/bpamem.ko ]; then
-      insmod $MODDIR/bpamem.ko #for player179
-   fi
+   insmod $MODDIR/bpamem.ko
 
   # insmod $MODDIR/cifs.ko
 
@@ -81,17 +79,10 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/boxtype.ko
    insmod $MODDIR/simu_button.ko
 
-   mknod /dev/rc c 147 1
-
    #params:
    #period
    #delay
    /bin/evremote2 10 130 &
-
-	echo "init cardreader"
-	mknod /dev/sci0 c 253 0
-	mknod /dev/sci1 c 253 1
-#	insmod $MODDIR/sci-ng.ko
 
    #DVD-PLAYER EXIT-TASTE LOAD OR EJECT DVD
    #mount /dev/sr0 /media/dvd
@@ -106,8 +97,8 @@ if [ ! -e /var/etc/.firstboot ]; then
 
 #   stfbcontrol a 255
 
-   echo "LOADING e2" > /dev/vfd
-   echo "LOADING e2"
+   echo "LOADING neutrino" > /dev/vfd
+   echo "LOADING neutrino"
 
    until false
    do
@@ -118,7 +109,7 @@ if [ ! -e /var/etc/.firstboot ]; then
       case "$rtv" in
 		0) echo "0"
 		   echo "ERROR"
-      	   init 6;;
+		   init 6;;
 		1) echo "1"
 		   echo "SHUTDOWN"
 		   init 0;;
@@ -131,9 +122,9 @@ if [ ! -e /var/etc/.firstboot ]; then
 		   showiframe -p /var/boot/bootlogo.mvi &;;
 		*) echo "*"
 		   echo "ERROR"
-           init 6;;
+		   init 6;;
       esac
-   done 
+   done
 fi
 
 #never reached

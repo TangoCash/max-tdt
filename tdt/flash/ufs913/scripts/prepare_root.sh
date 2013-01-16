@@ -8,6 +8,7 @@ TMPKERNELDIR=$4
 TMPFWDIR=$5
 
 cp -a $RELEASEDIR/* $TMPROOTDIR
+cp $RELEASEDIR/.version $TMPROOTDIR
 
 cd $TMPROOTDIR/dev/
 if [ -e $TMPROOTDIR/var/etc/init.d/makedev ]; then

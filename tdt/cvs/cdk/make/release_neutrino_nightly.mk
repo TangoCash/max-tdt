@@ -299,6 +299,7 @@ release_neutrino_atevio7500: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/lib/modules/boxtype.ko
+	rm -f $(prefix)/release_neutrino/lib/modules/mpeg2hw.ko
 
 #
 # release_octagon1008

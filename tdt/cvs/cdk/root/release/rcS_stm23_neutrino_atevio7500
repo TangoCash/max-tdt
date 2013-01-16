@@ -70,8 +70,12 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/socket.ko
    insmod $MODDIR/lnbh221.ko
    insmod $MODDIR/lnb_pio.ko
+# DVB-S
    insmod $MODDIR/avl2108.ko
+# DVB-C
 #   insmod $MODDIR/tda10024.ko
+# DVB-T
+#   insmod $MODDIR/cxd2820.ko
 
    insmod $MODDIR/starci.ko
    insmod $MODDIR/smartcard.ko

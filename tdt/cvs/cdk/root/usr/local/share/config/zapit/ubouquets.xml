@@ -193,6 +193,8 @@
 		<S i="006e" n="Sky Atlantic HD" t="000d" on="0085" s="192" frq="11992" />
 		<S i="007c" n="Fox HD" t="000e" on="0085" s="192" frq="11875" />
 		<S i="007b" n="TNT Serie HD" t="000e" on="0085" s="192" frq="11875" />
+		<S i="007f" n="13th Street HD" t="000a" on="0085" s="192" frq="11332" />
+		<S i="007e" n="Syfy HD" t="000a" on="0085" s="192" frq="11332" />
 		<S i="006f" n="Disney Cinemagic HD" t="000d" on="0085" s="192" frq="11992" />
 		<S i="0074" n="Disney Channel HD" t="000b" on="0085" s="192" frq="12382" />
 		<S i="0082" n="Discovery HD" t="0006" on="0085" s="192" frq="11914" />
@@ -209,6 +211,7 @@
 		<S i="007a" n="Sport1+ HD" t="000e" on="0085" s="192" frq="11875" />
 		<S i="0084" n="Eurosport HD" t="0006" on="0085" s="192" frq="11914" />
 		<S i="0077" n="ESPN America HD" t="000b" on="0085" s="192" frq="12382" />
+		<S i="0080" n="." t="000a" on="0085" s="192" frq="11332" />
 	</Bouquet>
 	<Bouquet name="Sky Germany (Select - PPV)" hidden="0" locked="0">
 		<S i="0012" n="Sky Select" t="0004" on="0085" s="192" frq="12032" />
@@ -358,9 +361,6 @@
 		<S i="004c" n="." t="0021" on="0085" s="192" frq="12480" />
 		<S i="0049" n="." t="0005" on="0085" s="192" frq="12460" />
 		<S i="4e2b" n="." t="043a" on="0001" s="192" frq="12051" />
-		<S i="007e" n="." t="000a" on="0085" s="192" frq="11332" />
-		<S i="007f" n="." t="000a" on="0085" s="192" frq="11332" />
-		<S i="0080" n="." t="000a" on="0085" s="192" frq="11332" />
 		<S i="126a" n="." t="03f7" on="0001" s="192" frq="11420" />
 		<S i="126b" n="." t="03f7" on="0001" s="192" frq="11420" />
 		<S i="126c" n="." t="03f7" on="0001" s="192" frq="11420" />

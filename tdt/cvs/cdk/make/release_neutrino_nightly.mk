@@ -578,11 +578,13 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release_neutrino/sbin/
 
 if !ENABLE_UFS910
+if !ENABLE_UFS922
 	cp -dp $(targetprefix)/sbin/jfs_fsck $(prefix)/release_neutrino/sbin/ && \
 	ln -sf /sbin/jfs_fsck $(prefix)/release_neutrino/sbin/fsck.jfs && \
 	cp -dp $(targetprefix)/sbin/jfs_mkfs $(prefix)/release_neutrino/sbin/ && \
 	ln -sf /sbin/jfs_mkfs $(prefix)/release_neutrino/sbin/mkfs.jfs && \
 	cp -dp $(targetprefix)/sbin/jfs_tune $(prefix)/release_neutrino/sbin/
+endif
 endif
 
 #

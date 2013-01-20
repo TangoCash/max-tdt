@@ -5,6 +5,7 @@ SUBDIRS = \
 	evremote2 \
 	libeplayer3 \
 	fp_control \
+	fbshot \
 	showiframe \
 	streamproxy \
 	stfbcontrol \

@@ -41,6 +41,7 @@ devinit/Makefile
 evremote2/Makefile
 libeplayer3/Makefile
 fp_control/Makefile
+fbshot/Makefile
 showiframe/Makefile
 stfbcontrol/Makefile
 streamproxy/Makefile

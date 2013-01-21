@@ -878,7 +878,6 @@ $(DEPDIR)/%libdvdread: $(DEPDIR)/libdvdread.do_compile
 # ffmpeg
 #
 FFMPEG_CUSTOM_NEU:= \
-		--disable-vfp \
 		--disable-runtime-cpudetect
 
 FFMPEG_CUSTOM_OLD:= \

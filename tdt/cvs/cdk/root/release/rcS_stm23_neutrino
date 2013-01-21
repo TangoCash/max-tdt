@@ -101,7 +101,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    #DVD-PLAYER EXIT-TASTE LOAD OR EJECT DVD
    #mount /dev/sr0 /media/dvd
-   mount -t ext3 /dev/sda1 /hdd/movie
+   #mount -t ext3 /dev/sda1 /hdd/movie
 
    /etc/init.d/portmap start
    /etc/init.d/vsftpd start

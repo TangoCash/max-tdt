@@ -974,7 +974,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-decoder=dvbsub \
 		--enable-decoder=iff_byterun1 \
 		--enable-small \
-		--disable-runtime-cpudetect \
 		--enable-pthreads \
 		--enable-bzlib \
 		--enable-librtmp \

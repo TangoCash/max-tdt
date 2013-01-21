@@ -890,11 +890,17 @@ FFMPEG_CUSTOM_NEU:= \
 		--disable-mips32r2 \
 		--disable-mipsdspr1 \
 		--disable-mipsdspr2 \
-		--disable-mipsfpu
+		--disable-mipsfpu \
+		--disable-vfp
 
 FFMPEG_CUSTOM_OLD:= \
+		--enable-muxer=aac \
 		--disable-mmx2 \
-		--enable-small
+		--disable-armvfp \
+		--enable-encoder=mp3 \
+		--enable-encoder=theora \
+		--enable-decoder=ljpeg \
+		--disable-mmi
 
 $(DEPDIR)/ffmpeg.do_prepare: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
@@ -921,8 +927,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--disable-armv5te \
 		--disable-armv6 \
 		--disable-armv6t2 \
-		--disable-armvfp \
-		--disable-mmi \
 		--disable-neon \
 		--disable-vis \
 		--disable-yasm \
@@ -931,7 +935,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--disable-muxers \
 		--enable-muxer=ogg \
 		--enable-muxer=flac \
-		--enable-muxer=aac \
 		--enable-muxer=mp3 \
 		--enable-muxer=h261 \
 		--enable-muxer=h263 \
@@ -941,8 +944,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-muxer=image2 \
 		--disable-encoders \
 		--enable-encoder=aac \
-		--enable-encoder=mp3 \
-		--enable-encoder=theora \
 		--enable-encoder=h261 \
 		--enable-encoder=h263 \
 		--enable-encoder=h263p \
@@ -962,7 +963,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-decoder=mpeg1video \
 		--enable-decoder=mpeg2video \
 		--enable-decoder=png \
-		--enable-decoder=ljpeg \
 		--enable-decoder=mjpeg \
 		--enable-decoder=vorbis \
 		--enable-decoder=flac \
@@ -977,11 +977,11 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-pthreads \
 		--enable-bzlib \
 		--enable-librtmp \
-		--pkg-config=pkg-config \
+		--pkg-config="pkg-config" \
 		--cross-prefix=$(target)- \
 		--target-os=linux \
 		--arch=sh4 \
-		--extra-cflags=-fno-strict-aliasing \
+		--extra-cflags="-fno-strict-aliasing" \
 		--enable-stripping \
 		--prefix=/usr && \
 	$(MAKE)

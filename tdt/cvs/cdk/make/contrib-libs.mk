@@ -878,29 +878,16 @@ $(DEPDIR)/%libdvdread: $(DEPDIR)/libdvdread.do_compile
 # ffmpeg
 #
 FFMPEG_CUSTOM_NEU:= \
-		--disable-altivec \
-		--disable-mmxext \
-		--disable-sse2 \
-		--disable-sse3 \
-		--disable-sse4 \
-		--disable-sse42 \
-		--disable-avx \
-		--disable-fma4 \
-		--disable-inline-asm \
-		--disable-mips32r2 \
-		--disable-mipsdspr1 \
-		--disable-mipsdspr2 \
-		--disable-mipsfpu \
-		--disable-vfp
+		--disable-vfp \
+		--disable-runtime-cpudetect
 
 FFMPEG_CUSTOM_OLD:= \
-		--enable-muxer=aac \
-		--disable-mmx2 \
 		--disable-armvfp \
+		--disable-mmi \
+		--enable-muxer=aac \
 		--enable-encoder=mp3 \
 		--enable-encoder=theora \
-		--enable-decoder=ljpeg \
-		--disable-mmi
+		--enable-decoder=ljpeg
 
 $(DEPDIR)/ffmpeg.do_prepare: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
@@ -916,20 +903,33 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-cross-compile \
 		--disable-ffserver \
 		--disable-ffplay \
-		--disable-altivec \
 		--disable-debug \
 		--disable-asm \
+		--disable-altivec \
 		--disable-amd3dnow \
 		--disable-amd3dnowext \
 		--disable-mmx \
+		--disable-mmxext \
 		--disable-sse \
+		--disable-sse2 \
+		--disable-sse3 \
 		--disable-ssse3 \
+		--disable-sse4 \
+		--disable-sse42 \
+		--disable-avx \
+		--disable-fma4 \
 		--disable-armv5te \
 		--disable-armv6 \
 		--disable-armv6t2 \
+		--disable-vfp \
 		--disable-neon \
 		--disable-vis \
+		--disable-inline-asm \
 		--disable-yasm \
+		--disable-mips32r2 \
+		--disable-mipsdspr1 \
+		--disable-mipsdspr2 \
+		--disable-mipsfpu \
 		--disable-indevs \
 		--disable-outdevs \
 		--disable-muxers \
@@ -974,6 +974,7 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-decoder=dvbsub \
 		--enable-decoder=iff_byterun1 \
 		--enable-small \
+		--disable-runtime-cpudetect \
 		--enable-pthreads \
 		--enable-bzlib \
 		--enable-librtmp \

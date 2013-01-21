@@ -87,7 +87,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    #DVD-PLAYER EXIT-TASTE LOAD OR EJECT DVD
    #mount /dev/sr0 /media/dvd
    #fix this later if we got to manage a marusys raw device driver
-   mount /dev/sda5 /hdd/
+   #mount /dev/sda5 /hdd/
 
    /etc/init.d/portmap start
    /etc/init.d/vsftpd start

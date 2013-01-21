@@ -161,6 +161,8 @@ release_neutrino_ufs910: release_neutrino_common_utils
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
+	rm -f $(prefix)/release_neutrino/bin/eeprom
+	rm -f $(prefix)/release_neutrino/bin/gitVCInfo
 
 #
 # release_ufs912

@@ -878,6 +878,7 @@ $(DEPDIR)/%libdvdread: $(DEPDIR)/libdvdread.do_compile
 # ffmpeg
 #
 FFMPEG_CUSTOM_NEU:= \
+		--disable-vfp \
 		--disable-runtime-cpudetect
 
 FFMPEG_CUSTOM_OLD:= \
@@ -920,7 +921,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--disable-armv5te \
 		--disable-armv6 \
 		--disable-armv6t2 \
-		--disable-vfp \
 		--disable-neon \
 		--disable-vis \
 		--disable-inline-asm \

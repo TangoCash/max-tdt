@@ -973,7 +973,6 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-demuxer=mjpeg \
 		--enable-decoder=dvbsub \
 		--enable-decoder=iff_byterun1 \
-		--enable-hardcoded-tables \
 		--enable-small \
 		--enable-pthreads \
 		--enable-bzlib \

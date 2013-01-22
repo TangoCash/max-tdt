@@ -878,7 +878,6 @@ $(DEPDIR)/%libdvdread: $(DEPDIR)/libdvdread.do_compile
 # ffmpeg
 #
 FFMPEG_CUSTOM_NEU:= \
-		--enable-hardcoded-tables \
 		--disable-vfp \
 		--disable-runtime-cpudetect
 
@@ -904,6 +903,7 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-cross-compile \
 		--disable-ffserver \
 		--disable-ffplay \
++		--disable-ffprobe \
 		--disable-debug \
 		--disable-asm \
 		--disable-altivec \
@@ -973,6 +973,7 @@ $(DEPDIR)/ffmpeg.do_compile: $(DEPDIR)/ffmpeg.do_prepare
 		--enable-demuxer=mjpeg \
 		--enable-decoder=dvbsub \
 		--enable-decoder=iff_byterun1 \
+		--enable-hardcoded-tables \
 		--enable-small \
 		--enable-pthreads \
 		--enable-bzlib \

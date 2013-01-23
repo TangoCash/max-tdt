@@ -1,7 +1,8 @@
 #
 # misc/tools
 #
-$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev libdvdnav libdvdcss bzip2 libpng libjpeg ffmpeg
+#$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev libdvdnav libdvdcss bzip2 libpng libjpeg ffmpeg
+$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev bzip2 libpng libjpeg ffmpeg
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/misc/tools && \
 	libtoolize -f -c && \

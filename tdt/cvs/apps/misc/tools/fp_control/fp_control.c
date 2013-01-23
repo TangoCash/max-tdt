@@ -41,7 +41,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /* software version of fp_control. please increas on every change */
-static const char* sw_version = "1.02";
+static const char* sw_version = "1.03";
 
 typedef struct
 {
@@ -61,9 +61,10 @@ tArgs vArgs[] =
 
    { "-g", "--getTime        ",
 "Args: No arguments\n\tReturn current set frontcontroller time" },
+   { "-gs", "--getTimeAndSet        ",
+"Args: No arguments\n\tSet system time to current frontcontroller time" },
    { "-gw", "--getWakeupTime        ",
 "Args: No arguments\n\tReturn current wakeup time" },
-
    { "-s", "--setTime        ",
 "Args: time date Format: HH:MM:SS dd-mm-YYYY\n\tSet the current frontcontroller time" },
    { "-gt", "--getTimer       ",
@@ -102,6 +103,8 @@ tArgs vArgs[] =
    { NULL, NULL, NULL }
 };
 
+const char *wakeupreason[4] = { "unknown", "poweron", "standby", "timer" };
+
 void usage(Context_t * context, char* prg, char* cmd)
 {
 	/* let the model print out what it can handle in real */
@@ -139,9 +142,11 @@ void getTimeFromArg(char* timeStr, char* dateStr, time_t* theGMTTime)
 
 	printf("%s\n", __func__);
 
-	sscanf(timeStr, "%d:%d:%d", &theTime.tm_hour, &theTime.tm_min, &theTime.tm_sec);
+	sscanf(timeStr, "%d:%d:%d",
+		&theTime.tm_hour, &theTime.tm_min, &theTime.tm_sec);
 
-	sscanf(dateStr, "%d-%d-%d", &theTime.tm_mday, &theTime.tm_mon, &theTime.tm_year);
+	sscanf(dateStr, "%d-%d-%d",
+		&theTime.tm_mday, &theTime.tm_mon, &theTime.tm_year);
 
 	theTime.tm_year -= 1900;
 	theTime.tm_mon   = theTime.tm_mon - 1;
@@ -157,7 +162,6 @@ void getTimeFromArg(char* timeStr, char* dateStr, time_t* theGMTTime)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 void processCommand (Context_t * context, int argc, char* argv[])
 {
@@ -208,6 +212,31 @@ void processCommand (Context_t * context, int argc, char* argv[])
 				}
 
 			}
+			else if ((strcmp(argv[i], "-gs") == 0) || (strcmp(argv[i], "--getTimeAndSet") == 0))
+			{
+				time_t theGMTTime;
+
+				/* get the frontcontroller time */
+				if (((Model_t*)context->m)->GetTime)
+				{
+					if (((Model_t*)context->m)->GetTime(context, &theGMTTime) == 0)
+					{
+						struct tm *gmt = gmtime(&theGMTTime);
+
+						struct timeval tv;
+						time_t allsec;
+
+						allsec=mktime(gmt);
+						tv.tv_sec=allsec;
+
+						settimeofday(&tv, 0);
+
+						fprintf(stderr, "Setting RTC to current frontpanel-time: %02d:%02d:%02d %02d-%02d-%04d\n",
+						     gmt->tm_hour, gmt->tm_min, gmt->tm_sec, gmt->tm_mday, gmt->tm_mon+1, gmt->tm_year+1900);
+					}
+				}
+
+			}
 			else if ((strcmp(argv[i], "-gw") == 0) || (strcmp(argv[i], "--getWakeupTime") == 0))
 			{
 				time_t theGMTTime;
@@ -235,8 +264,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 					/* set the frontcontroller time */
 					if (((Model_t*)context->m)->SetTime)
 						((Model_t*)context->m)->SetTime(context, &theGMTTime);
-				}
-				else
+				} else
 					usage(context, argv[0], argv[1]);
 
 				i += 2;
@@ -363,6 +391,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 
 					brightness = atoi(argv[i + 1]);
 
+
 					/* set display brightness */
 					if (((Model_t*)context->m)->SetBrightness)
 						((Model_t*)context->m)->SetBrightness(context, brightness);
@@ -400,6 +429,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 				if (ret == 0)
 				{
 					printf("wakeup reason = %d\n", reason);
+					printf("(%s)\n", wakeupreason[reason & 0x03]);
 					syncWasTimerWakeup(reason);
 				}
 			}
@@ -549,14 +579,12 @@ int getModel()
 
 	close(vFd);
 
-	if (vLen > 0)
-	{
+	if (vLen > 0) {
 		vName[vLen-1] = '\0';
 
 		printf("Model: %s\n", vName);
 
-		if (!strncasecmp(vName,"ufs910", 6))
-		{
+		if (!strncasecmp(vName,"ufs910", 6)) {
 			switch(getKathreinUfs910BoxType())
 			{
 				case 0:

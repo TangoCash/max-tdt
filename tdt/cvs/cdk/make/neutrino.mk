@@ -43,7 +43,7 @@ $(appsdir)/libstb-hal/config.status: bootstrap
 		./configure \
 			--host=$(target) \
 			--build=$(build) \
-			--prefix=/usr \
+			--prefix= \
 			--with-boxtype=$(BOXTYPE) \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \

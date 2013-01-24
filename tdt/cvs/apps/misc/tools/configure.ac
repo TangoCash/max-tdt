@@ -27,12 +27,21 @@ AC_ARG_ENABLE([multicom324],
 AM_CONDITIONAL([ENABLE_MULTICOM324], [test x$enable_multicom324 = xtrue])
 AC_SUBST(MULTICOM324)
 
+AC_ARG_ENABLE(eplayer3,
+	AS_HELP_STRING(--enable-eplayer3,    enable eplayer3 support),
+	[case "${enableval}" in
+		yes) EPLAYER3=eplayer3 ;;
+	esac],[enable_eplayer3=no])
+AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
+AC_SUBST(EPLAYER3)
+
 AC_MSG_RESULT([
 summary:
 ----------------------------------------
 Boxtype          : $BOXTYPE
 Multicom322      : $enable_multicom322
 Multicom324      : $enable_multicom324
+libeplayer3	 : $enable_eplayer3
 ])
 
 AC_OUTPUT([

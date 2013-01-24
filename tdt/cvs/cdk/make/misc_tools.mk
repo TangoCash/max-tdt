@@ -7,7 +7,8 @@ $(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev bzip2 libpng
 	cd $(appsdir)/misc/tools && \
 	libtoolize -f -c && \
 	$(CONFIGURE) --prefix= \
-	$(if $(MULTICOM324), --enable-multicom324)
+	$(if $(MULTICOM324), --enable-multicom324) \
+	$(if $(EPLAYER3), --enable-eplayer3) 
 
 $(DEPDIR)/misc-tools: \
 $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status

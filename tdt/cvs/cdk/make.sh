@@ -303,17 +303,19 @@ esac
 echo -e "\nMedia Framework:"
 echo "   1) eplayer3"
 echo "   2) gstreamer"
+echo "   3) use build-in"
 case $5 in
-	[1-2]) REPLY=$5
+	[1-3]) REPLY=$5
 	echo -e "\nSelected media framwork: $REPLY\n"
 	;;
 	*)
-	read -p "Select media framwork (1-2)? ";;
+	read -p "Select media framwork (1-3)? ";;
 esac
 
 case "$REPLY" in
 	1) MEDIAFW="--enable-eplayer3";;
 	2) MEDIAFW="--enable-mediafwgstreamer";;
+	3) MEDIAFW="--enable-buildinplayer";;
 	*) MEDIAFW="--enable-eplayer3";;
 esac
 

@@ -193,9 +193,17 @@ AC_SUBST(EXTERNALLCD)
 
 AC_ARG_ENABLE(eplayer3,
 	AS_HELP_STRING(--enable-eplayer3,    enable eplayer3 support),
-	,[enable_eplayer3=no])
+	[case "${enableval}" in
+		yes) EPLAYER3=eplayer3 ;;
+	esac],[enable_eplayer3=no])
 AM_CONDITIONAL(ENABLE_EPLAYER3,test "$enable_eplayer3" = "yes")
 AC_SUBST(EPLAYER3)
+
+AC_ARG_ENABLE(buildinplayer,
+	AS_HELP_STRING(--enable-buildinplayer,    enable build-in player support),
+	,[enable_buildinplayer=no])
+AM_CONDITIONAL(ENABLE_BUILDINPLAYER,test "$enable_buildinplayer" = "yes")
+AC_SUBST(BUILDINPLAYER)
 
 AC_ARG_ENABLE(fortis_hdbox,
 	AS_HELP_STRING(--enable-fortis_hdbox, enable Fortis/hdbox FS-9200HD PVR stuff),
@@ -755,6 +763,9 @@ AC_SUBST(MEDIAFW_DEP)
 if test "$enable_mediafwgstreamer" == "yes"; then
 	MEDIAFW="gstreamer"
 	MEDIAFW_DEP="gst_plugins_dvbmediasink"
+elif test "$enable_buildinplayer" == "yes"; then
+	MEDIAFW="build-in player"
+	MEDIAFW_DEP="ffmpeg"
 else
 	MEDIAFW="eplayer3"
 	MEDIAFW_DEP="ffmpeg"

@@ -513,7 +513,6 @@ release_neutrino_base:
 	touch $(prefix)/release_neutrino/var/etc/.firstboot && \
 	cp -a $(targetprefix)/bin/* $(prefix)/release_neutrino/bin/ && \
 	ln -sf /bin/showiframe $(prefix)/release_neutrino/usr/bin/showiframe && \
-	cp -dp $(targetprefix)/usr/bin/sdparm $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/init $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/killall5 $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/portmap $(prefix)/release_neutrino/sbin/ && \

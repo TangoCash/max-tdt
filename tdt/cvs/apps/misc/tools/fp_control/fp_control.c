@@ -131,7 +131,6 @@ void usage(Context_t * context, char* prg, char* cmd)
 	exit(1);
 }
 
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -229,19 +228,21 @@ void processCommand (Context_t * context, int argc, char* argv[])
 						allsec=mktime(gmt);
 						tv.tv_sec=allsec;
 
-						settimeofday(&tv, 0);
+//						settimeofday(&tv, 0);   // only works on spark, so we make a system-call later
 
 						fprintf(stderr, "Setting RTC to current frontpanel-time: %02d:%02d:%02d %02d-%02d-%04d\n",
-						     gmt->tm_hour, gmt->tm_min, gmt->tm_sec, gmt->tm_mday, gmt->tm_mon+1, gmt->tm_year+1900);
+							gmt->tm_hour, gmt->tm_min, gmt->tm_sec, gmt->tm_mday, gmt->tm_mon+1, gmt->tm_year+1900);
+						char cmd[50];
+						sprintf(cmd, "date -s %04d.%02d.%02d-%02d:%02d:%02d\n", gmt->tm_year+1900, gmt->tm_mon+1, gmt->tm_mday, gmt->tm_hour, gmt->tm_min, gmt->tm_sec);
+						system(cmd);
 					}
 				}
-
 			}
 			else if ((strcmp(argv[i], "-gw") == 0) || (strcmp(argv[i], "--getWakeupTime") == 0))
 			{
 				time_t theGMTTime;
 
-					/* get the frontcontroller time */
+				/* get the frontcontroller time */
 				if (((Model_t*)context->m)->GetWakeupTime)
 				{
 					if (((Model_t*)context->m)->GetWakeupTime(context, &theGMTTime) == 0)
@@ -249,7 +250,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 						struct tm *gmt = gmtime(&theGMTTime);
 
 						fprintf(stderr, "Current Time: %02d:%02d:%02d %02d-%02d-%04d\n",
-						     gmt->tm_hour, gmt->tm_min, gmt->tm_sec, gmt->tm_mday, gmt->tm_mon+1, gmt->tm_year+1900);
+							gmt->tm_hour, gmt->tm_min, gmt->tm_sec, gmt->tm_mday, gmt->tm_mon+1, gmt->tm_year+1900);
 					}
 				}
 			}
@@ -295,7 +296,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 
 					/* shutdown immediately or at a given time */
 					if (((Model_t*)context->m)->Shutdown)
-						((Model_t*)context->m)->Shutdown(context, &theGMTTime);
+					      ((Model_t*)context->m)->Shutdown(context, &theGMTTime);
 				}
 				else if (argc == 2)
 				{
@@ -337,9 +338,9 @@ void processCommand (Context_t * context, int argc, char* argv[])
 					/* sleep for a while, or wake-up on another reason (rc ...) */
 					if (((Model_t*)context->m)->Sleep)
 						((Model_t*)context->m)->Sleep(context, &theGMTTime);
-				}
+		 		}
 				else
-					usage(context, argv[0], argv[1]);
+		 			usage(context, argv[0], argv[1]);
 
 				i += 2;
 			}
@@ -364,7 +365,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 
 					/* set display led */
 					if (((Model_t*)context->m)->SetLed)
-						((Model_t*)context->m)->SetLed(context, which, on);
+					   ((Model_t*)context->m)->SetLed(context, which, on);
 				}
 				i += 2;
 			}
@@ -445,7 +446,7 @@ void processCommand (Context_t * context, int argc, char* argv[])
 					if (((Model_t*)context->m)->SetLight)
 					((Model_t*)context->m)->SetLight(context, on);
 
-				}
+			 	}
 				i += 1;
 			}
 			else if ((strcmp(argv[i], "-c") == 0) || (strcmp(argv[i], "--clear") == 0))
@@ -554,7 +555,6 @@ void processCommand (Context_t * context, int argc, char* argv[])
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
 int getKathreinUfs910BoxType() {
 	char vType;
 	int vFdBox = open("/proc/boxtype", O_RDONLY);
@@ -648,7 +648,6 @@ int getModel()
 
 	return vBoxType;
 }
-
 
 int main (int argc, char* argv[])
 {

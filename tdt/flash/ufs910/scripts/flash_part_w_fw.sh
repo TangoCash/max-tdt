@@ -19,7 +19,7 @@ MKSQUASHFS=$CURDIR/../common/mksquashfs4.0
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 PAD=$CURDIR/../common/pad
 
-OUTFILE=$OUTDIR/update_w_fw.img
+OUTFILE=$OUTDIR/miniFLASH.img
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -27,6 +27,7 @@ fi
 
 if [ -e $OUTFILE ]; then
   rm -f $OUTFILE
+  rm -f $OUTFILE.md5
 fi
 
 # Definition size of kernel, root and var
@@ -87,4 +88,5 @@ rm -f $CURDIR/mtd_kernel.pad.bin
 rm -f $CURDIR/mtd_root.pad.bin
 rm -f $CURDIR/mtd_var.sum.pad.bin
 
-zip -j $OUTFILE.zip $OUTFILE
+md5sum -b $OUTFILE | awk -F' ' '{print $1}' > $OUTFILE.md5
+zip -j $OUTFILE.zip $OUTFILE $OUTFILE.md5

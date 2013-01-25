@@ -70,7 +70,7 @@ echo "-----------------------------------------------------------------------"
 #		exit 3;;
 #esac
 #clear
-echo "Creating KERNEL with ROOT and FW..."
+echo "Creating miniFLASH.img..."
 $SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`

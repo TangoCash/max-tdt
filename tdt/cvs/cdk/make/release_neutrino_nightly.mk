@@ -507,7 +507,7 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,boot,etc,httpd,lib,plugins,tuxbox,update} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/{locale,zapit} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/var/httpd/logos && \
+	ln -sf /usr/share/tuxbox/neutrino/icons/logo $(prefix)/release_neutrino/var/httpd/logos && \
 	export CROSS_COMPILE=$(target)- && \
 		$(MAKE) install -C @DIR_busybox@ CONFIG_PREFIX=$(prefix)/release_neutrino && \
 	touch $(prefix)/release_neutrino/var/etc/.firstboot && \

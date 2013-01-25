@@ -1,4 +1,29 @@
 #
+# libao
+#
+$(DEPDIR)/libao.do_prepare: bootstrap @DEPENDS_libao@
+	@PREPARE_libao@
+	touch $@
+
+$(DEPDIR)/libao.do_compile: $(DEPDIR)/libao.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd @DIR_libao@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/libao: \
+$(DEPDIR)/%libao: $(DEPDIR)/libao.do_compile
+	cd @DIR_libao@ && \
+		@INSTALL_libao@
+	@DISTCLEANUP_libao@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # libboost
 #
 $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@

@@ -53,6 +53,7 @@ imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/Ma
 #
 # contrib libs
 #
+libao;rewrite-pkgconfig:libao.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libao.la:TARGETS/usr/lib/libao.la
 libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la
 libboost;remove:TARGETS/include/boost;move:boost:TARGETS/usr/include/boost
 #libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib

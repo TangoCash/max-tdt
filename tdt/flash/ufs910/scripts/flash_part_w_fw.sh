@@ -40,8 +40,8 @@ $PAD $SIZE_KERNEL $CURDIR/uImage $CURDIR/mtd_kernel.pad.bin
 
 # --- ROOT ---
 # Create a squashfs partition for root
-echo "MKSQUASHFS $TMPROOTDIR $CURDIR/mtd_root.bin -comp lzma -all-root"
-$MKSQUASHFS $TMPROOTDIR $CURDIR/mtd_root.bin -comp lzma -all-root > /dev/null
+echo "MKSQUASHFS $TMPROOTDIR $CURDIR/mtd_root.bin -noappend -comp gzip -always-use-fragments -b 262144"
+$MKSQUASHFS $TMPROOTDIR $CURDIR/mtd_root.bin -noappend -comp gzip -always-use-fragments -b 262144 > /dev/null
 echo "PAD $SIZE_ROOT $CURDIR/mtd_root.bin $CURDIR/mtd_root.pad.bin"
 $PAD $SIZE_ROOT $CURDIR/mtd_root.bin $CURDIR/mtd_root.pad.bin
 

@@ -17,14 +17,19 @@ else
 fi
 cd -
 
-mkdir $TMPROOTDIR/root_rw
-mkdir $TMPROOTDIR/storage
-cp ../common/init_mini_fo $TMPROOTDIR/sbin/
-chmod 777 $TMPROOTDIR/sbin/init_mini_fo
-
 # --- BOOT ---
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage
 
-# --- STORAGE FOR MINI_FO ---
-mkdir $TMPSTORAGEDIR/root_ro
+# --- VAR ---
+mv $TMPROOTDIR/var/* $TMPSTORAGEDIR/
 
+# mini-rcS and inittab
+rm -f $TMPROOTDIR/etc
+mkdir -p $TMPROOTDIR/etc/init.d
+echo "#!/bin/sh" > $TMPROOTDIR/etc/init.d/rcS
+echo "mount -n -t proc proc /proc" >> $TMPROOTDIR/etc/init.d/rcS
+echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock3 /var" >> $TMPROOTDIR/etc/init.d/rcS
+echo "mount --bind /var/etc /etc" >> $TMPROOTDIR/etc/init.d/rcS
+echo "/etc/init.d/rcS &" >> $TMPROOTDIR/etc/init.d/rcS
+chmod 755 $TMPROOTDIR/etc/init.d/rcS
+cp -f $TMPSTORAGEDIR/etc/inittab $TMPROOTDIR/etc

@@ -126,6 +126,9 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
+   #timefix
+   date -s "200901011200"
+
    echo "LOADING neutrino" > /dev/vfd
    echo "LOADING neutrino"
 

@@ -131,6 +131,9 @@ if [ ! -e /var/etc/.firstboot ]; then
       fi 
    fi
 
+   #timefix
+   date -s "200901011200"
+
    echo "run app" > /dev/vfd
    echo "LOADING neutrino"
 

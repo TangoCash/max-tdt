@@ -129,6 +129,9 @@ if [ ! -e /var/etc/.firstboot ]; then
       fi 
    fi
 
+   #timefix
+   date -s "200901011200"
+
    # Set Display Time
    (sleep 25;fp_control -s `date +"%H:%M:%S %d-%m-%Y"`) &
 

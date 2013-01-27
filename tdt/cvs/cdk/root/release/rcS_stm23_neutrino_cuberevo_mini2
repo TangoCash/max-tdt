@@ -127,6 +127,9 @@ if [ ! -e /var/etc/.firstboot ]; then
      /etc/init.d/networking start
    fi
 
+   #timefix
+   date -s "200901011200"
+
    stfbcontrol a 255
 
     /bin/evremote2 10 140 &

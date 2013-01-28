@@ -91,13 +91,13 @@
 +	},
 +	{
 +		.name = "Root   - SQUASHFS",
-+		.size = 0xa20000,
++		.size = 0xb40000,
 +		.offset = 0x1e0000,
 +	},
 +	{
 +		.name = "Var    - JFFS2",
-+		.size = 0x400000, 
-+		.offset = 0xc00000,
++		.size = 0x2e0000, 
++		.offset = 0xd20000,
 +	},
 +	{	
 +		.name = "Full w/o Bootloader", 

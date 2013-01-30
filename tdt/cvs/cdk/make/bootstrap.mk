@@ -779,7 +779,6 @@ $(DEPDIR)/libtool.do_compile: $(DEPDIR)/libtool.do_prepare
 	$(MAKE)
 	touch $@
 
-$(DEPDIR)/min-libtool $(DEPDIR)/std-libtool $(DEPDIR)/max-libtool \
 $(DEPDIR)/libtool: \
 $(DEPDIR)/%libtool: $(DEPDIR)/libtool.do_compile
 	cd @DIR_libtool@ && \

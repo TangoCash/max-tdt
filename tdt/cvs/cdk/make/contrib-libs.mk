@@ -3015,14 +3015,14 @@ $(DEPDIR)/minidlna.do_compile: $(DEPDIR)/minidlna.do_prepare
 	cd @DIR_minidlna@ && \
 	libtoolize -f -c && \
 	$(BUILDENV) \
+	$(MAKE) \
 	DESTDIR=$(prefix)/cdkroot \
 	PREFIX=$(prefix)/cdkroot/usr \
 	LIBDIR=$(prefix)/cdkroot/usr/lib \
 	SBINDIR=$(prefix)/cdkroot/usr/sbin \
 	INCDIR=$(prefix)/cdkroot/usr/include \
 	PAM_CAP=no \
-	LIBATTR=no && \
-	$(MAKE)
+	LIBATTR=no
 	touch $@
 
 $(DEPDIR)/minidlna: \

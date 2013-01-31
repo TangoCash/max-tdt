@@ -28,7 +28,7 @@ $(DEPDIR)/%filesystem: bootstrap-cross
 #
 GLIBC := glibc
 GLIBC_DEV := glibc-dev
-GLIBC_VERSION := 2.10.2-37
+GLIBC_VERSION := 2.10.2-38
 GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
 GLIBC_SPEC := stm-target-$(GLIBC).spec
 GLIBC_SPEC_PATCH :=

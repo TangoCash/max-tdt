@@ -196,7 +196,7 @@ gst-plugin-subsink.git;git://openpli.git.sourceforge.net/gitroot/openpli/gstsubs
 #
 # ENIGMA2
 #
-libtuxtxt.git;git://openpli.git.sourceforge.net/gitroot/openpli/tuxtxt;aee777a95276c5adb4e23e0615e52b41c89bc3bd;HEAD
+libtuxtxt.git;git://openpli.git.sourceforge.net/gitroot/openpli/tuxtxt;aee777a95276c5adb4e23e0615e52b41c89bc3bd
 enigma2-openpli-plugins-enigma2.git;git://openpli.git.sourceforge.net/gitroot/openpli/plugins-enigma2
 e2openplugin-OpenWebif.git;git://github.com/E2OpenPlugins/e2openplugin-OpenWebif.git
 hotplug-e2-helper.git;git://openpli.git.sourceforge.net/gitroot/openpli/hotplug-e2-helper

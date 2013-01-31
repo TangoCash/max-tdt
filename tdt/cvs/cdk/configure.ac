@@ -30,10 +30,10 @@ AM_MAINTAINER_MODE
 
 AC_PROG_CC
 
-AC_ARG_ENABLE(gcc472,
-	AS_HELP_STRING(--enable-gcc472, compile image stm24 using gcc 4.7.2),
-	,[enable_gcc472=no])
-AM_CONDITIONAL(GCC_472,test "$enable_gcc472" = "yes")
+AC_ARG_ENABLE(gcc47,
+	AS_HELP_STRING(--enable-gcc47, compile image stm24 using gcc 4.7),
+	,[enable_gcc47=no])
+AM_CONDITIONAL(GCC47,test "$enable_gcc47" = "yes")
 
 AC_ARG_ENABLE(lirc,
 	AS_HELP_STRING(--enable-lirc, include lirc in yadds and images),

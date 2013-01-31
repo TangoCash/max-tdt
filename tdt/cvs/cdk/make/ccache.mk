@@ -8,10 +8,10 @@
 # Most distributions contain the required packages or
 # get the sources from http://samba.org/ftp/ccache
 
-if GCC_472
-VERSION_gcc = 4.7.2
+if GCC47
+VERSION_GCC = 4.7.2
 else
-VERSION_gcc = 4.6.3
+VERSION_GCC = 4.6.3
 endif
 
 if ENABLE_CCACHE
@@ -28,7 +28,7 @@ CCACHE_LINKS = \
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc; \
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-g++; \
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-cpp; \
-	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc-$(VERSION_gcc)
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc-$(VERSION_GCC)
 
 # ccache test will show you ccache statistics
 CCACHE_TEST = $(CCACHE_TUXBOX_BIN) -s

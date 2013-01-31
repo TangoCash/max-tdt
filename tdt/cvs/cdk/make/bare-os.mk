@@ -250,7 +250,11 @@ LIBSTDC := libstdc++
 LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
 GCC := gcc
-GCC_VERSION := $(if $(GCC_472),4.7.2-118,4.6.3-115)
+if GCC47
+GCC_VERSION := 4.7.2-119
+else
+GCC_VERSION := 4.6.3-115
+endif
 GCC_SPEC := stm-target-$(GCC).spec
 GCC_SPEC_PATCH := $(GCC_SPEC).$(GCC_VERSION).diff
 GCC_PATCHES := stm-target-$(GCC).$(GCC_VERSION).diff

@@ -460,6 +460,10 @@ AC_ARG_WITH(customizationsdir,
 	[  --with-customizationsdir=DIR    optional directory containing customization scripts [[[CVS]]]],
 	[customizationsdir="$with_customizationsdir"],[customizationsdir="`pwd`"])
 
+AC_ARG_WITH(flashscriptdir,
+	[  --with-flashscriptdir=DIR    optional directory containing flash scripts [[[CVS]]]],
+	[flashscriptdir="$with_flashscriptdir"],[flashscriptdir=])
+
 AC_ARG_WITH(updatehttpprefix,
 	[  --with-updatehttpprefix=URL  optional URL containing the URL of a directory with update images [[NONE]]],
 	[updatehttpprefix="$with_updatehttpprefix"],[updatehttpprefix=])
@@ -471,6 +475,7 @@ AC_SUBST(buildprefix)
 AC_SUBST(bootprefix)
 AC_SUBST(serversupport)
 AC_SUBST(customizationsdir)
+AC_SUBST(flashscriptdir)
 AC_SUBST(updatehttpprefix)
 AM_CONDITIONAL(DISABLE_UPDATE_HTTP,test "$updatehttpprefix" = "disable")
 

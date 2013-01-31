@@ -26,23 +26,17 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo "Choose between the following revisions:"; \
 	echo "========================================================================================================"; \
 	echo " 0) Newest                 - E2 OpenPli gstreamer / libplayer3    (Can fail due to outdated patch)     "; \
-	echo " 1) Sat, 17 Mar 2012 19:51 - E2 OpenPli gstreamer              945aeb939308b3652b56bc6c577853369d54a537"; \
-	echo " 2) Sat, 18 Aug 2012 11:12 - E2 OpenPli gstreamer / libplayer3 4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
-	echo " 3) Mon, 20 Aug 2012 19:08 - E2 OpenPli gstreamer / libplayer3 51a7b9349070830b5c75feddc52e97a1109e381e"; \
-	echo " 4) Fri, 24 Aug 2012 23:42 - E2 OpenPli gstreamer / libplayer3 002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	echo " 5) Fri, 05 Oct 2012 21:37 - E2 OpenPli gstreamer / libplayer3 7e38f7f6c911cd16106fb3b131e5c2d3a7ea51c7"; \
-	echo " 6) Thu, 08 Nov 2012 17:49 - E2 OpenPli gstreamer / libplayer3 7bbae39ee0c8744cd195de7b1375a549cdb508d8"; \
+	echo " 1) inactive"; \
+	echo " 2) inactive"; \
+	echo " 3) Mon, 28 Jan 2013 21:30 - E2 OpenPli gstreamer / libplayer3 ce3b90e73e88660bafe900f781d434dd6bd25f71"; \
 	echo "========================================================================================================"; \
 	echo "Media Framwork : $(MEDIAFW)"; \
 	echo "External LCD   : $(EXTERNALLCD)"; \
 	read -p "Select         : "; \
 	[ "$$REPLY" == "0" ] && DIFF="0"; \
-	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION="945aeb939308b3652b56bc6c577853369d54a537"; \
-	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION="4f3396b610f5524d85e06f51cbd3186b75f4b6d3"; \
-	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="51a7b9349070830b5c75feddc52e97a1109e381e"; \
-	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="002b85aa8350e9d8e88f75af48c3eb8a6cdfb880"; \
-	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="7e38f7f6c911cd16106fb3b131e5c2d3a7ea51c7"; \
-	[ "$$REPLY" == "6" ] && DIFF="6" && REVISION="7bbae39ee0c8744cd195de7b1375a549cdb508d8"; \
+	[ "$$REPLY" == "1" ] && DIFF="1" && REVISION=""; \
+	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION=""; \
+	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="ce3b90e73e88660bafe900f781d434dd6bd25f71"; \
 	echo "Revision       : "$$REVISION; \
 	echo ""; \
 	[ -d "$(archivedir)/enigma2-pli-nightly.git" ] && \
@@ -58,9 +52,9 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	touch $@
 
 $(appsdir)/enigma2-pli-nightly/config.status: \
-		bootstrap libfreetype libexpat libpng libjpeg libgif libfribidi libid3tag libmad libsigc libreadline libdvbsipp \
-		python libxml2 libxslt elementtree zope_interface twisted pyopenssl pythonwifi pilimaging pyusb pycrypto \
-		lxml libxmlccwrap ncurses-dev libdreamdvd2 tuxtxt32bpp sdparm hotplug_e2 wpa_supplicant \
+		bootstrap opkg ethtool libfreetype libexpat libpng libjpeg libgif libfribidi libid3tag libmad libsigc libreadline \
+		libdvbsipp python libxml2 libxslt elementtree zope_interface twisted pyopenssl pythonwifi pilimaging pyusb pycrypto \
+		lxml libxmlccwrap ncurses-dev libdreamdvd2 tuxtxt32bpp sdparm hotplug_e2 \
 		$(MEDIAFW_DEP) $(EXTERNALLCD_DEP)
 	cd $(appsdir)/enigma2-nightly && \
 		./autogen.sh && \

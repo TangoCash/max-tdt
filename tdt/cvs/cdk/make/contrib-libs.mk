@@ -303,8 +303,7 @@ $(DEPDIR)/libgif_current.do_compile: $(DEPDIR)/libgif_current.do_prepare
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr \
-			--without-x && \
+			--prefix=/usr && \
 		$(MAKE)
 	touch $@
 
@@ -363,8 +362,7 @@ $(DEPDIR)/libfribidi.do_compile: $(DEPDIR)/libfribidi.do_prepare
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr \
-			--enable-memopt && \
+			--prefix=/usr && \
 		$(MAKE) all
 	touch $@
 
@@ -2656,7 +2654,7 @@ $(DEPDIR)/%libdreamdvd: $(DEPDIR)/libdreamdvd.do_compile
 #
 # libdreamdvd2
 #
-$(DEPDIR)/libdreamdvd2.do_prepare: bootstrap @DEPENDS_libdreamdvd2@
+$(DEPDIR)/libdreamdvd2.do_prepare: bootstrap libdvdnav @DEPENDS_libdreamdvd2@
 	[ -d "libdreamdvd" ] && \
 	cd libdreamdvd && git pull; \
 	[ -d "libdreamdvd" ] || \
@@ -2669,7 +2667,7 @@ $(DEPDIR)/libdreamdvd2.do_compile: $(DEPDIR)/libdreamdvd2.do_prepare
 	aclocal -I $(hostprefix)/share/aclocal && \
 	autoheader && \
 	autoconf && \
-	automake --foreign && \
+	automake --foreign --add-missing && \
 	libtoolize --force && \
 	$(BUILDENV) \
 	./configure \
@@ -3017,10 +3015,6 @@ $(DEPDIR)/minidlna.do_compile: $(DEPDIR)/minidlna.do_prepare
 	$(BUILDENV) \
 	$(MAKE) \
 	DESTDIR=$(prefix)/cdkroot \
-	PREFIX=$(prefix)/cdkroot/usr \
-	LIBDIR=$(prefix)/cdkroot/usr/lib \
-	SBINDIR=$(prefix)/cdkroot/usr/sbin \
-	INCDIR=$(prefix)/cdkroot/usr/include \
 	PAM_CAP=no \
 	LIBATTR=no
 	touch $@

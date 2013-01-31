@@ -3,6 +3,7 @@
 #
 $(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
+	libtool \
 	%$(CCACHE) \
 	%$(FILESYSTEM) \
 	| %$(GLIBC) \

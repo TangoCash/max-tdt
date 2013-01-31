@@ -421,7 +421,7 @@ $(HOST_GLIB2_RPM): \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_GLIB2_SPEC)
 
 $(DEPDIR)/$(HOST_GLIB2): \
-$(DEPDIR)/%$(HOST_GLIB2): $(HOST_GLIB2_RPM)
+$(DEPDIR)/%$(HOST_GLIB2): $(HOST_LIBFFI) $(HOST_GLIB2_RPM)
 	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
 	touch $@
 
@@ -725,16 +725,13 @@ $(DEPDIR)/bootstrap-host: | \
 	host-base-passwd \
 	host-distributionutils \
 	host-ldd \
-	libtool \
 	$(HOST_M4) \
-	$(HOST_AUTOCONF) \
+	host-autoconf \
 	host-autotools \
-	$(HOST_AUTOMAKE) \
-	$(HOST_PKGCONFIG) \
-	$(HOST_LIBFFI) \
-	$(HOST_GLIB2) \
-	$(HOST_MTD_UTILS) \
-	$(HOST_MODINIT)
+	host-automake \
+	host-pkg-config \
+	host-mtd-utils \
+	host-module-init-tools
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
@@ -787,10 +784,6 @@ $(DEPDIR)/libtool: \
 $(DEPDIR)/%libtool: $(DEPDIR)/libtool.do_compile
 	cd @DIR_libtool@ && \
 	@INSTALL_libtool@
-		rm -f $(hostprefix)/share/libtool/config/config.* && \
-		ln -sf $(hostprefix)/share/misc/config.guess $(hostprefix)/share/libtool/config/config.guess && \
-		ln -sf $(hostprefix)/share/misc/config.sub $(hostprefix)/share/libtool/config/config.sub && \
 		ln -sf $(hostprefix)/share/aclocal $(hostprefix)/share/aclocal-1.11
-		sed -i -r -e 's,(hardcode_into_libs)=yes,\1=no,g' $(hostprefix)/bin/libtool
 	@DISTCLEANUP_libtool@
 	[ "x$*" = "x" ] && touch $@ || true

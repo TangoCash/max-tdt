@@ -983,7 +983,7 @@ endif
 # minidlna
 #
 	if [ -e $(targetprefix)/usr/sbin/minidlna ]; then \
-		cp -f $(targetprefix)/usr/sbin/minidlna $(prefix)/release_neutrino/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/minidlna $(prefix)/release/usr/sbin/; \
 	fi
 
 #

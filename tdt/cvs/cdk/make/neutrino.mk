@@ -56,7 +56,8 @@ $(appsdir)/libstb-hal/config.status: bootstrap
 			--with-boxtype=$(BOXTYPE) \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
-			$(PLATFORM_CPPFLAGS)
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
 
 $(DEPDIR)/libstb-hal.do_compile: $(appsdir)/libstb-hal/config.status
 	cd $(appsdir)/libstb-hal && \
@@ -115,6 +116,8 @@ $(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 $(DEPDIR)/neutrino-mp.do_compile: $(appsdir)/neutrino-mp/config.status
 	cd $(appsdir)/neutrino-mp && \
 		$(MAKE) all
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
 	touch $@
 
 $(DEPDIR)/neutrino-mp: neutrino-mp.do_prepare neutrino-mp.do_compile

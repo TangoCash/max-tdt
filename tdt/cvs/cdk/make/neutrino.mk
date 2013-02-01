@@ -13,7 +13,15 @@ $(targetprefix)/var/etc/.version:
 #
 #
 #
-N_CPPFLAGS = -DFB_BLIT -I$(driverdir)/bpamem
+N_CPPFLAGS = -I$(driverdir)/bpamem
+
+if BOXTYPE_SPARK
+N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom
+endif
+
+if BOXTYPE_SPARK7162
+N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom
+endif
 
 N_CONFIG_OPTS = --enable-silent-rules --enable-freesatepg
 
@@ -28,7 +36,7 @@ $(DEPDIR)/libstb-hal.do_prepare:
 	rm -rf $(appsdir)/libstb-hal
 	rm -rf $(appsdir)/libstb-hal.org
 	[ -d "$(archivedir)/libstb-hal.git" ] && \
-	(cd $(archivedir)/libstb-hal.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
+	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal.git" ] || \
 	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
 	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal;\
@@ -44,11 +52,11 @@ $(appsdir)/libstb-hal/config.status: bootstrap
 			--host=$(target) \
 			--build=$(build) \
 			--prefix= \
+			--with-target=cdk \
 			--with-boxtype=$(BOXTYPE) \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
-			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(CPPFLAGS)"
+			$(PLATFORM_CPPFLAGS)
 
 $(DEPDIR)/libstb-hal.do_compile: $(appsdir)/libstb-hal/config.status
 	cd $(appsdir)/libstb-hal && \
@@ -74,7 +82,7 @@ $(DEPDIR)/neutrino-mp.do_prepare:
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
-	(cd $(archivedir)/neutrino-mp.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
+	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp.git" ] || \
 	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp; \
@@ -102,7 +110,7 @@ $(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS=" -I$(driverdir)/bpamem"
+			CPPFLAGS="$(N_CPPFLAGS)"
 
 $(DEPDIR)/neutrino-mp.do_compile: $(appsdir)/neutrino-mp/config.status
 	cd $(appsdir)/neutrino-mp && \
@@ -128,24 +136,83 @@ neutrino-mp-distclean:
 	rm -f $(DEPDIR)/neutrino-mp*
 
 #
+# NEUTRINO MP EXP
+#
+$(DEPDIR)/neutrino-mp-exp.do_prepare:
+	rm -rf $(appsdir)/neutrino-mp-exp
+	rm -rf $(appsdir)/neutrino-mp-exp.org
+	[ -d "$(archivedir)/neutrino-mp-exp.git" ] && \
+	(cd $(archivedir)/neutrino-mp-exp.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp-exp.git" ] || \
+	git clone -b experimental git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp-exp.git; \
+	cp -ra $(archivedir)/neutrino-mp-exp.git $(appsdir)/neutrino-mp-exp; \
+	cp -ra $(appsdir)/neutrino-mp-exp $(appsdir)/neutrino-mp-exp.org
+	touch $@
+
+$(appsdir)/neutrino-mp-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/neutrino-mp-exp && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/plugins \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/neutrino-mp-exp.do_compile: $(appsdir)/neutrino-mp-exp/config.status
+	cd $(appsdir)/neutrino-mp-exp && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/neutrino-mp-exp: neutrino-mp-exp.do_prepare neutrino-mp-exp.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-mp-exp install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-mp-exp-clean:
+	rm -f $(DEPDIR)/neutrino-mp-exp
+	cd $(appsdir)/neutrino-mp-exp && \
+		$(MAKE) distclean
+
+neutrino-mp-exp-distclean:
+	rm -f $(DEPDIR)/neutrino-mp-exp*
+
+
+#
 # NEUTRINO TWIN
 #
 $(DEPDIR)/neutrino-twin.do_prepare:
 	rm -rf $(appsdir)/neutrino-twin
 	rm -rf $(appsdir)/neutrino-twin.org
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] && \
-	(cd $(archivedir)/cst-public-gui-neutrino.git; git pull ; git checkout HEAD; cd "$(buildprefix)";); \
+	(cd $(archivedir)/cst-public-gui-neutrino.git; git pull ; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] || \
 	git clone git://c00lstreamtech.de/cst-public-gui-neutrino.git $(archivedir)/cst-public-gui-neutrino.git; \
 	cp -ra $(archivedir)/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin; \
-	(cd $(appsdir)/neutrino-twin; git checkout dvbsi++; cd "$(buildprefix)";); \
-	rm -rf $(appsdir)/neutrino-twin/lib/libcoolstream/*.*
+	(cd $(appsdir)/neutrino-twin; git checkout --track -b dvbsi++ origin/dvbsi++; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin.diff"
-	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-libcool.diff"
 	touch $@
 
-$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa
+$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
@@ -153,6 +220,7 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 		./configure \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
 			--with-tremor \
 			--enable-giflib \
 			--enable-fb_blit \
@@ -162,10 +230,12 @@ $(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS=" -I$(driverdir)/bpamem -I$(appsdir)/misc/tools/libeplayer3/include"
+			CPPFLAGS="$(N_CPPFLAGS) -DFB_BLIT"
 
 $(DEPDIR)/neutrino-twin.do_compile: $(appsdir)/neutrino-twin/config.status
 	cd $(appsdir)/neutrino-twin && \
@@ -214,13 +284,13 @@ $(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libfreet
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
-			--with-tremor \
 			--with-libdir=/usr/lib \
 			--with-datadir=/usr/share/tuxbox \
 			--with-fontdir=/usr/share/fonts \
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
+			--enable-libeplayer3 \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \

@@ -116,8 +116,6 @@ $(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 $(DEPDIR)/neutrino-mp.do_compile: $(appsdir)/neutrino-mp/config.status
 	cd $(appsdir)/neutrino-mp && \
 		$(MAKE) all
-			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS)"
 	touch $@
 
 $(DEPDIR)/neutrino-mp: neutrino-mp.do_prepare neutrino-mp.do_compile

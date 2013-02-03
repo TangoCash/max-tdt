@@ -77,6 +77,53 @@ libstb-hal-distclean:
 	rm -f $(DEPDIR)/libstb-hal*
 
 #
+# LIBSTB-HAL-EXP
+#
+$(DEPDIR)/libstb-hal-exp.do_prepare:
+	rm -rf $(appsdir)/libstb-hal-exp
+	rm -rf $(appsdir)/libstb-hal-exp.org
+	[ -d "$(archivedir)/libstb-hal-exp.git" ] && \
+	(cd $(archivedir)/libstb-hal-exp.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal-exp.git" ] || \
+	git clone -b experimental git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal-exp.git; \
+	cp -ra $(archivedir)/libstb-hal-exp.git $(appsdir)/libstb-hal-exp;\
+	cp -ra $(appsdir)/libstb-hal-exp $(appsdir)/libstb-hal-exp.org
+	touch $@
+
+$(appsdir)/libstb-hal-exp/config.status: bootstrap
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/libstb-hal-exp && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			--build=$(build) \
+			--prefix= \
+			--with-target=cdk \
+			--with-boxtype=$(BOXTYPE) \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/libstb-hal-exp.do_compile: $(appsdir)/libstb-hal-exp/config.status
+	cd $(appsdir)/libstb-hal-exp && \
+		$(MAKE)
+	touch $@
+
+$(DEPDIR)/libstb-hal-exp: libstb-hal-exp.do_prepare libstb-hal-exp.do_compile
+	$(MAKE) -C $(appsdir)/libstb-hal-exp install DESTDIR=$(targetprefix)
+	touch $@
+
+libstb-hal-exp-clean:
+	rm -f $(DEPDIR)/libstb-hal-exp
+	cd $(appsdir)/libstb-hal-exp && \
+		$(MAKE) distclean
+
+libstb-hal-exp-distclean:
+	rm -f $(DEPDIR)/libstb-hal-exp*
+
+#
 # NEUTRINO MP
 #
 $(DEPDIR)/neutrino-mp.do_prepare:
@@ -150,7 +197,7 @@ $(DEPDIR)/neutrino-mp-exp.do_prepare:
 	cp -ra $(appsdir)/neutrino-mp-exp $(appsdir)/neutrino-mp-exp.org
 	touch $@
 
-$(appsdir)/neutrino-mp-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(appsdir)/neutrino-mp-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal-exp
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-mp-exp && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
@@ -166,8 +213,8 @@ $(appsdir)/neutrino-mp-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsip
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
-			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
-			--with-stb-hal-build=$(appsdir)/libstb-hal \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-exp \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \

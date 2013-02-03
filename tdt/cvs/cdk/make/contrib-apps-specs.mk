@@ -49,7 +49,6 @@ $(DEPDIR)/%$(SYSVINIT): $(SYSVINIT_ADAPTED_ETC_FILES:%=root/etc/%) \
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done )
 	[ "x$*" = "x" ] && touch $@ || true
 
-$(DEPDIR)/min-$(SYSVINITTOOLS) $(DEPDIR)/std-$(SYSVINITTOOLS) $(DEPDIR)/max-$(SYSVINITTOOLS) \
 $(DEPDIR)/$(SYSVINITTOOLS): \
 $(DEPDIR)/%$(SYSVINITTOOLS): $(SYSVINITTOOLS_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --force -Uhv \

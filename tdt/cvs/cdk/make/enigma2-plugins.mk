@@ -18,7 +18,6 @@ $(DEPDIR)/enigma2_openwebif.do_compile: $(DEPDIR)/enigma2_openwebif.do_prepare
 		cp -a plugin $(targetprefix)/usr/lib/enigma2/python/Plugins/Extensions/OpenWebif
 	touch $@
 
-$(DEPDIR)/min-enigma2_openwebif $(DEPDIR)/std-enigma2_openwebif $(DEPDIR)/max-enigma2_openwebif \
 $(DEPDIR)/enigma2_openwebif: \
 $(DEPDIR)/%enigma2_openwebif: $(DEPDIR)/enigma2_openwebif.do_compile
 	@DISTCLEANUP_enigma2_openwebif@
@@ -64,7 +63,6 @@ $(DEPDIR)/enigma2_networkbrowser.do_compile: $(DEPDIR)/enigma2_networkbrowser.do
 		rm -rf $(targetprefix)/usr/lib/enigma2/python/Plugins/SystemPlugins/NetworkBrowser/lib
 	touch $@
 
-$(DEPDIR)/min-enigma2_networkbrowser $(DEPDIR)/std-enigma2_networkbrowser $(DEPDIR)/max-enigma2_networkbrowser \
 $(DEPDIR)/enigma2_networkbrowser: \
 $(DEPDIR)/%enigma2_networkbrowser: $(DEPDIR)/enigma2_networkbrowser.do_compile
 	@DISTCLEANUP_enigma2_networkbrowser@

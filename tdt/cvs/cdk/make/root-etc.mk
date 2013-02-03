@@ -1,8 +1,7 @@
 #
 # DIVERSE STUFF / TOOLS
 #
-
-$(DEPDIR)/min-diverse-tools $(DEPDIR)/std-diverse-tools $(DEPDIR)/max-diverse-tools $(DEPDIR)/diverse-tools: \
+$(DEPDIR)/diverse-tools: \
 $(DEPDIR)/%diverse-tools: $(DIVERSE_TOOLS_ADAPTED_ETC_FILES:%=root/etc/%)
 	( cd root/etc && for i in $(DIVERSE_TOOLS_ADAPTED_ETC_FILES); do \
 		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \

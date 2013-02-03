@@ -69,7 +69,6 @@ $(DEPDIR)/ccache.do_compile: $(DEPDIR)/ccache.do_prepare
 			$(MAKE) install DESTDIR=$(hostprefix)
 	touch $@
 
-$(DEPDIR)/min-ccache $(DEPDIR)/std-ccache $(DEPDIR)/max-ccache \
 $(DEPDIR)/ccache: \
 $(DEPDIR)/%ccache: $(DEPDIR)/ccache.do_compile
 	cd @DIR_ccache@ && \

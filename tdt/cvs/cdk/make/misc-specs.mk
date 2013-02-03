@@ -164,7 +164,7 @@ $(DEPDIR)/%$(OPENSSL): $(OPENSSL_RPM)
 	sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr," $(targetprefix)/usr/lib/pkgconfig/openssl.pc
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-$(DEPDIR)/min-$(OPENSSL_DEV) $(DEPDIR)/std-$(OPENSSL_DEV) $(DEPDIR)/max-$(OPENSSL_DEV) $(DEPDIR)/$(OPENSSL_DEV): \
+$(DEPDIR)/$(OPENSSL_DEV): \
 $(DEPDIR)/%$(OPENSSL_DEV): %$(OPENSSL) $(OPENSSL_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -201,7 +201,7 @@ $(DEPDIR)/%$(ALSALIB): $(ALSALIB_RPM)
 	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-$(DEPDIR)/min-$(ALSALIB_DEV) $(DEPDIR)/std-$(ALSALIB_DEV) $(DEPDIR)/max-$(ALSALIB_DEV) $(DEPDIR)/$(ALSALIB_DEV): \
+$(DEPDIR)/$(ALSALIB_DEV): \
 $(DEPDIR)/%$(ALSALIB_DEV): %$(ALSALIB) $(ALSALIB_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
@@ -269,7 +269,7 @@ $(DEPDIR)/%$(ALSAPLAYER): $(ALSAPLAYER_RPM)
 	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-$(DEPDIR)/min-$(ALSAPLAYER_DEV) $(DEPDIR)/std-$(ALSAPLAYER_DEV) $(DEPDIR)/max-$(ALSAPLAYER_DEV) $(DEPDIR)/$(ALSAPLAYER_DEV): \
+$(DEPDIR)/$(ALSAPLAYER_DEV): \
 $(DEPDIR)/%$(ALSAPLAYER_DEV): $(ALSAPLAYER_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \

@@ -183,6 +183,14 @@ neutrino-mp-clean:
 neutrino-mp-distclean:
 	rm -f $(DEPDIR)/neutrino-mp*
 
+neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
+	mkdir -p $(prefix)/release_neutrino/usr/local/bin
+	cp $(targetprefix)/usr/local/bin/neutrino $(prefix)/release_neutrino/usr/local/bin/
+	cp $(targetprefix)/usr/local/bin/pzapit $(prefix)/release_neutrino/usr/local/bin/
+	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
+	mkdir -p $(prefix)/release_neutrino/usr/local/sbin
+	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
+
 #
 # NEUTRINO MP EXP
 #
@@ -243,6 +251,13 @@ neutrino-mp-exp-clean:
 neutrino-mp-exp-distclean:
 	rm -f $(DEPDIR)/neutrino-mp-exp*
 
+neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
+	mkdir -p $(prefix)/release_neutrino/usr/local/bin
+	cp $(targetprefix)/usr/local/bin/neutrino $(prefix)/release_neutrino/usr/local/bin/
+	cp $(targetprefix)/usr/local/bin/pzapit $(prefix)/release_neutrino/usr/local/bin/
+	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
+	mkdir -p $(prefix)/release_neutrino/usr/local/sbin
+	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
 
 #
 # NEUTRINO TWIN

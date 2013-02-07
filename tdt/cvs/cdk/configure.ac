@@ -1057,6 +1057,11 @@ AC_SUBST(DRPM)
 AC_SUBST(DRPMBUILD)
 
 #
+# mkdir archivedir
+#
+test -d $archivedir || mkdir $archivedir
+
+#
 # internal
 #
 AC_SUBST_FILE(ARCHIVE)
@@ -1069,7 +1074,6 @@ ${srcdir}/rules-archive.pl ${srcdir}/rules-archive > Makefile-archive
 #
 # summary
 #
-
 AC_MSG_RESULT([
 summary:
 ----------------------------------------

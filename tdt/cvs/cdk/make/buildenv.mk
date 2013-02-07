@@ -233,14 +233,3 @@ CONFIG_STATUS_DEPENDENCIES = \
 	$(top_srcdir)/rules-install \
 	$(top_srcdir)/rules-make \
 	Makefile-archive
-
-min-query std-query max-query query: \
-%query:
-	rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) -qa
-
-query-%:
-	@for i in sh4 noarch ${host_arch} ; do \
-		FOUND=`ls RPMS/$$i | grep $*` || true && \
-		( for j in $$FOUND ; do \
-			echo "RPMS/$$i/$$j:" && \
-			rpm $(DRPM) -qplv --scripts RPMS/$$i/$$j || true; echo;done ) || true ; done

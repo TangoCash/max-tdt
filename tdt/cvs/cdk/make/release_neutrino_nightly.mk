@@ -745,6 +745,8 @@ endif
 	ln -s /var/boot/shutdown.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
 	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/radiomode.jpg $(prefix)/release_neutrino/var/boot/
 	ln -s /var/boot/radiomode.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
+	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/start.jpg $(prefix)/release_neutrino/var/boot/
+	ln -s /var/boot/start.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
 
 #
 # Delete unnecessary files

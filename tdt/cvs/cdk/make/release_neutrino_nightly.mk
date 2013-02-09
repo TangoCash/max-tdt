@@ -779,6 +779,7 @@ endif
 	rm -f $(prefix)/release_neutrino/lib/modules/lzo*.ko
 
 	rm -f $(prefix)/release_neutrino/bin/gitVCInfo
+	rm -f $(prefix)/release_neutrino/bin/libstb-hal-test
 
 #
 # AUTOFS

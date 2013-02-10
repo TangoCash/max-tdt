@@ -56,7 +56,7 @@ $(DEPDIR)/xbmc-nightly.do_prepare:
 	rm -rf $(appsdir)/xbmc-nightly/pvr-addons/.git; \
 	\
 	cp -ra $(appsdir)/xbmc-nightly $(appsdir)/xbmc-nightly.org; \
-	cd $(appsdir)/xbmc-nightly && patch -p1 < "../../cdk/Patches/xbmc-nightly.$$DIFF.diff"
+	cd $(appsdir)/xbmc-nightly && patch -p1 < "../../cdk/Patches/xbmc-nightly.$$DIFF.diff"; \
 	cd $(appsdir)/xbmc-nightly && patch -p1 < "../../cdk/Patches/xbmc-nightly.pvr.$$DIFF.diff"
 	touch $@
 

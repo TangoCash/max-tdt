@@ -604,7 +604,7 @@ $(DEPDIR)/%lcms: $(DEPDIR)/lcms.do_compile
 #
 # directfb
 #
-$(DEPDIR)/directfb.do_prepare: bootstrap freetype @DEPENDS_directfb@
+$(DEPDIR)/directfb.do_prepare: bootstrap libfreetype @DEPENDS_directfb@
 	@PREPARE_directfb@
 	touch $@
 
@@ -2695,6 +2695,7 @@ $(DEPDIR)/libmpeg2.do_compile: $(DEPDIR)/libmpeg2.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
+		--disable-sdl \
 		--prefix=/usr && \
 	$(MAKE) all
 	touch $@

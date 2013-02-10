@@ -175,7 +175,6 @@ release_xbmc_base:
 	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release/usr/share/udhcpc/ && \
 	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release/usr/share/zoneinfo/ && \
 	echo "576i50" > $(prefix)/release/etc/videomode && \
-	cp -R $(targetprefix)/etc/fonts/* $(prefix)/release/etc/fonts/ && \
 	cp $(buildprefix)/root/release/rcS_stm23_xbmc$(if $(TF7700),_$(TF7700))$(if $(HL101),_$(HL101))$(if $(VIP1_V2),_$(VIP1_V2))$(if $(VIP2_V1),_$(VIP2_V1))$(if $(UFS912),_$(UFS912))$(if $(UFS913),_$(UFS913))$(if $(SPARK),_$(SPARK))$(if $(SPARK7162),_$(SPARK7162))$(if $(UFS922),_$(UFS922))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(HS7810A),_$(HS7810A))$(if $(HS7110),_$(HS7110))$(if $(WHITEBOX),_$(WHITEBOX))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD))$(if $(IPBOX9900),_$(IPBOX9900))$(if $(IPBOX99),_$(IPBOX99))$(if $(IPBOX55),_$(IPBOX55))$(if $(ADB_BOX),_$(ADB_BOX)) $(prefix)/release/etc/init.d/rcS && \
 	chmod 755 $(prefix)/release/etc/init.d/rcS && \
 	cp $(buildprefix)/root/release/mountvirtfs $(prefix)/release/etc/init.d/ && \
@@ -198,7 +197,6 @@ release_xbmc_base:
 #
 # Player
 #
-if ENABLE_PLAYER191
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stm_v4l2.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvbi.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvout.ko $(prefix)/release/lib/modules/
@@ -231,9 +229,6 @@ if ENABLE_PLAYER191
 		echo "."; \
 	done
 	echo "touched";
-endif
-
-
 
 #
 # modules
@@ -283,8 +278,6 @@ endif
 	[ -e $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/wireless/rtl871x/8712u.ko ] && cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/wireless/rtl871x/8712u.ko $(prefix)/release/lib/modules || true
 	[ -e $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/wireless/rtl8192cu/8192cu.ko ] && cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/wireless/rtl8192cu/8192cu.ko $(prefix)/release/lib/modules || true
 
-	find $(prefix)/release/lib/modules/ -name '*.ko' -exec sh4-linux-strip --strip-unneeded {} \;
-
 	cp $(kernelprefix)/linux-sh4/arch/sh/boot/uImage $(prefix)/release/boot/
 
 #
@@ -292,13 +285,10 @@ endif
 #
 	cp -R $(targetprefix)/lib/* $(prefix)/release/lib/
 	rm -f $(prefix)/release/lib/*.{a,o,la}
-	find $(prefix)/release/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release/usr/lib/
 	rm -rf $(prefix)/release/usr/lib/{engines,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11}
 	rm -f $(prefix)/release/usr/lib/*.{a,o,la}
-	find $(prefix)/release/usr/lib/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
-
 
 #
 # python2.7
@@ -347,7 +337,6 @@ endif
 	find $(prefix)/release$(PYTHON_DIR)/ -name '*.a' -exec rm -f {} \;
 	find $(prefix)/release$(PYTHON_DIR)/ -name '*.o' -exec rm -f {} \;
 	find $(prefix)/release$(PYTHON_DIR)/ -name '*.la' -exec rm -f {} \;
-	find $(prefix)/release$(PYTHON_DIR)/ -name '*.so*' -exec sh4-linux-strip --strip-unneeded {} \;
 
 #
 # hotplug
@@ -396,7 +385,6 @@ endif
 		rm -rf $(prefix)/release/usr/lib/libgstfft*; \
 		rm -rf $(prefix)/release/usr/lib/gstreamer-0.10/*; \
 		cp -a $(targetprefix)/usr/bin/gst-launch* $(prefix)/release/usr/bin/; \
-		sh4-linux-strip --strip-unneeded $(prefix)/release/usr/bin/gst-launch*; \
 		cp -a $(targetprefix)/usr/lib/gstreamer-0.10/libgstalsa.so $(prefix)/release/usr/lib/gstreamer-0.10/; \
 		cp -a $(targetprefix)/usr/lib/gstreamer-0.10/libgstapp.so $(prefix)/release/usr/lib/gstreamer-0.10/; \
 		cp -a $(targetprefix)/usr/lib/gstreamer-0.10/libgstasf.so $(prefix)/release/usr/lib/gstreamer-0.10/; \
@@ -445,7 +433,6 @@ endif
 		if [ -e $(targetprefix)/usr/lib/gstreamer-0.10/libgstsubsink.so ]; then \
 			cp -a $(targetprefix)/usr/lib/gstreamer-0.10/libgstsubsink.so $(prefix)/release/usr/lib/gstreamer-0.10/; \
 		fi; \
-		sh4-linux-strip --strip-unneeded $(prefix)/release/usr/lib/gstreamer-0.10/*; \
 	fi
 
 #
@@ -512,6 +499,11 @@ $(DEPDIR)/%release_xbmc: release_xbmc_base release_xbmc_$(TF7700)$(HL101)$(VIP1_
 # FOR YOUR OWN CHANGES use these folder in cdk/own_build/xbmc
 #
 	cp -RP $(buildprefix)/own_build/xbmc/* $(prefix)/release/
+
+#
+# sh4-linux-strip all
+#
+	find $(prefix)/release/ -name '*' -exec sh4-linux-strip --strip-unneeded {} &>/dev/null \;
 
 #
 # release-clean

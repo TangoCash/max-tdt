@@ -61,7 +61,7 @@ $(DEPDIR)/xbmc-nightly.do_prepare:
 	touch $@
 
 #endable webserver else httpapihandler will fail
-$(appsdir)/xbmc-nightly/config.status: bootstrap libboost directfb libstgles libass libmpeg2 libmad libjpeg libsamplerate libogg libvorbis libmodplug libcurl libflac bzip2 tiff lzo fontconfig libfribidi libfreetype sqlite libpng libpcre libcdio jasper yajl libmicrohttpd tinyxml python gstreamer gst_plugins_dvbmediasink libexpat libnfs taglib
+$(appsdir)/xbmc-nightly/config.status: bootstrap libboost directfb libstgles libass libmpeg2 libmad libjpeg libsamplerate libogg libvorbis libmodplug libcurl libflac bzip2 tiff lzo libfribidi libfreetype sqlite libpng libpcre libcdio jasper yajl libmicrohttpd tinyxml python gstreamer gst_plugins_dvbmediasink libexpat libnfs taglib
 	cd $(appsdir)/xbmc-nightly && \
 		$(BUILDENV) \
 		./bootstrap && \

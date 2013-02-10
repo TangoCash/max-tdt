@@ -3251,6 +3251,7 @@ $(DEPDIR)/libnfs.do_prepare: bootstrap @DEPENDS_libnfs@
 	touch $@
 
 $(DEPDIR)/libnfs.do_compile: $(DEPDIR)/libnfs.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libnfs@ && \
 	aclocal -I $(hostprefix)/share/aclocal && \
 	autoheader && \

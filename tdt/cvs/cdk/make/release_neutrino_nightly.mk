@@ -704,7 +704,7 @@ endif
 #
 # fonts
 #
-	cp -aR $(targetprefix)/usr/share/fonts/{neutrino,tuxtxt}.ttf $(prefix)/release_neutrino/usr/share/fonts
+	cp -aR $(targetprefix)/usr/share/fonts/{neutrino,DejaVuLGCSansMono-Bold}.ttf $(prefix)/release_neutrino/usr/share/fonts
 
 #
 # neutrino

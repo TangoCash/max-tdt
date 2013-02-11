@@ -604,7 +604,7 @@ $(DEPDIR)/%lcms: $(DEPDIR)/lcms.do_compile
 #
 # directfb
 #
-$(DEPDIR)/directfb.do_prepare: bootstrap freetype @DEPENDS_directfb@
+$(DEPDIR)/directfb.do_prepare: bootstrap libfreetype @DEPENDS_directfb@
 	@PREPARE_directfb@
 	touch $@
 
@@ -2695,6 +2695,7 @@ $(DEPDIR)/libmpeg2.do_compile: $(DEPDIR)/libmpeg2.do_prepare
 	$(BUILDENV) \
 	./configure \
 		--host=$(target) \
+		--disable-sdl \
 		--prefix=/usr && \
 	$(MAKE) all
 	touch $@
@@ -3250,6 +3251,7 @@ $(DEPDIR)/libnfs.do_prepare: bootstrap @DEPENDS_libnfs@
 	touch $@
 
 $(DEPDIR)/libnfs.do_compile: $(DEPDIR)/libnfs.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libnfs@ && \
 	aclocal -I $(hostprefix)/share/aclocal && \
 	autoheader && \

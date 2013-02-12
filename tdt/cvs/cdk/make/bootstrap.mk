@@ -697,7 +697,7 @@ $(DEPDIR)/bootstrap-host: | \
 	host-pkg-config \
 	host-mtd-utils \
 	host-module-init-tools
-	touch .deps/$@
+	touch $@
 
 #
 # BOOTSTRAP-CROSS
@@ -716,7 +716,7 @@ $(DEPDIR)/bootstrap-cross: | \
 	cross-sh4-gcc \
 	cross-sh4-g++ \
 	cross-sh4-libgcc
-	touch .deps/$@
+	touch $@
 
 $(DEPDIR)/setup-cross-doc: \
 	cross-binutils-doc \

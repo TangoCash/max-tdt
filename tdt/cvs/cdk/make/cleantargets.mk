@@ -26,7 +26,6 @@ cdk-clean:
 	-$(MAKE) -C $(appsdir)/misc/tools distclean
 	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop clean
 	-$(MAKE) -C $(hostappsdir) clean
-#	-$(MAKE) -C root clean
 	-rm -rf build
 
 # Clean tuxbox source directories. Clean up in cdkroot as much as the
@@ -51,7 +50,6 @@ clean-local: mostlyclean-local depsclean rpmdepsclean
 
 # Be brutal...just nuke it!
 distclean-local:
-#	-$(MAKE) -C root distclean
 	-$(MAKE) -C $(appsdir) distclean
 #	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop distclean
 	-$(MAKE) -C $(appsdir)/misc/tools distclean
@@ -63,6 +61,7 @@ distclean-local:
 	-rm -rf $(appsdir)/enigma2-*
 	-rm -rf $(appsdir)/neutrino-*
 	-rm -rf $(appsdir)/libstb-*
+	-rm -rf $(appsdir)/xbmc-*
 	-rm -rf $(DEPDIR)
 #	-rm -rf $(targetprefix)
 	-rm -rf $(hostprefix)

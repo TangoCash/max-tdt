@@ -25,8 +25,8 @@ $(DEPDIR)/%bootstrap: \
 #
 # BARE-OS
 #
-bare-os: \
-%bare-os: \
+$(DEPDIR)/bare-os: \
+$(DEPDIR)/%bare-os: \
 	%bootstrap \
 	%$(LIBTERMCAP) \
 	%$(NCURSES_BASE) \
@@ -51,8 +51,8 @@ bare-os: \
 #
 # NET-UTILS
 #
-net-utils: \
-%net-utils: \
+$(DEPDIR)/net-utils: \
+$(DEPDIR)/%net-utils: \
 	%$(NETKIT_FTP) \
 	%autofs \
 	%portmap \
@@ -64,8 +64,8 @@ net-utils: \
 #
 # DISK-UTILS
 #
-disk-utils: \
-%disk-utils: \
+$(DEPDIR)/disk-utils: \
+$(DEPDIR)/%disk-utils: \
 	%e2fsprogs \
 	%$(XFSPROGS) \
 	%util-linux \

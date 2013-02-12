@@ -23,11 +23,13 @@ CCACHE_BINDIR = $(hostprefix)/ccache-bin
 
 # generate links
 CCACHE_LINKS = \
-	ln -sfv $(ccachedir)/ccache $(CCACHE_BINDIR)/gcc; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/gcc;\
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/g++; \
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc; \
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-g++; \
-	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-cpp; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-cpp;\
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(hostprefix)/bin/$(target)-gcc; \
+	ln -sfv $(CCACHE_TUXBOX_BIN) $(hostprefix)/bin/$(target)-g++; \
 	ln -sfv $(CCACHE_TUXBOX_BIN) $(CCACHE_BINDIR)/$(target)-gcc-$(VERSION_GCC)
 
 # ccache test will show you ccache statistics
@@ -65,7 +67,7 @@ $(DEPDIR)/ccache.do_compile: $(DEPDIR)/ccache.do_prepare
 			--build=$(build) \
 			--host=$(build) \
 			--prefix= && \
-			$(MAKE) && \
+			$(MAKE) all && \
 			$(MAKE) install DESTDIR=$(hostprefix)
 	touch $@
 

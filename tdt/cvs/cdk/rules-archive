@@ -28,7 +28,7 @@ ccache-3.1.8.tar.gz;http://samba.org/ftp/ccache
 #
 # root
 #
-busybox-1.20.2.tar.bz2;http://www.busybox.net/downloads
+busybox-1.21.0.tar.bz2;http://www.busybox.net/downloads
 lsb_3.2-20.tar.gz;http://debian.sdinet.de/etch/sdinet/lsb
 ipkg-0.99.163.tar.gz;ftp://ftp.gwdg.de/linux/handhelds/packages/ipkg
 module-init-tools-3.16.tar.bz2;http://ftp.be.debian.org/pub/linux/utils/kernel/module-init-tools
@@ -191,7 +191,7 @@ gst-fluendo-mpegdemux-0.10.71.tar.gz;http://core.fluendo.com/gstreamer/src/gst-f
 libdca-0.0.5.tar.bz2;http://download.videolan.org/pub/videolan/libdca/0.0.5
 orc-0.4.16.tar.gz;http://code.entropywave.com/download/orc
 gst-ffmpeg-0.10.13.tar.bz2;http://gstreamer.freedesktop.org/src/gst-ffmpeg
-gst-plugin-subsink.git;git://openpli.git.sourceforge.net/gitroot/openpli/gstsubsink;8182abe751364f6eb1ed45377b0625102aeb68d5;HEAD
+gst-plugin-subsink.git;git://openpli.git.sourceforge.net/gitroot/openpli/gstsubsink;8182abe751364f6eb1ed45377b0625102aeb68d5
 
 #
 # ENIGMA2

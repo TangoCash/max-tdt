@@ -126,7 +126,7 @@ libstb-hal-exp-distclean:
 #
 # NEUTRINO MP
 #
-$(DEPDIR)/neutrino-mp.do_prepare:
+$(DEPDIR)/neutrino-mp.do_prepare: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -137,7 +137,7 @@ $(DEPDIR)/neutrino-mp.do_prepare:
 	cp -ra $(appsdir)/neutrino-mp $(appsdir)/neutrino-mp.org
 	touch $@
 
-$(appsdir)/neutrino-mp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(appsdir)/neutrino-mp/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-mp && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
@@ -194,7 +194,7 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 #
 # NEUTRINO MP EXP
 #
-$(DEPDIR)/neutrino-mp-exp.do_prepare:
+$(DEPDIR)/neutrino-mp-exp.do_prepare: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-mp-exp
 	rm -rf $(appsdir)/neutrino-mp-exp.org
 	[ -d "$(archivedir)/neutrino-mp-exp.git" ] && \
@@ -205,7 +205,7 @@ $(DEPDIR)/neutrino-mp-exp.do_prepare:
 	cp -ra $(appsdir)/neutrino-mp-exp $(appsdir)/neutrino-mp-exp.org
 	touch $@
 
-$(appsdir)/neutrino-mp-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal-exp
+$(appsdir)/neutrino-mp-exp/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-mp-exp && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
@@ -262,7 +262,7 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 #
 # NEUTRINO TWIN
 #
-$(DEPDIR)/neutrino-twin.do_prepare:
+$(DEPDIR)/neutrino-twin.do_prepare: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
 	rm -rf $(appsdir)/neutrino-twin
 	rm -rf $(appsdir)/neutrino-twin.org
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] && \
@@ -275,7 +275,7 @@ $(DEPDIR)/neutrino-twin.do_prepare:
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin.diff"
 	touch $@
 
-$(appsdir)/neutrino-twin/config.status: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(appsdir)/neutrino-twin/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
@@ -326,7 +326,7 @@ neutrino-twin-distclean:
 #
 # neutrino-hd2-exp branch
 #
-$(DEPDIR)/neutrino-hd2-exp.do_prepare:
+$(DEPDIR)/neutrino-hd2-exp.do_prepare: bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libgif libid3tag libcurl libmad libvorbisidec libboost libflac openssl
 	rm -rf $(appsdir)/neutrino-hd2-exp
 	rm -rf $(appsdir)/neutrino-hd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \
@@ -338,7 +338,7 @@ $(DEPDIR)/neutrino-hd2-exp.do_prepare:
 	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 	touch $@
 
-$(appsdir)/neutrino-hd2-exp/config.status: bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libgif libid3tag libcurl libmad libvorbisidec libboost libflac openssl
+$(appsdir)/neutrino-hd2-exp/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-hd2-exp && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \

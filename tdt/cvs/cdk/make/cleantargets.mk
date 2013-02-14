@@ -23,28 +23,21 @@ cdk-clean:
 	-$(MAKE) -C $(driverdir) KERNEL_LOCATION=$(buildprefix)/linux-sh4 \
 		BIN_DEST=$(targetprefix)/bin \
 		INSTALL_MOD_PATH=$(targetprefix) clean
-	-$(MAKE) -C $(appsdir)/misc/tools distclean
-	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop clean
-	-$(MAKE) -C $(hostappsdir) clean
+	-$(MAKE) -C $(appsdir)/misc/tools clean
+#	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop clean
 	-rm -rf build
 
 # Clean tuxbox source directories. Clean up in cdkroot as much as the
 # uninstall facilities of the components allow.
 clean-local: mostlyclean-local depsclean rpmdepsclean
-	-$(MAKE) -C $(appsdir)/misc/tools uninstall
-	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop uninstall
-	-$(MAKE) -C $(hostappsdir) uninstall
 	-rm -rf $(hostprefix)
-	-rm -rf $(crossprefix)/
-	-rm -rf $(configprefix)/
-	-rm -rf $(devkitprefix)/
-	-rm -rf $(prefix)/*cdkroot/
+	-rm -rf $(configprefix)
+	-rm -rf $(devkitprefix)
+	-rm -rf $(prefix)/*cdkroot
 	-rm -rf $(prefix)/*cdkroot-rpmdb
 	-rm -rf $(prefix)/*cdkroot-tftpboot
-	-rm -rf $(rpmdbprefix)
 	-rm -rf $(prefix)/release*
 	-rm -rf SOURCES SPECS BUILD && install -d SOURCES SPECS BUILD
-	-rm -rf $(prefix)/ccache
 	-rm -rf $(DEPDIR)/u-boot-utils*
 	-rm -rf $(DEPDIR)/linux-kernel*
 

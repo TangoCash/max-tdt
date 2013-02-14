@@ -803,7 +803,9 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 #
 # FOR YOUR OWN CHANGES use these folder in cdk/own_build/neutrino-hd
 #
-	cp -RP $(buildprefix)/own_build/neutrino-hd/* $(prefix)/release_neutrino/
+	[ -d "$(buildprefix)/own_build/neutrino-hd.$(BOXTYPE)" ] && \
+		find $(buildprefix)/own_build/neutrino-hd.$(BOXTYPE)/ -mindepth 1 -maxdepth 1 -exec cp -at$(prefix)/release_neutrino/ -- {} + || \
+		find $(buildprefix)/own_build/neutrino-hd/ -mindepth 1 -maxdepth 1 -exec cp -at$(prefix)/release_neutrino/ -- {} +
 	rm -f $(prefix)/release_neutrino/for_your_own_changes
 
 # nicht die feine Art, aber funktioniert ;)

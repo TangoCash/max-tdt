@@ -126,7 +126,7 @@ libstb-hal-exp-distclean:
 #
 # NEUTRINO MP
 #
-$(DEPDIR)/neutrino-mp.do_prepare: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -194,7 +194,7 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 #
 # NEUTRINO MP EXP
 #
-$(DEPDIR)/neutrino-mp-exp.do_prepare: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal-exp
+$(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-mp-exp
 	rm -rf $(appsdir)/neutrino-mp-exp.org
 	[ -d "$(archivedir)/neutrino-mp-exp.git" ] && \
@@ -262,7 +262,7 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 #
 # NEUTRINO TWIN
 #
-$(DEPDIR)/neutrino-twin.do_prepare: bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-twin.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
 	rm -rf $(appsdir)/neutrino-twin
 	rm -rf $(appsdir)/neutrino-twin.org
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] && \
@@ -326,7 +326,7 @@ neutrino-twin-distclean:
 #
 # neutrino-hd2-exp branch
 #
-$(DEPDIR)/neutrino-hd2-exp.do_prepare: bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libgif libid3tag libcurl libmad libvorbisidec libboost libflac openssl
+$(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libgif libid3tag libcurl libmad libvorbisidec libboost libflac openssl
 	rm -rf $(appsdir)/neutrino-hd2-exp
 	rm -rf $(appsdir)/neutrino-hd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \

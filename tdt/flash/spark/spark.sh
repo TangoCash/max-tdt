@@ -1,7 +1,12 @@
 #!/bin/bash
+if [ `id -u` != 0 ]; then
+	echo "You are not running this script as root. Try it again as root or with su/sudo command."
+	echo "Bye Bye..."
+	exit
+fi
+
 CURDIR=`pwd`
 BASEDIR=$CURDIR/../..
-
 
 TUFSBOXDIR=$BASEDIR/tufsbox
 CDKDIR=$BASEDIR/cvs/cdk

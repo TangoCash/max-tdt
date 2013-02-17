@@ -503,6 +503,7 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/logo && \
+	ln -sf /usr/share/tuxbox/neutrino/icons/logo $(prefix)/release_neutrino/logos && \
 	ln -sf /usr/share $(prefix)/release_neutrino/share && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,boot,etc,httpd,lib,plugins,tuxbox,update} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config && \

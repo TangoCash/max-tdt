@@ -809,7 +809,6 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 	rm -f $(prefix)/release_neutrino/for_your_own_changes
 
 # nicht die feine Art, aber funktioniert ;)
-	rm -f $(prefix)/release_neutrino/var/tuxbox/config/neutrino.conf
 	cp -dpfr $(prefix)/release_neutrino/etc $(prefix)/release_neutrino/var
 	rm -fr $(prefix)/release_neutrino/etc
 	ln -sf /var/etc $(prefix)/release_neutrino

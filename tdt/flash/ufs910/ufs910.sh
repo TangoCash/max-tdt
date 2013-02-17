@@ -28,10 +28,10 @@ mkdir -p $TMPROOTDIR
 mkdir -p $TMPKERNELDIR
 mkdir -p $TMPSTORAGEDIR
 
-echo "This script creates flashable images for UFS910 MINI/MAXI UBOOT"
+echo "This script creates flashable images for UFS910 MINI/MAXI UBOOT and AV700/0 with MAXI"
 echo "Author: Schischu, Oxygen-1"
 echo "Date: 04-02-2012"
-echo "Changed for \"classic flash\" (no mini_fo) by BPanther, 25-Jan-2013"
+echo "Changed for \"classic flash\" (no mini_fo) for UFS910 and add AV700/0 by BPanther, 13-Feb-2013"
 echo "-----------------------------------------------------------------------"
 echo "It's expected that an image was already build prior to this execution!"
 echo "-----------------------------------------------------------------------"

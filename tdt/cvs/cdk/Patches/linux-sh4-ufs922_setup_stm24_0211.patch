@@ -37,14 +37,14 @@
 +      {
 +	      .name  = "LMI_VID",
 +	      .start = 0x10800000,
-+	      .size  = 0x03800000,
++	      .size  = 0x02E00000,
 +	      .flags = 0,
 +	      .aka   = LMI_VID_partalias
 +      },
 +      {
 +	      .name  = "LMI_SYS",
 +	      .start = 0,
-+	      .size  = 0x02600000,
++	      .size  = 0x01C00000,
 +	      .flags = 0,
 +	      .aka   = LMI_SYS_partalias
 +      }

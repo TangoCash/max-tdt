@@ -19,7 +19,17 @@ MKSQUASHFS=$CURDIR/../common/mksquashfs4.0
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 PAD=$CURDIR/../common/pad
 
-OUTFILE=$OUTDIR/miniFLASH.img
+if [ -f $TMPROOTDIR/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/etc/hostname`
+elif [ -f $TMPVARDIR/etc/hostname ]; then
+	HOST=`cat $TMPVARDIR/etc/hostname`
+fi
+
+gitversion=`git log | grep "^commit" | wc -l`
+#gitversion="rev$(($gitversion-1))"
+#gitversion="_rev$gitversion"
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l)`_NMP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l)`"
+OUTFILE=$OUTDIR/miniFLASH_$HOST$gitversion.img
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -30,10 +40,33 @@ if [ -e $OUTFILE ]; then
   rm -f $OUTFILE.md5
 fi
 
-# Definition size of kernel, root and var
-SIZE_KERNEL=0x190000
-SIZE_ROOT=0xB40000
-SIZE_VAR=0x2F0000
+# Definition size of kernel, root, var and erase size
+case "$HOST" in
+	ufs910) echo "Creating flash image for $HOST..."
+		SIZE_KERNEL=0x190000
+		SIZE_ROOT=0xB40000
+		SIZE_VAR=0x2F0000
+		ERASE_SIZE=0x10000
+	;;
+	fortis) echo "Creating flash image for $HOST..."
+		SIZE_KERNEL=0x200000
+		SIZE_ROOT=0xC00000
+		SIZE_VAR=0x11C0000
+		ERASE_SIZE=0x20000
+	;;
+	octagon1008) echo "Creating flash image for $HOST..."
+		SIZE_KERNEL=0x200000
+		SIZE_ROOT=0xC00000
+		SIZE_VAR=0x11C0000
+		ERASE_SIZE=0x20000
+	;;
+	*) echo "Creating flash image for <$HOST -> ufs910>..."
+		SIZE_KERNEL=0x190000
+		SIZE_ROOT=0xB40000
+		SIZE_VAR=0x2F0000
+		ERASE_SIZE=0x10000
+	;;
+esac
 
 # --- KERNEL ---
 cp $TMPKERNELDIR/uImage $CURDIR/uImage
@@ -48,10 +81,10 @@ $PAD $SIZE_ROOT $CURDIR/mtd_root.bin $CURDIR/mtd_root.pad.bin
 
 # --- VAR ---
 # Create a jffs2 partition for var
-echo "MKFSJFFS2 -qUfv -p$SIZE_VAR -e0x10000 -r $TMPVARDIR -o $CURDIR/mtd_var.bin"
-$MKFSJFFS2 -qUfv -p$SIZE_VAR -e0x10000 -r $TMPVARDIR -o $CURDIR/mtd_var.bin
-echo "SUMTOOL -v -p -e 0x10000 -i $CURDIR/mtd_var.bin -o $CURDIR/mtd_var.sum.bin"
-$SUMTOOL -v -p -e 0x10000 -i $CURDIR/mtd_var.bin -o $CURDIR/mtd_var.sum.bin
+echo "MKFSJFFS2 -qUfv -p$SIZE_VAR -e$ERASE_SIZE -r $TMPVARDIR -o $CURDIR/mtd_var.bin"
+$MKFSJFFS2 -qUfv -p$SIZE_VAR -e$ERASE_SIZE -r $TMPVARDIR -o $CURDIR/mtd_var.bin
+echo "SUMTOOL -v -p -e $ERASE_SIZE -i $CURDIR/mtd_var.bin -o $CURDIR/mtd_var.sum.bin"
+$SUMTOOL -v -p -e $ERASE_SIZE -i $CURDIR/mtd_var.bin -o $CURDIR/mtd_var.sum.bin
 echo "$PAD $SIZE_VAR $CURDIR/mtd_var.sum.bin $CURDIR/mtd_var.sum.pad.bin"
 $PAD $SIZE_VAR $CURDIR/mtd_var.sum.bin $CURDIR/mtd_var.sum.pad.bin
 

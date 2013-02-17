@@ -32,7 +32,6 @@ COMMONPATCHES_24 = \
 		linux-sh4-init_mm_stm24$(PATCH_STR).patch \
 		linux-sh4-copro_stm24$(PATCH_STR).patch \
 		linux-sh4-strcpy_stm24$(PATCH_STR).patch \
-		linux-squashfs-lzma_stm24$(PATCH_STR).patch \
 		linux-sh4-ext23_as_ext4_stm24$(PATCH_STR).patch \
 		bpa2_procfs_stm24$(PATCH_STR).patch \
 		$(if $(P0207),xchg_fix_stm24$(PATCH_STR).patch) \
@@ -63,8 +62,7 @@ UFS910PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs910_reboot_stm24.patch \
 		linux-sh4-smsc911x_dma_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch \
-		mini_fo_stm24$(PATCH_STR).patch
+		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch
 
 UFS912PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs912_setup_stm24$(PATCH_STR).patch \
@@ -85,8 +83,7 @@ OCTAGON1008PATCHES_24 = $(COMMONPATCHES_24) \
 ATEVIO7500PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-atevio7500_setup_stm24$(PATCH_STR).patch \
-		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
-		$(if $(P0209)$(P0210)$(P0211),linux-sh4-atevio7500_mtdconcat_stm24$(PATCH_STR).patch)
+		linux-sh4-stmmac_stm24$(PATCH_STR).patch
 
 HS7810APATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
@@ -164,8 +161,7 @@ ADB_BOXPATCHES_24 = $(COMMONPATCHES_24) \
 		linux-usbwait123_stm24.patch \
 		linux-sh4-ufs910_reboot_stm24.patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch \
-		mini_fo_stm24$(PATCH_STR).patch
+		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch
 
 IPBOX9900PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ipbox9900_setup_stm24$(PATCH_STR).patch \

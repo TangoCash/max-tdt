@@ -710,6 +710,7 @@ endif
 # neutrino
 #
 	mkdir -p $(prefix)/release_neutrino/usr/local/bin
+	ln -sf /usr/share $(prefix)/release_neutrino/usr/local/share
 	cp $(targetprefix)/usr/local/bin/neutrino $(prefix)/release_neutrino/usr/local/bin/
 	cp $(targetprefix)/usr/local/bin/pzapit $(prefix)/release_neutrino/usr/local/bin/
 	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
@@ -782,6 +783,13 @@ endif
 	if [ -e $(prefix)/release_neutrino/usr/lib/libglcddrivers.so ]; then \
 		cp -f $(targetprefix)/etc/graphlcd.conf $(prefix)/release_neutrino/etc/graphlcd.conf; \
 		rm -f $(prefix)/release_neutrino/usr/lib/libglcdskin.so*; \
+	fi
+
+#
+# Tuxbox Commander
+#
+	if [ -e $(targetprefix)/var/plugins/tuxcom.so -a -e $(targetprefix)/var/plugins/tuxcom.cfg ]; then \
+		cp -f $(targetprefix)/var/plugins/tuxcom* $(prefix)/release_neutrino/var/plugins; \
 	fi
 
 #

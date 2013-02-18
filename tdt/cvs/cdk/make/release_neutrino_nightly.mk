@@ -725,6 +725,14 @@ endif
 	cp -aR $(targetprefix)/var/tuxbox/config/* $(prefix)/release_neutrino/var/tuxbox/config
 	cp -aR $(buildprefix)/root/usr/local/share/config/zapit $(prefix)/release_neutrino/var/tuxbox/config
 	cp $(buildprefix)/root/etc/tuxbox/tuxtxt2.conf $(prefix)/release_neutrino/var/tuxbox/config/tuxtxt
+if !ENABLE_CUBEREVO_MINI2
+if !ENABLE_ATEVIO7500
+if !ENABLE_SPARK7162
+	rm -f $(prefix)/release_neutrino/var/tuxbox/config/cables.xml
+	rm -f $(prefix)/release_neutrino/var/tuxbox/config/terrestrial.xml
+endif
+endif
+endif
 
 #
 # iso-codes

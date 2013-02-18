@@ -42,22 +42,13 @@ echo "-----------------------------------------------------------------------"
 echo "Checking targets..."
 echo "Found targets:"
 if [  -e $TUFSBOXDIR/release ]; then
-  echo "   1) Prepare Enigma2"
+	echo "Preparing Enigma2..."
+	$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPSTORAGEDIR $TMPKERNELDIR
 fi
 if [  -e $TUFSBOXDIR/release_neutrino ]; then
-  echo "   2) Prepare Neutrino"
+	echo "Preparing Neutrino..."
+	$SCRIPTDIR/prepare_root_neutrino.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPSTORAGEDIR $TMPKERNELDIR
 fi
-
-read -p "Select target (1-2)? "
-case "$REPLY" in
-	0)  echo "Skipping...";;
-	1)  echo "Preparing Enigma2 Root..."
-		$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPSTORAGEDIR $TMPKERNELDIR;;
-	2)  echo "Preparing Neutrino Root..."
-		$SCRIPTDIR/prepare_root_neutrino.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPSTORAGEDIR $TMPKERNELDIR;;
-	*)  "Invalid Input! Exiting..."
-		exit 2;;
-esac
 echo "Root prepared"
 echo ""
 echo "You can customize your image now (i.e. move files you like from ROOT to STORAGE)."

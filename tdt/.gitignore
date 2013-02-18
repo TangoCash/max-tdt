@@ -159,6 +159,7 @@ cvs/cdk/linux-*
 cvs/cdk/own_build/enigma2
 cvs/cdk/own_build/neutrino
 cvs/cdk/own_build/neutrino-hd
+cvs/cdk/own_build/neutrino-hd.*
 cvs/cdk/own_build/xbmc
 cvs/cdk/root/var/etc/.version
 

@@ -16,6 +16,7 @@ TMPDIR=$CURDIR/tmp
 TMPROOTDIR=$TMPDIR/ROOT
 TMPKERNELDIR=$TMPDIR/KERNEL
 TMPSTORAGEDIR=$TMPDIR/VAR
+EXP=$1
 
 OUTDIR=$CURDIR/out
 
@@ -80,7 +81,7 @@ echo "   1) KERNEL with ROOT and FW"
 read -p "Select flashtarget (1)? "
 case "$REPLY" in
 	1)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR;;
+		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR $EXP;;
 	*)  "Invalid Input! Exiting..."
 		exit 3;;
 esac

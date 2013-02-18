@@ -6,6 +6,7 @@ OUTDIR=$3
 TMPKERNELDIR=$4
 TMPROOTDIR=$5
 TMPVARDIR=$6
+EXP=$7
 
 echo "CURDIR       = $CURDIR"
 echo "TUFSBOXDIR   = $TUFSBOXDIR"
@@ -19,7 +20,9 @@ MKSQUASHFS=$CURDIR/../common/mksquashfs4.0
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 PAD=$CURDIR/../common/pad
 
-OUTFILE=$OUTDIR/ufs922_`git describe`.img
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
+
+OUTFILE=$OUTDIR/ufs922$gitversion.img
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -27,6 +30,7 @@ fi
 
 if [ -e $OUTFILE ]; then
   rm -f $OUTFILE
+  rm -f $OUTFILE.md5
 fi
 
 # --- KERNEL ---
@@ -84,4 +88,5 @@ rm -f $CURDIR/mtd_kernel.pad.bin
 rm -f $CURDIR/mtd_root.pad.bin
 rm -f $CURDIR/mtd_var.sum.pad.bin
 
+md5sum -b $OUTFILE | awk -F' ' '{print $1}' > $OUTFILE.md5
 zip $OUTFILE.zip $OUTFILE

@@ -16,6 +16,7 @@ TMPDIR=$CURDIR/tmp
 TMPROOTDIR=$TMPDIR/ROOT
 TMPKERNELDIR=$TMPDIR/KERNEL
 TMPSTORAGEDIR=$TMPDIR/STORAGE
+EXP=$1
 
 OUTDIR=$CURDIR/out
 
@@ -29,12 +30,12 @@ mkdir -p $TMPKERNELDIR
 mkdir -p $TMPSTORAGEDIR
 
 echo "This script creates flashable images for NOR flash receivers."
-echo "Author: Schischu, Oxygen-1"
-echo "Date: 04-02-2012"
+echo "Author: Schischu, Oxygen-1, BPanther, TangoCash"
+echo "Last Change: 18-02-2013"
 echo "Changed for \"classic flash\" (no mini_fo) for UFS910 and add more receivers by BPanther, 13-Feb-2013."
 echo ""
 echo "Supported receivers (autoselection) are:"
-echo "UFS910, Octagon1008, Fortis HDBox"
+echo "UFS910, UFS922, Octagon1008, Fortis HDBox"
 echo "-----------------------------------------------------------------------"
 echo "It's expected that an image was already build prior to this execution!"
 echo "-----------------------------------------------------------------------"
@@ -70,7 +71,7 @@ echo "-----------------------------------------------------------------------"
 #esac
 #clear
 echo "Creating miniFLASH.img..."
-$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR
+$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR $EXP
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
 VIDEOELFSIZE=`stat -c %s $TMPROOTDIR/boot/video.elf`

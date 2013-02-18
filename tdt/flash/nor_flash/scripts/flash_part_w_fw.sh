@@ -6,6 +6,7 @@ OUTDIR=$3
 TMPKERNELDIR=$4
 TMPROOTDIR=$5
 TMPVARDIR=$6
+EXP=$7
 
 echo "CURDIR       = $CURDIR"
 echo "TUFSBOXDIR   = $TUFSBOXDIR"
@@ -28,7 +29,7 @@ fi
 gitversion=`git log | grep "^commit" | wc -l`
 #gitversion="rev$(($gitversion-1))"
 #gitversion="_rev$gitversion"
-gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l)`_NMP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l)`"
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
 OUTFILE=$OUTDIR/miniFLASH_$HOST$gitversion.img
 
 if [ ! -e $OUTDIR ]; then
@@ -46,6 +47,12 @@ case "$HOST" in
 		SIZE_KERNEL=0x190000
 		SIZE_ROOT=0xB40000
 		SIZE_VAR=0x2F0000
+		ERASE_SIZE=0x10000
+	;;
+	ufs922) echo "Creating flash image for $HOST..."
+		SIZE_KERNEL=0x1A0000
+		SIZE_ROOT=0xB40000
+		SIZE_VAR=0x2E0000
 		ERASE_SIZE=0x10000
 	;;
 	fortis) echo "Creating flash image for $HOST..."
@@ -102,19 +109,19 @@ rm -f $CURDIR/mtd_var.sum.bin
 SIZE=`stat mtd_kernel.pad.bin -t --format %s`
 SIZE=`printf "0x%x" $SIZE`
 if [[ $SIZE > "$SIZE_KERNEL" ]]; then
-  echo "KERNEL TO BIG. $SIZE instead of $SIZE_KERNEL" > /dev/stderr
+  echo -e "\e[31mKERNEL TO BIG. $SIZE instead of $SIZE_KERNEL\e[0m" > /dev/stderr
 fi
 
 SIZE=`stat mtd_root.pad.bin -t --format %s`
 SIZE=`printf "0x%x" $SIZE`
 if [[ $SIZE > "$SIZE_ROOT" ]]; then
-  echo "ROOT TO BIG. $SIZE instead of $SIZE_ROOT" > /dev/stderr
+  echo -e "\e[31mROOT TO BIG. $SIZE instead of $SIZE_ROOT\e[0m" > /dev/stderr
 fi
 
 SIZE=`stat mtd_var.sum.pad.bin -t --format %s`
 SIZE=`printf "0x%x" $SIZE`
 if [[ $SIZE > "$SIZE_VAR" ]]; then
-  echo "VAR TO BIG. $SIZE instead of $SIZE_VAR" > /dev/stderr
+  echo -e "\e[31mVAR TO BIG. $SIZE instead of $SIZE_VAR\e[0m" > /dev/stderr
 fi
 
 rm -f $CURDIR/mtd_kernel.pad.bin

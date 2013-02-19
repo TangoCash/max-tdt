@@ -18,6 +18,7 @@ MKFSJFFS2=$TUFSBOXDIR/host/bin/mkfs.jffs2
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 MUP=$CURDIR/mup
 
+cp $CURDIR/extra/ufs913.software.V1.00.B00.data $OUTDIR
 OUTFILE=$OUTDIR/ufs913.software.V1.00.B00.data
 
 if [ ! -e $OUTDIR ]; then

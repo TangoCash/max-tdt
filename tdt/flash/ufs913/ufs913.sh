@@ -26,10 +26,10 @@ if [  -e $TMPDIR ]; then
   rm -rf $TMPDIR/*
 fi
 
-mkdir $TMPDIR
-mkdir $TMPROOTDIR
-mkdir $TMPKERNELDIR
-mkdir $TMPFWDIR
+mkdir -p $TMPDIR
+mkdir -p $TMPROOTDIR
+mkdir -p $TMPKERNELDIR
+mkdir -p $TMPFWDIR
 
 echo "This script creates flashable images for Kathrein UFS913"
 echo "Author: Schischu, BPanther"
@@ -67,10 +67,10 @@ if [ ! -e $CURDIR/mup ]; then
   fi
 fi
 echo "Flashtool mup exists"
-echo "-----------------------------------------------------------------------"
-echo "Creating tiny image..."
-$SCRIPTDIR/prepare_tiny.sh $CURDIR $EXTRADIR $TMPTINYROOTDIR $TMPTINYKERNELDIR
-$SCRIPTDIR/flash_tiny.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPTINYKERNELDIR $TMPTINYROOTDIR
+#echo "-----------------------------------------------------------------------"
+#echo "Creating tiny image..."
+#$SCRIPTDIR/prepare_tiny.sh $CURDIR $EXTRADIR $TMPTINYROOTDIR $TMPTINYKERNELDIR
+#$SCRIPTDIR/flash_tiny.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPTINYKERNELDIR $TMPTINYROOTDIR
 
 echo "-----------------------------------------------------------------------"
 echo "Checking targets..."

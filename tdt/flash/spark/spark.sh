@@ -27,7 +27,7 @@ mkdir -p $TMPROOTDIR
 mkdir -p $TMPKERNELDIR
 
 echo "This script creates flashable images for Spark"
-echo "Author: Schischu"
+echo "Author: Schischu, BPanther"
 echo "Date: 05-01-2012"
 echo "-----------------------------------------------------------------------"
 echo "It's expected that an image was already build prior to this execution!"

@@ -2,7 +2,6 @@
 
 CURDIR=$1
 RELEASEDIR=$2
-
 TMPROOTDIR=$3
 TMPKERNELDIR=$4
 
@@ -19,4 +18,3 @@ cd -
 
 # --- BOOT ---
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage
-

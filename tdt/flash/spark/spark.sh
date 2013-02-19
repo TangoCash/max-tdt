@@ -19,12 +19,12 @@ TMPKERNELDIR=$TMPDIR/KERNEL
 OUTDIR=$CURDIR/out
 
 if [ -e $TMPDIR ]; then
-  rm -rf $TMPDIR/*
+	rm -rf $TMPDIR/*
 fi
 
-mkdir $TMPDIR
-mkdir $TMPROOTDIR
-mkdir $TMPKERNELDIR
+mkdir -p $TMPDIR
+mkdir -p $TMPROOTDIR
+mkdir -p $TMPKERNELDIR
 
 echo "This script creates flashable images for Spark"
 echo "Author: Schischu"
@@ -39,36 +39,28 @@ echo "-----------------------------------------------------------------------"
 echo "Checking targets..."
 echo "Found targets:"
 if [  -e $TUFSBOXDIR/release ]; then
-  echo "   1) Prepare Enigma2"
+	echo "Preparing Enigma2..."
+	$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPKERNELDIR
 fi
 if [  -e $TUFSBOXDIR/release_neutrino ]; then
-  echo "   2) Prepare Neutrino"
+	echo "Preparing Neutrino..."
+	$SCRIPTDIR/prepare_root_neutrino.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPKERNELDIR
 fi
-
-read -p "Select target (1-2)? "
-case "$REPLY" in
-	0)  echo "Skipping...";;
-	1)  echo "Preparing Enigma2 Root..."
-		$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPKERNELDIR;;
-	2)  echo "Preparing Neutrino Root..."
-		$SCRIPTDIR/prepare_root_neutrino.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPKERNELDIR;;
-	*)  "Invalid Input! Exiting..."
-		exit 2;;
-esac
 echo "Root prepared"
 
 echo "Flashtool fup exists"
 echo "-----------------------------------------------------------------------"
-echo "Checking targets..."
-echo "Found flashtarget:"
-echo "   1) KERNEL with ROOT and FW"
-read -p "Select flashtarget (1)? "
-case "$REPLY" in
-	1)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR;;
-	*)  "Invalid Input! Exiting..."
-		exit 3;;
-esac
+#echo "Checking targets..."
+#echo "Found flashtarget:"
+#echo "   1) KERNEL with ROOT and FW"
+#read -p "Select flashtarget (1)? "
+#case "$REPLY" in
+#	1)  echo "Creating KERNEL with ROOT and FW..."
+		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR
+#		;;
+#	*)  "Invalid Input! Exiting..."
+#		exit 3;;
+#esac
 #clear
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
@@ -107,4 +99,3 @@ echo "To start the flashing process press OK for 5 sec on your box "
 echo "while the box is starting. As soon as \"Fact\" is being displayed press"
 echo "RIGHT (->) on your box to start the update"
 echo ""
-

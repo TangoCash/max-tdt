@@ -19,10 +19,23 @@ SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 MUP=$CURDIR/mup
 
 cp $CURDIR/extra/ufs913.software.V1.00.B00.data $OUTDIR
-OUTFILE=$OUTDIR/ufs913.software.V1.00.B00.data
+
+if [ -f $TMPROOTDIR/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/etc/hostname`
+elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/var/etc/hostname`
+fi
+
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
+OUTFILE=$OUTDIR/$HOST$gitversion.img
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
+fi
+
+if [ -e $OUTFILE ]; then
+  rm -f $OUTFILE
+  rm -f $OUTFILE.md5
 fi
 
 cp $TMPKERNELDIR/uImage $CURDIR/uImage

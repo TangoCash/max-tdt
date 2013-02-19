@@ -18,8 +18,6 @@ MKFSJFFS2=$TUFSBOXDIR/host/bin/mkfs.jffs2
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 MUP=$CURDIR/mup
 
-cp $CURDIR/extra/ufs913.software.V1.00.B00.data $OUTDIR
-
 if [ -f $TMPROOTDIR/etc/hostname ]; then
 	HOST=`cat $TMPROOTDIR/etc/hostname`
 elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
@@ -38,6 +36,7 @@ if [ -e $OUTFILE ]; then
   rm -f $OUTFILE.md5
 fi
 
+cp $CURDIR/extra/ufs913.software.V1.00.B00.data $OUTDIR
 cp $TMPKERNELDIR/uImage $CURDIR/uImage
 
 # Create a jffs2 partition for fw's

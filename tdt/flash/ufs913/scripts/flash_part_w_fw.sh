@@ -69,4 +69,4 @@ rm -f $CURDIR/mtd_root.bin
 rm -f $CURDIR/mtd_fw.sum.bin
 rm -f $CURDIR/mtd_root.sum.bin
 
-zip $OUTFILE.zip $OUTDIR/*
+zip -j $OUTFILE.zip $OUTDIR/*

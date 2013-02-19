@@ -70,4 +70,5 @@ mv $CURDIR/mtd_root.sum.bin $OUTDIR/e2jffs2.img
 rm -f $CURDIR/mtd_kernel.pad.bin
 #rm -f $CURDIR/mtd_root.sum.pad.bin
 rm -f $CURDIR/mtd_root.sum.bin
-cd $OUTDIR;zip $OUTFILE.zip e2jffs2.img uImage
+cd $OUTDIR
+zip -j $OUTFILE.zip e2jffs2.img uImage

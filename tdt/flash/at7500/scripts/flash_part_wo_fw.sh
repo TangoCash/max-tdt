@@ -51,4 +51,4 @@ rm -f $CURDIR/mtd_root.bin
 rm -f $CURDIR/mtd_root.sum.bin
 rm -f $CURDIR/mtd_root.sum.pad.bin
 
-zip $OUTFILE.zip $OUTFILE
+zip -j $OUTFILE.zip $OUTFILE

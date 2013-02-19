@@ -30,4 +30,4 @@ $FUP -ce $OUTFILE -k $CURDIR/uImage
 
 rm -f $CURDIR/uImage
 
-zip $OUTFILE.zip $OUTFILE
+zip -j $OUTFILE.zip $OUTFILE

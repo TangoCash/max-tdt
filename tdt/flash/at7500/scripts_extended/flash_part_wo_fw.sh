@@ -63,4 +63,4 @@ rm -f $CURDIR/mtd_ext.bin
 rm -f $CURDIR/mtd_ext.sum.bin
 rm -f $CURDIR/mtd_ext.sum.pad.bin
 
-zip $OUTFILE.zip $OUTFILE
+zip -j $OUTFILE.zip $OUTFILE

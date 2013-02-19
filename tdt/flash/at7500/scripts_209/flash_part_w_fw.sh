@@ -112,4 +112,4 @@ rm -f $CURDIR/mtd_fw.sum.pad.signed.bin
 rm -f $CURDIR/mtd_root.sum.pad.d.signed.bin
 rm -f $CURDIR/mtd_root.sum.pad.r.signed.bin
 
-zip $OUTFILE.zip $OUTFILE
+zip -j $OUTFILE.zip $OUTFILE

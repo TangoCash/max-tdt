@@ -27,7 +27,7 @@ elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
 fi
 
 gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
-OUTFILE=$OUTDIR/$HOST$gitversion.img
+OUTFILE=$OUTDIR/$HOST$gitversion
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR

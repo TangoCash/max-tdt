@@ -399,8 +399,8 @@ CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
 
 ##############################################
 
-#./autogen.sh
-#./configure $CONFIGPARAM
+./autogen.sh
+./configure $CONFIGPARAM
 
 ##############################################
 

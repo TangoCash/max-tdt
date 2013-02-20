@@ -708,6 +708,7 @@ $(DEPDIR)/jfsutils.do_compile: $(DEPDIR)/jfsutils.do_prepare
 	cd @DIR_jfsutils@ && \
 		$(BUILDENV) \
 		./configure \
+			--build=$(build) \
 			--host=gcc \
 			--target=$(target) \
 			--prefix= && \
@@ -833,6 +834,7 @@ $(DEPDIR)/imagemagick.do_compile: $(DEPDIR)/imagemagick.do_prepare
 	CFLAGS="-O1" \
 	PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 	./configure \
+		--build=$(build) \
 		--host=$(target) \
 		--prefix=/usr \
 		--without-dps \

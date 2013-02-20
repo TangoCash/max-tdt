@@ -27,8 +27,6 @@ elif [ -f $TMPVARDIR/etc/hostname ]; then
 fi
 
 gitversion=`git log | grep "^commit" | wc -l`
-#gitversion="rev$(($gitversion-1))"
-#gitversion="_rev$gitversion"
 gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
 OUTFILE=$OUTDIR/miniFLASH_$HOST$gitversion.img
 
@@ -67,6 +65,13 @@ case "$HOST" in
 		SIZE_VAR=0x11C0000
 		ERASE_SIZE=0x20000
 	;;
+	cuberevo-mini2) echo "Creating flash image for $HOST..."
+		SIZE_KERNEL=0x220000
+		SIZE_ROOT=0x1380000
+		SIZE_VAR=0xA00000
+		ERASE_SIZE=0x20000
+		OUTFILE=$OUTDIR/usb_update_$HOST$gitversion.img
+	;;
 	*) echo "Creating flash image for <$HOST -> ufs910>..."
 		SIZE_KERNEL=0x190000
 		SIZE_ROOT=0xB40000
@@ -96,10 +101,20 @@ echo "$PAD $SIZE_VAR $CURDIR/mtd_var.sum.bin $CURDIR/mtd_var.sum.pad.bin"
 $PAD $SIZE_VAR $CURDIR/mtd_var.sum.bin $CURDIR/mtd_var.sum.pad.bin
 
 # --- update.img ---
-#Merge all 3 together
-cat $CURDIR/mtd_kernel.pad.bin >> $OUTFILE
-cat $CURDIR/mtd_root.pad.bin >> $OUTFILE
-cat $CURDIR/mtd_var.sum.pad.bin >> $OUTFILE
+#Merge all parts together
+if [ "$HOST" == "cuberevo-mini2" ]; then
+	cat $CURDIR/mtd_kernel.pad.bin >> $OUTDIR/out_tmp.img
+	cat $CURDIR/mtd_root.pad.bin >> $OUTDIR/out_tmp.img
+	cat $CURDIR/mtd_var.sum.pad.bin >> $OUTDIR/out_tmp.img
+	cat $CURDIR/extra/mtd1.img $OUTDIR/out_tmp.img > $OUTDIR/out_tmp1.img
+	$CURDIR/extra/mkdnimg -make usbimg -vendor_id 0x00444753 -product_id 0x6c6f6f6b -hw_model 0x00053000 -hw_version 0x00010000 -start_addr 0xa0040000 -erase_size 0x01fc0000 -image_name all_noboot -input $OUTDIR/out_tmp1.img -output $OUTFILE
+	rm -f $OUTDIR/out_tmp.img
+	rm -f $OUTDIR/out_tmp1.img
+else
+	cat $CURDIR/mtd_kernel.pad.bin >> $OUTFILE
+	cat $CURDIR/mtd_root.pad.bin >> $OUTFILE
+	cat $CURDIR/mtd_var.sum.pad.bin >> $OUTFILE
+fi
 
 rm -f $CURDIR/uImage
 rm -f $CURDIR/mtd_root.bin

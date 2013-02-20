@@ -31,11 +31,11 @@ mkdir -p $TMPSTORAGEDIR
 
 echo "This script creates flashable images for NOR flash receivers."
 echo "Author: Schischu, Oxygen-1, BPanther, TangoCash"
-echo "Last Change: 18-02-2013"
+echo "Last Change: 20-02-2013"
 echo "Changed for \"classic flash\" (no mini_fo) for UFS910 and add more receivers by BPanther, 13-Feb-2013."
 echo ""
 echo "Supported receivers (autoselection) are:"
-echo "UFS910, UFS922, Octagon1008, Fortis HDBox"
+echo "UFS910, UFS922, Octagon1008, Fortis HDBox, Cuberevo MINI2"
 echo "-----------------------------------------------------------------------"
 echo "It's expected that an image was already build prior to this execution!"
 echo "-----------------------------------------------------------------------"
@@ -59,18 +59,7 @@ echo "You can customize your image now (i.e. move files you like from ROOT to ST
 echo "Or insert your changes into scripts/customize.sh"
 $SCRIPTDIR/customize.sh $CURDIR $TMPROOTDIR $TMPSTORAGEDIR $TMPKERNELDIR
 echo "-----------------------------------------------------------------------"
-#echo "Checking targets..."
-#echo "Found flashtarget:"
-#echo "   1) KERNEL with ROOT and FW"
-#read -p "Select flashtarget (1)? "
-#case "$REPLY" in
-#	1)  echo "Creating KERNEL with ROOT and FW..."
-#		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR;;
-#	*)  "Invalid Input! Exiting..."
-#		exit 3;;
-#esac
-#clear
-echo "Creating miniFLASH.img..."
+echo "Creating flash image..."
 $SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR $EXP
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
@@ -96,11 +85,16 @@ echo ""
 echo ""
 echo "-----------------------------------------------------------------------"
 echo "Flashimage created:"
-echo `ls $OUTDIR`
+ls -o $OUTDIR | awk -F " " '{print $7}'
 
 echo "-----------------------------------------------------------------------"
-echo "To flash the created image rename the *.img file to miniFLASH.img and "
-echo "copy it to the root (/) of your usb drive."
-echo "To start the flashing process press RECORD for 10 sec on your remote "
-echo "control while the box is starting"
+echo "UFS910: To flash the created image rename the *.img file to miniFLASH.img"
+echo "        and copy it to the root (/) of your usb drive."
+echo "        To start the flashing process press RECORD for 10 sec on your"
+echo "        remote control while the box is starting."
+echo ""
+echo "MINI2:  To flash the created image rename the *.img file to usb_update.img"
+echo "        and copy it to the root (/) of your usb drive."
+echo "        To start the flashing process press POWER for 10 sec on your"
+echo "        box while the box is starting."
 echo ""

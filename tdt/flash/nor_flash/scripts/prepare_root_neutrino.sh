@@ -23,12 +23,22 @@ mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage
 # --- VAR ---
 mv $TMPROOTDIR/var/* $TMPSTORAGEDIR/
 
+if [ -f $TMPROOTDIR/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/etc/hostname`
+elif [ -f $TMPSTORAGEDIR/etc/hostname ]; then
+	HOST=`cat $TMPSTORAGEDIR/etc/hostname`
+fi
+
 # mini-rcS and inittab
 rm -f $TMPROOTDIR/etc
 mkdir -p $TMPROOTDIR/etc/init.d
 echo "#!/bin/sh" > $TMPROOTDIR/etc/init.d/rcS
 echo "mount -n -t proc proc /proc" >> $TMPROOTDIR/etc/init.d/rcS
-echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock3 /var" >> $TMPROOTDIR/etc/init.d/rcS
+if [ "$HOST" == "cuberevo-mini2" ]; then
+	echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock4 /var" >> $TMPROOTDIR/etc/init.d/rcS
+else
+	echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock3 /var" >> $TMPROOTDIR/etc/init.d/rcS
+fi
 echo "mount --bind /var/etc /etc" >> $TMPROOTDIR/etc/init.d/rcS
 echo "/etc/init.d/rcS &" >> $TMPROOTDIR/etc/init.d/rcS
 chmod 755 $TMPROOTDIR/etc/init.d/rcS

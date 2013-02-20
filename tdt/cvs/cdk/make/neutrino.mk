@@ -143,6 +143,7 @@ $(appsdir)/neutrino-mp/config.status:
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
+			--build=$(build) \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
@@ -211,6 +212,7 @@ $(appsdir)/neutrino-mp-exp/config.status:
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
+			--build=$(build) \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
@@ -281,6 +283,7 @@ $(appsdir)/neutrino-twin/config.status:
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
+			--build=$(build) \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
@@ -344,6 +347,7 @@ $(appsdir)/neutrino-hd2-exp/config.status:
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
+			--build=$(build) \
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
@@ -390,6 +394,7 @@ $(appsdir)/neutrino/config.status: bootstrap $(EXTERNALLCD_DEP) libfreetype libp
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
+			--build=$(build) \
 			--host=$(target) \
 			--without-libsdl \
 			--with-libdir=/usr/lib \

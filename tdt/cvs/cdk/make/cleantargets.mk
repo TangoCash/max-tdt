@@ -23,7 +23,7 @@ cdk-clean:
 	-$(MAKE) -C $(driverdir) KERNEL_LOCATION=$(buildprefix)/linux-sh4 \
 		BIN_DEST=$(targetprefix)/bin \
 		INSTALL_MOD_PATH=$(targetprefix) clean
-	-$(MAKE) -C $(appsdir)/misc/tools clean
+	-$(MAKE) -C $(appsdir)/misc/tools distclean
 #	-$(MAKE) -C $(appsdir)/dvb/dvbsnoop clean
 	-rm -rf build
 

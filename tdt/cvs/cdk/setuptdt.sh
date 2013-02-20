@@ -21,6 +21,7 @@ if `which lsb_release > /dev/null 2>&1`; then
 		Fedora*) FEDORA=1; INSTALL="yum install -y";;
 		SUSE*)   SUSE=1;   INSTALL="zypper install -y";;
 		Ubuntu*) UBUNTU=1; INSTALL="apt-get -y install";;
+		LinuxM*) UBUNTU=1; INSTALL="apt-get -y install";;
 	esac
 fi
 
@@ -51,6 +52,9 @@ fi
 
 if [ "$SUSE" == 1 ]; then
 	SUSE_VERSION=`cat /etc/SuSE-release | line | awk '{ print $2 }'`
+	if [ "$SUSE_VERSION" == "12.2" ]; then
+		zypper ar "http://download.opensuse.org/repositories/home:/toganm/openSUSE_12.2/" fakeroot
+	fi
 	if [ "$SUSE_VERSION" == "12.1" ]; then
 		zypper ar "http://download.opensuse.org/repositories/home:/toganm/openSUSE_12.1/" fakeroot
 	fi
@@ -63,9 +67,51 @@ if [ "$SUSE" == 1 ]; then
 	zypper ref
 fi
 
+# quantal=ubu12.10, nadia=linux mint 14
+UBUVERSION=`lsb_release -c | cut -d : -f2 | cut -b2-35`
+if [ "$UBUVERSION" == "quantal" -o "$UBUVERSION" == "nadia" ];then
+	ISPRESCISE=`cat /etc/apt/sources.list | grep -c "precise"`
+	if [ "$ISPRESCISE" == 0 ]; then
+		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse " >> /etc/apt/sources.list
+		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse " >> /etc/apt/sources.list
+		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse " >> /etc/apt/sources.list
+		apt-get update
+	fi
+	if [ ! -e /etc/apt/preferences ]; then
+		touch /etc/apt/preferences
+	fi
+	ISRPM=`cat /etc/apt/preferences | grep -c "rpm"`
+	if [ "$ISRPM" == 0 ]; then
+		echo "Package: rpm" >> /etc/apt/preferences
+		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+		echo "" >> /etc/apt/preferences
+		echo "Package: rpm-common" >> /etc/apt/preferences
+		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+		echo "" >> /etc/apt/preferences
+		echo "Package: rpm2cpio" >> /etc/apt/preferences
+		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+		echo "" >> /etc/apt/preferences
+		echo "Package: librpm2" >> /etc/apt/preferences
+		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+		echo "" >> /etc/apt/preferences
+		echo "Package: librpmbuild2" >> /etc/apt/preferences
+		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+		echo "" >> /etc/apt/preferences
+		echo "Package: librpmsign0" >> /etc/apt/preferences
+		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+	fi
+fi
+
 PACKAGES="\
 	make \
 	subversion \
+	ccache \
 	flex \
 	bison \
 	texinfo \
@@ -73,6 +119,7 @@ PACKAGES="\
 	swig \
 	dialog \
 	wget \
+	\
 	${UBUNTU:+rpm}                                               ${FEDORA:+rpm-build} \
 	${UBUNTU:+lsb-release}          ${SUSE:+lsb-release}         ${FEDORA:+redhat-lsb} \
 	${UBUNTU:+git-core}             ${SUSE:+git-core}            ${FEDORA:+git} \
@@ -94,11 +141,13 @@ PACKAGES="\
 	${UBUNTU:+doc-base} \
 	${UBUNTU:+texi2html} \
 	${UBUNTU:+help2man} \
-	${UBUNTU:+cmake} \
-	${UBUNTU:+ruby} \
+	${UBUNTU:+libgpgme11-dev} \
+	${UBUNTU:+libcurl4-openssl-dev} \
 	${UBUNTU:+liblzo2-dev} \
 	${UBUNTU:+libsdl-image1.2} \
 	${UBUNTU:+libsdl-image1.2-dev} \
+	${UBUNTU:+cmake} \
+	${UBUNTU:+ruby} \
 ";
 
 if [ `which arch > /dev/null 2>&1 && arch || uname -m` == x86_64 ]; then
@@ -106,7 +155,7 @@ if [ `which arch > /dev/null 2>&1 && arch || uname -m` == x86_64 ]; then
 	# we might need to install more 32bit versions of some packages
 	PACKAGES="$PACKAGES \
 	${UBUNTU:+gcc-multilib}         ${SUSE:+gcc-32bit}           ${FEDORA:+libstdc++-devel.i686} \
-	${UBUNTU:+g++-multilib}         ${SUSE:+zlib-devel-32bit}    ${FEDORA:+glibc-devel.i686} \
+	${UBUNTU:+libc6-dev-i386}       ${SUSE:+zlib-devel-32bit}    ${FEDORA:+glibc-devel.i686} \
 	${UBUNTU:+lib32z1-dev}                                       ${FEDORA:+libgcc.i686} \
 	                                                             ${FEDORA:+ncurses-devel.i686} \
 	";
@@ -140,6 +189,5 @@ if [ ! "$?" -eq "0" ]; then
 	fi
 fi
 
-#
+# for user mknod
 chmod +s /bin/mknod
-

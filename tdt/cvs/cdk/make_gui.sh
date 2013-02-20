@@ -1,5 +1,8 @@
 #!/bin/bash
-
+# based on the original make.sh
+# Author: TangoCash
+# Last modified: 20.02.13
+setparameters() {
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
 
@@ -43,8 +46,9 @@ if [ -z "${DIALOG}" ]; then
 	echo "Please install dialog package." 1>&2
 	exit 1
 fi
-
+}
 ##############################################
+greetings() {
 ${DIALOG} --msgbox \
 "\n\
   _______                     _____              _     _         _\n\
@@ -56,7 +60,9 @@ ${DIALOG} --msgbox \
 \n\
                      Press OK to configure your environment\n" 0 0
 clear
+}
 ##############################################
+configmenu() {
 ${DIALOG} --menu "\n Select Target:\n " $height $width $listheight \
 1	"Kathrein UFS-910" \
 3	"Kathrein UFS-912" \
@@ -88,7 +94,7 @@ ${DIALOG} --menu "\n Select Target:\n " $height $width $listheight \
 2> ${tempfile}
 
 opt=${?}
-if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+if [ $opt != 0 ]; then cleanup; exit; fi
 
 REPLY=`cat $tempfile`
 
@@ -133,7 +139,7 @@ case "$REPLY" in
 		2> ${tempfile}
 
 		opt=${?}
-		if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+		if [ $opt != 0 ]; then cleanup; exit; fi
 
 		REPLY=`cat $tempfile`
 
@@ -159,7 +165,7 @@ ${DIALOG} --menu "\n Select Kernel: \n " $height $width $listheight \
 2> ${tempfile}
 
 opt=${?}
-if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+if [ $opt != 0 ]; then cleanup; exit; fi
 
 REPLY=`cat $tempfile`
 
@@ -197,7 +203,7 @@ ${DIALOG} --menu "\n Select Player: \n " $height $width $listheight \
 2> ${tempfile}
 
 opt=${?}
-if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+if [ $opt != 0 ]; then cleanup; exit; fi
 
 REPLY=`cat $tempfile`
 
@@ -348,7 +354,7 @@ ${DIALOG} --menu "\n Select Media Framework: \n " $height $width $listheight \
 2> ${tempfile}
 
 opt=${?}
-if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+if [ $opt != 0 ]; then cleanup; exit; fi
 
 REPLY=`cat $tempfile`
 
@@ -375,7 +381,7 @@ ${DIALOG} --menu "\n Select Graphic Framework: \n " $height $width $listheight \
 2> ${tempfile}
 
 opt=${?}
-if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+if [ $opt != 0 ]; then cleanup; exit; fi
 
 REPLY=`cat $tempfile`
 
@@ -385,9 +391,9 @@ case "$REPLY" in
 	*) GFW="";;
 esac
 clear
-
+}
 ##############################################
-
+doconfig() {
 # Check this option if you want to use the version of GCC.
 #CONFIGPARAM="$CONFIGPARAM --enable-gcc47"
 
@@ -399,16 +405,17 @@ CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
 
 ##############################################
 
-./autogen.sh
-./configure $CONFIGPARAM
+./autogen.sh | ${DIALOG} --progressbox "configuring... please wait...." 40 120
+./configure $CONFIGPARAM | ${DIALOG} --progressbox "configuring... please wait...." 40 120
 
 ##############################################
 
 echo $CONFIGPARAM >lastChoice
-
+}
 ##############################################
+mainloop() { while true; do
 clear
-${DIALOG} --menu \
+${DIALOG} --cancel-label "Exit" --menu \
 "\n\
 ********************************************************************************************\n\
 *                                                                                          *\n\
@@ -440,7 +447,7 @@ ${DIALOG} --menu \
 2> ${tempfile}
 
 opt=${?}
-if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+if [ $opt != 0 ]; then cleanup; exit; fi
 
 REPLY=`cat $tempfile`
 
@@ -453,11 +460,28 @@ case "$REPLY" in
 	6) MKTARGET="yaud-xbmc-nightly";;
 	7) MKTARGET="clean";;
 	8) MKTARGET="distclean";;
+	255) cleanup && exit;;
 	*) MKTARGET="yaud-neutrino-mp";;
 esac
 make ${MKTARGET} 2>&1 | tee make.log | ${DIALOG} --programbox "compiling... please wait...." 40 120
-
+done }
 ##############################################
+cleanup() {
 rm $tempfile
 clear
+}
+##############################################
+setparameters
+greetings
+if [ -e config.status ]; then
+	${DIALOG} --defaultno --yesno "\n Existing configuration found: \n Configure new (y/N)? \n" 0 0
+	REPLY=${?}
+	[ "$REPLY" == "0" ] && configmenu && doconfig
+else
+	configmenu
+	doconfig
+fi
+mainloop
+cleanup
+##############################################
 

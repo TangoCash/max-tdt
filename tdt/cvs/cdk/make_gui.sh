@@ -54,7 +54,7 @@ ${DIALOG} --msgbox \
     | |  __/ (_| | | | | | | | |__| | |_| |  (__|   < | |_| (_| | |  __|__ \\\n\
     |_|\___|\__,_|_| |_| |_| |_____/ \__,_|\____|_|\_\ \__|\__,_|_|\___|___/\n\
 \n\
-                     Press OK to configure yout environment\n" 0 0
+                     Press OK to configure your environment\n" 0 0
 clear
 ##############################################
 ${DIALOG} --menu "\n Select Target:\n " $height $width $listheight \
@@ -405,11 +405,10 @@ CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
 ##############################################
 
 echo $CONFIGPARAM >lastChoice
-rm $tempfile
 
 ##############################################
 clear
-${DIALOG} --msgbox \
+${DIALOG} --menu \
 "\n\
 ********************************************************************************************\n\
 *                                                                                          *\n\
@@ -426,19 +425,39 @@ ${DIALOG} --msgbox \
 *                              \\______/                                                    *\n\
 *                                                                                          *\n\
 ********************************************************************************************\n\
-\n\
-\n\
                             ----------------------------------------\n\
                             Your build environment is ready :-)\n\
                             Your next step could be:\n\
-                            ----------------------------------------\n\
-                            make yaud-neutrino\n\
-                            make yaud-neutrino-mp\n\
-                            make yaud-neutrino-mp-exp\n\
-                            make yaud-neutrino-hd2-exp\n\
-                            make yaud-enigma2-pli-nightly\n\
-                            make yaud-xbmc-nightly\n\
-                            ----------------------------------------\n" 0 0
+                            ----------------------------------------\n" 0 0 0 \
+1	"make yaud-neutrino" \
+2	"make yaud-neutrino-mp" \
+3	"make yaud-neutrino-mp-exp" \
+4	"make yaud-neutrino-hd2-exp" \
+5	"make yaud-enigma2-pli-nightly" \
+6	"make yaud-xbmc-nightly" \
+7	"make clean" \
+8	"make distclean" \
+2> ${tempfile}
+
+opt=${?}
+if [ $opt != 0 ]; then clear; rm $tempfile; exit; fi
+
+REPLY=`cat $tempfile`
+
+case "$REPLY" in
+	1) MKTARGET="yaud-neutrino";;
+	2) MKTARGET="yaud-neutrino-mp";;
+	3) MKTARGET="yaud-neutrino-mp-exp";;
+	4) MKTARGET="yaud-neutrino-hd2-exp";;
+	5) MKTARGET="yaud-enigma2-pli-nightly";;
+	6) MKTARGET="yaud-xbmc-nightly";;
+	7) MKTARGET="clean";;
+	8) MKTARGET="distclean";;
+	*) MKTARGET="yaud-neutrino-mp";;
+esac
+make ${MKTARGET} 2>&1 | tee make.log | ${DIALOG} --programbox "compiling... please wait...." 40 120
+
 ##############################################
+rm $tempfile
 clear
 

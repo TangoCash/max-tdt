@@ -745,6 +745,12 @@ endif
 	cp -aR $(targetprefix)/usr/share/tuxbox/neutrino/* $(prefix)/release_neutrino/usr/share/tuxbox/neutrino
 
 #
+# backup/restore
+#
+	cp -aR $(targetprefix)/usr/local/bin/backup.sh $(prefix)/release_neutrino/bin
+	cp -aR $(targetprefix)/usr/local/bin/restore.sh $(prefix)/release_neutrino/bin
+
+#
 # Delete unnecessary files
 #
 	rm -rf $(prefix)/release_neutrino/lib/autofs

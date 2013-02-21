@@ -125,6 +125,9 @@ if [ ! -e /var/etc/.firstboot ]; then
    # Set Display Time
    (sleep 25;fp_control -s `date +"%H:%M:%S %d-%m-%Y"`) &
 
+   #tuner workaround
+   export FE_OFFSET=1
+
    echo "run" > /dev/vfd
    echo "LOADING neutrino"
 

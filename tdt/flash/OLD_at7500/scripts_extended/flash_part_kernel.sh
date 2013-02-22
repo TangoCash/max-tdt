@@ -25,7 +25,7 @@ fi
 
 cp $TMPKERNELDIR/uImage $CURDIR/uImage
 
-# Create a fortis signed update file for fw's
+# Create a fortis signed update file for fw's 
 $FUP -ce $OUTFILE -k $CURDIR/uImage
 
 rm -f $CURDIR/uImage

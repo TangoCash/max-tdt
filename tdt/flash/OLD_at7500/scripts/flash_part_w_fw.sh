@@ -6,7 +6,6 @@ OUTDIR=$3
 TMPKERNELDIR=$4
 TMPFWDIR=$5
 TMPROOTDIR=$6
-TMPEXTDIR=$7
 
 echo "CURDIR       = $CURDIR"
 echo "TUFSBOXDIR   = $TUFSBOXDIR"
@@ -14,16 +13,13 @@ echo "OUTDIR       = $OUTDIR"
 echo "TMPKERNELDIR = $TMPKERNELDIR"
 echo "TMPFWDIR     = $TMPFWDIR"
 echo "TMPROOTDIR   = $TMPROOTDIR"
-echo "TMPEXTDIR   = $TMPEXTDIR"
 
 MKFSJFFS2=$TUFSBOXDIR/host/bin/mkfs.jffs2
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 PAD=$CURDIR/../common/pad
 FUP=$CURDIR/fup
 
-HOST=`cat $TMPEXTDIR/etc/hostname`
-gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
-OUTFILE=$OUTDIR/update_w_fw.ird_$HOST$gitversion
+OUTFILE=$OUTDIR/update_w_fw.ird
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -31,7 +27,6 @@ fi
 
 if [ -e $OUTFILE ]; then
   rm -f $OUTFILE
-  rm -f $OUTFILE.md5
 fi
 
 cp $TMPKERNELDIR/uImage $CURDIR/uImage
@@ -51,13 +46,6 @@ $SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_fw.bin -o $CURDIR/mtd_fw.sum.bin > /dev
 echo "PAD 0x6E0000 $CURDIR/mtd_fw.sum.bin $CURDIR/mtd_fw.sum.pad.bin"
 $PAD 0x6E0000 $CURDIR/mtd_fw.sum.bin $CURDIR/mtd_fw.sum.pad.bin
 
-# Create a jffs2 partition for ext
-# 0x01220000 - 0x01DFFFFF (11.875 MB)
-# Should be p0xBE0000 but due to a bug in stock uboot the size had to be decreased
-$MKFSJFFS2 -qUfv -p0xBA0000 -e0x20000 -r $TMPEXTDIR -o $CURDIR/mtd_ext.bin
-$SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_ext.bin -o $CURDIR/mtd_ext.sum.bin
-$PAD 0xBA0000 $CURDIR/mtd_ext.sum.bin $CURDIR/mtd_ext.sum.pad.bin
-
 # Create a jffs2 partition for root
 # Size 30     MB = -p0x1E00000
 # Folder which contains fw's is -r fw
@@ -73,21 +61,18 @@ $SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_root.bin -o $CURDIR/mtd_root.sum.bin > 
 echo "PAD 0x1E00000 $CURDIR/mtd_root.sum.bin $CURDIR/mtd_root.sum.pad.bin"
 $PAD 0x1E00000 $CURDIR/mtd_root.sum.bin $CURDIR/mtd_root.sum.pad.bin
 
-# Create a fortis signed update file for fw's
+# Create a fortis signed update file for fw's 
 # Note: -g is a workaround which will be removed as soon as the missing conf partition is found
 # Note: -e could be used as a extension partition but at the moment we dont use it
 echo "FUP -ce $OUTFILE -k $CURDIR/uImage -f $CURDIR/mtd_fw.sum.pad.bin -g foo -e foo -r $CURDIR/mtd_root.sum.pad.bin"
-$FUP -ce $OUTFILE -k $CURDIR/uImage -f $CURDIR/mtd_fw.sum.pad.bin -r $CURDIR/mtd_root.sum.pad.bin -g foo -e $CURDIR/mtd_ext.sum.pad.bin
+$FUP -ce $OUTFILE -k $CURDIR/uImage -f $CURDIR/mtd_fw.sum.pad.bin -g foo -e foo -r $CURDIR/mtd_root.sum.pad.bin
 
 rm -f $CURDIR/uImage
 rm -f $CURDIR/mtd_fw.bin
-rm -f $CURDIR/mtd_fw.sum.bin
-rm -f $CURDIR/mtd_fw.sum.pad.bin
 rm -f $CURDIR/mtd_root.bin
+rm -f $CURDIR/mtd_fw.sum.bin
 rm -f $CURDIR/mtd_root.sum.bin
+rm -f $CURDIR/mtd_fw.sum.pad.bin
 rm -f $CURDIR/mtd_root.sum.pad.bin
-rm -f $CURDIR/mtd_ext.bin
-rm -f $CURDIR/mtd_ext.sum.bin
-rm -f $CURDIR/mtd_ext.sum.pad.bin
 
 zip -j $OUTFILE.zip $OUTFILE

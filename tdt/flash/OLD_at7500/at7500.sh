@@ -1,6 +1,12 @@
+#!/bin/bash
+if [ `id -u` != 0 ]; then
+	echo "You are not running this script as root. Try it again as root or with su/sudo command."
+	echo "Bye Bye..."
+	exit
+fi
+
 CURDIR=`pwd`
 BASEDIR=$CURDIR/../..
-
 
 TUFSBOXDIR=$BASEDIR/tufsbox
 CDKDIR=$BASEDIR/cvs/cdk
@@ -8,7 +14,6 @@ CDKDIR=$BASEDIR/cvs/cdk
 SCRIPTDIR=$CURDIR/scripts
 TMPDIR=$CURDIR/tmp
 TMPROOTDIR=$TMPDIR/ROOT
-TMPEXTDIR=$TMPDIR/EXT
 TMPKERNELDIR=$TMPDIR/KERNEL
 TMPFWDIR=$TMPDIR/FW
 
@@ -23,12 +28,11 @@ if [ $# == "0" ]; then
 fi
 
 mkdir $TMPROOTDIR
-mkdir $TMPEXTDIR
 mkdir $TMPKERNELDIR
 mkdir $TMPFWDIR
 
 echo "This script creates flashable images for Atevio 7500"
-echo "Will probably be adapted in future to support clones."
+echo "Will probably be adapted in future to support clones"
 echo "Author: Schischu, BPanther"
 echo "Date: 01-31-2011"
 echo "-----------------------------------------------------------------------"
@@ -42,11 +46,11 @@ echo "Checking targets..."
 echo "Found targets:"
 if [  -e $TUFSBOXDIR/release ]; then
 	echo "Preparing Enigma2..."
-	$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPEXTDIR $TMPKERNELDIR $TMPFWDIR
+	$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release $TMPROOTDIR $TMPKERNELDIR $TMPFWDIR
 fi
 if [  -e $TUFSBOXDIR/release_neutrino ]; then
 	echo "Preparing Neutrino..."
-	$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPEXTDIR $TMPKERNELDIR $TMPFWDIR
+	$SCRIPTDIR/prepare_root.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPKERNELDIR $TMPFWDIR
 fi
 echo "Root prepared"
 echo "Checking if flashtool fup exists..."
@@ -65,21 +69,24 @@ if [ ! -e $CURDIR/fup ]; then
   fi
 fi
 
+if [ ! -e $CURDIR/dummy.squash.signed.padded ]; then
+  cp $CURDIR/../common/fup.src/dummy.squash.signed.padded $CURDIR/dummy.squash.signed.padded
+fi
+
 echo "Flashtool fup exists"
 echo "-----------------------------------------------------------------------"
 echo "Checking targets..."
-#echo "Found flashtarget:"
-#echo "   1) KERNEL with ROOT"
-#echo "   2) KERNEL with ROOT and FW"
-#echo "   3) KERNEL"
-#echo "   4) FW"
-#read -p "Select flashtarget (1-4)? "
-REPLY=2
+echo "Found flashtarget:"
+echo "   1) KERNEL with ROOT"
+echo "   2) KERNEL with ROOT and FW"
+echo "   3) KERNEL"
+echo "   4) FW"
+read -p "Select flashtarget (1-4)? "
 case "$REPLY" in
 	1)  echo "Creating KERNEL with ROOT..."
-		$SCRIPTDIR/flash_part_wo_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPEXTDIR;;
+		$SCRIPTDIR/flash_part_wo_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR;;
 	2)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR $TMPEXTDIR;;
+		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR;;
 	3)  echo "Creating KERNEL..."
 		$SCRIPTDIR/flash_part_kernel.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR;;
 	4)  echo "Creating FW..."
@@ -115,6 +122,7 @@ echo "Flashimage created:"
 echo `ls $OUTDIR`
 
 echo "-----------------------------------------------------------------------"
-echo "To flash the created image copy the *.ird file to the root (/) of your usb drive."
-echo "To start the flashing process press CH UP for 10 sec on your box while the box is starting."
+echo "To flash the created image copy the *.ird file to"
+echo "your usb drive"
 echo ""
+

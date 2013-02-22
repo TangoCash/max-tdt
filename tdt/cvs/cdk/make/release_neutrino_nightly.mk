@@ -745,10 +745,10 @@ endif
 	cp -aR $(targetprefix)/usr/share/tuxbox/neutrino/* $(prefix)/release_neutrino/usr/share/tuxbox/neutrino
 
 #
-# backup/restore
+# backup/restore NMP
 #
-	cp -aR $(targetprefix)/usr/local/bin/backup.sh $(prefix)/release_neutrino/bin
-	cp -aR $(targetprefix)/usr/local/bin/restore.sh $(prefix)/release_neutrino/bin
+	[ -e $(targetprefix)/usr/local/bin/backup.sh ] && cp -aR $(targetprefix)/usr/local/bin/backup.sh $(prefix)/release_neutrino/bin || true
+	[ -e $(targetprefix)/usr/local/bin/restore.sh ] && cp -aR $(targetprefix)/usr/local/bin/restore.sh $(prefix)/release_neutrino/bin || true
 
 #
 # Delete unnecessary files

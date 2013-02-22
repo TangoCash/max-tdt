@@ -18,7 +18,14 @@ MKFSJFFS2=$TUFSBOXDIR/host/bin/mkfs.jffs2
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 MUP=$CURDIR/mup
 
-OUTFILE=$OUTDIR/update_w_fw.img
+if [ -f $TMPROOTDIR/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/etc/hostname`
+elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/var/etc/hostname`
+fi
+
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
+OUTFILE=$OUTDIR/update_w_fw.img_$HOST$gitversion
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -26,6 +33,7 @@ fi
 
 if [ -e $OUTFILE ]; then
   rm -f $OUTFILE
+  rm -f $OUTFILE.md5
 fi
 
 cp $TMPKERNELDIR/uImage $CURDIR/uImage

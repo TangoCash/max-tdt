@@ -23,7 +23,7 @@ FUP=$CURDIR/fup
 
 HOST=`cat $TMPEXTDIR/etc/hostname`
 [ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp && git log | grep "^commit" | wc -l`-exp || HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l`
-[ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp || NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
+[ -d $CURDIR/../../cvs/apps/neutrino-mp-exp ] && NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp || NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
 gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`$HAL_REV$NMP_REV"
 OUTFILE=$OUTDIR/update_w_fw.ird_$HOST$gitversion
 

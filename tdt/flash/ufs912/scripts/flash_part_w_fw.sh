@@ -6,7 +6,6 @@ OUTDIR=$3
 TMPKERNELDIR=$4
 TMPFWDIR=$5
 TMPROOTDIR=$6
-EXP=$7
 
 echo "CURDIR       = $CURDIR"
 echo "TUFSBOXDIR   = $TUFSBOXDIR"
@@ -25,7 +24,9 @@ elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
 	HOST=`cat $TMPROOTDIR/var/etc/hostname`
 fi
 
-gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
+[ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp && git log | grep "^commit" | wc -l`-exp || HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l`
+[ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp || NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`$HAL_REV$NMP_REV"
 OUTFILE=$OUTDIR/update_w_fw.img_$HOST$gitversion
 
 if [ ! -e $OUTDIR ]; then

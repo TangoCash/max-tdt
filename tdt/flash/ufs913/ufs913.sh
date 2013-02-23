@@ -19,7 +19,6 @@ TMPKERNELDIR=$TMPDIR/KERNEL
 TMPFWDIR=$TMPDIR/FW
 TMPTINYROOTDIR=$TMPDIR/TINYROOT
 TMPTINYKERNELDIR=$TMPDIR/TINYKERNEL
-EXP=$1
 
 OUTDIR=$CURDIR/out
 
@@ -81,7 +80,7 @@ echo "Creating flash image..."
 #read -p "Select flashtarget (1-1)? "
 #case "$REPLY" in
 #	1)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR $EXP
+		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR
 #		;;
 #	*)  "Invalid Input! Exiting..."
 #		exit 3;;

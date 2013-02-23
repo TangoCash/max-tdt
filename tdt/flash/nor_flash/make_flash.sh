@@ -16,7 +16,6 @@ TMPDIR=$CURDIR/tmp
 TMPROOTDIR=$TMPDIR/ROOT
 TMPKERNELDIR=$TMPDIR/KERNEL
 TMPSTORAGEDIR=$TMPDIR/STORAGE
-EXP=$1
 
 OUTDIR=$CURDIR/out
 
@@ -60,7 +59,7 @@ echo "Or insert your changes into scripts/customize.sh"
 $SCRIPTDIR/customize.sh $CURDIR $TMPROOTDIR $TMPSTORAGEDIR $TMPKERNELDIR
 echo "-----------------------------------------------------------------------"
 echo "Creating flash image..."
-$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR $EXP
+$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPSTORAGEDIR
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
 VIDEOELFSIZE=`stat -c %s $TMPROOTDIR/boot/video.elf`

@@ -17,7 +17,15 @@ MKSQUASHFS=$CURDIR/../common/mksquashfs4.0
 SUMTOOL=$TUFSBOXDIR/host/bin/sumtool
 PAD=$CURDIR/../common/pad
 
-OUTFILE=$OUTDIR/e2jffs2.img
+if [ -f $TMPROOTDIR/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/etc/hostname`
+elif [ -f $TMPROOTDIR/var/etc/hostname ]; then
+	HOST=`cat $TMPROOTDIR/var/etc/hostname`
+fi
+
+gitversion=`git log | grep "^commit" | wc -l`
+gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`_HAL-rev`(cd $CURDIR/../../cvs/apps/libstb-hal$EXP && git log | grep "^commit" | wc -l)`_NMP$EXP-rev`(cd $CURDIR/../../cvs/apps/neutrino-mp$EXP && git log | grep "^commit" | wc -l)`"
+OUTFILE=$OUTDIR/$HOST$gitversion.img
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -25,6 +33,7 @@ fi
 
 if [ -e $OUTFILE ]; then
   rm -f $OUTFILE
+  rm -f $OUTFILE.md5
 fi
 
 # --- KERNEL ---

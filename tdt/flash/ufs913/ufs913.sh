@@ -73,8 +73,9 @@ echo "Flashtool mup exists"
 #$SCRIPTDIR/flash_tiny.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPTINYKERNELDIR $TMPTINYROOTDIR
 
 echo "-----------------------------------------------------------------------"
-echo "Checking targets..."
-echo "Found flashtarget:"
+echo "Creating flash image..."
+#echo "Checking targets..."
+#echo "Found flashtarget:"
 #echo "   1) KERNEL with ROOT and FW"
 #read -p "Select flashtarget (1-1)? "
 #case "$REPLY" in
@@ -84,7 +85,7 @@ echo "Found flashtarget:"
 #	*)  "Invalid Input! Exiting..."
 #		exit 3;;
 #esac
-clear
+#clear
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPFWDIR/audio.elf`
 VIDEOELFSIZE=`stat -c %s $TMPFWDIR/video.elf`
@@ -109,7 +110,7 @@ echo ""
 echo ""
 echo "-----------------------------------------------------------------------"
 echo "Flashimage created:"
-echo `ls $OUTDIR`
+ls -o $OUTDIR | awk -F " " '{print $7}'
 
 echo "-----------------------------------------------------------------------"
 echo "To flash the created image copy the *.img file to"

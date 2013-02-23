@@ -73,13 +73,14 @@ fi
 
 echo "Flashtool fup exists"
 echo "-----------------------------------------------------------------------"
-echo "Checking targets..."
+#echo "Checking targets..."
 #echo "Found flashtarget:"
 #echo "   1) KERNEL with ROOT"
 #echo "   2) KERNEL with ROOT and FW"
 #echo "   3) KERNEL"
 #echo "   4) FW"
 #read -p "Select flashtarget (1-4)? "
+echo "Creating flash image..."
 REPLY=2
 case "$REPLY" in
 	1)  echo "Creating KERNEL with ROOT..."
@@ -93,7 +94,7 @@ case "$REPLY" in
 	*)  "Invalid Input! Exiting..."
 		exit 3;;
 esac
-clear
+#clear
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPFWDIR/audio.elf`
 VIDEOELFSIZE=`stat -c %s $TMPFWDIR/video.elf`
@@ -118,7 +119,7 @@ echo ""
 echo ""
 echo "-----------------------------------------------------------------------"
 echo "Flashimage created:"
-echo `ls $OUTDIR`
+ls -o $OUTDIR | awk -F " " '{print $7}'
 
 echo "-----------------------------------------------------------------------"
 echo "To flash the created image copy the *.ird file to the root (/) of your usb drive."

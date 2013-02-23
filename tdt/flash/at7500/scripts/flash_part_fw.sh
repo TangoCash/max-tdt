@@ -23,6 +23,7 @@ fi
 
 if [ -e $OUTFILE ]; then
   rm -f $OUTFILE
+  rm -f $OUTFILE.md5
 fi
 
 # Create a jffs2 partition for fw's

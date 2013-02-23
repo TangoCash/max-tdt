@@ -47,21 +47,9 @@ if [  -e $TUFSBOXDIR/release_neutrino ]; then
 	$SCRIPTDIR/prepare_root_neutrino.sh $CURDIR $TUFSBOXDIR/release_neutrino $TMPROOTDIR $TMPKERNELDIR
 fi
 echo "Root prepared"
-
-echo "Flashtool fup exists"
 echo "-----------------------------------------------------------------------"
-#echo "Checking targets..."
-#echo "Found flashtarget:"
-#echo "   1) KERNEL with ROOT and FW"
-#read -p "Select flashtarget (1)? "
-#case "$REPLY" in
-#	1)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR
-#		;;
-#	*)  "Invalid Input! Exiting..."
-#		exit 3;;
-#esac
-#clear
+echo "Creating flash image..."
+$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR
 echo "-----------------------------------------------------------------------"
 AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
 VIDEOELFSIZE=`stat -c %s $TMPROOTDIR/boot/video.elf`
@@ -86,7 +74,7 @@ echo ""
 echo ""
 echo "-----------------------------------------------------------------------"
 echo "Flashimage created:"
-echo `ls $OUTDIR`
+ls -o $OUTDIR | awk -F " " '{print $7}'
 
 echo "-----------------------------------------------------------------------"
 echo "To flash the created image rename the *.img file to e2jffs2.img and "

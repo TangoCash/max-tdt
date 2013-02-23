@@ -16,17 +16,18 @@ TMPDIR=$CURDIR/tmp
 TMPROOTDIR=$TMPDIR/ROOT
 TMPKERNELDIR=$TMPDIR/KERNEL
 TMPFWDIR=$TMPDIR/FW
+EXP=$1
 
 OUTDIR=$CURDIR/out
 
-if [  -e $TMPDIR ]; then
-  rm -rf $TMPDIR/*
+if [ -e $TMPDIR ]; then
+	rm -rf $TMPDIR/*
 fi
 
-mkdir $TMPDIR
-mkdir $TMPROOTDIR
-mkdir $TMPKERNELDIR
-mkdir $TMPFWDIR
+mkdir -p $TMPDIR
+mkdir -p $TMPROOTDIR
+mkdir -p $TMPKERNELDIR
+mkdir -p $TMPFWDIR
 
 echo "This script creates flashable images for Kathrein UFS912"
 echo "Author: Schischu, BPanther"
@@ -74,7 +75,7 @@ case "$REPLY" in
 	1)  echo "Creating KERNEL with ROOT..."
 		$SCRIPTDIR/flash_part_wo_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR;;
 	2)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR;;
+		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR $EXP;;
 	3)  echo "Creating KERNEL..."
 		$SCRIPTDIR/flash_part_kernel.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR;;
 	4)  echo "Creating FW..."

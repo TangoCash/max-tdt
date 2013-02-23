@@ -20,8 +20,8 @@ EXP=$1
 
 OUTDIR=$CURDIR/out
 
-if [  -e $TMPDIR ]; then
-  rm -rf $TMPDIR/*
+if [ -e $TMPDIR ]; then
+	rm -rf $TMPDIR/*
 fi
 
 mkdir -p $TMPDIR

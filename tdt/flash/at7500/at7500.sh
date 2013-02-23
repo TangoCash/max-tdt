@@ -17,21 +17,18 @@ TMPROOTDIR=$TMPDIR/ROOT
 TMPEXTDIR=$TMPDIR/EXT
 TMPKERNELDIR=$TMPDIR/KERNEL
 TMPFWDIR=$TMPDIR/FW
+EXP=$1
 
 OUTDIR=$CURDIR/out
 
-if [ $# == "0" ]; then
-  if [  -e $TMPDIR ]; then
-    sudo rm -rf $TMPDIR/*
-  else
-    mkdir $TMPDIR
-  fi
+if [ -e $TMPDIR ]; then
+	rm -rf $TMPDIR/*
 fi
 
-mkdir $TMPROOTDIR
-mkdir $TMPEXTDIR
-mkdir $TMPKERNELDIR
-mkdir $TMPFWDIR
+mkdir -p $TMPROOTDIR
+mkdir -p $TMPEXTDIR
+mkdir -p $TMPKERNELDIR
+mkdir -p $TMPFWDIR
 
 echo "This script creates flashable images for Atevio 7500"
 echo "Will probably be adapted in future to support clones."
@@ -86,7 +83,7 @@ case "$REPLY" in
 	1)  echo "Creating KERNEL with ROOT..."
 		$SCRIPTDIR/flash_part_wo_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPROOTDIR $TMPEXTDIR;;
 	2)  echo "Creating KERNEL with ROOT and FW..."
-		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR $TMPEXTDIR;;
+		$SCRIPTDIR/flash_part_w_fw.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR $TMPFWDIR $TMPROOTDIR $TMPEXTDIR $EXP;;
 	3)  echo "Creating KERNEL..."
 		$SCRIPTDIR/flash_part_kernel.sh $CURDIR $TUFSBOXDIR $OUTDIR $TMPKERNELDIR;;
 	4)  echo "Creating FW..."

@@ -3,8 +3,6 @@
 #
 $(DEPDIR)/bootstrap: \
 $(DEPDIR)/%bootstrap: \
-	libtool \
-	%$(CCACHE) \
 	%$(FILESYSTEM) \
 	| %$(GLIBC) \
 	%$(CROSS_LIBGCC) \

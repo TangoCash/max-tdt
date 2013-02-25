@@ -1,5 +1,5 @@
---- SPECS/stm-host-module-init-tools.spec.org	2012-08-31 23:17:18.678388768 +0300
-+++ SPECS/stm-host-module-init-tools.spec	2012-08-31 23:17:21.785066111 +0300
+--- stm-host-module-init-tools.spec.orig	2013-02-22 10:29:24.209295531 +0100
++++ stm-host-module-init-tools.spec	2013-02-22 10:29:24.197295531 +0100
 @@ -3,6 +3,7 @@
  Version: 3.16
  Release: 3
@@ -16,7 +16,7 @@
  
  %build
  %host_setup
-@@ -38,11 +38,8 @@
+@@ -38,11 +40,8 @@
  
  for f in insmod lsmod modinfo modprobe rmmod; do
  	rm %{buildroot}%{_stm_host_bin_dir}/$f
@@ -28,7 +28,7 @@
  
  cd ..
  cp COPYING LICENSE
-@@ -58,9 +52,6 @@
+@@ -56,9 +55,6 @@
  %files -n %{_pkgname}
  %defattr(-,root,root)
  %attr(755,root,root)%{_stm_host_bin_dir}/depmod

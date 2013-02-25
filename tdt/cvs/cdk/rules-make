@@ -25,6 +25,7 @@ ipkg_host;0.99.163;ipkg-host;ipkg-0.99.163.tar.gz:ipkg-host.diff;dirextract:ipkg
 #host_python;2.6.6;host-python-2.6.6;Python-2.6.6.tar.bz2:python_2.6.6.diff;extract:Python-2.6.6.tar.bz2;move:Python-2.6.6:host-python-2.6.6;patch:python_2.6.6.diff
 host_python;2.7.3;host-python-2.7.3;Python-2.7.3.tar.bz2:python_2.7.3.diff;extract:Python-2.7.3.tar.bz2;move:Python-2.7.3:host-python-2.7.3;patch:python_2.7.3.diff
 libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;patch:libtool-2.4.2-duckbox-branding.patch
+pkg_config;0.28;pkg-config-0.28;pkg-config-0.28.tar.gz;extract:pkg-config-0.28.tar.gz
 
 #
 # ccache

@@ -352,31 +352,6 @@ $(DEPDIR)/$(HOST_GLIB2): $(HOST_LIBFFI) $(HOST_GLIB2_RPM)
 
 ##############################   BOOTSTRAP-CROSS   #############################
 #
-# CROSS PKGCONFIG
-#
-CROSS_PKGCONFIG = cross-sh4-pkg-config
-CROSS_PKGCONFIG_VERSION = 0.23-3
-CROSS_PKGCONFIG_SPEC = stm-$(subst cross-sh4,cross,$(CROSS_PKGCONFIG)).spec
-CROSS_PKGCONFIG_SPEC_PATCH =
-CROSS_PKGCONFIG_PATCHES =
-
-CROSS_PKGCONFIG_RPM = RPMS/$(host_arch)/$(STLINUX)-$(CROSS_PKGCONFIG)-$(CROSS_PKGCONFIG_VERSION).$(host_arch).rpm
-
-$(CROSS_PKGCONFIG_RPM): \
-		$(if $(CROSS_PKGCONFIG_SPEC_PATCH),Patches/$(CROSS_PKGCONFIG_SPEC_PATCH)) \
-		$(if $(CROSS_PKGCONFIG_PATCHES),$(CROSS_PKGCONFIG_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STLINUX)-$(subst cross-sh4-,cross-,$(CROSS_PKGCONFIG))-$(CROSS_PKGCONFIG_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(CROSS_PKGCONFIG_SPEC_PATCH),( cd SPECS && patch -p1 $(CROSS_PKGCONFIG_SPEC) < $(buildprefix)/Patches/$(CROSS_PKGCONFIG_SPEC_PATCH) ) &&) \
-	$(if $(CROSS_PKGCONFIG_PATCHES),cp $(CROSS_PKGCONFIG_PATCHES:%=Patches/%) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(CROSS_PKGCONFIG_SPEC)
-
-$(DEPDIR)/$(CROSS_PKGCONFIG): $(CROSS_PKGCONFIG_RPM)
-	@rpm $(DRPM) --nodeps -Uhv $(lastword $^) && \
-	touch $@
-
-#
 # CROSS_DISTRIBUTIONUTILS
 #
 CROSS_DISTRIBUTIONUTILS = cross-sh4-distributionutils
@@ -605,15 +580,15 @@ cross-sh4-filesystem:
 $(DEPDIR)/bootstrap-host: | \
 	host-filesystem \
 	cross-sh4-filesystem \
+	$(CCACHE) \
+	libtool \
 	host-rpmconfig \
 	host-base-passwd \
 	host-distributionutils \
-	host-ldd \
-	$(HOST_M4) \
 	host-autoconf \
 	host-autotools \
 	host-automake \
-	host-pkg-config \
+	pkg_config \
 	host-mtd-utils \
 	host-module-init-tools
 	touch $@
@@ -623,14 +598,12 @@ $(DEPDIR)/bootstrap-host: | \
 #
 $(DEPDIR)/bootstrap-cross: | \
 	bootstrap-host \
-	cross-sh4-pkg-config \
 	cross-sh4-distributionutils \
 	cross-sh4-binutils \
 	cross-sh4-binutils-dev \
 	cross-sh4-gmp \
 	cross-sh4-mpfr \
 	cross-sh4-mpc \
-	cross-sh4-libelf \
 	cross-sh4-cpp \
 	cross-sh4-gcc \
 	cross-sh4-g++ \
@@ -668,3 +641,26 @@ $(DEPDIR)/libtool: $(DEPDIR)/libtool.do_compile
 	@INSTALL_libtool@
 	@DISTCLEANUP_libtool@
 	touch $@
+
+#
+# pkg_config
+#
+$(DEPDIR)/pkg_config.do_prepare: @DEPENDS_pkg_config@
+	@PREPARE_pkg_config@
+	touch $@
+
+$(DEPDIR)/pkg_config.do_compile: $(DEPDIR)/pkg_config.do_prepare
+	cd @DIR_pkg_config@ && \
+	./configure \
+		--prefix=$(hostprefix) \
+		--with-pc_path=$(PKG_CONFIG_PATH) && \
+	$(MAKE)
+	touch $@
+
+$(DEPDIR)/pkg_config: $(DEPDIR)/pkg_config.do_compile
+	cd @DIR_pkg_config@ && \
+	@INSTALL_pkg_config@
+		ln -sf $(hostprefix)/bin/pkg-config $(crossprefix)/bin/$(target)-pkg-config
+	@DISTCLEANUP_pkg_config@
+	touch $@
+

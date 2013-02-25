@@ -489,8 +489,8 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
 		TARGET_LDFLAGS=""
 	else
-		TARGET_CFLAGS="$TARGET_CFLAGS -Os -I$targetprefix/usr/include"
-		TARGET_LDFLAGS="-Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$targetprefix/usr/lib -L$targetprefix/lib -L$targetprefix/usr/lib"
+		TARGET_CFLAGS="$TARGET_CFLAGS -Os"
+		TARGET_LDFLAGS=" -Wl,-O1"
 	fi
 	if test "$TOOLCHAIN_PATH" != "notset"; then
 		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/usr/lib -L\$(targetprefix)/lib"
@@ -794,6 +794,7 @@ TUXBOX_RULES_MAKE(squashfs)
 TUXBOX_RULES_MAKE(ccache)
 TUXBOX_RULES_MAKE(cramfs)
 TUXBOX_RULES_MAKE(libtool)
+TUXBOX_RULES_MAKE(pkg_config)
 
 #
 # root

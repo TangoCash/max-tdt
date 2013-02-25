@@ -173,31 +173,6 @@ $(DEPDIR)/$(MPC): $(MPC_RPM)
 	touch $@
 
 #
-# LIBELF
-#
-LIBELF := libelf
-LIBELF_VERSION := 0.8.13-1
-LIBELF_SPEC := stm-target-$(LIBELF).spec
-LIBELF_SPEC_PATCH :=
-LIBELF_PATCHES :=
-
-LIBELF_RPM := RPMS/sh4/$(STLINUX)-sh4-$(LIBELF)-$(LIBELF_VERSION).sh4.rpm
-
-$(LIBELF_RPM): \
-		$(if $(LIBELF_SPEC_PATCH),Patches/$(LIBELF_SPEC_PATCH)) \
-		$(if $(LIBELF_PATCHES),$(LIBELF_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STLINUX)-target-$(LIBELF)-$(LIBELF_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(LIBELF_SPEC_PATCH),( cd SPECS && patch -p1 $(LIBELF_SPEC) < $(buildprefix)/Patches/$(LIBELF_SPEC_PATCH) ) &&) \
-	$(if $(LIBELF_PATCHES),cp $(LIBELF_PATCHES:%=Patches/%) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(LIBELF_SPEC)
-
-$(DEPDIR)/$(LIBELF): $(LIBELF_RPM)
-	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^) && \
-	touch $@
-
-#
 # ZLIB
 #
 ZLIB := zlib

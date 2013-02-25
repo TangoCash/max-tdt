@@ -697,6 +697,5 @@ $(DEPDIR)/libtool.do_compile: $(DEPDIR)/libtool.do_prepare
 $(DEPDIR)/libtool: $(DEPDIR)/libtool.do_compile
 	cd @DIR_libtool@ && \
 	@INSTALL_libtool@
-		ln -sf $(hostprefix)/share/aclocal $(hostprefix)/share/aclocal-1.11
 	@DISTCLEANUP_libtool@
 	touch $@

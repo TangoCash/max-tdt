@@ -276,37 +276,6 @@ $(DEPDIR)/$(HOST_MTD_UTILS): $(HOST_MTD_UTILS_RPM)
 	touch $@
 
 #
-# HOST ELFUTILS
-#
-HOST_ELFUTILS = host-elfutils
-HOST_ELFUTILS_DEV = host-elfutils-dev
-HOST_ELFUTILS_VERSION = 0.152-1
-HOST_ELFUTILS_SPEC = stm-$(HOST_ELFUTILS).spec
-HOST_ELFUTILS_SPEC_PATCH =
-HOST_ELFUTILS_PATCHES =
-
-HOST_ELFUTILS_RPM = RPMS/sh4/$(STLINUX)-$(HOST_ELFUTILS)-$(HOST_ELFUTILS_VERSION).sh4.rpm
-HOST_ELFUTILS_DEV_RPM = RPMS/sh4/$(STLINUX)-$(HOST_ELFUTILS_DEV)-$(HOST_ELFUTILS_VERSION).sh4.rpm
-
-$(HOST_ELFUTILS_RPM) $(HOST_ELFUTILS_DEV_RPM): \
-		$(if $(HOST_ELFUTILS_SPEC_PATCH),Patches/$(HOST_ELFUTILS_SPEC_PATCH)) \
-		$(if $(HOST_ELFUTILS_PATCHES),$(HOST_ELFUTILS_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STLINUX)-$(HOST_ELFUTILS)-$(HOST_ELFUTILS_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_ELFUTILS_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_ELFUTILS_SPEC) < $(buildprefix)/Patches/$(HOST_ELFUTILS_SPEC_PATCH) ) &&) \
-	$(if $(HOST_ELFUTILS_PATCHES),cp $(HOST_ELFUTILS_PATCHES:%=Patches/%) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_ELFUTILS_SPEC)
-
-$(DEPDIR)/$(HOST_ELFUTILS): $(HOST_ELFUTILS_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
-	touch $@
-
-$(DEPDIR)/$(HOST_ELFUTILS_DEV): $(HOST_ELFUTILS_DEV_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps --noscripts -Uhv $< && \
-	touch $@
-
-#
 # HOST FLEX
 #
 HOST_FLEX = host-flex

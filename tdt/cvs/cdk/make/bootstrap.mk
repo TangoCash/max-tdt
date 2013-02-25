@@ -26,31 +26,6 @@ $(DEPDIR)/$(HOST_RPMCONFIG): $(HOST_RPMCONFIG_RPM)
 	touch $@
 
 #
-# HOST M4
-#
-HOST_M4 = host-m4
-HOST_M4_VERSION = 1.4.13-2
-HOST_M4_SPEC = stm-$(HOST_M4).spec
-HOST_M4_SPEC_PATCH =
-HOST_M4_PATCHES =
-
-HOST_M4_RPM = RPMS/sh4/$(STLINUX)-$(HOST_M4)-$(HOST_M4_VERSION).sh4.rpm
-
-$(HOST_M4_RPM): \
-		$(if $(HOST_M4_SPEC_PATCH),Patches/$(HOST_M4_SPEC_PATCH)) \
-		$(if $(HOST_M4_PATCHES),$(HOST_M4_PATCHES:%=Patches/%)) \
-		$(archivedir)/$(STLINUX)-$(HOST_M4)-$(HOST_M4_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_M4_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_M4_SPEC) < $(buildprefix)/Patches/$(HOST_M4_SPEC_PATCH) ) &&) \
-	$(if $(HOST_M4_PATCHES),cp $(HOST_M4_PATCHES:%=Patches/%) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_M4_SPEC)
-
-$(DEPDIR)/$(HOST_M4): $(HOST_M4_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $< && \
-	touch $@
-
-#
 # HOST-LIBTOOL
 #
 HOST_LIBTOOL = host-libtool

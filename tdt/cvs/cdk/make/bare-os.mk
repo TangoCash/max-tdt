@@ -95,7 +95,7 @@ $(DEPDIR)/$(BINUTILS_DEV): $(BINUTILS_DEV_RPM)
 # GMP
 #
 GMP := gmp
-GMP_VERSION := 5.0.2-6
+GMP_VERSION := 5.1.0-7
 GMP_SPEC := stm-target-$(GMP).spec
 GMP_SPEC_PATCH :=
 GMP_PATCHES :=

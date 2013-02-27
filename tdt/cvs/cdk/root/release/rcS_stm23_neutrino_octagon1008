@@ -32,10 +32,10 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-stx7109c3.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-  echo "STB7100-VIDEO"
-	/bin/stslave -t stb7100.0 -R /boot/video.elf
-  echo "STB7100-AUDIO"
-	/bin/stslave -t stb7100.1 -R /boot/audio.elf
+  echo "st231-VIDEO"
+	/bin/stslave -t st231.0 -R /boot/video.elf
+  echo "st231-AUDIO"
+	/bin/stslave -t st231.1 -R /boot/audio.elf
 
    echo "LOADING MODULES"
    echo "LOADING MODULES" >/dev/vfd

@@ -11,9 +11,9 @@ loadMME() {
    /bin/dd if=/dev/zero of=/dev/st231-1 bs=1024 count=4096
    # end mme bug wa
    echo "load a firmware"
-   /bin/stslave -t stb7100.1 -R /boot/audio.elf
+   /bin/stslave -t st231.1 -R /boot/audio.elf
    echo "load v firmware"
-   /bin/stslave -t stb7100.0 -R /boot/video.elf
+   /bin/stslave -t st231.0 -R /boot/video.elf
 }
 
 if [ -e /var/etc/.firstboot ]; then

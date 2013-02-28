@@ -39,8 +39,7 @@ if [ -e $OUTFILE ]; then
 fi
 
 cp $CURDIR/extra/ufs913.software.V1.00.B00.data $OUTDIR
-cp $TMPKERNELDIR/uImage $CURDIR/uImage
-
+cp $TMPKERNELDIR/uImage $OUTDIR/uImage.bin
 # Create a jffs2 partition for fw's
 # Size 8mb = -p0x800000
 # Folder which contains fw's is -r fw
@@ -49,8 +48,9 @@ cp $TMPKERNELDIR/uImage $CURDIR/uImage
 # ./fw
 # ./fw/audio.elf
 # ./fw/video.elf
-$MKFSJFFS2 -qnUfv -p0x800000 -e0x20000 -r $TMPFWDIR -o $CURDIR/mtd_fw.bin
-$SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_fw.bin -o $CURDIR/mtd_fw.sum.bin
+$MKFSJFFS2 -qnUfv -p0x800000 -e0x20000 -r $TMPFWDIR -o $OUTDIR/mtd_fw.bin
+$SUMTOOL -v -p -e 0x20000 -i $OUTDIR/mtd_fw.bin -o $OUTDIR/mtd_fw.sum.bin
+rm -f $OUTDIR/mtd_fw.bin
 # Create a jffs2 partition for root
 # Size 64mb = -p0x4000000
 # Folder which contains fw's is -r fw
@@ -59,9 +59,9 @@ $SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_fw.bin -o $CURDIR/mtd_fw.sum.bin
 # ./release
 # ./release/etc
 # ./release/usr
-$MKFSJFFS2 -qnUfv -p0x7800000 -e0x20000 -r $TMPROOTDIR -o $CURDIR/mtd_root.bin
-$SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_root.bin -o $CURDIR/mtd_root.sum.bin
-
+$MKFSJFFS2 -qnUfv -p0x7800000 -e0x20000 -r $TMPROOTDIR -o $OUTDIR/mtd_root.bin
+$SUMTOOL -v -p -e 0x20000 -i $OUTDIR/mtd_root.bin -o $OUTDIR/mtd_root.sum.bin
+rm -f $OUTDIR/mtd_root.bin
 # Create a kathrein update file for fw's 
 # To get the partitions erased we first need to fake an yaffs2 update
 #$MUP c $OUTFILE << EOF
@@ -74,14 +74,8 @@ $SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_root.bin -o $CURDIR/mtd_root.sum.bin
 #;
 #EOF
 
-cp $CURDIR/uImage $OUTDIR/uImage.bin
-cp $CURDIR/mtd_fw.sum.bin $OUTDIR/
-cp $CURDIR/mtd_root.sum.bin $OUTDIR/
-
-rm -f $CURDIR/uImage
-rm -f $CURDIR/mtd_fw.bin
-rm -f $CURDIR/mtd_root.bin
-rm -f $CURDIR/mtd_fw.sum.bin
-rm -f $CURDIR/mtd_root.sum.bin
-
 zip -j $OUTFILE.zip $OUTDIR/uImage.bin $OUTDIR/mtd_fw.sum.bin $OUTDIR/mtd_root.sum.bin $OUTDIR/ufs913.software.V1.00.B00.data
+rm -f $OUTDIR/uImage.bin
+rm -f $OUTDIR/mtd_fw.sum.bin
+rm -f $OUTDIR/mtd_root.sum.bin
+rm -f $OUTDIR/ufs913.software.V1.00.B00.data

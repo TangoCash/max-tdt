@@ -27,7 +27,8 @@ fi
 [ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp && git log | grep "^commit" | wc -l`-exp || HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l`
 [ -d $CURDIR/../../cvs/apps/neutrino-mp-exp ] && NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp || NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
 gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`$HAL_REV$NMP_REV"
-OUTFILE=$OUTDIR/update_w_fw.img_$HOST$gitversion
+OUTFILE=$OUTDIR/update_w_fw.img
+OUTFILE_Z=$OUTDIR/$HOST$gitversion
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -38,7 +39,7 @@ if [ -e $OUTFILE ]; then
   rm -f $OUTFILE.md5
 fi
 
-cp $TMPKERNELDIR/uImage $CURDIR/uImage
+cp $TMPKERNELDIR/uImage $OUTDIR/uImage.bin
 
 # Create a jffs2 partition for fw's
 # Size 8mb = -p0x800000
@@ -48,8 +49,9 @@ cp $TMPKERNELDIR/uImage $CURDIR/uImage
 # ./fw
 # ./fw/audio.elf
 # ./fw/video.elf
-$MKFSJFFS2 -qUfv -p0x800000 -e0x20000 -r $TMPFWDIR -o $CURDIR/mtd_fw.bin
-$SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_fw.bin -o $CURDIR/mtd_fw.sum.bin
+$MKFSJFFS2 -qUfv -p0x800000 -e0x20000 -r $TMPFWDIR -o $OUTDIR/mtd_fw.bin
+$SUMTOOL -v -p -e 0x20000 -i $OUTDIR/mtd_fw.bin -o $OUTDIR/mtd_fw.sum.bin
+rm -f $OUTDIR/mtd_fw.bin
 # Create a jffs2 partition for root
 # Size 64mb = -p0x4000000
 # Folder which contains fw's is -r fw
@@ -58,25 +60,25 @@ $SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_fw.bin -o $CURDIR/mtd_fw.sum.bin
 # ./release
 # ./release/etc
 # ./release/usr
-$MKFSJFFS2 -qUfv -p0x4000000 -e0x20000 -r $TMPROOTDIR -o $CURDIR/mtd_root.bin
-$SUMTOOL -v -p -e 0x20000 -i $CURDIR/mtd_root.bin -o $CURDIR/mtd_root.sum.bin
-
+$MKFSJFFS2 -qUfv -p0x4000000 -e0x20000 -r $TMPROOTDIR -o $OUTDIR/mtd_root.bin
+$SUMTOOL -v -p -e 0x20000 -i $OUTDIR/mtd_root.bin -o $OUTDIR/mtd_root.sum.bin
+rm -f $OUTDIR/mtd_root.bin
 # Create a kathrein update file for fw's 
 # To get the partitions erased we first need to fake an yaffs2 update
 $MUP c $OUTFILE << EOF
 2
 0x00400000, 0x800000, 3, foo
 0x00C00000, 0x4000000, 3, foo
-0x00000000, 0x0, 1, uImage
-0x00400000, 0x0, 1, mtd_fw.sum.bin
-0x00C00000, 0x0, 1, mtd_root.sum.bin
+0x00000000, 0x0, 1, $OUTDIR/uImage.bin
+0x00400000, 0x0, 1, $OUTDIR/mtd_fw.sum.bin
+0x00C00000, 0x0, 1, $OUTDIR/mtd_root.sum.bin
 ;
 EOF
 
-rm -f $CURDIR/uImage
-rm -f $CURDIR/mtd_fw.bin
-rm -f $CURDIR/mtd_root.bin
-rm -f $CURDIR/mtd_fw.sum.bin
-rm -f $CURDIR/mtd_root.sum.bin
-
-zip -j $OUTFILE.zip $OUTFILE
+md5sum -b $OUTFILE | awk -F' ' '{print $1}' > $OUTFILE.md5
+zip -j $OUTFILE_Z.zip $OUTFILE $OUTFILE.md5
+rm -f $OUTFILE
+rm -f $OUTFILE.md5
+rm -f $OUTDIR/uImage.bin
+rm -f $OUTDIR/mtd_fw.sum.bin
+rm -f $OUTDIR/mtd_root.sum.bin

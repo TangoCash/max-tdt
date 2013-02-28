@@ -28,7 +28,8 @@ fi
 [ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp && git log | grep "^commit" | wc -l`-exp || HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l`
 [ -d $CURDIR/../../cvs/apps/neutrino-mp-exp ] && NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp || NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
 gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`$HAL_REV$NMP_REV"
-OUTFILE=$OUTDIR/miniFLASH_$HOST$gitversion.img
+OUTFILE=$OUTDIR/miniFLASH.img
+OUTFILE_Z=$OUTDIR/$HOST$gitversion
 
 if [ ! -e $OUTDIR ]; then
   mkdir $OUTDIR
@@ -70,7 +71,7 @@ case "$HOST" in
 		SIZE_ROOT=0x1380000
 		SIZE_VAR=0xA00000
 		ERASE_SIZE=0x20000
-		OUTFILE=$OUTDIR/usb_update_$HOST$gitversion.img
+		OUTFILE=$OUTDIR/usb_update.img
 	;;
 	*) echo "Creating flash image for <$HOST -> ufs910>..."
 		SIZE_KERNEL=0x190000
@@ -144,4 +145,6 @@ rm -f $CURDIR/mtd_root.pad.bin
 rm -f $CURDIR/mtd_var.sum.pad.bin
 
 md5sum -b $OUTFILE | awk -F' ' '{print $1}' > $OUTFILE.md5
-zip -j $OUTFILE.zip $OUTFILE $OUTFILE.md5
+zip -j $OUTFILE_Z.zip $OUTFILE $OUTFILE.md5
+rm -f $OUTFILE
+rm -f $OUTFILE.md5

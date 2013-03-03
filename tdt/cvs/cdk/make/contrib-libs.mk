@@ -99,7 +99,7 @@ $(DEPDIR)/libfreetype.do_compile: $(DEPDIR)/libfreetype.do_prepare
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr && \
+			--prefix=$(targetprefix)/usr && \
 		$(MAKE) all
 	touch $@
 
@@ -167,7 +167,7 @@ $(DEPDIR)/libjpeg.do_compile: $(DEPDIR)/libjpeg.do_prepare
 			--host=$(target) \
 			--enable-shared \
 			--enable-static \
-			--prefix=/usr && \
+			--prefix=$(targetprefix)/usr && \
 		$(MAKE) all
 	touch $@
 
@@ -193,7 +193,7 @@ $(DEPDIR)/libpng12.do_compile: $(DEPDIR)/libpng12.do_prepare
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr && \
+			--prefix=$(targetprefix)/usr && \
 		export ECHO="echo" && \
 		echo "Echo cmd =" $(ECHO) && \
 		$(MAKE) all
@@ -224,7 +224,7 @@ $(DEPDIR)/libpng.do_compile: $(DEPDIR)/libpng.do_prepare
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr && \
+			--prefix=$(targetprefix)/usr && \
 		export ECHO="echo" && \
 		echo "Echo cmd =" $(ECHO) && \
 		$(MAKE) all
@@ -2570,7 +2570,7 @@ $(DEPDIR)/libdvbsipp.do_compile: $(DEPDIR)/libdvbsipp.do_prepare
 	./configure \
 		--build=$(build) \
 		--host=$(target) \
-		--prefix=/usr && \
+		--prefix=$(targetprefix)/usr && \
 	$(MAKE) all
 	touch $@
 

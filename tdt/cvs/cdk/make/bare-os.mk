@@ -178,7 +178,7 @@ $(DEPDIR)/$(MPC): $(MPC_RPM)
 ZLIB := zlib
 ZLIB_DEV := zlib-dev
 ZLIB_BIN := zlib-bin
-ZLIB_VERSION := 1.2.5-20
+ZLIB_VERSION := 1.2.5-21
 ZLIB_SPEC := stm-target-$(ZLIB).spec
 ZLIB_SPEC_PATCH :=
 ZLIB_PATCHES :=

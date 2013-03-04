@@ -105,7 +105,12 @@ start()
   fi
   ${MAKEDEV} ttyusb
   ${MAKEDEV} rfkill
-  ${MAKEDEV} sci
+
+  if [ "${HOST}" == "fortis" ]; then
+    ${MAKEDEV} sci_fortis
+  else
+    ${MAKEDEV} sci
+  fi
 
   ##rm -rf pts
   mkdir pts

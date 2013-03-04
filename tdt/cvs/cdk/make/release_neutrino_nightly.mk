@@ -40,10 +40,7 @@ release_neutrino_cube_common:
 	cp $(targetprefix)/bin/eeprom $(prefix)/release_neutrino/bin
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/ipbox/micom.ko $(prefix)/release_neutrino/lib/modules/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx21143}.fw
-	rm -f $(prefix)/release_neutrino/bin/tffpctl
 	rm -f $(prefix)/release_neutrino/bin/vfdctl
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/tfd2mtd
 
 #
 # release_cube_common_tunner
@@ -178,7 +175,6 @@ release_neutrino_ufs912: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 
@@ -197,7 +193,6 @@ release_neutrino_ufs913: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 
@@ -214,7 +209,6 @@ release_neutrino_ufs922: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/ufs922_fan/fan_ctrl.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 
@@ -235,7 +229,6 @@ release_neutrino_spark: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	rm -f $(prefix)/release_neutrino/bin/eeprom
@@ -260,7 +253,6 @@ release_neutrino_spark7162: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	rm -f $(prefix)/release_neutrino/bin/eeprom
@@ -284,7 +276,6 @@ release_neutrino_fortis_hdbox: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 
 #
@@ -304,7 +295,6 @@ release_neutrino_atevio7500: release_neutrino_common_utils
 	cp $(targetprefix)/lib/firmware/dvb-fe-avl2108.fw $(prefix)/release_neutrino/lib/firmware/
 	cp $(targetprefix)/lib/firmware/dvb-fe-stv6306.fw $(prefix)/release_neutrino/lib/firmware/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/lib/modules/boxtype.ko
 	rm -f $(prefix)/release_neutrino/lib/modules/mpeg2hw.ko
 	rm -f $(prefix)/release_neutrino/bin/eeprom
@@ -325,7 +315,6 @@ release_neutrino_octagon1008: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 
 #
@@ -344,8 +333,6 @@ release_neutrino_hs7810a: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
 #
 # release_hs7110
@@ -363,8 +350,6 @@ release_neutrino_hs7110: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
 #
 # release_whitebox
@@ -382,8 +367,6 @@ release_neutrino_whitebox: release_neutrino_common_utils
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
 #
 # release_hl101
@@ -401,8 +384,6 @@ release_neutrino_hl101: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	cp -dp $(buildprefix)/root/etc/lircd_hl101.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
 #
 # release_adb_box
@@ -424,8 +405,6 @@ release_neutrino_adb_box: release_neutrino_common_utils
 	cp -f $(buildprefix)/root/release/fstab_adb_box $(prefix)/release_neutrino/etc/fstab
 	cp -dp $(buildprefix)/root/etc/lircd_adb_box.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/lircd
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
 #
 # release_vip1_v2
@@ -444,8 +423,6 @@ release_neutrino_vip1_v2: release_neutrino_common_utils
 	cp $(targetprefix)/bin/stslave $(prefix)/release_neutrino/bin
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
-	rm -f $(prefix)/release_neutrino/bin/evremote
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
 
 #
 # release_vip2_v1
@@ -481,8 +458,6 @@ release_neutrino_tf7700: release_neutrino_common_utils
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
 	cp -f $(buildprefix)/root/release/fstab_tf7700 $(prefix)/release_neutrino/etc/fstab
 	cp -f $(targetprefix)/sbin/shutdown $(prefix)/release_neutrino/sbin/
-	rm -f $(prefix)/release_neutrino/bin/gotosleep
-
 
 #
 # release_base
@@ -584,7 +559,6 @@ release_neutrino_base:
 	cp $(buildprefix)/root/release/getfb.awk $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release_neutrino/sbin/
-
 if !ENABLE_UFS910
 if !ENABLE_UFS922
 	cp -dp $(targetprefix)/sbin/jfs_fsck $(prefix)/release_neutrino/sbin/ && \
@@ -601,7 +575,6 @@ endif
 #
 # Player
 #
-if ENABLE_PLAYER191
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stm_v4l2.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvbi.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmvout.ko $(prefix)/release_neutrino/lib/modules/
@@ -631,7 +604,6 @@ if ENABLE_PLAYER191
 		echo "."; \
 	done
 	echo "touched";
-endif
 
 #
 # modules
@@ -774,12 +746,10 @@ endif
 	rm -f $(prefix)/release_neutrino/lib/libanl*
 	rm -f $(prefix)/release_neutrino/usr/lib/libanl*
 	rm -rf $(prefix)/release_neutrino/lib/m4-nofpu/
-
 	rm -f $(prefix)/release_neutrino/usr/lib/libcurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libncurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libopkg*
 	rm -f $(prefix)/release_neutrino/lib/modules/lzo*.ko
-
 	rm -f $(prefix)/release_neutrino/bin/gitVCInfo
 	rm -f $(prefix)/release_neutrino/bin/libstb-hal-test
 
@@ -870,3 +840,4 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 #
 release_neutrino_nightly-clean:
 	rm -f $(DEPDIR)/release_neutrino_nightly
+

@@ -272,7 +272,7 @@ $(DEPDIR)/neutrino-twin.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp li
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] || \
 	git clone git://c00lstreamtech.de/cst-public-gui-neutrino.git $(archivedir)/cst-public-gui-neutrino.git; \
 	cp -ra $(archivedir)/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin; \
-	(cd $(appsdir)/neutrino-twin; git checkout --track -b next origin/dvbsi++; cd "$(buildprefix)";); \
+	(cd $(appsdir)/neutrino-twin; git checkout --track -b next origin/next; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin.diff"
 	touch $@

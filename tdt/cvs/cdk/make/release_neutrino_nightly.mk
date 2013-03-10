@@ -419,8 +419,6 @@ release_neutrino_vip1_v2: release_neutrino_common_utils
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
 	cp -f $(buildprefix)/root/release/fstab_vip2 $(prefix)/release_neutrino/etc/fstab
-	cp -f $(targetprefix)/sbin/shutdown $(prefix)/release_neutrino/sbin/
-	cp $(targetprefix)/bin/stslave $(prefix)/release_neutrino/bin
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
 
@@ -457,7 +455,6 @@ release_neutrino_tf7700: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
 	cp -f $(buildprefix)/root/release/fstab_tf7700 $(prefix)/release_neutrino/etc/fstab
-	cp -f $(targetprefix)/sbin/shutdown $(prefix)/release_neutrino/sbin/
 
 #
 # release_base
@@ -499,6 +496,7 @@ release_neutrino_base:
 	ln -sf /sbin/mke2fs $(prefix)/release_neutrino/sbin/mkfs.ext4dev && \
 	cp -dp $(targetprefix)/sbin/fsck $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/e2fsck $(prefix)/release_neutrino/sbin/ && \
+	cp -dp $(targetprefix)/sbin/shutdown $(prefix)/release_neutrino/sbin/ && \
 	ln -sf /sbin/e2fsck $(prefix)/release_neutrino/sbin/fsck.ext2 && \
 	ln -sf /sbin/e2fsck $(prefix)/release_neutrino/sbin/fsck.ext3 && \
 	ln -sf /sbin/e2fsck $(prefix)/release_neutrino/sbin/fsck.ext4 && \

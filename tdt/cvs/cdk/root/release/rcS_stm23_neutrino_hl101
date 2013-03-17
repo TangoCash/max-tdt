@@ -143,7 +143,7 @@ if [ ! -e /var/etc/.firstboot ]; then
       /etc/init.d/networking restart
       /usr/bin/start-emu.sh
       /usr/bin/timeset.sh all &
-      /usr/local/bin/neutrino -f -u
+      /usr/local/bin/neutrino
       rtv=$?
       echo "e2 ended <- RTV: " $rtv
       case "$rtv" in

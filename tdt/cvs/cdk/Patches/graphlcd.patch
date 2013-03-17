@@ -1,5 +1,5 @@
---- graphlcd-base/Make.config	2011-12-06 23:03:38.986910111 +0100
-+++ graphlcd-base/Make.config.fix	2011-12-06 23:03:18.216901196 +0100
+--- graphlcd-base/Make.config.orig	2013-03-17 10:50:28.611877538 +0100
++++ graphlcd-base/Make.config	2013-03-17 10:50:29.111877749 +0100
 @@ -3,7 +3,7 @@
  
  ### The C compiler and options:
@@ -38,17 +38,17 @@
 +INCLUDES += -I$(DESTDIR)/include
  
  DEFINES += -D_GNU_SOURCE
- 
-@@ -60,7 +61,7 @@
+ # define HAVE_DEBUG when invoking "make" if you want to use debugging
+@@ -64,7 +65,7 @@
  HAVE_FREETYPE2=1
  
  # comment this variable out if you don't want to use fontconfig font names
 -HAVE_FONTCONFIG=1
 +#HAVE_FONTCONFIG=1
  
- # comment this if you do not want to have the binaries pre-stripped on 'make install'
- PRESTRIP = -s
-@@ -71,7 +72,7 @@
+ # comment this variable out if you want binaries to be stripped when installing (for production-level binaries or packages)
+ #HAVE_STRIP = -s
+@@ -75,7 +76,7 @@
  
  # uncomment this variable if you want to enable the experimental AX 206 based digital photo frame driver
  # Read DRIVER.ax206dpf before use!
@@ -613,7 +613,7 @@
  
  install: $(PRGNAME)
  	install -d $(BINDIR)
--	install -m 755 -o root -g root $(PRESTRIP) $(PRGNAME) $(BINDIR)
+-	install -m 755 -o root -g root $(HAVE_STRIP) $(PRGNAME) $(BINDIR)
 +	install -m 755 $(PRGNAME) $(BINDIR)
  
  uninstall:
@@ -624,7 +624,7 @@
  
  install: $(PRGNAME)
  	install -d $(BINDIR)
--	install -m 755 -o root -g root $(PRESTRIP) $(PRGNAME) $(BINDIR)
+-	install -m 755 -o root -g root $(HAVE_STRIP) $(PRGNAME) $(BINDIR)
 +	install -m 755 $(PRGNAME) $(BINDIR)
  
  uninstall:
@@ -635,7 +635,7 @@
  
  install: $(PRGNAME)
  	install -d $(BINDIR)
--	install -m 755 -o root -g root $(PRESTRIP) $(PRGNAME) $(BINDIR)
+-	install -m 755 -o root -g root $(HAVE_STRIP) $(PRGNAME) $(BINDIR)
 +	install -m 755 $(PRGNAME) $(BINDIR)
  	
  uninstall:
@@ -646,7 +646,7 @@
  
  install: $(PRGNAME)
  	install -d $(BINDIR)
--	install -m 755 -o root -g root $(PRESTRIP) $(PRGNAME) $(BINDIR)
+-	install -m 755 -o root -g root $(HAVE_STRIP) $(PRGNAME) $(BINDIR)
 +	install -m 755 $(PRGNAME) $(BINDIR)
  
  uninstall:
@@ -657,7 +657,7 @@
  
  install: $(PRGNAME)
  	install -d $(BINDIR)
--	install -m 755 -o root -g root $(PRESTRIP) $(PRGNAME) $(BINDIR)
+-	install -m 755 -o root -g root $(HAVE_STRIP) $(PRGNAME) $(BINDIR)
 +	install -m 755 $(PRGNAME) $(BINDIR)
  
  uninstall:
@@ -668,7 +668,7 @@
  
  install: $(PRGNAME)
  	install -d $(BINDIR)
--	install -m 755 -o root -g root $(PRESTRIP) $(PRGNAME) $(BINDIR)
+-	install -m 755 -o root -g root $(HAVE_STRIP) $(PRGNAME) $(BINDIR)
 +	install -m 755 $(PRGNAME) $(BINDIR)
  
  uninstall:

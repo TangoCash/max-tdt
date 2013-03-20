@@ -61,9 +61,6 @@ include make/xbmc-nightly.mk
 # Include neutrino gui targets
 include make/neutrino.mk
 
-# Include titan gui targets
-#include make/titan.mk
-
 # Include yaud targets
 include make/yaud.mk
 

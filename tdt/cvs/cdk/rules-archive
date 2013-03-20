@@ -113,7 +113,6 @@ a52dec-0.7.4.tar.gz;http://liba52.sourceforge.net/files
 libdvdcss-1.2.12.tar.bz2;http://download.videolan.org/pub/libdvdcss/1.2.12
 libdvdnav-4.1.3.tar.bz2;ftp://ftp6.mplayerhq.hu/MPlayer/releases/dvdnav-old
 libdvdread-4.1.3.tar.bz2;ftp://ftp6.mplayerhq.hu/MPlayer/releases/dvdnav-old
-ffmpeg-0.8.11.tar.gz;http://ffmpeg.org/releases
 ffmpeg-1.2.tar.gz;http://ffmpeg.org/releases
 libass-0.10.0.tar.gz;http://libass.googlecode.com/files
 libcap-2.22.tar.bz2;http://mirror.linux.org.au/linux/libs/security/linux-privs/libcap2
@@ -155,16 +154,13 @@ libnfs.git;git://github.com/sahlberg/libnfs.git;c0ebf57b212ffefe83e2a50358499f68
 elementtree-1.2.6-20050316.tar.gz;http://effbot.org/media/downloads
 libxml2-2.6.30.tar.gz;ftp://ftp.gnome.org/pub/GNOME/sources/libxml2/2.6
 libxml2-2.7.8.tar.gz;http://xmlsoft.org/sources/
-libxml2-2.9.0.tar.gz;http://xmlsoft.org/sources
 libxslt-1.1.26.tar.gz;http://xmlsoft.org/sources
-libxslt-1.1.28.tar.gz;http://xmlsoft.org/sources
 lxml-2.2.8.tgz;http://launchpad.net/lxml/2.2/2.2.8/+download
 setuptools-0.6c11.tar.gz;http://pypi.python.org/packages/source/s/setuptools
 Twisted-12.1.0.tar.bz2;http://twistedmatrix.com/Releases/Twisted/12.1
 TwistedWeb2-8.1.0.tar.bz2;http://twistedmatrix.com/Releases/Web2/8.1
 Imaging-1.1.7.tar.gz;http://effbot.org/downloads
 pycrypto-2.5.tar.gz;http://ftp.dlitz.net/pub/dlitz/crypto/pycrypto
-pyOpenSSL-0.9.tar.gz;http://sourceforge.net/projects/pyopenssl/files/pyopenssl/0.9
 pyOpenSSL-0.11.tar.gz;http://launchpad.net/pyopenssl/main/0.11/+download
 pyusb-1.0.0a2.tar.gz;http://pypi.python.org/packages/source/p/pyusb
 Python-2.7.3.tar.bz2;http://www.python.org/ftp/python/2.7.3
@@ -205,9 +201,8 @@ hotplug-e2-helper.git;git://openpli.git.sourceforge.net/gitroot/openpli/hotplug-
 #
 # EXTERNAL_LCD
 #
-#graphlcd-base-touchcol.git;git://projects.vdr-developer.org/graphlcd-base.git;a39f265732d0bc28cb66b58b5ecf1964a130d02b;touchcol
-graphlcd-base-touchcol.git;git://projects.vdr-developer.org/graphlcd-base.git;touchcol
 lcd4linux.svn;https://ssl.bulix.org/svn/lcd4linux/trunk
+graphlcd-base-touchcol.git;git://projects.vdr-developer.org/graphlcd-base.git;touchcol
 libusb-0.1.12.tar.gz;http://downloads.sourceforge.net/libusb
 libusb-1.0.8.tar.bz2;http://downloads.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.8
 libusb-compat-0.1.3.tar.bz2;http://downloads.sourceforge.net/project/libusb/libusb-compat-0.1/libusb-compat-0.1.3
@@ -228,7 +223,6 @@ vsftpd-2.3.4.tar.gz;http://gd.tuwien.ac.at/infosys/servers/ftp/vsftpd
 netkit-ftp-0.17.tar.gz;ftp://ftp.uk.linux.org/pub/linux/Networking/netkit
 samba-3.0.28.tar.gz;http://www.samba.org/samba/ftp/stable
 samba-3.5.5.tar.gz;http://www.samba.org/samba/ftp/stable
-samba-3.6.6.tar.gz;http://www.samba.org/samba/ftp/stable
 netio126.zip;http://bnsmb.de/files/public/windows
 lighttpd-1.4.15.tar.gz;http://www.lighttpd.net/download
 zd1211lnxdrv_2_15_0_0.tar.gz;http://www.lutec.eu/treiber
@@ -236,5 +230,3 @@ wireless_tools.29.tar.gz;http://www.hpl.hp.com/personal/Jean_Tourrilhes/Linux
 wpa_supplicant-0.7.3.tar.gz;http://hostap.epitest.fi/releases
 wpa_supplicant-1.0.tar.gz;http://hostap.epitest.fi/releases
 ethtool-6.tar.gz;http://downloads.openwrt.org/sources
-ethtool-2.6.36.tar.gz;http://downloads.sourceforge.net/project/gkernel/ethtool/2.6.36
-

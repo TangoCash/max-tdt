@@ -74,7 +74,7 @@ imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:Imag
 # contrib libs
 #
 libao;1.1.0;libao-1.1.0;libao-1.1.0.tar.gz;extract:libao-1.1.0.tar.gz
-howl;0.9.8;howl-0.9.8;howl_0.9.8.tar.gz;extract:howl_0.9.8.orig.tar.gz
+howl;0.9.8;howl-0.9.8;howl_0.9.8.orig.tar.gz;extract:howl_0.9.8.orig.tar.gz
 libopenthreads;1.00;openthreads;;
 libboost;boost-1.53.0;boost_1_53_0;boost_1_53_0.tar.bz2;extract:boost_1_53_0.tar.bz2;patch:libboost.diff
 libz;1.2.7;zlib-1.2.7;zlib-1.2.7.tar.bz2;extract:zlib-1.2.7.tar.bz2;patch:zlib-1.2.7.patch

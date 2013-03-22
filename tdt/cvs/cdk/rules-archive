@@ -71,6 +71,7 @@ ImageMagick-6.7.7-7.tar.bz2;ftp://ftp.fifi.org/pub/ImageMagick
 # contrib libs
 #
 libao-1.1.0.tar.gz;http://downloads.xiph.org/releases/ao
+howl_0.9.8.orig.tar.gz;https://launchpad.net/ubuntu/+archive/primary/+files
 zlib-1.2.7.tar.bz2;http://zlib.net
 readline-5.2.tar.gz;ftp://ftp.cwru.edu/pub/bash
 freetype-2.3.12.tar.bz2;http://prdownloads.sourceforge.net/sourceforge/freetype

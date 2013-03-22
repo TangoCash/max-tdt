@@ -24,6 +24,31 @@ $(DEPDIR)/%libao: $(DEPDIR)/libao.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
+# howl
+#
+$(DEPDIR)/howl.do_prepare: bootstrap @DEPENDS_howl@
+	@PREPARE_howl@
+	touch $@
+
+$(DEPDIR)/howl.do_compile: $(DEPDIR)/howl.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd @DIR_howl@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/howl: \
+$(DEPDIR)/%howl: $(DEPDIR)/howl.do_compile
+	cd @DIR_howl@ && \
+		@INSTALL_howl@
+	@DISTCLEANUP_howl@
+	[ "x$*" = "x" ] && touch $@ || true
+
+#
 # libboost
 #
 $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@

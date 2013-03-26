@@ -4,7 +4,9 @@
 $(DEPDIR)/busybox.do_prepare: @DEPENDS_busybox@
 	@PREPARE_busybox@
 	cd @DIR_busybox@ && \
-		patch -p1 < ../Patches/busybox-1.21.0-mdev.patch
+		patch -p1 < ../Patches/busybox-1.21.0-mdev.patch && \
+		patch -p1 < ../Patches/busybox-1.21.0-platform.patch && \
+		patch -p1 < ../Patches/busybox-1.21.0-xz.patch
 	touch $@
 
 $(DEPDIR)/busybox.do_compile: bootstrap $(DEPDIR)/busybox.do_prepare Patches/busybox.config$(if $(UFS912)$(UFS913)$(SPARK)$(SPARK7162),_nandwrite) | $(DEPDIR)/$(GLIBC_DEV)

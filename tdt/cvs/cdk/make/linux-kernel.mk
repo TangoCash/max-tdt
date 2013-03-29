@@ -22,10 +22,8 @@ if ENABLE_P0211
 PATCH_STR=_0211
 endif
 
-STM24_DVB_PATCH = linux-sh4-linuxdvb_stm24$(PATCH_STR).patch
-
 COMMONPATCHES_24 = \
-		$(STM24_DVB_PATCH) \
+		linux-sh4-linuxdvb_stm24$(PATCH_STR).patch \
 		$(if $(P0207)$(P0209),linux-sh4-makefile_stm24.patch) \
 		linux-sh4-sound_stm24$(PATCH_STR).patch \
 		linux-sh4-time_stm24$(PATCH_STR).patch \
@@ -231,13 +229,10 @@ KERNELHEADERS_VERSION := 2.6.32.46-45
 else
 if ENABLE_P0211
 KERNELHEADERS_VERSION := 2.6.32.46-45
-else
-KERNELHEADERS_VERSION := 2.6.32.10_stm24_0201-42
 endif
 endif
 endif
 endif
-
 KERNELHEADERS_SPEC := stm-target-kernel-headers-kbuild.spec
 KERNELHEADERS_SPEC_PATCH :=
 KERNELHEADERS_PATCHES :=
@@ -275,28 +270,27 @@ endif !DEBUG
 
 HOST_KERNEL := host-kernel
 if ENABLE_P0207
-HOST_KERNEL_VERSION := 2.6.32.28$(KERNELSTMLABEL)-$(KERNELLABEL)
+HOST_KERNEL_VERSION = 2.6.32.28$(KERNELSTMLABEL)-$(KERNELLABEL)
 else
 if ENABLE_P0209
-HOST_KERNEL_VERSION := 2.6.32.46$(KERNELSTMLABEL)-$(KERNELLABEL)
+HOST_KERNEL_VERSION = 2.6.32.46$(KERNELSTMLABEL)-$(KERNELLABEL)
 else
 if ENABLE_P0210
-HOST_KERNEL_VERSION := 2.6.32.57$(KERNELSTMLABEL)-$(KERNELLABEL)
+HOST_KERNEL_VERSION = 2.6.32.57$(KERNELSTMLABEL)-$(KERNELLABEL)
 else
 if ENABLE_P0211
-HOST_KERNEL_VERSION := 2.6.32.59$(KERNELSTMLABEL)-$(KERNELLABEL)
-else
+HOST_KERNEL_VERSION = 2.6.32.59$(KERNELSTMLABEL)-$(KERNELLABEL)
 endif
 endif
 endif
 endif
 
-HOST_KERNEL_SPEC := stm-$(HOST_KERNEL)-sh4.spec
-HOST_KERNEL_SPEC_PATCH :=
-HOST_KERNEL_PATCHES := $(KERNELPATCHES_24)
-HOST_KERNEL_CONFIG := linux-sh4-$(subst _stm24_,-,$(KERNELVERSION))_$(MODNAME).config$(DEBUG_STR)
-HOST_KERNEL_SRC_RPM := $(STLINUX)-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).src.rpm
-HOST_KERNEL_RPM := RPMS/noarch/$(STLINUX)-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).noarch.rpm
+HOST_KERNEL_SPEC = stm-$(HOST_KERNEL)-sh4.spec
+HOST_KERNEL_SPEC_PATCH =
+HOST_KERNEL_PATCHES = $(KERNELPATCHES_24)
+HOST_KERNEL_CONFIG = linux-sh4-$(subst _stm24_,-,$(KERNELVERSION))_$(MODNAME).config$(DEBUG_STR)
+HOST_KERNEL_SRC_RPM = $(STLINUX)-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).src.rpm
+HOST_KERNEL_RPM = RPMS/noarch/$(STLINUX)-$(HOST_KERNEL)-source-sh4-$(HOST_KERNEL_VERSION).noarch.rpm
 
 $(HOST_KERNEL_RPM): \
 		$(if $(HOST_KERNEL_SPEC_PATCH),Patches/$(HOST_KERNEL_SPEC_PATCH)) \
@@ -311,7 +305,7 @@ $(DEPDIR)/linux-kernel.do_prepare: \
 	@rpm $(DRPM) -ev $(HOST_KERNEL_SRC_RPM:%.src.rpm=%) || true
 	rm -rf $(KERNEL_DIR)
 	rm -rf linux{,-sh4}
-	rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^)
+	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^)
 	$(if $(HOST_KERNEL_PATCHES),cd $(KERNEL_DIR) && cat $(HOST_KERNEL_PATCHES:%=$(buildprefix)/Patches/%) | patch -p1)
 	$(INSTALL) -m644 Patches/$(HOST_KERNEL_CONFIG) $(KERNEL_DIR)/.config
 	-rm $(KERNEL_DIR)/localversion*
@@ -338,7 +332,6 @@ XFS_SED_CONF=-e ""
 endif
 
 if ENABLE_NFSSERVER
-#NFSSERVER_SED_CONF=$(foreach param,CONFIG_NFSD CONFIG_NFSD_V3 CONFIG_NFSD_TCP,-e s"/^.*$(param)[= ].*/$(param)=y/")
 NFSSERVER_SED_CONF=$(foreach param,CONFIG_NFSD,-e s"/^.*$(param)[= ].*/$(param)=y\nCONFIG_NFSD_V3=y\n\# CONFIG_NFSD_V3_ACL is not set\n\# CONFIG_NFSD_V4 is not set\nCONFIG_NFSD_TCP=y/")
 else
 NFSSERVER_SED_CONF=-e ""

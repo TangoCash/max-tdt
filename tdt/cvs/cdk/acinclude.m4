@@ -65,7 +65,7 @@ AC_MSG_RESULT(done)
 
 AC_DEFUN([TUXBOX_BOXTYPE],[
 AC_ARG_WITH(boxtype,
-	[  --with-boxtype     valid values: ufs910,ufs912,ufs913,ufs922,ipbox55,ipbox99,ipbox9900,cuberevo,cuberevo_mini,cuberevo_mini2,cuberevo_mini_fta,cuberevo_250hd,cuberevo_2000hd,cuberevo_9500hd,tf7700,fortis_hdbox,octagon1008,atevio7500,spark,spark7162,hl101,hs7110,hs7810a,adb_box,whitebox,vip,homecast5101],
+	[  --with-boxtype     valid values: ufs910,ufs912,ufs913,ufs922,ufc960,ipbox55,ipbox99,ipbox9900,cuberevo,cuberevo_mini,cuberevo_mini2,cuberevo_mini_fta,cuberevo_250hd,cuberevo_2000hd,cuberevo_9500hd,tf7700,fortis_hdbox,octagon1008,atevio7500,spark,spark7162,hl101,hs7110,hs7810a,adb_box,whitebox,vip,homecast5101],
 	[case "${withval}" in
 dnl		To-Do: extend CPU types and kernel versions when needed
 		ufs910)
@@ -78,6 +78,9 @@ dnl		To-Do: extend CPU types and kernel versions when needed
 			BOXTYPE="$withval"
 			;;
 		ufs922)
+			BOXTYPE="$withval"
+			;;
+		ufc960)
 			BOXTYPE="$withval"
 			;;
 		ipbox55)
@@ -159,6 +162,7 @@ AM_CONDITIONAL(BOXTYPE_UFS910, test "$BOXTYPE" = "ufs910")
 AM_CONDITIONAL(BOXTYPE_UFS912, test "$BOXTYPE" = "ufs912")
 AM_CONDITIONAL(BOXTYPE_UFS913, test "$BOXTYPE" = "ufs913")
 AM_CONDITIONAL(BOXTYPE_UFS922, test "$BOXTYPE" = "ufs922")
+AM_CONDITIONAL(BOXTYPE_UFC960, test "$BOXTYPE" = "ufc960")
 AM_CONDITIONAL(BOXTYPE_IPBOX55, test "$BOXTYPE" = "ipbox55")
 AM_CONDITIONAL(BOXTYPE_IPBOX99, test "$BOXTYPE" = "ipbox99")
 AM_CONDITIONAL(BOXTYPE_IPBOX9900, test "$BOXTYPE" = "ipbox9900")
@@ -192,6 +196,8 @@ elif test "$BOXTYPE" = "ufs913"; then
 	AC_DEFINE(HAVE_UFS913_HARDWARE, 1, [building for a ufs913])
 elif test "$BOXTYPE" = "ufs922"; then
 	AC_DEFINE(HAVE_UFS922_HARDWARE, 1, [building for an ufs922])
+elif test "$BOXTYPE" = "ufc960"; then
+	AC_DEFINE(HAVE_UFC960_HARDWARE, 1, [building for an ufc960])
 elif test "$BOXTYPE" = "ipbox55"; then
 	AC_DEFINE(HAVE_IPBOX55_HARDWARE, 1, [building for a ipbox55])
 elif test "$BOXTYPE" = "ipbox99"; then

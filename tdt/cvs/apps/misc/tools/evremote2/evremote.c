@@ -359,6 +359,8 @@ int getModel()
             }
         } else if(!strncasecmp(vName,"ufs922", 6))
             vBoxType = Ufs922;
+        else if(!strncasecmp(vName,"ufc960", 6))
+            vBoxType = Ufc960;
         else if(!strncasecmp(vName,"tf7700hdpvr", 11))
             vBoxType = Tf7700;
         else if(!strncasecmp(vName,"hl101", 5))
@@ -378,7 +380,7 @@ int getModel()
 		else if(!strncasecmp(vName,"hs7110", 6))
             vBoxType = HdBox;
 		else if(!strncasecmp(vName,"whitebox", 8))
-            vBoxType = HdBox;
+            vBoxType = CNBox;
         else if(!strncasecmp(vName,"hs5101", 6))
             vBoxType = Hs5101;
         else if(!strncasecmp(vName,"adb_box", 7))

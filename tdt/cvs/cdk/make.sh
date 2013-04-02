@@ -84,6 +84,7 @@ echo "25) B4Team ADB 5800S"
 echo "26) Fortis HS7110"
 echo "27) WHITEBOX"
 echo "28) Kathrein UFS-913"
+echo "29) Kathrein UFC-960"
 
 case $1 in
 	[1-9] | 1[0-9] | 2[0-9]) REPLY=$1
@@ -121,6 +122,7 @@ case "$REPLY" in
 	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
 	27) TARGET="--enable-whitebox";BOXTYPE="--with-boxtype=whitebox";;
 	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
+	29) TARGET="--enable-ufc960";BOXTYPE="--with-boxtype=ufc960";;
 	 *) TARGET="--enable-atevio7500";BOXTYPE="--with-boxtype=atevio7500";;
 esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"

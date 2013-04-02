@@ -293,6 +293,14 @@ AC_ARG_ENABLE(ufs922,
 AM_CONDITIONAL(ENABLE_UFS922,test "$enable_ufs922" = "yes")
 AC_SUBST(UFS922)
 
+AC_ARG_ENABLE(ufc960,
+	AS_HELP_STRING(--enable-ufc960,    enable kathrein ufc960 stuff),
+	[case "${enableval}" in
+		yes) UFC960=ufc960 ;;
+	esac],[enable_ufc960=no])
+AM_CONDITIONAL(ENABLE_UFC960,test "$enable_ufc960" = "yes")
+AC_SUBST(UFC960)
+
 AC_ARG_ENABLE(ufs910,
 	AS_HELP_STRING(--enable-ufs910, enable kathrein ufs910 stuff),
 	[case "${enableval}" in

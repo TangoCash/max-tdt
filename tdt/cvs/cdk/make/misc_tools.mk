@@ -20,6 +20,7 @@ $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status
 	$(if $(UFS912), -DPLATFORM_UFS912) \
 	$(if $(UFS913), -DPLATFORM_UFS913) \
 	$(if $(UFS922), -DPLATFORM_UFS922) \
+	$(if $(UFC960), -DPLATFORM_UFC960) \
 	$(if $(SPARK), -DPLATFORM_SPARK) \
 	$(if $(SPARK7162), -DPLATFORM_SPARK7162) \
 	$(if $(FORTIS_HDBOX), -DPLATFORM_FORTIS_HDBOX) \

@@ -309,10 +309,10 @@ echo "   2) gstreamer"
 echo "   3) use build-in"
 case $5 in
 	[1-3]) REPLY=$5
-	echo -e "\nSelected media framwork: $REPLY\n"
+	echo -e "\nSelected media framework: $REPLY\n"
 	;;
 	*)
-	read -p "Select media framwork (1-3)? ";;
+	read -p "Select media framework (1-3)? ";;
 esac
 
 case "$REPLY" in

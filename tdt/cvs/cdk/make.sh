@@ -91,7 +91,7 @@ case $1 in
 	echo -e "\nSelected target: $REPLY\n"
 	;;
 	*)
-	read -p "Select target (1-28)? ";;
+	read -p "Select target (1-29)? ";;
 esac
 
 case "$REPLY" in
@@ -395,4 +395,3 @@ echo "make yaud-neutrino-hd2-exp"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-xbmc-nightly"
 echo "----------------------------------------"
-

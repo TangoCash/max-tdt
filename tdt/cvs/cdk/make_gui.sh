@@ -91,6 +91,7 @@ ${DIALOG} --menu "\n Select Target:\n " $height $width $listheight \
 26	"Fortis HS7110" \
 27	"WHITEBOX" \
 28	"Kathrein UFS-913" \
+29	"Kathrein UFC-960" \
 2> ${tempfile}
 
 opt=${?}
@@ -126,6 +127,7 @@ case "$REPLY" in
 	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
 	27) TARGET="--enable-whitebox";BOXTYPE="--with-boxtype=whitebox";;
 	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
+	29) TARGET="--enable-ufc960";BOXTYPE="--with-boxtype=ufc960";;
 	 *) TARGET="--enable-ufs910";BOXTYPE="--with-boxtype=ufs910";;
 esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
@@ -484,4 +486,3 @@ fi
 mainloop
 cleanup
 ##############################################
-

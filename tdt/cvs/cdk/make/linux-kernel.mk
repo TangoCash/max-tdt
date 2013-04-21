@@ -93,7 +93,7 @@ HS7110PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-hs7110_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
+		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
 		linux-squashfs3.0_lzma_stm24.patch \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \
@@ -103,7 +103,7 @@ WHITEBOXPATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-whitebox_setup_stm24$(PATCH_STR).patch \
-		linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch \
+		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
 		linux-squashfs3.0_lzma_stm24.patch \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \

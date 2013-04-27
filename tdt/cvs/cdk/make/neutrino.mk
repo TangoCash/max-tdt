@@ -262,19 +262,22 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
 
 #
-# NEUTRINO TWIN
+# neutrino-twin
 #
-$(DEPDIR)/neutrino-twin.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-twin.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-twin
 	rm -rf $(appsdir)/neutrino-twin.org
+	rm -rf $(appsdir)/neutrino-twin.patched
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] && \
 	(cd $(archivedir)/cst-public-gui-neutrino.git; git pull ; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] || \
 	git clone git://c00lstreamtech.de/cst-public-gui-neutrino.git $(archivedir)/cst-public-gui-neutrino.git; \
 	cp -ra $(archivedir)/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin; \
-	(cd $(appsdir)/neutrino-twin; git checkout --track -b next origin/next; cd "$(buildprefix)";); \
+	(cd $(appsdir)/neutrino-twin; git checkout --track -b pu/cc origin/pu/cc; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
 	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin.diff"
+	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.patched
+#	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-patched.diff"
 	touch $@
 
 $(appsdir)/neutrino-twin/config.status:
@@ -296,8 +299,8 @@ $(appsdir)/neutrino-twin/config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
-			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
-			--with-stb-hal-build=$(appsdir)/libstb-hal \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-exp \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
@@ -325,6 +328,74 @@ neutrino-twin-clean:
 
 neutrino-twin-distclean:
 	rm -f $(DEPDIR)/neutrino-twin*
+
+#
+# neutrino-twin-next
+#
+$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libalsa libstb-hal-exp
+	rm -rf $(appsdir)/neutrino-twin-next
+	rm -rf $(appsdir)/neutrino-twin-next.org
+	rm -rf $(appsdir)/neutrino-twin-next.patched
+	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] && \
+	(cd $(archivedir)/cst-public-gui-neutrino.git; git pull ; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] || \
+	git clone git://c00lstreamtech.de/cst-public-gui-neutrino.git $(archivedir)/cst-public-gui-neutrino.git; \
+	cp -ra $(archivedir)/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin-next; \
+	(cd $(appsdir)/neutrino-twin-next; git checkout --track -b next-cc origin/next-cc; cd "$(buildprefix)";); \
+	cp -ra $(appsdir)/neutrino-twin-next $(appsdir)/neutrino-twin-next.org
+	cd $(appsdir)/neutrino-twin-next && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-next.diff"
+	cp -ra $(appsdir)/neutrino-twin-next $(appsdir)/neutrino-twin-next.patched
+#	cd $(appsdir)/neutrino-twin-next && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-next-patched.diff"
+	touch $@
+
+$(appsdir)/neutrino-twin-next/config.status:
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/neutrino-twin-next && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--with-tremor \
+			--enable-giflib \
+			--enable-fb_blit \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/plugins \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-exp \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS) -DFB_BLIT"
+
+$(DEPDIR)/neutrino-twin-next.do_compile: $(appsdir)/neutrino-twin-next/config.status
+	cd $(appsdir)/neutrino-twin-next && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/neutrino-twin-next: neutrino-twin-next.do_prepare neutrino-twin-next.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-twin-next install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-twin-next-clean:
+	rm -f $(DEPDIR)/neutrino-twin-next
+	cd $(appsdir)/neutrino-twin-next && \
+		$(MAKE) distclean
+
+neutrino-twin-next-distclean:
+	rm -f $(DEPDIR)/neutrino-twin-next*
 
 #
 # neutrino-hd2-exp branch

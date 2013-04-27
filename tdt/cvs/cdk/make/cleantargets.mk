@@ -115,4 +115,4 @@ $(RPMLIST_DISTCLEAN): \
 	-rm RPMS/sh4/$(STLINUX)-sh4-$(subst -distclean,,$@)*
 	-rm .deps/$(subst -distclean,,$@)*
 
-#.PHONY: depsclean mostlyclean-local cdk-clean distclean-local list-clean
+.PHONY: depsclean mostlyclean-local cdk-clean distclean-local list-clean

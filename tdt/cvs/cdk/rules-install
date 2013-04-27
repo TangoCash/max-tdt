@@ -13,13 +13,16 @@
 ccache;make:install:DESTDIR=HOST
 cramfs;install:mkcramfs:HOST/bin
 ipkg_utils;make:install
-libtool;make:install
-pkg_config;make:install
+host_libtool;make:install
+host_pkgconfig;make:install
+host_automake;make:install
+host_autoconf;make:install
 
 #
 # root
 #
 busybox;make:install:CONFIG_PREFIX=TARGETS;shellconfigadd:/bin/ash:5
+#busybox;make:install:PREFIX=TARGETS
 lsb;install:-d:TARGETS/lib/lsb;install:-m644:init-functions:TARGETS/lib/lsb
 ipkg;make:install:DESTDIR=TARGETS
 module_init_tools;make:INSTALL=install:install:sbin_PROGRAMS="depmod modinfo":bin_PROGRAMS=:DESTDIR=TARGETS
@@ -27,26 +30,20 @@ module_init_tools;make:INSTALL=install:install:sbin_PROGRAMS="depmod modinfo":bi
 #
 # contrib apps
 #
-bzip2;make:install:PREFIX=TARGETS/usr
+bzip2;make:install:PREFIX=TARGETS
 grep;make:install:DESTDIR=TARGETS
 openrdate;make:install:DESTDIR=TARGETS
-e2fsprogs;rewrite-pkgconfig:lib/blkid/blkid.pc:lib/e2p/e2p.pc:lib/et/com_err.pc:lib/ext2fs/ext2fs.pc:lib/quota/quota.pc:lib/ss/ss.pc:lib/uuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/blkid.pc:TARGETS/usr/lib/pkgconfig/uuid.pc
-xfsprogs;make:install:prefix=TARGETS
 mc;make:install:DESTDIR=TARGETS
-sdparm;make:install:DESTDIR=TARGETS
 sg3_utils;make:install:DESTDIR=TARGETS
 console_data;make:install
 nano;make:install:DESTDIR=TARGETS
 rsync;make:install:DESTDIR=TARGETS
-lm_sensors;make:user_install:MACHINE=sh:PREFIX=/usr:MANDIR=/usr/share/man:DESTDIR=TARGETS
 fuse;rewrite-pkgconfig:fuse.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libfuse.la
 curlftpfs;make:install:DESTDIR=TARGETS
 fbset;install:-d:-m755:TARGETS/{usr/sbin,etc};install:-m755:fbset:TARGETS/usr/sbin;install:-m755:con2fbmap:TARGETS/usr/sbin;install:-m644:etc/fb.modes.ATI:TARGETS/etc/fb.modes
-utillinux;rewrite-pkgconfig:libblkid/blkid.pc:libuuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libuuid.la
 pngquant;install:-m755:pngquant:TARGETS/usr/bin
 mplayer;make:install INSTALLSTRIP="":DESTDIR=TARGETS
 mencoder;make:install INSTALLSTRIP="":DESTDIR=TARGETS
-jfsutils;make:install:mandir=/usr/share/man:DESTDIR=TARGETS
 opkg;rewrite-pkgconfig:libopkg.pc;make:install:DESTDIR=TARGETS;link:/usr/bin/opkg-cl:TARGETS/usr/bin/opkg;mkdir:TARGETS/var/opkg;rewrite-libtool:TARGETS/usr/lib/libopkg.la
 sysstat;make:install:DESTDIR=TARGETS
 imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/MagickWand.pc:wand/Wand.pc:Magick++/lib/ImageMagick++.pc:Magick++/lib/Magick++.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libMagickCore.la:TARGETS/usr/lib/libMagickWand.la:TARGETS/usr/lib/libMagick++.la
@@ -58,13 +55,13 @@ libao;rewrite-pkgconfig:libao.pc;make:install:prefix=TARGETS/usr;rewrite-libtool
 howl;rewrite-pkgconfig:howl.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libhowl.la:TARGETS/usr/lib/libhowl.la
 libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la
 libboost;remove:TARGETS/include/boost;move:boost:TARGETS/usr/include/boost
-#libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
-#libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;archive:TARGETS/usr/lib/libz_pic.a:*.o
+libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
 libreadline;make:install:DESTDIR=TARGETS
 libfreetype;rewrite-pkgconfig:builds/unix/freetype2.pc;make:install:libdir=TARGETS/usr/lib:includedir=TARGETS/usr/include:bindir=TARGETS/usr/bin:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libfreetype.la
 fontconfig;rewrite-pkgconfig:fontconfig.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libfontconfig.la;rewrite-dependency:TARGETS/usr/lib/libfontconfig.la
 lirc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/liblirc_client.la
 libjpeg;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libjpeg.la
+libjpeg_turbo;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libjpeg.la
 libpng12;rewrite-pkgconfig:libpng12.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng12.la
 libpng;rewrite-pkgconfig:libpng15.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng15.la
 libungif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libungif.la
@@ -82,9 +79,7 @@ libmng;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libmng.la;re
 lcms;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/liblcms.la
 directfb;rewrite-pkgconfig:directfb.pc;rewrite-pkgconfig:directfb-internal.pc;rewrite-pkgconfig:lib/direct/direct.pc;rewrite-pkgconfig:lib/fusion/fusion.pc;make:install:DESTDIR=TARGETS:LD=sh4-linux-ld;rewrite-libtool:TARGETS/usr/lib/libdirectfb.la;rewrite-libtool:TARGETS/usr/lib/libdirect.la;rewrite-libtool:TARGETS/usr/lib/libfusion.la;rewrite-dependency:TARGETS/usr/lib/libdirectfb.la;rewrite-dependency:TARGETS/usr/lib/libfusion.la
 dfbpp;make:install:DESTDIR=TARGETS;rewrite-pkgconfig:dfb++.pc;rewrite-libtool:TARGETS/usr/lib/libdfb++.la
-
 libstgles;make:install:DESTDIR=TARGETS
-
 webkitdfb;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libwebkitgtk-1.0.la;rewrite-dependency:TARGETS/usr/lib/libwebkitgtk-1.0.la;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/webkit-1.0.pc
 icu4c;make:install:DESTDIR=TARGETS
 enchant;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libenchant.la;rewrite-dependency:TARGETS/usr/lib/libenchant.la;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/enchant.pc
@@ -134,12 +129,14 @@ mediatomb;make:install:DESTDIR=TARGETS
 tinyxml;make:install:PREFIX=TARGETS/usr
 libnfs;make:install:DESTDIR=TARGETS
 taglib;make:install:DESTDIR=TARGETS
+libmms;make:install:DESTDIR=TARGETS
 
 #
 # PYTHON
 #
 libxml2;rewrite-pkgconfig:libxml-2.0.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxml2.la;rewrite-dependency:TARGETS/usr/lib/libxml2.la
 libxslt;rewrite-pkgconfig:libxslt.pc:libexslt.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libxslt.la:TARGETS/usr/lib/libexslt.la
+python;make:install:DESTDIR=TARGETS;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/python-2.7.pc
 
 #
 # GSTREAMER
@@ -179,15 +176,28 @@ libdpfax;make:install:DESTDIR=TARGETS
 libdpf;make:install:DESTDIR=TARGETS
 
 #
+# ide apps
+#
+dosfstools;make:install:PREFIX=TARGETS
+e2fsprogs;rewrite-pkgconfig:lib/blkid/blkid.pc:lib/e2p/e2p.pc:lib/et/com_err.pc:lib/ext2fs/ext2fs.pc:lib/quota/quota.pc:lib/ss/ss.pc:lib/uuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/blkid.pc:TARGETS/usr/lib/pkgconfig/uuid.pc
+hddtemp;make:install:DESTDIR=TARGETS
+hdparm;make:install:DESTDIR=TARGETS
+jfsutils;make:install:mandir=/usr/share/man:DESTDIR=TARGETS
+lm_sensors;make:user_install:MACHINE=sh:PREFIX=/usr:MANDIR=/usr/share/man:DESTDIR=TARGETS
+sdparm;make:install:DESTDIR=TARGETS
+parted;make:install
+util_linux;rewrite-pkgconfig:libblkid/blkid.pc:libuuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libuuid.la;rewrite-dependency:TARGETS/usr/lib/libblkid.la
+xfsprogs;make:install:prefix=TARGETS/usr
+
+#
 # net apps
 #
+autofs;make:install:INSTALLROOT=TARGETS
 portmap;make:install:BASEDIR=TARGETS;install:-m755:debian/init.d:TARGETS/etc/init.d/portmap
-#nfs_utils;make:install:DESTDIR=TARGETS;install:-m644:debian/nfs-common.default:TARGETS/etc/default/nfs-common;install:-m755:debian/nfs-common.init:TARGETS/etc/init.d/nfs-common;install:-m644:debian/nfs-kernel-server.default:TARGETS/etc/default/nfs-kernel-server;install:-m755:debian/nfs-kernel-server.init:TARGETS/etc/init.d/nfs-kernel-server;install:-m644:debian/etc.exports:TARGETS/etc/exports;remove:TARGETS/sbin/mount.nfs4:TARGETS/sbin/umount.nfs4
 nfs_utils;make:install:DESTDIR=TARGETS
 libnfsidmap;make:install
 libevent;make:install
 netkit-ftpx;make:install:DESTDIR=TARGETS
-autofs;make:install:INSTALLROOT=TARGETS
 vsftpd;make:install:PREFIX=TARGETS
 netkit_ftp;make:install:MANDIR=/usr/share/man:INSTALLROOT=TARGETS
 samba;make:install
@@ -196,7 +206,6 @@ lighttpd;make:install:DESTDIR=TARGETS
 wireless_tools;make:install:INSTALL_MAN=TARGETS/usr/share/man:PREFIX=TARGETS/usr
 wpa_supplicant;make:install:DESTDIR=TARGETS
 ethtool;make:install:DESTDIR=TARGETS
-
 
 
 >>?;rules-install-local

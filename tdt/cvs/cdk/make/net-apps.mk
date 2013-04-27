@@ -1,5 +1,5 @@
 #
-# NFS-UTILS
+# nfs_utils
 #
 $(DEPDIR)/nfs_utils.do_prepare: bootstrap e2fsprogs libevent libnfsidmap @DEPENDS_nfs_utils@
 	@PREPARE_nfs_utils@
@@ -35,74 +35,54 @@ $(DEPDIR)/%nfs_utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) $(DEPDIR)/nfs_
 #
 # libevent
 #
-$(DEPDIR)/libevent.do_prepare: bootstrap @DEPENDS_libevent@
+$(DEPDIR)/libevent: bootstrap @DEPENDS_libevent@
 	@PREPARE_libevent@
-	touch $@
-
-$(DEPDIR)/libevent.do_compile: $(DEPDIR)/libevent.do_prepare
 	cd @DIR_libevent@ && \
 		$(BUILDENV) \
-		./configure --prefix=$(prefix)/$*cdkroot/usr/ --host=$(target) && \
-		$(MAKE)
-	touch $@
-
-$(DEPDIR)/libevent: \
-$(DEPDIR)/%libevent: $(DEPDIR)/libevent.do_compile
-	cd @DIR_libevent@ && \
+		./configure
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=$(prefix)/$*cdkroot/usr/ && \
+		$(MAKE) && \
 		@INSTALL_libevent@
 	@DISTCLEANUP_libevent@
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 #
 # libnfsidmap
 #
-$(DEPDIR)/libnfsidmap.do_prepare: bootstrap @DEPENDS_libnfsidmap@
+$(DEPDIR)/libnfsidmap: bootstrap @DEPENDS_libnfsidmap@
 	@PREPARE_libnfsidmap@
-	touch $@
-
-$(DEPDIR)/libnfsidmap.do_compile: $(DEPDIR)/libnfsidmap.do_prepare
 	cd @DIR_libnfsidmap@ && \
 		$(BUILDENV) \
-		ac_cv_func_malloc_0_nonnull=yes ./configure --prefix=$(prefix)/$*cdkroot/usr/ --host=$(target) && \
-		$(MAKE)
-	touch $@
-
-$(DEPDIR)/libnfsidmap: \
-$(DEPDIR)/%libnfsidmap: $(DEPDIR)/libnfsidmap.do_compile
-	cd @DIR_libnfsidmap@ && \
+		ac_cv_func_malloc_0_nonnull=yes
+		./configure
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=$(prefix)/$*cdkroot/usr/ && \
+		$(MAKE) && \
 		@INSTALL_libnfsidmap@
 	@DISTCLEANUP_libnfsidmap@
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 #
 # vsftpd
 #
-$(DEPDIR)/vsftpd.do_prepare: bootstrap @DEPENDS_vsftpd@
+$(DEPDIR)/vsftpd: bootstrap @DEPENDS_vsftpd@
 	@PREPARE_vsftpd@
-	touch $@
-
-$(DEPDIR)/vsftpd.do_compile: $(DEPDIR)/vsftpd.do_prepare
 	cd @DIR_vsftpd@ && \
 		$(MAKE) clean && \
-		$(MAKE) $(MAKE_OPTS)
-	touch $@
-
-$(DEPDIR)/vsftpd: \
-$(DEPDIR)/%vsftpd: $(DEPDIR)/vsftpd.do_compile
-	cd @DIR_vsftpd@ && \
+		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_vsftpd@
 		cp $(buildprefix)/root/etc/vsftpd.conf $(targetprefix)/etc
 	@DISTCLEANUP_vsftpd@
-	[ "x$*" = "x" ] && touch $@ || true
-
-#
-# ETHTOOL
-#
-$(DEPDIR)/ethtool.do_prepare: bootstrap @DEPENDS_ethtool@
-	@PREPARE_ethtool@
 	touch $@
 
-$(DEPDIR)/ethtool.do_compile: $(DEPDIR)/ethtool.do_prepare
+#
+# ethtool
+#
+$(DEPDIR)/ethtool: bootstrap @DEPENDS_ethtool@
+	@PREPARE_ethtool@
 	cd @DIR_ethtool@ && \
 		$(BUILDENV) \
 		./configure \
@@ -110,18 +90,13 @@ $(DEPDIR)/ethtool.do_compile: $(DEPDIR)/ethtool.do_prepare
 			--host=$(target) \
 			--libdir=$(targetprefix)/usr/lib \
 			--prefix=/usr && \
-		$(MAKE)
-	touch $@
-
-$(DEPDIR)/ethtool: \
-$(DEPDIR)/%ethtool: $(DEPDIR)/ethtool.do_compile
-	cd @DIR_ethtool@ && \
+		$(MAKE) && \
 		@INSTALL_ethtool@
 	@DISTCLEANUP_ethtool@
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 #
-# SAMBA
+# samba
 #
 $(DEPDIR)/samba.do_prepare: bootstrap @DEPENDS_samba@
 	@PREPARE_samba@
@@ -167,28 +142,20 @@ samba_INITD_FILES = samba
 ETC_RW_FILES += samba/smb.conf init.d/samba
 
 #
-# NETIO
+# netio
 #
-$(DEPDIR)/netio.do_prepare: bootstrap @DEPENDS_netio@
+$(DEPDIR)/netio: bootstrap @DEPENDS_netio@
 	@PREPARE_netio@
-	touch $@
-
-$(DEPDIR)/netio.do_compile: $(DEPDIR)/netio.do_prepare
 	cd @DIR_netio@ && \
 		$(MAKE_OPTS) \
-		$(MAKE) all O=.o X= CFLAGS="-DUNIX" LIBS="$(LDFLAGS) -lpthread" OUT=-o
-	touch $@
-
-$(DEPDIR)/netio: \
-$(DEPDIR)/%netio: $(DEPDIR)/netio.do_compile
-	cd @DIR_netio@ && \
+		$(MAKE) all O=.o X= CFLAGS="-DUNIX" LIBS="$(LDFLAGS) -lpthread" OUT=-o && \
 		$(INSTALL) -d $(prefix)/$*cdkroot/usr/bin && \
 		@INSTALL_netio@
 	@DISTCLEANUP_netio@
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 #
-# LIGHTTPD
+# lighttpd
 #
 $(DEPDIR)/lighttpd.do_prepare: bootstrap @DEPENDS_lighttpd@
 	@PREPARE_lighttpd@
@@ -221,64 +188,40 @@ $(DEPDIR)/%lighttpd: $(DEPDIR)/lighttpd.do_compile
 	[ "x$*" = "x" ] && touch $@ || true
 
 #
-# NETKIT_FTP
+# netkit_ftp
 #
-$(DEPDIR)/netkit_ftp.do_prepare: bootstrap ncurses libreadline @DEPENDS_netkit_ftp@
+$(DEPDIR)/netkit_ftp: bootstrap ncurses libreadline @DEPENDS_netkit_ftp@
 	@PREPARE_netkit_ftp@
-	touch $@
-
-$(DEPDIR)/netkit_ftp.do_compile: $(DEPDIR)/netkit_ftp.do_prepare
 	cd @DIR_netkit_ftp@ && \
 		$(BUILDENV) \
 		./configure \
 			--with-c-compiler=$(target)-gcc \
 			--prefix=/usr \
 			--installroot=$(prefix)/$*cdkroot && \
-		$(MAKE)
-	touch $@
-
-$(DEPDIR)/netkit_ftp: \
-$(DEPDIR)/%netkit_ftp: $(DEPDIR)/netkit_ftp.do_compile
-	cd @DIR_netkit_ftp@ && \
+		$(MAKE) && \
 		@INSTALL_netkit_ftp@
 	@DISTCLEANUP_netkit_ftp@
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 #
-# WIRELESS_TOOLS
+# wireless_tools
 #
-$(DEPDIR)/wireless_tools.do_prepare: bootstrap @DEPENDS_wireless_tools@
+$(DEPDIR)/wireless_tools: bootstrap @DEPENDS_wireless_tools@
 	@PREPARE_wireless_tools@
-	touch $@
-
-$(DEPDIR)/wireless_tools.do_compile: $(DEPDIR)/wireless_tools.do_prepare
 	cd @DIR_wireless_tools@ && \
-		$(MAKE) $(MAKE_OPTS)
-	touch $@
-
-$(DEPDIR)/wireless_tools: \
-$(DEPDIR)/%wireless_tools: $(DEPDIR)/wireless_tools.do_compile
-	cd @DIR_wireless_tools@ && \
+		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_wireless_tools@
 	@DISTCLEANUP_wireless_tools@
-	[ "x$*" = "x" ] && touch $@ || true
-
-#
-# WPA_SUPPLICANT
-#
-$(DEPDIR)/wpa_supplicant.do_prepare: bootstrap wireless_tools openssl openssl-dev @DEPENDS_wpa_supplicant@
-	@PREPARE_wpa_supplicant@
 	touch $@
 
-$(DEPDIR)/wpa_supplicant.do_compile: Patches/wpa_supplicant.config $(DEPDIR)/wpa_supplicant.do_prepare
+#
+# wpa_supplicant
+#
+$(DEPDIR)/wpa_supplicant: bootstrap wireless_tools openssl openssl-dev @DEPENDS_wpa_supplicant@
+	@PREPARE_wpa_supplicant@
 	cd @DIR_wpa_supplicant@/wpa_supplicant && \
 		$(INSTALL) -m 644 ../../$(word 1,$^) .config && \
-		$(MAKE) $(MAKE_OPTS)
-	touch $@
-
-$(DEPDIR)/wpa_supplicant: \
-$(DEPDIR)/%wpa_supplicant: $(DEPDIR)/wpa_supplicant.do_compile
-	cd @DIR_wpa_supplicant@/wpa_supplicant && \
+		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_wpa_supplicant@
 	@DISTCLEANUP_wpa_supplicant@
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@

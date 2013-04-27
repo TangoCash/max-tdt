@@ -288,7 +288,7 @@ case "$REPLY" in
 	fi
 
 	ln -s ../multicom-3.2.4/include multicom
-	cd -
+	cd - &>/dev/null
 
 	cd ../driver/
 	if [ -L multicom ]; then
@@ -297,7 +297,7 @@ case "$REPLY" in
 
 	ln -s multicom-3.2.4 multicom
 	echo "export CONFIG_MULTICOM324=y" >> .config
-	cd -
+	cd - &>/dev/null
 	;;
 
 	2 ) MULTICOM="--enable-multicom406"
@@ -307,7 +307,7 @@ case "$REPLY" in
 	fi
 
 	ln -s ../multicom-4.0.6/include multicom
-	cd -
+	cd - &>/dev/null
 
 	cd ../driver/
 	if [ -L multicom ]; then
@@ -316,7 +316,7 @@ case "$REPLY" in
 
 	ln -s multicom-4.0.6 multicom
 	echo "export CONFIG_MULTICOM406=y" >> .config
-	cd -
+	cd - &>/dev/null
 	;;
 	*) MULTICOM="--enable-multicom324";;
 esac

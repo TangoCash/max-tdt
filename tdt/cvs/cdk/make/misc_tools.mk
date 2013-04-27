@@ -10,6 +10,7 @@ $(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev bzip2 libpng
 	libtoolize -f -c && \
 	$(CONFIGURE) --prefix= \
 	$(if $(MULTICOM324), --enable-multicom324) \
+	$(if $(MULTICOM406), --enable-multicom406) \
 	$(if $(EPLAYER3), --enable-eplayer3) 
 
 $(DEPDIR)/misc-tools: \
@@ -33,6 +34,7 @@ $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status
 	$(if $(CUBEREVO_2000HD), -DPLATFORM_CUBEREVO_2000HD) \
 	$(if $(CUBEREVO_9500HD), -DPLATFORM_CUBEREVO_9500HD) \
 	$(if $(ATEVIO7500), -DPLATFORM_ATEVIO7500) \
+	$(if $(TF7700), -DPLATFORM_TF7700) \
 	$(if $(HS7810A), -DPLATFORM_HS7810A) \
 	$(if $(HS7110), -DPLATFORM_HS7110) \
 	$(if $(WHITEBOX), -DPLATFORM_WHITEBOX) \

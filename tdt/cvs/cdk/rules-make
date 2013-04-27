@@ -16,15 +16,16 @@ linuxp0207;2.6.32.28_stm24_0207;linux-sh4-2.6.32.28_stm24_0207;stlinux24-host-ke
 linuxp0209;2.6.32.46_stm24_0209;linux-sh4-2.6.32.46_stm24_0209;stlinux24-host-kernel-source-sh4-2.6.32.46_stm24_0209-209.src.rpm
 linuxp0210;2.6.32.57_stm24_0210;linux-sh4-2.6.32.57_stm24_0210;stlinux24-host-kernel-source-sh4-2.6.32.57_stm24_0210-210.src.rpm
 linuxp0211;2.6.32.59_stm24_0211;linux-sh4-2.6.32.59_stm24_0211;stlinux24-host-kernel-source-sh4-2.6.32.59_stm24_0211-211.src.rpm
-linuxp0302;3.4.7_stm24_0302;linux-stm-3.4.7_stm24_0302;stlinux24-host-kernel-source-stm-3.4.7_stm24_0302-302.src.rpm
 squashfs;3.0;mksquashfs;squashfs3.0.tar.gz:mksquashfs_lzma.diff:lzma442.tar.bz2:lzma_zlib-stream.diff;dircreate:mksquashfs;extract:lzma442.tar.bz2;patch:lzma_zlib-stream.diff;extract:squashfs3.0.tar.gz;patch:mksquashfs_lzma.diff
 squashfs;4.0;mksquashfs;squashfs4.0.tar.gz:squashfs-tools-4.0-lzma.patch:lzma465.tar.bz2;dircreate:mksquashfs;extract:lzma465.tar.bz2;extract:squashfs4.0.tar.gz;patch:squashfs-tools-4.0-lzma.patch
 cramfs;1.1;cramfs-1.1;cramfs-1.1.tar.gz;extract:cramfs-1.1.tar.gz
 ipkg_utils;050831;ipkg-utils-050831;ipkg-utils-050831.tar.gz;extract:ipkg-utils-050831.tar.gz;patch:ipkg-utils.diff
 ipkg_host;0.99.163;ipkg-host;ipkg-0.99.163.tar.gz:ipkg-host.diff;dirextract:ipkg-0.99.163.tar.gz;patch:ipkg-host.diff
 host_python;2.7.3;host-python-2.7.3;Python-2.7.3.tar.bz2:python_2.7.3.diff;extract:Python-2.7.3.tar.bz2;move:Python-2.7.3:host-python-2.7.3;patch:python_2.7.3.diff
-libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;patch:libtool-2.4.2-duckbox-branding.patch
-pkg_config;0.28;pkg-config-0.28;pkg-config-0.28.tar.gz;extract:pkg-config-0.28.tar.gz
+host_libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;patch:libtool-2.4.2-duckbox-branding.patch
+host_pkgconfig;0.28;pkg-config-0.28;pkg-config-0.28.tar.gz;extract:pkg-config-0.28.tar.gz
+host_automake;1.11.6;automake-1.11.6;automake-1.11.6.tar.gz;extract:automake-1.11.6.tar.gz;patch:automake-py-compile-compile-only-optimized-byte-code.patch
+host_autoconf;2.64;autoconf-2.64;autoconf-2.64.tar.gz;extract:autoconf-2.64.tar.gz;patch:autoconf-remove-usr-local-lib-from-m4.patch
 
 #
 # ccache
@@ -46,28 +47,20 @@ module_init_tools;3.16;module-init-tools-3.16;module-init-tools-3.16.tar.bz2;ext
 bzip2;1.0.6;bzip2-1.0.6;bzip2-1.0.6.tar.gz:bzip2.diff;extract:bzip2-1.0.6.tar.gz;patch:bzip2.diff
 grep;2.5.1;grep-2.5.1;grep-2.5.1.tar.bz2:grep_2.5.1.ds2-6.diff.gz;extract:grep-2.5.1.tar.bz2
 openrdate;1.1.2;openrdate-1.1.2;openrdate-1.1.2.tar.gz;extract:openrdate-1.1.2.tar.gz
-e2fsprogs;1.42.6;e2fsprogs-1.42.6;e2fsprogs-1.42.6.tar.gz;extract:e2fsprogs-1.42.6.tar.gz;patch:e2fsprogs-1.42.4.patch
-xfsprogs;2.9.4-1;xfsprogs-2.9.4;xfsprogs_2.9.4-1.tar.gz:xfsprogs.diff;extract:xfsprogs_2.9.4-1.tar.gz;patch:xfsprogs.diff
-mc;4.8.0;mc-4.8.0;mc-4.8.0.tar.bz2:mc.diff;extract:mc-4.8.0.tar.bz2
-sdparm;1.07;sdparm-1.07;sdparm-1.07.tgz;extract:sdparm-1.07.tgz
+mc;4.8.1.7;mc-4.8.1.7;mc-4.8.1.7.tar.bz2;extract:mc-4.8.1.7.tar.bz2
 sg3_utils;1.24;sg3_utils-1.24;sg3_utils-1.24.tgz:sg3_utils.diff;extract:sg3_utils-1.24.tgz;patch:sg3_utils.diff
 console_data;1.03;console-data-1.03;console-data_1.03.orig.tar.gz;extract:console-data_1.03.orig.tar.gz
 nano;2.0.6;nano-2.0.6;nano-2.0.6.tar.gz;extract:nano-2.0.6.tar.gz
 rsync;2.6.9;rsync-2.6.9;rsync-2.6.9.tar.gz;extract:rsync-2.6.9.tar.gz
-lm_sensors;2.9.2;lm_sensors-2.9.2;lm_sensors-2.9.2.tar.gz;extract:lm_sensors-2.9.2.tar.gz
-fuse;2.9.0;fuse-2.9.0;fuse-2.9.0.tar.gz:fuse.diff;extract:fuse-2.9.0.tar.gz
+fuse;2.9.2;fuse-2.9.2;fuse-2.9.2.tar.gz;extract:fuse-2.9.2.tar.gz
 curlftpfs;0.9.2;curlftpfs-0.9.2;curlftpfs-0.9.2.tar.gz;extract:curlftpfs-0.9.2.tar.gz
 fbset;2.1;fbset-2.1;fbset_2.1.orig.tar.gz:fbset_2.1-6.diff.gz:fbset_2.1-fb.modes-ST.patch;extract:fbset_2.1.orig.tar.gz;patch:fbset_2.1-6.diff.gz;patch:fbset_2.1-fb.modes-ST.patch
-util_linux;2.12r;util-linux-2.12r;util-linux-2.12r.tar.bz2:util-linux_2.12r-12.deb.diff.gz:util-linux-stm.diff;extract:util-linux-2.12r.tar.bz2;patch:util-linux_2.12r-12.deb.diff.gz
-utillinux;2.21.2;util-linux-2.21.2;util-linux-2.21.2.tar.bz2;extract:util-linux-2.21.2.tar.bz2
 pngquant;1.1;pngquant-1.1;pngquant-1.1-src.tgz;extract:pngquant-1.1-src.tgz
 mplayer;1.0;mplayer-export-*;mplayer-export-snapshot.tar.bz2;extract:mplayer-export-snapshot.tar.bz2
 mencoder;1.0;mplayer-export-*;mplayer-export-snapshot.tar.bz2;extract:mplayer-export-snapshot.tar.bz2
-jfsutils;1.1.15;jfsutils-1.1.15;jfsutils-1.1.15.tar.gz;extract:jfsutils-1.1.15.tar.gz
 opkg;0.1.8+svnr587;opkg-0.1.8+svnr587;opkg-0.1.8+svnr587.tar.gz;extract:opkg-0.1.8+svnr587.tar.gz;patch:opkg-0.1.8-dont-segfault.diff
 sysstat;10.0.4;sysstat-10.0.4;sysstat-10.0.4.tar.gz;extract:sysstat-10.0.4.tar.gz
 hotplug_e2;1.0;hotplug-e2-helper;;
-autofs;4.1.4;autofs-4.1.4;autofs-4.1.4.tar.gz;extract:autofs-4.1.4.tar.gz;patch:autofs-4.1.4-misc-fixes.patch;patch:autofs-4.1.4-multi-parse-fix.patch;patch:autofs-4.1.4-non-replicated-ping.patch;patch:autofs-4.1.4-locking-fix-1.patch;patch:autofs-4.1.4-cross.patch;patch:autofs-4.1.4-Makefile.rules-cross.patch;patch:autofs-4.1.4-install.patch;patch:autofs-4.1.4-auto.net-sort-option-fix.patch;patch:autofs-4.1.4-autofs-additional-distros.patch;patch:autofs-4.1.4-no-bash.patch;patch:autofs-4.1.4-autofs-add-hotplug.patch;patch:autofs-4.1.4-no_man.patch
 imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:ImageMagick-6.7.7-7.tar.bz2
 
 #
@@ -79,15 +72,16 @@ libopenthreads;1.00;openthreads;;
 libboost;boost-1.53.0;boost_1_53_0;boost_1_53_0.tar.bz2;extract:boost_1_53_0.tar.bz2;patch:libboost.diff
 libz;1.2.7;zlib-1.2.7;zlib-1.2.7.tar.bz2;extract:zlib-1.2.7.tar.bz2;patch:zlib-1.2.7.patch
 libreadline;5.2;readline-5.2;readline-5.2.tar.gz;extract:readline-5.2.tar.gz;patch:readline-5.2-termcap_shlibs.patch
-libfreetype;2.3.12;freetype-2.3.12;freetype-2.3.12.tar.bz2:libfreetype-2.3.12.diff;extract:freetype-2.3.12.tar.bz2;patch:libfreetype-2.3.12.diff
+libfreetype;2.4.11;freetype-2.4.11;freetype-2.4.11.tar.bz2;extract:freetype-2.4.11.tar.bz2
 lirc;0.9.0;lirc-0.9.0;lirc-0.9.0.tar.gz:lirc-0.9.0-try_first_last_remote.diff;extract:lirc-0.9.0.tar.gz;patch:lirc-0.9.0-try_first_last_remote.diff
 libjpeg;8d;jpeg-8d;jpegsrc.v8d.tar.gz:jpeg.diff;extract:jpegsrc.v8d.tar.gz;patch:jpeg.diff
+libjpeg_turbo;1.2.1;libjpeg-turbo-1.2.1;libjpeg-turbo-1.2.1.tar.gz;extract:libjpeg-turbo-1.2.1.tar.gz
 libpng12;1.2.50;libpng-1.2.50;libpng-1.2.50.tar.bz2;extract:libpng-1.2.50.tar.bz2
 libpng;1.5.6;libpng-1.5.6;libpng-1.5.6.tar.gz;extract:libpng-1.5.6.tar.gz;patch:libpng-1.5.6-workaround_for_stmfb_alpha_error.patch
 libungif;4.1.4;libungif-4.1.4;libungif-4.1.4.tar.bz2;extract:libungif-4.1.4.tar.bz2
 libgif;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
 libgif_current;5.0.2;giflib-5.0.2;giflib-5.0.2.tar.bz2;extract:giflib-5.0.2.tar.bz2
-libcurl;7.30.0;curl-7.30.0;curl-7.30.0.tar.gz;extract:curl-7.30.0.tar.gz
+libcurl;7.30.0;curl-7.30.0;curl-7.30.0.tar.bz2;extract:curl-7.30.0.tar.bz2
 libfribidi;0.19.5;fribidi-0.19.5;fribidi-0.19.5.tar.bz2;extract:fribidi-0.19.5.tar.bz2
 libsigc;1.2.5;libsigc++-1.2.5;libsigc++-1.2.5.tar.gz;extract:libsigc++-1.2.5.tar.gz
 libmad;0.15.1b;libmad-0.15.1b;libmad-0.15.1b.tar.gz:libmad.diff;extract:libmad-0.15.1b.tar.gz;patch:libmad.diff
@@ -117,7 +111,7 @@ libdvdcss;1.2.12;libdvdcss-1.2.12;libdvdcss-1.2.12.tar.bz2;extract:libdvdcss-1.2
 libdvdnav;4.1.3;libdvdnav-4.1.3;libdvdnav-4.1.3.tar.bz2:libdvdnav_4.1.3-3.diff;extract:libdvdnav-4.1.3.tar.bz2;patch:libdvdnav_4.1.3-3.diff
 libdvdread;4.1.3;libdvdread-4.1.3;libdvdread-4.1.3.tar.bz2:libdvdread_4.1.3-5.diff;extract:libdvdread-4.1.3.tar.bz2;patch:libdvdread_4.1.3-5.diff
 ffmpeg;1.2;ffmpeg-1.2;ffmpeg-1.2.tar.gz:ffmpeg-1.0.patch;extract:ffmpeg-1.2.tar.gz;patch:ffmpeg-1.0.patch
-libass;0.10.0;libass-0.10.0;libass-0.10.0.tar.gz;extract:libass-0.10.0.tar.gz
+libass;0.10.1;libass-0.10.1;libass-0.10.1.tar.gz;extract:libass-0.10.1.tar.gz
 libcap;2.22;libcap-2.22;libcap-2.22.tar.bz2;extract:libcap-2.22.tar.bz2
 libogg;1.2.2;libogg-1.2.2;libogg-1.2.2.tar.gz;extract:libogg-1.2.2.tar.gz
 libflac;1.2.1;flac-1.2.1;flac-1.2.1.tar.gz:flac-1.2.1.patch;extract:flac-1.2.1.tar.gz;patch:flac-1.2.1.patch
@@ -153,6 +147,7 @@ mediatomb;0.12.1;mediatomb-0.12.1;mediatomb-0.12.1.tar.gz;extract:mediatomb-0.12
 tinyxml;2.6.2;tinyxml2.6.2;tinyxml_2_6_2.tar.gz;extract:tinyxml_2_6_2.tar.gz;move:tinyxml:tinyxml2.6.2;patch:tinyxml2.6.2.patch
 libnfs;c0ebf57b21;libnfs-c0ebf57b21;libnfs.git;extract:libnfs.git
 taglib;1.8;taglib-1.8;taglib-1.8.tar.gz;extract:taglib-1.8.tar.gz
+libmms;0.6.2;libmms-0.6.2;libmms-0.6.2.tar.gz;extract:libmms-0.6.2.tar.gz
 
 #
 # PYTHON
@@ -164,11 +159,11 @@ lxml;2.2.8;lxml-2.2.8;lxml-2.2.8.tgz;extract:lxml-2.2.8.tgz
 setuptools;0.6c11;setuptools-0.6c11;setuptools-0.6c11.tar.gz;extract:setuptools-0.6c11.tar.gz
 twisted;12.1.0;Twisted-12.1.0;Twisted-12.1.0.tar.bz2;extract:Twisted-12.1.0.tar.bz2
 twistedweb2;8.1.0;TwistedWeb2-8.1.0;TwistedWeb2-8.1.0.tar.bz2;extract:TwistedWeb2-8.1.0.tar.bz2
-pilimaging;1.1.7;Imaging-1.1.7;Imaging-1.1.7.tar.gz;extract:Imaging-1.1.7.tar.gz
+twistedmail;12.2.0;TwistedMail-12.2.0;TwistedMail-12.2.0.tar.bz2;extract:TwistedMail-12.2.0.tar.bz2
+pilimaging;1.1.7;Imaging-1.1.7;Imaging-1.1.7.tar.gz;extract:Imaging-1.1.7.tar.gz;patch:Imaging-1.1.7-crosscompiling.patch
 pycrypto;2.5;pycrypto-2.5;pycrypto-2.5.tar.gz;extract:pycrypto-2.5.tar.gz;patch:python-pycrypto-no-usr-include.patch
 pyopenssl;0.11;pyOpenSSL-0.11;pyOpenSSL-0.11.tar.gz;extract:pyOpenSSL-0.11.tar.gz
 pyusb;1.0.0a2;pyusb-1.0.0a2;pyusb-1.0.0a2.tar.gz;extract:pyusb-1.0.0a2.tar.gz
-#python;2.6.6;python-2.6.6;Python-2.6.6.tar.bz2:python_2.6.6.diff;extract:Python-2.6.6.tar.bz2;move:Python-2.6.6:python-2.6.6;patch:python_2.6.6.diff;patch:python_2.6.6-ctypes-libffi-fix.diff;patch:python_2.6.6-pgettext.diff
 python;2.7.3;python-2.7.3;Python-2.7.3.tar.bz2:python_2.7.3.diff;extract:Python-2.7.3.tar.bz2;move:Python-2.7.3:python-2.7.3;patch:python_2.7.3.diff;patch:python_2.7.3-ctypes-libffi-fix.diff;patch:python_2.7.3-pgettext.diff
 pythonwifi;0.5.0;python-wifi-0.5.0;python-wifi-0.5.0.tar.bz2;extract:python-wifi-0.5.0.tar.bz2
 pythoncheetah;2.4.4;Cheetah-2.4.4;Cheetah-2.4.4.tar.gz;extract:Cheetah-2.4.4.tar.gz
@@ -226,6 +221,21 @@ libdpfax;ax;dpf-ax;dpf-ax.svn:libdpfax.diff;extract:dpf-ax.svn
 libdpf;0.12;dpflib-0.12;dpflib-0.12.tar.gz;extract:dpflib-0.12.tar.gz
 
 #
+# ide apps
+#
+autofs;4.1.4;autofs-4.1.4;autofs-4.1.4.tar.gz;extract:autofs-4.1.4.tar.gz;patch:autofs-4.1.4-misc-fixes.patch;patch:autofs-4.1.4-multi-parse-fix.patch;patch:autofs-4.1.4-non-replicated-ping.patch;patch:autofs-4.1.4-locking-fix-1.patch;patch:autofs-4.1.4-cross.patch;patch:autofs-4.1.4-Makefile.rules-cross.patch;patch:autofs-4.1.4-install.patch;patch:autofs-4.1.4-auto.net-sort-option-fix.patch;patch:autofs-4.1.4-autofs-additional-distros.patch;patch:autofs-4.1.4-no-bash.patch;patch:autofs-4.1.4-autofs-add-hotplug.patch;patch:autofs-4.1.4-no_man.patch
+dosfstools;3.0.16;dosfstools-3.0.16;dosfstools-3.0.16.tar.gz;extract:dosfstools-3.0.16.tar.gz
+e2fsprogs;1.42.7;e2fsprogs-1.42.7;e2fsprogs-1.42.7.tar.gz;extract:e2fsprogs-1.42.7.tar.gz;patch:e2fsprogs-remove.ldconfig.call.patch
+hddtemp;0.3-beta15;hddtemp-0.3-beta15;hddtemp-0.3-beta15.tar.bz2;extract:hddtemp-0.3-beta15.tar.bz2
+hdparm;9.43;hdparm-9.43;hdparm-9.43.tar.gz;extract:hdparm-9.43.tar.gz
+jfsutils;1.1.15;jfsutils-1.1.15;jfsutils-1.1.15.tar.gz;extract:jfsutils-1.1.15.tar.gz
+lm_sensors;2.9.2;lm_sensors-2.9.2;lm_sensors-2.9.2.tar.gz;extract:lm_sensors-2.9.2.tar.gz
+sdparm;1.07;sdparm-1.07;sdparm-1.07.tgz;extract:sdparm-1.07.tgz
+parted;3.0;parted-3.0;parted-3.0.tar.gz;extract:parted-3.0.tar.gz
+util_linux;2.21.2;util-linux-2.21.2;util-linux-2.21.2.tar.bz2;extract:util-linux-2.21.2.tar.bz2
+xfsprogs;3.1.8;xfsprogs-3.1.8;xfsprogs-3.1.8.tar.gz;extract:xfsprogs-3.1.8.tar.gz
+
+#
 # net apps
 #
 portmap;6.0.0;portmap-6.0.0;portmap_6.0.0.orig.tar.gz:portmap_6.0.diff:portmap_6.0.0-2.diff.gz;extract:portmap_6.0.0.orig.tar.gz;patch:portmap_6.0.diff
@@ -242,7 +252,6 @@ wireless_tools;29;wireless_tools.29;wireless_tools.29.tar.gz;extract:wireless_to
 wpa_supplicant;0.7.3;wpa_supplicant-0.7.3;wpa_supplicant-0.7.3.tar.gz;extract:wpa_supplicant-0.7.3.tar.gz
 #wpa_supplicant;1.0;wpa_supplicant-1.0;wpa_supplicant-1.0.tar.gz;extract:wpa_supplicant-1.0.tar.gz
 ethtool;6;ethtool-6;ethtool-6.tar.gz;extract:ethtool-6.tar.gz
-
 
 
 >>?;rules-make-local

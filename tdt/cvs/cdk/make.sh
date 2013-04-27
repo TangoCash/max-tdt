@@ -151,7 +151,6 @@ esac
 ##############################################
 
 echo -e "\nKernel:"
-echo " Maintained:"
 echo "   1) STM 24 P0207"
 echo "   2) STM 24 P0209"
 echo "   3) STM 24 P0210"

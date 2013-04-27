@@ -91,8 +91,7 @@ $(SPLASHUTILS_RPM): \
 	export PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(SPLASHUTILS_SPEC)
 
-$(DEPDIR)/$(SPLASHUTILS): \
-$(DEPDIR)/%$(SPLASHUTILS): $(SPLASHUTILS_RPM)
+$(DEPDIR)/$(SPLASHUTILS): $(SPLASHUTILS_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
 	cp root/etc/splash/luxisri.ttf $(targetprefix)/etc/splash/ && \
@@ -100,14 +99,13 @@ $(DEPDIR)/%$(SPLASHUTILS): $(SPLASHUTILS_RPM)
 	$(LN_SF) liquid_theme $(targetprefix)/etc/splash/default && \
 	$(INSTALL_DIR) $(targetprefix)/lib/lsb && \
 	cp root/lib/lsb/splash-functions $(targetprefix)/lib/lsb/ && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+	touch $@
 
 #
 # STSLAVE
 #
 STSLAVE := stslave
-STSLAVE_VERSION := 0.7-25
+STSLAVE_VERSION := 0.7-27
 STSLAVE_SPEC := stm-target-$(STSLAVE).spec
 STSLAVE_SPEC_PATCH :=
 STSLAVE_PATCHES :=
@@ -115,28 +113,25 @@ STSLAVE_PATCHES :=
 STSLAVE_RPM := RPMS/sh4/$(STLINUX)-sh4-$(STSLAVE)-$(STSLAVE_VERSION).sh4.rpm
 
 $(STSLAVE_RPM): \
-		$(if $(STSLAVE_SPEC_PATCH),Patches/$(STSLAVE_SPEC_PATCH)) \
-		$(if $(STSLAVE_PATCHES),$(STSLAVE_PATCHES:%=Patches/%)) \
+		$(addprefix Patches/,$(STSLAVE_SPEC_PATCH) $(STSLAVE_PATCHES)) \
 		$(archivedir)/$(STLINUX)-target-$(STSLAVE)-$(STSLAVE_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(STSLAVE_SPEC_PATCH),( cd SPECS && patch -p1 $(STSLAVE_SPEC) < $(buildprefix)/Patches/$(STSLAVE_SPEC_PATCH) ) &&) \
-	$(if $(STSLAVE_PATCHES),cp $(STSLAVE_PATCHES:%=Patches/%) SOURCES/ &&) \
+	$(if $(STSLAVE_PATCHES),cp $(addprefix Patches/,$(STSLAVE_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(STSLAVE_SPEC)
 
-$(DEPDIR)/$(STSLAVE): \
-$(DEPDIR)/%$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
+$(DEPDIR)/$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+	touch $@
 
 #
 # OPENSSL
 #
 OPENSSL := openssl
 OPENSSL_DEV := openssl-dev
-OPENSSL_VERSION := 0.9.8l-16
+OPENSSL_VERSION := 1.0.1e-29
 OPENSSL_SPEC := stm-target-$(OPENSSL).spec
 OPENSSL_SPEC_PATCH :=
 OPENSSL_PATCHES :=
@@ -145,38 +140,33 @@ OPENSSL_RPM := RPMS/sh4/$(STLINUX)-sh4-$(OPENSSL)-$(OPENSSL_VERSION).sh4.rpm
 OPENSSL_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(OPENSSL_DEV)-$(OPENSSL_VERSION).sh4.rpm
 
 $(OPENSSL_RPM) $(OPENSSL_DEV_RPM): \
-		$(if $(OPENSSL_SPEC_PATCH),Patches/$(OPENSSL_SPEC_PATCH)) \
-		$(if $(OPENSSL_PATCHES),$(OPENSSL_PATCHES:%=Patches/%)) \
+		$(addprefix Patches/,$(OPENSSL_SPEC_PATCH) $(OPENSSL_PATCHES)) \
 		$(archivedir)/$(STLINUX)-target-$(OPENSSL)-$(OPENSSL_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(OPENSSL_SPEC_PATCH),( cd SPECS && patch -p1 $(OPENSSL_SPEC) < $(buildprefix)/Patches/$(OPENSSL_SPEC_PATCH) ) &&) \
-	$(if $(OPENSSL_PATCHES),cp $(OPENSSL_PATCHES:%=Patches/%) SOURCES/ &&) \
+	$(if $(OPENSSL_PATCHES),cp $(addprefix Patches/,$(OPENSSL_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(OPENSSL_SPEC)
 
-$(DEPDIR)/$(OPENSSL): \
-$(DEPDIR)/%$(OPENSSL): $(OPENSSL_RPM)
+$(DEPDIR)/$(OPENSSL): $(OPENSSL_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
+	touch $@
 	sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr," $(targetprefix)/usr/lib/pkgconfig/libcrypto.pc
 	sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr," $(targetprefix)/usr/lib/pkgconfig/libssl.pc
 	sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr," $(targetprefix)/usr/lib/pkgconfig/openssl.pc
-	@TUXBOX_YAUD_CUSTOMIZE@
 
-$(DEPDIR)/$(OPENSSL_DEV): \
-$(DEPDIR)/%$(OPENSSL_DEV): %$(OPENSSL) $(OPENSSL_DEV_RPM)
+$(DEPDIR)/$(OPENSSL_DEV): $(OPENSSL) $(OPENSSL_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@
 
 #
 # ALSALIB
 #
 ALSALIB := alsa-lib
 ALSALIB_DEV := alsa-lib-dev
-ALSALIB_VERSION := 1.0.21a-23
+ALSALIB_VERSION := 1.0.21a-24
 ALSALIB_SPEC := stm-target-$(ALSALIB).spec
 ALSALIB_SPEC_PATCH :=
 ALSALIB_PATCHES :=
@@ -185,34 +175,29 @@ ALSALIB_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSALIB)-$(ALSALIB_VERSION).sh4.rpm
 ALSALIB_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSALIB_DEV)-$(ALSALIB_VERSION).sh4.rpm
 
 $(ALSALIB_RPM) $(ALSALIB_DEV_RPM): \
-		$(if $(ALSALIB_SPEC_PATCH),Patches/$(ALSALIB_SPEC_PATCH)) \
-		$(if $(ALSALIB_PATCHES),$(ALSALIB_PATCHES:%=Patches/%)) \
+		$(addprefix Patches/,$(ALSALIB_SPEC_PATCH) $(ALSALIB_PATCHES)) \
 		$(archivedir)/$(STLINUX)-target-$(ALSALIB)-$(ALSALIB_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(ALSALIB_SPEC_PATCH),( cd SPECS && patch -p1 $(ALSALIB_SPEC) < $(buildprefix)/Patches/$(ALSALIB_SPEC_PATCH) ) &&) \
-	$(if $(ALSALIB_PATCHES),cp $(ALSALIB_PATCHES:%=Patches/%) SOURCES/ &&) \
+	$(if $(ALSALIB_PATCHES),cp $(addprefix Patches/,$(ALSALIB_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(ALSALIB_SPEC)
 
-$(DEPDIR)/$(ALSALIB): \
-$(DEPDIR)/%$(ALSALIB): $(ALSALIB_RPM)
+$(DEPDIR)/$(ALSALIB): $(ALSALIB_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@
 
-$(DEPDIR)/$(ALSALIB_DEV): \
-$(DEPDIR)/%$(ALSALIB_DEV): %$(ALSALIB) $(ALSALIB_DEV_RPM)
+$(DEPDIR)/$(ALSALIB_DEV): $(ALSALIB) $(ALSALIB_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@
 
 #
 # ALSAUTILS
 #
 ALSAUTILS := alsa-utils
-ALSAUTILS_VERSION := 1.0.16-16
+ALSAUTILS_VERSION := 1.0.21-17
 ALSAUTILS_SPEC := stm-target-$(ALSAUTILS).spec
 ALSAUTILS_SPEC_PATCH :=
 ALSAUTILS_PATCHES :=
@@ -220,29 +205,26 @@ ALSAUTILS_PATCHES :=
 ALSAUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAUTILS)-$(ALSAUTILS_VERSION).sh4.rpm
 
 $(ALSAUTILS_RPM): \
-		$(if $(ALSAUTILS_SPEC_PATCH),Patches/$(ALSAUTILS_SPEC_PATCH)) \
-		$(if $(ALSAUTILS_PATCHES),$(ALSAUTILS_PATCHES:%=Patches/%)) \
+		$(addprefix Patches/,$(ALSAUTILS_SPEC_PATCH) $(ALSAUTILS_PATCHES)) \
 		$(NCURSES_DEV) $(ALSALIB_DEV) \
 		$(archivedir)/$(STLINUX)-target-$(ALSAUTILS)-$(ALSAUTILS_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(ALSAUTILS_SPEC_PATCH),( cd SPECS && patch -p1 $(ALSAUTILS_SPEC) < $(buildprefix)/Patches/$(ALSAUTILS_SPEC_PATCH) ) &&) \
-	$(if $(ALSAUTILS_PATCHES),cp $(ALSAUTILS_PATCHES:%=Patches/%) SOURCES/ &&) \
+	$(if $(ALSAUTILS_PATCHES),cp $(addprefix Patches/,$(ALSAUTILS_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --nodeps --target=sh4-linux SPECS/$(ALSAUTILS_SPEC)
 
-$(DEPDIR)/$(ALSAUTILS): \
-$(DEPDIR)/%$(ALSAUTILS): $(ALSAUTILS_RPM)
+$(DEPDIR)/$(ALSAUTILS): $(ALSAUTILS_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@
 
 #
 # ALSAPLAYER
 #
 ALSAPLAYER := alsaplayer
 ALSAPLAYER_DEV := alsaplayer-dev
-ALSAPLAYER_VERSION := 0.99.77-15
+ALSAPLAYER_VERSION := 0.99.77-20
 ALSAPLAYER_SPEC := stm-target-$(ALSAPLAYER).spec
 ALSAPLAYER_SPEC_PATCH :=
 ALSAPLAYER_PATCHES :=
@@ -251,27 +233,22 @@ ALSAPLAYER_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAPLAYER)-$(ALSAPLAYER_VERSION).sh
 ALSAPLAYER_DEV_RPM := RPMS/sh4/$(STLINUX)-sh4-$(ALSAPLAYER_DEV)-$(ALSAPLAYER_VERSION).sh4.rpm
 
 $(ALSAPLAYER_RPM) $(ALSAPLAYER_DEV_RPM): \
-		$(if $(ALSAPLAYER_SPEC_PATCH),Patches/$(ALSAPLAYER_SPEC_PATCH)) \
-		$(if $(ALSAPLAYER_PATCHES),$(ALSAPLAYER_PATCHES:%=Patches/%)) \
+		$(addprefix Patches/,$(ALSAPLAYER_SPEC_PATCH) $(ALSAPLAYER_PATCHES)) \
 		libmad libid3tag \
 		$(archivedir)/$(STLINUX)-target-$(ALSAPLAYER)-$(ALSAPLAYER_VERSION).src.rpm
 	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(ALSAPLAYER_SPEC_PATCH),( cd SPECS && patch -p1 $(ALSAPLAYER_SPEC) < $(buildprefix)/Patches/$(ALSAPLAYER_SPEC_PATCH) ) &&) \
-	$(if $(ALSAPLAYER_PATCHES),cp $(ALSAPLAYER_PATCHES:%=Patches/%) SOURCES/ &&) \
+	$(if $(ALSAPLAYER_PATCHES),cp $(addprefix Patches/,$(ALSAPLAYER_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	export PKG_CONFIG_PATH=$(targetprefix)/usr/include/pkgconfig && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(ALSAPLAYER_SPEC)
 
-$(DEPDIR)/$(ALSAPLAYER): \
-$(DEPDIR)/%$(ALSAPLAYER): $(ALSAPLAYER_RPM)
+$(DEPDIR)/$(ALSAPLAYER): $(ALSAPLAYER_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@
 
-$(DEPDIR)/$(ALSAPLAYER_DEV): \
-$(DEPDIR)/%$(ALSAPLAYER_DEV): $(ALSAPLAYER_DEV_RPM)
+$(DEPDIR)/$(ALSAPLAYER_DEV): $(ALSAPLAYER_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
-	[ "x$*" = "x" ] && touch -r $(lastword $^) $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@

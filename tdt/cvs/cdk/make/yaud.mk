@@ -2,85 +2,81 @@
 # BOOTSTRAP
 #
 $(DEPDIR)/bootstrap: \
-$(DEPDIR)/%bootstrap: \
-	%$(FILESYSTEM) \
-	| %$(GLIBC) \
-	%$(CROSS_LIBGCC) \
-	%$(GLIBC) \
-	%$(GLIBC_DEV) \
-	%$(BINUTILS) \
-	%$(BINUTILS_DEV) \
-	%$(GMP) \
-	%$(MPFR) \
-	%$(MPC) \
-	%$(ZLIB) \
-	%$(ZLIB_DEV) \
-	%$(ZLIB_BIN) \
-	%$(LIBSTDC) \
-	%$(LIBSTDC_DEV)
-	@[ "x$*" = "x" ] && touch $@ || true
+	$(FILESYSTEM) \
+	| $(GLIBC_DEV) \
+	$(CROSS_LIBGCC) \
+	libz \
+	$(BINUTILS) \
+	$(BINUTILS_DEV) \
+	$(GMP) \
+	$(MPFR) \
+	$(MPC) \
+	$(LIBSTDC) \
+	$(LIBSTDC_DEV)
+	touch $@
 
 #
 # BARE-OS
 #
 $(DEPDIR)/bare-os: \
-$(DEPDIR)/%bare-os: \
-	%bootstrap \
-	%$(LIBTERMCAP) \
-	%$(NCURSES_BASE) \
-	%$(NCURSES) \
-	%$(BASE_PASSWD) \
-	%$(MAKEDEV) \
-	%$(BASE_FILES) \
-	%module_init_tools \
-	%busybox \
+	bootstrap \
+	$(LIBTERMCAP) \
+	$(NCURSES_BASE) \
+	$(NCURSES) \
+	$(NCURSES_DEV) \
+	$(BASE_PASSWD) \
+	$(MAKEDEV) \
+	$(BASE_FILES) \
+	module_init_tools \
+	busybox \
 	\
-	%$(SYSVINIT) \
-	%$(SYSVINITTOOLS) \
-	%$(INITSCRIPTS) \
-	%$(NETBASE) \
-	%$(BC) \
-	%$(DISTRIBUTIONUTILS) \
+	$(INITSCRIPTS) \
+	$(NETBASE) \
+	$(BC) \
+	$(SYSVINIT) \
+	$(SYSVINITTOOLS) \
+	$(DISTRIBUTIONUTILS) \
 	\
-	%u-boot-utils \
-	%diverse-tools
-#	%openrdate
+	u-boot-utils \
+	diverse-tools
+	touch $@
+
+#	openrdate
 
 #
 # NET-UTILS
 #
 $(DEPDIR)/net-utils: \
-$(DEPDIR)/%net-utils: \
-	%$(NETKIT_FTP) \
-	%autofs \
-	%portmap \
-	%$(NFSSERVER) \
-	%vsftpd \
-	%$(CIFS)
-#	%opkg
+	$(NETKIT_FTP) \
+	autofs \
+	portmap \
+	$(NFSSERVER) \
+	vsftpd \
+	$(CIFS)
+	touch $@
+#	opkg
 
 #
 # DISK-UTILS
 #
 $(DEPDIR)/disk-utils: \
-$(DEPDIR)/%disk-utils: \
-	%e2fsprogs \
-	%$(XFSPROGS) \
-	%util-linux \
-	%jfsutils \
-	%$(SG3)
+	e2fsprogs \
+	$(XFSPROGS) \
+	jfsutils \
+	$(SG3)
+	touch $@
 
 #
 # YAUD NONE
 #
-yaud-none: \
+$(DEPDIR)/yaud-none: \
 	bare-os \
 	linux-kernel \
 	net-utils \
 	disk-utils \
 	driver \
 	misc-tools
-	@TUXBOX_YAUD_CUSTOMIZE@
+	touch $@
 
 #
 # YAUD
@@ -91,6 +87,10 @@ yaud-neutrino: yaud-none lirc stslave \
 
 yaud-neutrino-twin: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino-twin release_neutrino_nightly
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-twin-next: yaud-none lirc stslave \
+		boot-elf remote firstboot neutrino-twin-next release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-mp: yaud-none lirc stslave \
@@ -111,4 +111,3 @@ yaud-enigma2-pli-nightly: yaud-none host_python lirc \
 
 yaud-xbmc-nightly: yaud-none host_python boot-elf firstboot xbmc-nightly release_xbmc
 	@TUXBOX_YAUD_CUSTOMIZE@
-

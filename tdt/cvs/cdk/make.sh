@@ -5,9 +5,10 @@ if [ "$1" == -h ] || [ "$1" == --help ]; then
  echo "Parameter 2: kernel (1-4)"
  echo "Parameter 3: debug (y/N)"
  echo "Parameter 4: player (1-2)"
- echo "Parameter 5: Media Framework (1-3)"
- echo "Parameter 6: External LCD support (1-2)"
- echo "Parameter 7: Graphic Framework (1-2)"
+ echo "Parameter 5: Multicom (1-2)"
+ echo "Parameter 6: Media Framework (1-3)"
+ echo "Parameter 7: External LCD support (1-2)"
+ echo "Parameter 8: Graphic Framework (1-2)"
  exit
 fi
 
@@ -153,7 +154,6 @@ echo -e "\nKernel:"
 echo " Maintained:"
 echo "   1) STM 24 P0207"
 echo "   2) STM 24 P0209"
-echo " Experimental:"
 echo "   3) STM 24 P0210"
 echo "   4) STM 24 P0211"
 case $2 in
@@ -236,23 +236,6 @@ case "$REPLY" in
 		fi
 		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - &>/dev/null
-		MULTICOM="--enable-multicom324"
-		cd ../driver/include/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s ../multicom-3.2.4/include multicom
-		cd - &>/dev/null
-
-		cd ../driver/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s multicom-3.2.4 multicom
-		echo "export CONFIG_MULTICOM324=y" >> .config
-		cd - &>/dev/null
 	;;
 	2) PLAYER="--enable-player191"
 		cd ../driver/include/
@@ -281,26 +264,64 @@ case "$REPLY" in
 		fi
 		ln -s stmfb-3.1_stm24_0104 stmfb
 		cd - &>/dev/null
-		MULTICOM="--enable-multicom324"
-		cd ../driver/include/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s ../multicom-3.2.4/include multicom
-		cd - &>/dev/null
-
-		cd ../driver/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s multicom-3.2.4 multicom
-		echo "export CONFIG_MULTICOM324=y" >> .config
-		cd - &>/dev/null
 	;;
 	*) PLAYER="--enable-player191";;
 esac
+
+##############################################
+
+echo -e "\nMulticom:"
+echo "   1) Multicom 3.2.4 (Player191)"
+echo "   2) Multicom 4.0.6 (Player191)"
+case $5 in
+	[1-2]) REPLY=$5
+	echo -e "\nSelected multicom: $REPLY\n"
+	;;
+	*)
+	read -p "Select multicom (1-2)? ";;
+esac
+
+case "$REPLY" in
+	1) MULTICOM="--enable-multicom324"
+	cd ../driver/include/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s ../multicom-3.2.4/include multicom
+	cd -
+
+	cd ../driver/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s multicom-3.2.4 multicom
+	echo "export CONFIG_MULTICOM324=y" >> .config
+	cd -
+	;;
+
+	2 ) MULTICOM="--enable-multicom406"
+	cd ../driver/include/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s ../multicom-4.0.6/include multicom
+	cd -
+
+	cd ../driver/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s multicom-4.0.6 multicom
+	echo "export CONFIG_MULTICOM406=y" >> .config
+	cd -
+	;;
+	*) MULTICOM="--enable-multicom324";;
+esac
+
 ##############################################
 
 echo -e "\nMedia Framework:"

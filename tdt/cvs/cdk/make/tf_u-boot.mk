@@ -70,5 +70,3 @@ RPMS/sh4/stlinux23-$(HOST_U_BOOT_TOOLS)-$(U_BOOT_TOOLS_VERSION).sh4.rpm: \
 $(DEPDIR)/$(HOST_U_BOOT_TOOLS): u-boot-utils.do_prepare RPMS/sh4/stlinux23-$(HOST_U_BOOT_TOOLS)-$(U_BOOT_TOOLS_VERSION).sh4.rpm | bootstrap-cross
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^) && \
 	touch $@
-
-.PHONY: tfinstaller

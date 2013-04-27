@@ -8,17 +8,12 @@ AC_SUBST(host_arch)
 AC_CANONICAL_BUILD
 AC_SUBST(build)
 
-AC_ARG_WITH(toolchain,
-	[  --with-toolchain=PATH   do not build a toolchain but use the one at PATH],
-	[TOOLCHAIN_PATH="$withval"],[TOOLCHAIN_PATH="notset"])
-AM_CONDITIONAL(USE_FOREIGN_TOOLCHAIN,test "$TOOLCHAIN_PATH" != "notset")
-AC_SUBST(TOOLCHAIN_PATH)
-
 TUXBOX_BOXTYPE
 
 if test "$target_alias" = "" ; then
 	target_alias="sh4-linux"
 fi
+
 AC_CANONICAL_TARGET
 if test "$target" = "sh4-unknown-linux-gnu" ; then
 	target="sh4-linux"
@@ -34,6 +29,22 @@ AC_ARG_ENABLE(gcc47,
 	AS_HELP_STRING(--enable-gcc47, compile image stm24 using gcc 4.7),
 	,[enable_gcc47=no])
 AM_CONDITIONAL(GCC47,test "$enable_gcc47" = "yes")
+
+if test -z "$CFLAGS" ; then
+	CFLAGS="-g -O2"
+fi
+
+if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
+	TARGET_CFLAGS="-pipe"
+	if test "$enable_debug" = "yes"; then
+		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
+		TARGET_LDFLAGS=""
+	else
+		TARGET_CFLAGS="$TARGET_CFLAGS -Os"
+		TARGET_LDFLAGS=""
+	fi
+	TARGET_CXXFLAGS="$TARGET_CFLAGS"
+fi
 
 AC_ARG_ENABLE(lirc,
 	AS_HELP_STRING(--enable-lirc, include lirc in yadds and images),
@@ -115,14 +126,6 @@ AC_ARG_ENABLE(player191,
 AM_CONDITIONAL(ENABLE_PLAYER191,test "$enable_player191" = "yes")
 AC_SUBST(PLAYER191)
 
-AC_ARG_ENABLE(multicom322,
-	AS_HELP_STRING(--enable-multicom322, set up the CDK to use multicom322),
-	[case "${enableval}" in
-		yes) MULTICOM322=multicom322 ;;
-	esac],[enable_multicom322=no])
-AM_CONDITIONAL(ENABLE_MULTICOM322,test "$enable_multicom322" = "yes")
-AC_SUBST(MULTICOM322)
-
 AC_ARG_ENABLE(multicom324,
 	AS_HELP_STRING(--enable-multicom324, set up the CDK to use multicom324),
 	[case "${enableval}" in
@@ -130,6 +133,14 @@ AC_ARG_ENABLE(multicom324,
 	esac],[enable_multicom324=no])
 AM_CONDITIONAL(ENABLE_MULTICOM324,test "$enable_multicom324" = "yes")
 AC_SUBST(MULTICOM324)
+
+AC_ARG_ENABLE(multicom406,
+	AS_HELP_STRING(--enable-multicom406, set up the CDK to use multicom406),
+	[case "${enableval}" in
+		yes) MULTICOM406=multicom406 ;;
+	esac],[enable_multicom406=no])
+AM_CONDITIONAL(ENABLE_MULTICOM406,test "$enable_multicom406" = "yes")
+AC_SUBST(MULTICOM406)
 
 AC_ARG_ENABLE(p0207,
 	AS_HELP_STRING(--enable-p0207, set up the CDK to use the STLinux 2.4 with patchlevel 0207),
@@ -487,26 +498,6 @@ AC_SUBST(flashscriptdir)
 AC_SUBST(updatehttpprefix)
 AM_CONDITIONAL(DISABLE_UPDATE_HTTP,test "$updatehttpprefix" = "disable")
 
-if test -z "$CFLAGS" ; then
-	CFLAGS="-O2"
-fi
-
-if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
-	TARGET_CFLAGS="-pipe"
-	if test "$enable_debug" = "yes"; then
-		TARGET_CFLAGS="$TARGET_CFLAGS -O2 -g3 -gdwarf-2"
-		TARGET_LDFLAGS=""
-	else
-		TARGET_CFLAGS="$TARGET_CFLAGS -Os"
-		TARGET_LDFLAGS=" -Wl,-O1"
-	fi
-	if test "$TOOLCHAIN_PATH" != "notset"; then
-		TARGET_LDFLAGS="$TARGET_LDFLAGS -L\$(targetprefix)/usr/lib -L\$(targetprefix)/lib"
-		TARGET_CFLAGS="$TARGET_CFLAGS -I\$(targetprefix)/usr/include"
-	fi
-	TARGET_CXXFLAGS="$TARGET_CFLAGS"
-fi
-
 AC_ARG_WITH(checkImage,
 	[  --with-checkImage=[[none,rename,warn]] How/if to invoke checkImage [[none]]],
 	[CHECKIMAGE_BEHAVIOR="$withval"],[CHECKIMAGE_BEHAVIOR="true"])
@@ -801,8 +792,10 @@ fi
 TUXBOX_RULES_MAKE(squashfs)
 TUXBOX_RULES_MAKE(ccache)
 TUXBOX_RULES_MAKE(cramfs)
-TUXBOX_RULES_MAKE(libtool)
-TUXBOX_RULES_MAKE(pkg_config)
+TUXBOX_RULES_MAKE(host_libtool)
+TUXBOX_RULES_MAKE(host_pkgconfig)
+TUXBOX_RULES_MAKE(host_automake)
+TUXBOX_RULES_MAKE(host_autoconf)
 
 #
 # root
@@ -814,48 +807,24 @@ TUXBOX_RULES_MAKE(module_init_tools)
 #TUXBOX_RULES_MAKE(sysvinit)
 
 #
-# net apps
-#
-TUXBOX_RULES_MAKE(portmap)
-TUXBOX_RULES_MAKE(nfs_utils)
-TUXBOX_RULES_MAKE(libevent)
-TUXBOX_RULES_MAKE(libnfsidmap)
-TUXBOX_RULES_MAKE(vsftpd)
-TUXBOX_RULES_MAKE(netkit_ftp)
-TUXBOX_RULES_MAKE(samba)
-TUXBOX_RULES_MAKE(netio)
-TUXBOX_RULES_MAKE(lighttpd)
-TUXBOX_RULES_MAKE(wireless_tools)
-TUXBOX_RULES_MAKE(zd1211)
-TUXBOX_RULES_MAKE(wpa_supplicant)
-TUXBOX_RULES_MAKE(ethtool)
-
-#
 # contrib apps
 #
 TUXBOX_RULES_MAKE(bzip2)
 TUXBOX_RULES_MAKE(grep)
 TUXBOX_RULES_MAKE(openrdate)
-TUXBOX_RULES_MAKE(e2fsprogs)
-TUXBOX_RULES_MAKE(xfsprogs)
 TUXBOX_RULES_MAKE(mc)
-TUXBOX_RULES_MAKE(sdparm)
 TUXBOX_RULES_MAKE(sg3_utils)
 TUXBOX_RULES_MAKE(console_data)
 TUXBOX_RULES_MAKE(nano)
 TUXBOX_RULES_MAKE(rsync)
-TUXBOX_RULES_MAKE(lm_sensors)
 TUXBOX_RULES_MAKE(fuse)
 TUXBOX_RULES_MAKE(curlftpfs)
 TUXBOX_RULES_MAKE(fbset)
 TUXBOX_RULES_MAKE(pngquant)
 TUXBOX_RULES_MAKE(mplayer)
 TUXBOX_RULES_MAKE(mencoder)
-TUXBOX_RULES_MAKE(utillinux)
-TUXBOX_RULES_MAKE(jfsutils)
 TUXBOX_RULES_MAKE(opkg)
 TUXBOX_RULES_MAKE(sysstat)
-TUXBOX_RULES_MAKE(autofs)
 TUXBOX_RULES_MAKE(imagemagick)
 
 #
@@ -870,6 +839,7 @@ TUXBOX_RULES_MAKE(libreadline)
 TUXBOX_RULES_MAKE(libfreetype)
 TUXBOX_RULES_MAKE(lirc)
 TUXBOX_RULES_MAKE(libjpeg)
+TUXBOX_RULES_MAKE(libjpeg_turbo)
 TUXBOX_RULES_MAKE(libpng12)
 TUXBOX_RULES_MAKE(libpng)
 TUXBOX_RULES_MAKE(libungif)
@@ -939,6 +909,7 @@ TUXBOX_RULES_MAKE(mediatomb)
 TUXBOX_RULES_MAKE(tinyxml)
 TUXBOX_RULES_MAKE(libnfs)
 TUXBOX_RULES_MAKE(taglib)
+TUXBOX_RULES_MAKE(libmms)
 
 #
 # python
@@ -950,6 +921,7 @@ TUXBOX_RULES_MAKE(lxml)
 TUXBOX_RULES_MAKE(setuptools)
 TUXBOX_RULES_MAKE(twisted)
 TUXBOX_RULES_MAKE(twistedweb2)
+TUXBOX_RULES_MAKE(twistedmail)
 TUXBOX_RULES_MAKE(pilimaging)
 TUXBOX_RULES_MAKE(host_python)
 TUXBOX_RULES_MAKE(python)
@@ -997,6 +969,38 @@ TUXBOX_RULES_MAKE(libusbcompat)
 TUXBOX_RULES_MAKE(libgd2)
 TUXBOX_RULES_MAKE(libdpfax)
 TUXBOX_RULES_MAKE(libdpf)
+
+#
+# ide apps
+#
+TUXBOX_RULES_MAKE(dosfstools)
+TUXBOX_RULES_MAKE(e2fsprogs)
+TUXBOX_RULES_MAKE(hddtemp)
+TUXBOX_RULES_MAKE(hdparm)
+TUXBOX_RULES_MAKE(jfsutils)
+TUXBOX_RULES_MAKE(lm_sensors)
+TUXBOX_RULES_MAKE(parted)
+TUXBOX_RULES_MAKE(sdparm)
+TUXBOX_RULES_MAKE(util_linux)
+TUXBOX_RULES_MAKE(xfsprogs)
+
+#
+# net apps
+#
+TUXBOX_RULES_MAKE(autofs)
+TUXBOX_RULES_MAKE(portmap)
+TUXBOX_RULES_MAKE(nfs_utils)
+TUXBOX_RULES_MAKE(libevent)
+TUXBOX_RULES_MAKE(libnfsidmap)
+TUXBOX_RULES_MAKE(vsftpd)
+TUXBOX_RULES_MAKE(netkit_ftp)
+TUXBOX_RULES_MAKE(samba)
+TUXBOX_RULES_MAKE(netio)
+TUXBOX_RULES_MAKE(lighttpd)
+TUXBOX_RULES_MAKE(wireless_tools)
+TUXBOX_RULES_MAKE(zd1211)
+TUXBOX_RULES_MAKE(wpa_supplicant)
+TUXBOX_RULES_MAKE(ethtool)
 
 #
 # RPM stuff
@@ -1092,7 +1096,7 @@ linux kernel                : ${KERNELVERSION%.*}
 kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
 STLinux 2.4                 : $enable_stm24
-GCC 4.7.2                   : $enable_gcc472
+GCC 4.7.2                   : $enable_gcc47
 Patchlevel P0207            : $enable_p0207
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210
@@ -1121,6 +1125,7 @@ sg3 utils                   : $enable_sg3
 DEBUG                       : $enable_debug
 Player191                   : $enable_player191
 Multicom324                 : $enable_multicom324
+Multicom406                 : $enable_multicom406
 MediaFw Gstreamer           : $enable_mediafwgstreamer
 MediaFw                     : $MEDIAFW
 MediaFw Dep                 : $MEDIAFW_DEP

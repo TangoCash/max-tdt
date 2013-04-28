@@ -711,6 +711,7 @@ endif
 #
 	cp -aR $(targetprefix)/var/tuxbox/config/* $(prefix)/release_neutrino/var/tuxbox/config
 	cp -aR $(buildprefix)/root/usr/local/share/config/zapit $(prefix)/release_neutrino/var/tuxbox/config
+	mkdir -p $(prefix)/release_neutrino/var/tuxbox/config/tuxtxt
 	cp $(buildprefix)/root/etc/tuxbox/tuxtxt2.conf $(prefix)/release_neutrino/var/tuxbox/config/tuxtxt
 if !ENABLE_CUBEREVO_MINI2
 if !ENABLE_ATEVIO7500

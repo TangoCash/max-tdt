@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == -h ] || [ "$1" == --help ]; then
- echo "Parameter 1: target system (1-28)"
+ echo "Parameter 1: target system (1-29)"
  echo "Parameter 2: kernel (1-4)"
  echo "Parameter 3: debug (y/N)"
  echo "Parameter 4: player (1-2)"
@@ -299,7 +299,6 @@ case "$REPLY" in
 	echo "export CONFIG_MULTICOM324=y" >> .config
 	cd - &>/dev/null
 	;;
-
 	2 ) MULTICOM="--enable-multicom406"
 	cd ../driver/include/
 	if [ -L multicom ]; then
@@ -327,7 +326,7 @@ echo -e "\nMedia Framework:"
 echo "   1) eplayer3"
 echo "   2) gstreamer"
 echo "   3) use build-in"
-case $5 in
+case $6 in
 	[1-3]) REPLY=$5
 	echo -e "\nSelected media framework: $REPLY\n"
 	;;
@@ -347,7 +346,7 @@ esac
 echo -e "\nExternal LCD support:"
 echo "   1) No external LCD"
 echo "   2) graphlcd for external LCD"
-case $6 in
+case $7 in
 	[1-2]) REPLY=$6
 	echo -e "\nSelected LCD support: $REPLY\n"
 	;;
@@ -366,7 +365,7 @@ esac
 echo -e "\nGraphic Framework:"
 echo "   1) Framebuffer"
 echo "   2) DirectFB (Recommended XBMC)"
-case $7 in
+case $8 in
 	[1-2]) REPLY=$7
 	echo -e "\nSelected Graphic Framework: $REPLY\n"
 	;;

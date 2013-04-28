@@ -131,7 +131,7 @@ $(DEPDIR)/$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
 #
 OPENSSL := openssl
 OPENSSL_DEV := openssl-dev
-OPENSSL_VERSION := 1.0.1e-29
+OPENSSL_VERSION := 0.9.8l-16
 OPENSSL_SPEC := stm-target-$(OPENSSL).spec
 OPENSSL_SPEC_PATCH :=
 OPENSSL_PATCHES :=

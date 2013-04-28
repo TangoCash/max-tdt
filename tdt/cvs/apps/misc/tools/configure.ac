@@ -11,9 +11,7 @@ AC_ARG_ENABLE([multicom324],
 	[AS_HELP_STRING(--enable-multicom324,    enable multicom324 stuff)],
 	[case "${enableval}" in
 		yes) enable_multicom324=true ;;
-		no) enable_multicom324=false ;;
-		*) AC_MSG_ERROR([bad value ${enableval} for --enable-multicom324]) ;;
-	esac])
+	esac],[enable_multicom324=no])
 AM_CONDITIONAL([ENABLE_MULTICOM324], [test x$enable_multicom324 = xtrue])
 AC_SUBST(MULTICOM324)
 
@@ -21,9 +19,7 @@ AC_ARG_ENABLE([multicom406],
 	[AS_HELP_STRING(--enable-multicom406,    enable multicom406 stuff)],
 	[case "${enableval}" in 
 		yes) enable_multicom406=true ;;
-		no) enable_multicom406=false ;;
-		*) AC_MSG_ERROR([bad value ${enableval} for --enable-multicom406]) ;;
-	esac])
+	esac],[enable_multicom406=no])
 AM_CONDITIONAL([ENABLE_MULTICOM406], [test x$enable_multicom406 = xtrue])
 AC_SUBST(MULTICOM406)
 

@@ -11,7 +11,7 @@ $(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev bzip2 libpng
 	$(CONFIGURE) --prefix= \
 	$(if $(MULTICOM324), --enable-multicom324) \
 	$(if $(MULTICOM406), --enable-multicom406) \
-	$(if $(EPLAYER3), --enable-eplayer3) 
+	$(if $(EPLAYER3), --enable-eplayer3)
 
 $(DEPDIR)/misc-tools: \
 $(DEPDIR)/%misc-tools: $(appsdir)/misc/tools/config.status

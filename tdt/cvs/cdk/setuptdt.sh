@@ -68,45 +68,45 @@ if [ "$SUSE" == 1 ]; then
 fi
 
 # quantal=ubu12.10, nadia=linux mint 14
-UBUVERSION=`lsb_release -c | cut -d : -f2 | cut -b2-35`
-if [ "$UBUVERSION" == "quantal" -o "$UBUVERSION" == "nadia" ];then
-	ISPRESCISE=`cat /etc/apt/sources.list | grep -c "precise"`
-	if [ "$ISPRESCISE" == 0 ]; then
-		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse " >> /etc/apt/sources.list
-		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse " >> /etc/apt/sources.list
-		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse " >> /etc/apt/sources.list
-		apt-get update
-	fi
-	if [ ! -e /etc/apt/preferences ]; then
-		touch /etc/apt/preferences
-	fi
-	ISRPM=`cat /etc/apt/preferences | grep -c "rpm"`
-	if [ "$ISRPM" == 0 ]; then
-		echo "Package: rpm" >> /etc/apt/preferences
-		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
-		echo "Pin-Priority: 1001" >> /etc/apt/preferences
-		echo "" >> /etc/apt/preferences
-		echo "Package: rpm-common" >> /etc/apt/preferences
-		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
-		echo "Pin-Priority: 1001" >> /etc/apt/preferences
-		echo "" >> /etc/apt/preferences
-		echo "Package: rpm2cpio" >> /etc/apt/preferences
-		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
-		echo "Pin-Priority: 1001" >> /etc/apt/preferences
-		echo "" >> /etc/apt/preferences
-		echo "Package: librpm2" >> /etc/apt/preferences
-		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
-		echo "Pin-Priority: 1001" >> /etc/apt/preferences
-		echo "" >> /etc/apt/preferences
-		echo "Package: librpmbuild2" >> /etc/apt/preferences
-		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
-		echo "Pin-Priority: 1001" >> /etc/apt/preferences
-		echo "" >> /etc/apt/preferences
-		echo "Package: librpmsign0" >> /etc/apt/preferences
-		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
-		echo "Pin-Priority: 1001" >> /etc/apt/preferences
-	fi
-fi
+#UBUVERSION=`lsb_release -c | cut -d : -f2 | cut -b2-35`
+#if [ "$UBUVERSION" == "quantal" -o "$UBUVERSION" == "nadia" ];then
+#	ISPRESCISE=`cat /etc/apt/sources.list | grep -c "precise"`
+#	if [ "$ISPRESCISE" == 0 ]; then
+#		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise main restricted universe multiverse " >> /etc/apt/sources.list
+#		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise-updates main restricted universe multiverse " >> /etc/apt/sources.list
+#		 echo "deb http://de.archive.ubuntu.com/ubuntu/ precise-security main restricted universe multiverse " >> /etc/apt/sources.list
+#		apt-get update
+#	fi
+#	if [ ! -e /etc/apt/preferences ]; then
+#		touch /etc/apt/preferences
+#	fi
+#	ISRPM=`cat /etc/apt/preferences | grep -c "rpm"`
+#	if [ "$ISRPM" == 0 ]; then
+#		echo "Package: rpm" >> /etc/apt/preferences
+#		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+#		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+#		echo "" >> /etc/apt/preferences
+#		echo "Package: rpm-common" >> /etc/apt/preferences
+#		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+#		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+#		echo "" >> /etc/apt/preferences
+#		echo "Package: rpm2cpio" >> /etc/apt/preferences
+#		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+#		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+#		echo "" >> /etc/apt/preferences
+#		echo "Package: librpm2" >> /etc/apt/preferences
+#		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+#		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+#		echo "" >> /etc/apt/preferences
+#		echo "Package: librpmbuild2" >> /etc/apt/preferences
+#		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+#		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+#		echo "" >> /etc/apt/preferences
+#		echo "Package: librpmsign0" >> /etc/apt/preferences
+#		echo "Pin: version 4.9.1.1*" >> /etc/apt/preferences
+#		echo "Pin-Priority: 1001" >> /etc/apt/preferences
+#	fi
+#fi
 
 PACKAGES="\
 	make \

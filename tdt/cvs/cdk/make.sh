@@ -327,7 +327,7 @@ echo "   1) eplayer3"
 echo "   2) gstreamer"
 echo "   3) use build-in"
 case $6 in
-	[1-3]) REPLY=$5
+	[1-3]) REPLY=$6
 	echo -e "\nSelected media framework: $REPLY\n"
 	;;
 	*)
@@ -347,7 +347,7 @@ echo -e "\nExternal LCD support:"
 echo "   1) No external LCD"
 echo "   2) graphlcd for external LCD"
 case $7 in
-	[1-2]) REPLY=$6
+	[1-2]) REPLY=$7
 	echo -e "\nSelected LCD support: $REPLY\n"
 	;;
 	*)
@@ -366,7 +366,7 @@ echo -e "\nGraphic Framework:"
 echo "   1) Framebuffer"
 echo "   2) DirectFB (Recommended XBMC)"
 case $8 in
-	[1-2]) REPLY=$7
+	[1-2]) REPLY=$8
 	echo -e "\nSelected Graphic Framework: $REPLY\n"
 	;;
 	*)

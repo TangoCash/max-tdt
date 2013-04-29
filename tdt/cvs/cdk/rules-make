@@ -66,6 +66,7 @@ imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:Imag
 #
 # contrib libs
 #
+liblua;5.2.1;lua-5.2.1;lua-5.2.1.tar.gz;extract:lua-5.2.1.tar.gz;patch:lua-5.2.1-luaposix.patch
 libao;1.1.0;libao-1.1.0;libao-1.1.0.tar.gz;extract:libao-1.1.0.tar.gz
 howl;0.9.8;howl-0.9.8;howl_0.9.8.orig.tar.gz;extract:howl_0.9.8.orig.tar.gz
 libopenthreads;1.00;openthreads;;

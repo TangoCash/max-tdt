@@ -830,6 +830,7 @@ TUXBOX_RULES_MAKE(imagemagick)
 #
 # contrib libs
 #
+TUXBOX_RULES_MAKE(liblua)
 TUXBOX_RULES_MAKE(libao)
 TUXBOX_RULES_MAKE(howl)
 TUXBOX_RULES_MAKE(libopenthreads)

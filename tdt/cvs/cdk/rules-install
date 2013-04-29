@@ -51,7 +51,7 @@ imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/Ma
 #
 # contrib libs
 #
-liblua;make:install:INSTALL_TOP=TARGETS
+liblua;make:install:INSTALL_TOP=TARGETS/usr
 libao;rewrite-pkgconfig:libao.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libao.la:TARGETS/usr/lib/libao.la
 howl;rewrite-pkgconfig:howl.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libhowl.la:TARGETS/usr/lib/libhowl.la
 libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la

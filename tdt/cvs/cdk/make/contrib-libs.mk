@@ -70,7 +70,7 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 #
 # libz
 #
-$(DEPDIR)/libz: bootstrap @DEPENDS_libz@
+$(DEPDIR)/libz: @DEPENDS_libz@
 	@PREPARE_libz@
 	cd @DIR_libz@ && \
 		ln -sf /bin/true ./ldconfig && \
@@ -294,8 +294,8 @@ $(DEPDIR)/libcurl: bootstrap openssl rtmpdump @DEPENDS_libcurl@
 	@PREPARE_libcurl@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libcurl@ && \
-		$(BUILDENV) \
 		autoreconf -vif -I$(hostprefix)/share/aclocal && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -680,7 +680,6 @@ $(DEPDIR)/libdvdnav: bootstrap libdvdread @DEPENDS_libdvdnav@
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < misc/dvdnav-config > $(crossprefix)/bin/dvdnav-config && \
 		chmod 755 $(crossprefix)/bin/dvdnav-config && \
 		@INSTALL_libdvdnav@
-		rm -f $(targetprefix)/usr/bin/dvdnav-config
 	@DISTCLEANUP_libdvdnav@
 	touch $@
 
@@ -705,7 +704,6 @@ $(DEPDIR)/libdvdread: bootstrap @DEPENDS_libdvdread@
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < misc/dvdread-config > $(crossprefix)/bin/dvdread-config && \
 		chmod 755 $(crossprefix)/bin/dvdread-config && \
 		@INSTALL_libdvdread@
-		rm -f $(targetprefix)/usr/bin/dvdread-config
 	@DISTCLEANUP_libdvdread@
 	touch $@
 
@@ -1273,9 +1271,9 @@ $(DEPDIR)/python: bootstrap host_python openssl-dev sqlite libreadline bzip2 @DE
 	@PREPARE_python@
 	( cd @DIR_python@ && \
 		CONFIG_SITE= \
-		$(BUILDENV) \
 		autoreconf -Wcross --verbose --install --force Modules/_ctypes/libffi && \
 		autoconf && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -1803,16 +1801,16 @@ $(DEPDIR)/evebrowser: $(DEPDIR)/webkitdfb @DEPENDS_evebrowser@
 	svn checkout https://eve-browser.googlecode.com/svn/trunk/ @DIR_evebrowser@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_evebrowser@ && \
-	aclocal -I $(hostprefix)/share/aclocal -I m4 && \
-	autoheader && \
-	autoconf && \
-	automake --foreign && \
-	libtoolize --force && \
-	$(BUILDENV) \
-	./configure \
-		--host=$(target) \
-		--prefix=/usr && \
-		$(MAKE) all && \
+		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
+		autoheader && \
+		autoconf && \
+		automake --foreign && \
+		libtoolize --force && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			--prefix=/usr && \
+			$(MAKE) all && \
 		@INSTALL_evebrowser@ && \
 		cp -ar enigma2/HbbTv $(targetprefix)/usr/lib/enigma2/python/Plugins/SystemPlugins/
 	@DISTCLEANUP_evebrowser@
@@ -1838,16 +1836,17 @@ $(DEPDIR)/libcap: bootstrap @DEPENDS_libcap@
 	@PREPARE_libcap@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libcap@ && \
-	$(MAKE) \
-	DESTDIR=$(targetprefix) \
-	PREFIX=$(targetprefix)/usr \
-	LIBDIR=$(targetprefix)/usr/lib \
-	SBINDIR=$(targetprefix)/usr/sbin \
-	INCDIR=$(targetprefix)/usr/include \
-	BUILD_CC=gcc \
-	PAM_CAP=no \
-	LIBATTR=no \
-	CC=$(target)-gcc
+		$(MAKE) \
+		DESTDIR=$(targetprefix) \
+		PREFIX=$(targetprefix)/usr \
+		LIBDIR=$(targetprefix)/usr/lib \
+		SBINDIR=$(targetprefix)/usr/sbin \
+		INCDIR=$(targetprefix)/usr/include \
+		BUILD_CC=gcc \
+		PAM_CAP=no \
+		LIBATTR=no \
+		CC=$(target)-gcc
+		@INSTALL_libcap@
 	@DISTCLEANUP_libcap@
 	touch $@
 
@@ -2179,7 +2178,6 @@ $(DEPDIR)/libpcre: bootstrap @DEPENDS_libpcre@
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < pcre-config > $(crossprefix)/bin/pcre-config && \
 		chmod 755 $(crossprefix)/bin/pcre-config && \
 		@INSTALL_libpcre@
-		rm -f $(targetprefix)/usr/bin/pcre-config
 	@DISTCLEANUP_libpcre@
 	touch $@
 
@@ -2493,3 +2491,4 @@ $(DEPDIR)/taglib: bootstrap @DEPENDS_taglib@
 		@INSTALL_taglib@
 	@DISTCLEANUP_taglib@
 	touch $@
+

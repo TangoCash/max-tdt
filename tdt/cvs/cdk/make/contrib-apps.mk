@@ -558,14 +558,14 @@ $(DEPDIR)/hdparm: bootstrap @DEPENDS_hdparm@
 	touch $@
 
 #
-#parted
+# parted
 #
 $(DEPDIR)/parted: bootstrap libreadline e2fsprogs @DEPENDS_parted@
 	@PREPARE_parted@
 	cd @DIR_parted@ && \
 		CC=$(target)-gcc \
 		RANLIB=$(target)-ranlib \
-		CFLAGS="-Os" \
+		CFLAGS="-pipe -Os" \
 		LDFLAGS="$(TARGET_LDFLAGS)" \
 		./configure \
 			--build=$(build) \
@@ -585,8 +585,8 @@ $(DEPDIR)/parted: bootstrap libreadline e2fsprogs @DEPENDS_parted@
 $(DEPDIR)/opkg: bootstrap @DEPENDS_opkg@
 	@PREPARE_opkg@
 	cd @DIR_opkg@ && \
-		$(BUILDENV) \
 		autoreconf -v --install; \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -686,3 +686,4 @@ $(DEPDIR)/imagemagick: bootstrap @DEPENDS_imagemagick@
 		@INSTALL_imagemagick@
 	@DISTCLEANUP_imagemagick@
 	touch $@ || true
+

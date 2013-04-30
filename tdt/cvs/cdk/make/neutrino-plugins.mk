@@ -32,7 +32,7 @@ $(appsdir)/neutrino-mp-plugins/config.status: bootstrap
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS) -DMARTII -DHAVE_SPARK_HARDWARE -DNEW_LIBCURL" \
+			CPPFLAGS="$(N_CPPFLAGS) -DMARTII -DNEW_LIBCURL" \
 			LDFLAGS="$(N_LDFLAGS) -L$(appsdir)/neutrino-mp-plugins/fx2/lib/.libs -L$(targetprefix)/lib -L$(targetprefix)/usr/lib"
 
 $(DEPDIR)/neutrino-mp-plugins.do_compile: $(appsdir)/neutrino-mp-plugins/config.status
@@ -47,7 +47,7 @@ $(DEPDIR)/neutrino-mp-plugins: neutrino-mp-plugins.do_prepare neutrino-mp-plugin
 neutrino-mp-plugins-clean:
 	rm -f $(DEPDIR)/neutrino-mp-plugins
 	cd $(appsdir)/neutrino-mp-plugins && \
-		$(MAKE) distclean
+		$(MAKE) clean
 
 neutrino-mp-plugins-distclean:
 	rm -f $(DEPDIR)/neutrino-mp-plugins*

@@ -61,6 +61,9 @@ include make/xbmc-nightly.mk
 # Include neutrino gui targets
 include make/neutrino.mk
 
+# Include neutrino-plugins targets
+include make/neutrino-plugins.mk
+
 # Include yaud targets
 include make/yaud.mk
 

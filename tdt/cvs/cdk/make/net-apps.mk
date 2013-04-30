@@ -72,7 +72,7 @@ $(DEPDIR)/vsftpd: bootstrap @DEPENDS_vsftpd@
 	@PREPARE_vsftpd@
 	cd @DIR_vsftpd@ && \
 		$(MAKE) clean && \
-		$(MAKE) $(MAKE_OPTS) && \
+		$(MAKE) $(MAKE_OPTS) CFLAGS="-pipe -Os -g0" && \
 		@INSTALL_vsftpd@
 		cp $(buildprefix)/root/etc/vsftpd.conf $(targetprefix)/etc
 	@DISTCLEANUP_vsftpd@

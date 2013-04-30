@@ -1,6 +1,6 @@
 --- graphlcd-base/Make.config.orig	2013-03-17 10:50:28.611877538 +0100
 +++ graphlcd-base/Make.config	2013-03-17 10:50:29.111877749 +0100
-@@ -3,7 +3,7 @@
+@@ -3,17 +3,17 @@
  
  ### The C compiler and options:
  
@@ -9,7 +9,10 @@
  CFLAGS   = -O2
  
  #CXX      = g++
-@@ -13,7 +13,7 @@
+ 
+-CXXFLAGS = -g -O2 -Wall -Woverloaded-virtual
++CXXFLAGS = -g0 -pipe -Os -Wall -Woverloaded-virtual
+ #CXXFLAGS = -g -ggdb -O0 -Wall -Woverloaded-virtual
  
  # no CXX given at all: force g++
  ifeq (x$(CXX)x,xx)
@@ -18,7 +21,7 @@
  endif
  
  # CXX set to clang++: force clang
-@@ -40,14 +40,15 @@
+@@ -40,10 +40,11 @@
  DESTDIR = /usr/local
  endif
  
@@ -34,11 +37,6 @@
  
  ### Includes and defines
  
--#INCLUDES += -I
-+INCLUDES += -I$(DESTDIR)/include
- 
- DEFINES += -D_GNU_SOURCE
- # define HAVE_DEBUG when invoking "make" if you want to use debugging
 @@ -64,7 +65,7 @@
  HAVE_FREETYPE2=1
  

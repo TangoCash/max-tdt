@@ -28,12 +28,16 @@ $(appsdir)/neutrino-mp-plugins/config.status: bootstrap
 			--with-target=cdk \
 			--oldinclude=$(targetprefix)/include \
 			--enable-maintainer-mode \
-			--with-boxtype=spark \
+			--with-boxtype=$(BOXTYPE) \
+			--with-plugindir=/var/plugins \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \
 			CPPFLAGS="$(N_CPPFLAGS) -DMARTII -DNEW_LIBCURL" \
-			LDFLAGS="$(N_LDFLAGS) -L$(appsdir)/neutrino-mp-plugins/fx2/lib/.libs -L$(targetprefix)/lib -L$(targetprefix)/usr/lib"
+			LDFLAGS="$(N_LDFLAGS) -L$(appsdir)/neutrino-mp-plugins/fx2/lib/.libs"
 
 $(DEPDIR)/neutrino-mp-plugins.do_compile: $(appsdir)/neutrino-mp-plugins/config.status
 	cd $(appsdir)/neutrino-mp-plugins && \

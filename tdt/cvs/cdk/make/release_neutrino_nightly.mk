@@ -679,7 +679,7 @@ endif
 	ln -s /var/plugins/libfx2.so $(prefix)/release_neutrino/lib/libfx2.so
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release_neutrino/usr/lib/
-	rm -rf $(prefix)/release_neutrino/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11}
+	rm -rf $(prefix)/release_neutrino/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11,lua}
 	rm -f $(prefix)/release_neutrino/usr/lib/*.{a,o,la}
 	chmod 755 $(prefix)/release_neutrino/usr/lib/*
 

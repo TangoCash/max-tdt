@@ -1,7 +1,7 @@
 #!/bin/bash
 # based on the original make.sh
 # Author: TangoCash
-# Last modified: 20.02.13
+# Last modified: 04.05.13
 setparameters() {
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
@@ -237,23 +237,6 @@ case "$REPLY" in
 		fi
 		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - &>/dev/null
-		MULTICOM="--enable-multicom324"
-		cd ../driver/include/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s ../multicom-3.2.4/include multicom
-		cd - &>/dev/null
-
-		cd ../driver/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s multicom-3.2.4 multicom
-		echo "export CONFIG_MULTICOM324=y" >> .config
-		cd - &>/dev/null
 	;;
 	2) PLAYER="--enable-player191"
 		cd ../driver/include/
@@ -282,69 +265,60 @@ case "$REPLY" in
 		fi
 		ln -s stmfb-3.1_stm24_0104 stmfb
 		cd - &>/dev/null
-		MULTICOM="--enable-multicom324"
-		cd ../driver/include/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s ../multicom-3.2.4/include multicom
-		cd - &>/dev/null
-
-		cd ../driver/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
-
-		ln -s multicom-3.2.4 multicom
-		echo "export CONFIG_MULTICOM324=y" >> .config
-		cd - &>/dev/null
 	;;
-	*) PLAYER="--enable-player191"
-		cd ../driver/include/
-		if [ -L player2 ]; then
-			rm player2
-		fi
+	*) PLAYER="--enable-player191";;
+esac
+clear
+##############################################
 
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s player2_191 player2
-		ln -s stmfb-3.1_stm24_0104 stmfb
-		cd - &>/dev/null
+${DIALOG} --menu "\n Multicom: \n " $height $width $listheight \
+1	"Multicom 3.2.4 (Player191)" \
+2	"Multicom 4.0.6 (Player191)" \
+2> ${tempfile}
 
-		cd ../driver/
-		if [ -L player2 ]; then
-			rm player2
-		fi
-		ln -s player2_191 player2
-		echo "export CONFIG_PLAYER_191=y" >> .config
-		cd - &>/dev/null
+opt=${?}
+if [ $opt != 0 ]; then cleanup; exit; fi
 
-		cd ../driver/stgfb
-		if [ -L stmfb ]; then
-			rm stmfb
-		fi
-		ln -s stmfb-3.1_stm24_0104 stmfb
-		cd - &>/dev/null
-		MULTICOM="--enable-multicom324"
-		cd ../driver/include/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
+REPLY=`cat $tempfile`
 
-		ln -s ../multicom-3.2.4/include multicom
-		cd - &>/dev/null
+case "$REPLY" in
+	1) MULTICOM="--enable-multicom324"
+	cd ../driver/include/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
 
-		cd ../driver/
-		if [ -L multicom ]; then
-			rm multicom
-		fi
+	ln -s ../multicom-3.2.4/include multicom
+	cd - &>/dev/null
 
-		ln -s multicom-3.2.4 multicom
-		echo "export CONFIG_MULTICOM324=y" >> .config
-		cd - &>/dev/null
+	cd ../driver/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s multicom-3.2.4 multicom
+	echo "export CONFIG_MULTICOM324=y" >> .config
+	cd - &>/dev/null
 	;;
+	2 ) MULTICOM="--enable-multicom406"
+	cd ../driver/include/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s ../multicom-4.0.6/include multicom
+	cd - &>/dev/null
+
+	cd ../driver/
+	if [ -L multicom ]; then
+		rm multicom
+	fi
+
+	ln -s multicom-4.0.6 multicom
+	echo "export CONFIG_MULTICOM406=y" >> .config
+	cd - &>/dev/null
+	;;
+	*) MULTICOM="--enable-multicom324";;
 esac
 clear
 ##############################################
@@ -415,7 +389,7 @@ CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
 echo $CONFIGPARAM >lastChoice
 }
 ##############################################
-mainloop() { while true; do
+mainmenu() {
 clear
 ${DIALOG} --cancel-label "Exit" --menu \
 "\n\
@@ -446,6 +420,7 @@ ${DIALOG} --cancel-label "Exit" --menu \
 6	"make yaud-xbmc-nightly" \
 7	"make clean" \
 8	"make distclean" \
+9	"make flashimage" \
 2> ${tempfile}
 
 opt=${?}
@@ -454,19 +429,54 @@ if [ $opt != 0 ]; then cleanup; exit; fi
 REPLY=`cat $tempfile`
 
 case "$REPLY" in
-	1) MKTARGET="yaud-neutrino";;
-	2) MKTARGET="yaud-neutrino-mp";;
-	3) MKTARGET="yaud-neutrino-mp-exp";;
-	4) MKTARGET="yaud-neutrino-hd2-exp";;
-	5) MKTARGET="yaud-enigma2-pli-nightly";;
-	6) MKTARGET="yaud-xbmc-nightly";;
-	7) MKTARGET="clean";;
-	8) MKTARGET="distclean";;
+	1) MKTARGET="yaud-neutrino"
+	   makeyaud;;
+	2) MKTARGET="yaud-neutrino-mp"
+	   makeyaud;;
+	3) MKTARGET="yaud-neutrino-mp-exp"
+	   makeyaud;;
+	4) MKTARGET="yaud-neutrino-hd2-exp"
+	   makeyaud;;
+	5) MKTARGET="yaud-enigma2-pli-nightly"
+	   makeyaud;;
+	6) MKTARGET="yaud-xbmc-nightly"
+	   makeyaud;;
+	7) MKTARGET="clean"
+	   makeyaud;;
+	8) MKTARGET="distclean"
+	   makeyaud;;
+	9) MKTARGET=""
+	   makeflash;;
 	255) cleanup && exit;;
 	*) MKTARGET="yaud-neutrino-mp";;
 esac
-make ${MKTARGET} 2>&1 | tee make.log | ${DIALOG} --programbox "compiling... please wait...." 40 120
-done }
+}
+##############################################
+makeflash() {
+if [ -d $KATIDIR/tufsbox/release_neutrino ]; then
+	BOXTYPE=`cat $KATIDIR/tufsbox/release_neutrino/var/etc/hostname`
+else
+	BOXTYPE=`cat $KATIDIR/tufsbox/release/etc/hostname`
+fi
+
+if [ -e $KATIDIR/flash/$BOXTYPE/$BOXTYPE.sh ]; then
+ ${DIALOG} --passwordbox "sudo password to run flashscript ?" 0 0 2> $tempfile
+ cd $KATIDIR/flash/$BOXTYPE
+ echo `cat $tempfile` | sudo -S ./$BOXTYPE.sh | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
+fi
+if [ -e $KATIDIR/flash/$BOXTYPE/make_flash.sh ]; then
+ ${DIALOG} --passwordbox "sudo password to run flashscript ?" 0 0 2> $tempfile
+ cd $KATIDIR/flash/$BOXTYPE
+ echo `cat $tempfile` | sudo -S ./make_flash.sh | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
+fi
+
+cd $CURDIR
+cleanup
+}
+##############################################
+makeyaud() {
+make ${MKTARGET} --no-print-directory --silent 2>&1 | tee make.log | ${DIALOG} --programbox "compiling... please wait...." 40 120
+}
 ##############################################
 cleanup() {
 rm $tempfile
@@ -483,6 +493,10 @@ else
 	configmenu
 	doconfig
 fi
-mainloop
+
+while true; do
+	mainmenu
+done
+
 cleanup
 ##############################################

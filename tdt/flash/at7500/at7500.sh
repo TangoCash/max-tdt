@@ -32,7 +32,7 @@ mkdir -p $TMPFWDIR
 echo "This script creates flashable images for Atevio 7500"
 echo "Will probably be adapted in future to support clones."
 echo "Author: Schischu, BPanther"
-echo "Date: 01-31-2011"
+echo "Date: 05-05-2013"
 echo "-----------------------------------------------------------------------"
 echo "It's expected that an image was already build prior to this execution!"
 echo "-----------------------------------------------------------------------"
@@ -92,22 +92,28 @@ case "$REPLY" in
 esac
 #clear
 echo "-----------------------------------------------------------------------"
-AUDIOELFSIZE=`stat -c %s $TMPFWDIR/audio.elf`
-VIDEOELFSIZE=`stat -c %s $TMPFWDIR/video.elf`
-if [ $AUDIOELFSIZE == "0" ]; then
-  echo "!!! WARNING: AUDIOELF SIZE IS ZERO !!!"
+AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
+if [ "$AUDIOELFSIZE" == "0" -o "$AUDIOELFSIZE" == "" ]; then
+  echo -e "\033[01;31m"
+  echo "!!! WARNING: AUDIOELF SIZE IS ZERO OR MISSING !!!"
   echo "IF YOUR ARE CREATING THE FW PART MAKE SURE THAT YOU USE CORRECT ELFS"
-  echo "-----------------------------------------------------------------------"
+  echo  "-----------------------------------------------------------------------"
+  echo -e "\033[00m"
 fi
-if [ $VIDEOELFSIZE == "0" ]; then
-  echo "!!! WARNING: VIDEOELF SIZE IS ZERO !!!"
+VIDEOELFSIZE=`stat -c %s $TMPROOTDIR/boot/video.elf`
+if [ "$VIDEOELFSIZE" == "0" -o "$VIDEOELFSIZE" == "" ]; then
+  echo -e "\033[01;31m"
+  echo "!!! WARNING: VIDEOELF SIZE IS ZERO OR MISSING !!!"
   echo "IF YOUR ARE CREATING THE FW PART MAKE SURE THAT YOU USE CORRECT ELFS"
-  echo "-----------------------------------------------------------------------"
+  echo  "-----------------------------------------------------------------------"
+  echo -e "\033[00m"
 fi
 if [ ! -e $TMPROOTDIR/dev/mtd0 ]; then
+  echo -e "\033[01;31m"
   echo "!!! WARNING: DEVS ARE MISSING !!!"
   echo "IF YOUR ARE CREATING THE ROOT PART MAKE SURE THAT YOU USE A CORRECT DEV.TAR"
   echo "-----------------------------------------------------------------------"
+  echo -e "\033[00m"
 fi
 
 echo ""

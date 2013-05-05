@@ -87,7 +87,7 @@ echo "Creating flash image..."
 #esac
 #clear
 echo "-----------------------------------------------------------------------"
-AUDIOELFSIZE=`stat -c %s $TMPROOTDIR/boot/audio.elf`
+AUDIOELFSIZE=`stat -c %s $TMPFWDIR/boot/audio.elf`
 if [ "$AUDIOELFSIZE" == "0" -o "$AUDIOELFSIZE" == "" ]; then
   echo -e "\033[01;31m"
   echo "!!! WARNING: AUDIOELF SIZE IS ZERO OR MISSING !!!"
@@ -95,7 +95,7 @@ if [ "$AUDIOELFSIZE" == "0" -o "$AUDIOELFSIZE" == "" ]; then
   echo  "-----------------------------------------------------------------------"
   echo -e "\033[00m"
 fi
-VIDEOELFSIZE=`stat -c %s $TMPROOTDIR/boot/video.elf`
+VIDEOELFSIZE=`stat -c %s $TMPFWDIR/boot/video.elf`
 if [ "$VIDEOELFSIZE" == "0" -o "$VIDEOELFSIZE" == "" ]; then
   echo -e "\033[01;31m"
   echo "!!! WARNING: VIDEOELF SIZE IS ZERO OR MISSING !!!"

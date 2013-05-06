@@ -61,19 +61,19 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "LOADING MODULES"
    fp_control -t "LOADING MODULES"
 
-   if [ ! -e /boot/audio.elf ]; then
+   if [ ! -e /lib/firmware/audio.elf ]; then
       fp_control -t "FW MISSING!!!"
    fi
 
  echo "load video firmware"
    /bin/dd if=/dev/zero of=/dev/st231-0 bs=1024 count=4096
 
-   /bin/ustslave /dev/st231-0 /boot/video.elf
+   /bin/ustslave /dev/st231-0 /lib/firmware/video.elf
 
  echo "load audio firmware"
    /bin/dd if=/dev/zero of=/dev/st231-1 bs=1024 count=4096
 
-   /bin/ustslave /dev/st231-1 /boot/audio.elf
+   /bin/ustslave /dev/st231-1 /lib/firmware/audio.elf
 
  echo "init embx"
    insmod $MODDIR/embxshell.ko

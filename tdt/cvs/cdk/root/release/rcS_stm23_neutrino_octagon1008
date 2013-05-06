@@ -33,9 +33,9 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
   echo "st231-VIDEO"
-	/bin/stslave -t st231.0 -R /boot/video.elf
+	/bin/stslave -t st231.0 -R /lib/firmware/video.elf
   echo "st231-AUDIO"
-	/bin/stslave -t st231.1 -R /boot/audio.elf
+	/bin/stslave -t st231.1 -R /lib/firmware/audio.elf
 
    echo "LOADING MODULES"
    echo "LOADING MODULES" >/dev/vfd

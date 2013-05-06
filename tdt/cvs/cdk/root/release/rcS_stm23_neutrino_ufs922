@@ -35,8 +35,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    fp_control -t "LOADING MODULES"
 
    echo "load a/v firmware"
-   /bin/stslave -t st231.0 -R /boot/video.elf
-   /bin/stslave -t st231.1 -R /boot/audio.elf
+   /bin/stslave -t st231.0 -R /lib/firmware/video.elf
+   /bin/stslave -t st231.1 -R /lib/firmware/audio.elf
 
    echo "init embx"
    insmod $MODDIR/embxshell.ko

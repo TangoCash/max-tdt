@@ -50,8 +50,8 @@ if [ ! -e /var/etc/.firstboot ]; then
 #   esac
 
    echo "load a/v firmware"
-   /bin/ustslave /dev/st231-1 /boot/audio.elf
-   /bin/ustslave /dev/st231-0 /boot/video.elf
+   /bin/ustslave /dev/st231-1 /lib/firmware/audio.elf
+   /bin/ustslave /dev/st231-0 /lib/firmware/video.elf
 
    echo "init embx"
    insmod $MODDIR/embxshell.ko

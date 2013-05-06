@@ -18,3 +18,4 @@ cd -
 
 # --- BOOT ---
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage
+rm -fr $TMPROOTDIR/boot

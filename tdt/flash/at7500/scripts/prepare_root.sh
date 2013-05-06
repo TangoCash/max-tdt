@@ -19,18 +19,16 @@ fi
 cd -
 
 mv $TMPROOTDIR/var/* $TMPEXTDIR
-
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage
-mv $TMPROOTDIR/boot/audio.elf $TMPFWDIR/audio.elf
-mv $TMPROOTDIR/boot/video.elf $TMPFWDIR/video.elf
-rm -f $TMPROOTDIR/boot/*
+rm -fr $TMPROOTDIR/boot
+mv $TMPROOTDIR/lib/firmware/* $TMPFWDIR
 
 # mini-rcS and inittab
 rm -f $TMPROOTDIR/etc
 mkdir -p $TMPROOTDIR/etc/init.d
 echo "#!/bin/sh" > $TMPROOTDIR/etc/init.d/rcS
 echo "mount -n -t proc proc /proc" >> $TMPROOTDIR/etc/init.d/rcS
-echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock2 /boot" >> $TMPROOTDIR/etc/init.d/rcS
+echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock2 /lib/firmware" >> $TMPROOTDIR/etc/init.d/rcS
 echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock3 /var" >> $TMPROOTDIR/etc/init.d/rcS
 echo "mount --bind /var/etc /etc" >> $TMPROOTDIR/etc/init.d/rcS
 echo "/etc/init.d/rcS &" >> $TMPROOTDIR/etc/init.d/rcS

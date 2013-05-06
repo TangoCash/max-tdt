@@ -36,11 +36,11 @@ release_neutrino_cube_common:
 	cp $(buildprefix)/root/release/reboot_cuberevo $(prefix)/release_neutrino/etc/init.d/reboot
 	chmod 777 $(prefix)/release_neutrino/etc/init.d/reboot
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp $(targetprefix)/bin/eeprom $(prefix)/release_neutrino/bin
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/ipbox/micom.ko $(prefix)/release_neutrino/lib/modules/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx21143}.fw
-	rm -f $(prefix)/release_neutrino/bin/vfdctl
+#	rm -f $(prefix)/release_neutrino/bin/vfdctl
 
 #
 # release_cube_common_tunner
@@ -101,7 +101,7 @@ release_neutrino_common_ipbox:
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/siinfo/siinfo.ko $(prefix)/release_neutrino/lib/modules/
 	cp -f $(buildprefix)/root/release/fstab_ipbox $(prefix)/release_neutrino/etc/fstab
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp -dp $(buildprefix)/root/etc/lircd_ipbox.conf $(prefix)/release_neutrino/etc/lircd.conf
 	cp -p $(buildprefix)/root/release/lircd_ipbox $(prefix)/release_neutrino/usr/bin/lircd
 	rm -f $(prefix)/release_neutrino/lib/firmware/*
@@ -150,7 +150,7 @@ release_neutrino_ufs910: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/vfd/vfd.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7100.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,stv6306}.fw
 	mv $(prefix)/release_neutrino/lib/firmware/dvb-fe-cx21143.fw $(prefix)/release_neutrino/lib/firmware/dvb-fe-cx24116.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
@@ -170,8 +170,8 @@ release_neutrino_ufs912: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/micom/micom.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7111.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -188,8 +188,8 @@ release_neutrino_ufs913: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/micom/micom.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/multituner/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7105.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7105.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7105.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7105.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7105.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,cx24116,cx21143,stv6306}.fw
@@ -207,7 +207,7 @@ release_neutrino_ufs922: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/ufs922_fan/fan_ctrl.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116}.fw
 	rm -f $(prefix)/release_neutrino/bin/gotosleep
 	rm -f $(prefix)/release_neutrino/bin/eeprom
@@ -224,8 +224,8 @@ release_neutrino_spark: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7111.ko $(prefix)/release_neutrino/lib/modules/
 	[ -e $(buildprefix)/root/release/encrypt_spark$(KERNELSTMLABEL).ko ] && cp $(buildprefix)/root/release/encrypt_spark$(KERNELSTMLABEL).ko $(prefix)/release_neutrino/lib/modules/encrypt.ko || true
-	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -248,8 +248,8 @@ release_neutrino_spark7162: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7105.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp -f $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/i2c_spi/i2s.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7105.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7105.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7105.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7105.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -272,7 +272,7 @@ release_neutrino_fortis_hdbox: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -288,8 +288,8 @@ release_neutrino_atevio7500: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/multituner/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7105.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7105.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7105.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7105.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7105.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	cp $(targetprefix)/lib/firmware/dvb-fe-avl2108.fw $(prefix)/release_neutrino/lib/firmware/
@@ -309,7 +309,7 @@ release_neutrino_octagon1008: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/nuvoton/nuvoton.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp $(targetprefix)/lib/firmware/dvb-fe-avl2108.fw $(prefix)/release_neutrino/lib/firmware/
 	cp $(targetprefix)/lib/firmware/dvb-fe-stv6306.fw $(prefix)/release_neutrino/lib/firmware/
 	rm -f $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
@@ -328,8 +328,8 @@ release_neutrino_hs7810a: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/lnb/lnb.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7111.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -345,8 +345,8 @@ release_neutrino_hs7110: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/lnb/lnb.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7111.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -362,8 +362,8 @@ release_neutrino_whitebox: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/lnb/lnb.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-sti7111.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/boot/video.elf
-	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/boot/audio.elf
+	cp $(targetprefix)/boot/video_7111.elf $(prefix)/release_neutrino/lib/firmware/video.elf
+	cp $(targetprefix)/boot/audio_7111.elf $(prefix)/release_neutrino/lib/firmware/audio.elf
 	mv $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw $(prefix)/release_neutrino/lib/firmware/component.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
@@ -378,7 +378,7 @@ release_neutrino_hl101: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/proton/proton.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp $(targetprefix)/lib/firmware/dvb-fe-avl2108.fw $(prefix)/release_neutrino/lib/firmware/
 	cp $(targetprefix)/lib/firmware/dvb-fe-stv6306.fw $(prefix)/release_neutrino/lib/firmware/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
@@ -398,7 +398,7 @@ release_neutrino_adb_box: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/adb_box_fan/cooler.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/cec_adb_box/cec_ctrl.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/dvbt/as102/dvb-as102.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp $(buildprefix)/root/firmware/as102_data1_st.hex $(prefix)/release_neutrino/lib/firmware/
 	cp $(buildprefix)/root/firmware/as102_data2_st.hex $(prefix)/release_neutrino/lib/firmware/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
@@ -416,7 +416,7 @@ release_neutrino_vip1_v2: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/aotom/aotom.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
 	cp -f $(buildprefix)/root/release/fstab_vip2 $(prefix)/release_neutrino/etc/fstab
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
@@ -437,7 +437,7 @@ release_neutrino_hs5101: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/vfd_hs5101/vfd.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7100.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx21143,stv6306}.fw
@@ -453,7 +453,7 @@ release_neutrino_tf7700: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/tffp/tffp.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release_neutrino/lib/modules/
-	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/boot/video.elf
+	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp -f $(buildprefix)/root/release/fstab_tf7700 $(prefix)/release_neutrino/etc/fstab
 
 #
@@ -467,6 +467,7 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/{fonts,init.d,network} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/network/{if-down.d,if-post-down.d,if-pre-up.d,if-up.d} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/modules && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/firmware && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/hdd/{movie,music,picture} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/media/{dvd,nfs,usb} && \
 	ln -sf /hdd $(prefix)/release_neutrino/media/hdd && \
@@ -509,7 +510,7 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/sbin/MAKEDEV $(prefix)/release_neutrino/sbin/MAKEDEV && \
 	cp -f $(buildprefix)/root/release/makedev $(prefix)/release_neutrino/etc/init.d/ && \
 	cp $(targetprefix)/boot/uImage $(prefix)/release_neutrino/boot/ && \
-	cp $(targetprefix)/boot/audio.elf $(prefix)/release_neutrino/boot/audio.elf && \
+	cp $(targetprefix)/boot/audio.elf $(prefix)/release_neutrino/lib/firmware/audio.elf && \
 	cp -a $(targetprefix)/dev/* $(prefix)/release_neutrino/dev/ && \
 	cp -dp $(targetprefix)/etc/fstab $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/group $(prefix)/release_neutrino/etc/ && \

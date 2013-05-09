@@ -400,7 +400,7 @@ neutrino-twin-next-distclean:
 #
 # neutrino-hd2-exp branch
 #
-$(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libgif libid3tag libcurl libmad libvorbisidec libboost libflac openssl libusb2
+$(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl libusb2
 	rm -rf $(appsdir)/neutrino-hd2-exp
 	rm -rf $(appsdir)/neutrino-hd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \

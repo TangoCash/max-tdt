@@ -8,7 +8,6 @@ export DRPM
 export DRPMBUILD
 
 AUTOMAKE_OPTIONS = -Wno-portability
-MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
 
 #
 #
@@ -50,7 +49,7 @@ PYTHON_DIR = /usr/lib/python$(PYTHON_VERSION)
 PYTHON_INCLUDE_DIR = /usr/include/python$(PYTHON_VERSION)
 
 #
-# rpm helper-"functions":
+# helper-"functions":
 #
 TARGETLIB = $(targetprefix)/usr/lib
 PKG_CONFIG_PATH = $(targetprefix)/usr/lib/pkgconfig
@@ -86,25 +85,33 @@ WGET=$(SOCKSIFY) wget
 #
 #
 #
-BUILDENV := \
-	CC=$(target)-gcc \
-	CXX=$(target)-g++ \
-	LD=$(target)-ld \
-	NM=$(target)-nm \
-	AR=$(target)-ar \
-	AS=$(target)-as \
-	RANLIB=$(target)-ranlib \
-	STRIP=$(target)-strip \
-	OBJCOPY=$(target)-objcopy \
-	OBJDUMP=$(target)-objdump \
-	LN_S="ln -s" \
-	CFLAGS="$(TARGET_CFLAGS)" \
-	CXXFLAGS="$(TARGET_CFLAGS)" \
-	LDFLAGS="$(TARGET_LDFLAGS)" \
-	PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig" \
-	PKG_CONFIG_LIBDIR="$(targetprefix)/usr/lib/pkgconfig"
+MAKE_PATH := $(hostprefix)/bin:$(crossprefix)/bin:$(PATH)
 
-#	LDFLAGS="$(TARGET_LDFLAGS) -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/lib -L$(targetprefix)/usr/lib"
+BUILDENV := \
+	source $(buildprefix)/build.env &&
+
+EXPORT_BUILDENV := \
+	export unset CONFIG_SITE && \
+	export PATH=$(MAKE_PATH) && \
+	export CC=$(target)-gcc && \
+	export CXX=$(target)-g++ && \
+	export LD=$(target)-ld && \
+	export NM=$(target)-nm && \
+	export AR=$(target)-ar && \
+	export AS=$(target)-as && \
+	export RANLIB=$(target)-ranlib && \
+	export STRIP=$(target)-strip && \
+	export OBJCOPY=$(target)-objcopy && \
+	export OBJDUMP=$(target)-objdump && \
+	export LN_S="ln -s" && \
+	export CFLAGS="$(TARGET_CFLAGS)" && \
+	export CXXFLAGS="$(TARGET_CFLAGS)" && \
+	export LDFLAGS="$(TARGET_LDFLAGS) -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/lib -L$(targetprefix)/usr/lib" && \
+	export PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig" && \
+	export LD_LIBRARY_PATH=$(targetprefix)/usr/lib
+
+build.env:
+	echo '$(EXPORT_BUILDENV)' |sed 's/&&/\n/g' |sed 's/^ //' > $@
 
 MAKE_OPTS := \
 	CC=$(target)-gcc \

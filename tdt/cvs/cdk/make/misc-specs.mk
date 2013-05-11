@@ -11,7 +11,7 @@ $(DEPDIR)/boot-elf:
 	done
 	$(INSTALL_DIR) $(targetprefix)/lib/firmware
 	cp $(buildprefix)/root/firmware/*.fw $(targetprefix)/lib/firmware/
-	@[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 if ENABLE_ADB_BOX
 LIRCD_CONF := lircd_adb_box.conf
@@ -48,16 +48,16 @@ $(DEPDIR)/misc-cp:
 	cp $(buildprefix)/root/etc/$(LIRCD_CONF) $(targetprefix)/etc/lircd.conf
 	cp -rd $(buildprefix)/root/etc/hotplug $(targetprefix)/etc
 	cp -rd $(buildprefix)/root/etc/hotplug.d $(targetprefix)/etc
-	@[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 $(DEPDIR)/firstboot:
 	$(INSTALL_DIR) $(targetprefix)/var/etc
 	cp -rd $(buildprefix)/root/var/etc/.firstboot $(targetprefix)/var/etc/
-	@[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 $(DEPDIR)/remote:
 	cp $(buildprefix)/root/etc/$(LIRCD_CONF) $(targetprefix)/etc/lircd.conf
-	@[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 $(DEPDIR)/misc-e2:
 	$(INSTALL_DIR) $(targetprefix)/media/hdd
@@ -66,7 +66,7 @@ $(DEPDIR)/misc-e2:
 	$(INSTALL_DIR) $(targetprefix)/hdd/music
 	$(INSTALL_DIR) $(targetprefix)/hdd/picture
 	$(INSTALL_DIR) $(targetprefix)/hdd/movie
-	@[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 #
 # SPLASHUTILS
@@ -121,9 +121,9 @@ $(STSLAVE_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(STSLAVE_SPEC)
 
-$(DEPDIR)/$(STSLAVE): linux-kernel-headers binutils-dev $(STSLAVE_RPM)
+$(DEPDIR)/$(STSLAVE): $(STSLAVE_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	touch $@
 
 #
@@ -150,7 +150,7 @@ $(OPENSSL_RPM) $(OPENSSL_DEV_RPM): \
 
 $(DEPDIR)/$(OPENSSL): $(OPENSSL_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^) && \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	touch $@
 	sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr," $(targetprefix)/usr/lib/pkgconfig/libcrypto.pc
 	sed -i "s,^prefix=.*,prefix=$(targetprefix)/usr," $(targetprefix)/usr/lib/pkgconfig/libssl.pc

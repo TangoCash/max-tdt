@@ -258,10 +258,8 @@ $(KERNELHEADERS_RPM): \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(KERNELHEADERS_SPEC)
 
-$(DEPDIR)/$(KERNELHEADERS): \
-$(DEPDIR)/%$(KERNELHEADERS): $(KERNELHEADERS_RPM)
-	@rpm $(DRPM) --ignorearch --nodeps -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+$(DEPDIR)/$(KERNELHEADERS): $(KERNELHEADERS_RPM)
+	@rpm $(DRPM) --ignorearch --nodeps -Uhv --badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
 	touch $@
 
 #
@@ -277,6 +275,7 @@ DEBUG_STR=
 endif !DEBUG
 
 HOST_KERNEL := host-kernel
+
 if ENABLE_P0207
 HOST_KERNEL_VERSION = 2.6.32.28$(KERNELSTMLABEL)-$(KERNELLABEL)
 else
@@ -310,8 +309,7 @@ $(HOST_KERNEL_RPM): \
 $(DEPDIR)/linux-kernel.do_prepare: \
 		$(if $(HOST_KERNEL_PATCHES),$(HOST_KERNEL_PATCHES:%=Patches/%)) \
 		$(HOST_KERNEL_RPM)
-	rm -rf $(KERNEL_DIR)
-	rm -rf linux-sh4
+	rm -rf linux-sh4*
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^)
 	$(if $(HOST_KERNEL_PATCHES),cd $(KERNEL_DIR) && cat $(HOST_KERNEL_PATCHES:%=$(buildprefix)/Patches/%) | patch -p1)
 	$(INSTALL) -m644 Patches/$(HOST_KERNEL_CONFIG) $(KERNEL_DIR)/.config

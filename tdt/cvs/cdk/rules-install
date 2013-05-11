@@ -193,7 +193,7 @@ xfsprogs;make:install:prefix=TARGETS/usr
 #
 # net apps
 #
-autofs;make:install:INSTALLROOT=TARGETS
+autofs;make:install:INSTALLROOT=TARGETS SUBDIRS="lib daemon modules"
 portmap;make:install:BASEDIR=TARGETS;install:-m755:debian/init.d:TARGETS/etc/init.d/portmap
 nfs_utils;make:install:DESTDIR=TARGETS
 libnfsidmap;make:install

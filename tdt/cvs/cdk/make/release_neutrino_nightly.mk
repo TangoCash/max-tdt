@@ -466,8 +466,7 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,swap,sys,tmp,usr,var} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/{fonts,init.d,network} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/network/{if-down.d,if-post-down.d,if-pre-up.d,if-up.d} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/modules && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/firmware && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/{modules,firmware} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/hdd/{movie,music,picture} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/media/{dvd,nfs,usb} && \
 	ln -sf /hdd $(prefix)/release_neutrino/media/hdd && \

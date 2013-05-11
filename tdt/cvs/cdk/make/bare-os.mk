@@ -1,28 +1,4 @@
 #
-# FILESYSTEM
-#
-$(DEPDIR)/filesystem: bootstrap-cross
-	$(INSTALL) -d $(targetprefix)/{bin,boot,dev,dev.static,etc,lib,mnt,opt,proc,root,sbin,sys,tmp,usr,var}
-	$(INSTALL) -d $(targetprefix)/etc/{default,opt}
-	$(INSTALL) -d $(targetprefix)/lib/lsb
-	$(INSTALL) -d $(targetprefix)/usr/{bin,include,lib,local,sbin,share,src}
-	$(INSTALL) -d $(targetprefix)/usr/local/{bin,include,lib,sbin,share,src}
-	$(INSTALL) -d $(targetprefix)/usr/share/{aclocal,doc,info,locale,man,misc,nls}
-	$(INSTALL) -d $(targetprefix)/usr/share/man/man{1..9}
-	$(INSTALL) -d $(targetprefix)/var/{backups,cache,lib,local,lock,log,mail,opt,run,spool}
-#	ln -sf $(targetprefix)/lib $(targetprefix)/lib64
-#	ln -sf $(targetprefix)/usr/lib $(targetprefix)/usr/lib64
-	$(INSTALL) -d $(targetprefix)/var/lib/misc
-	$(INSTALL) -d $(targetprefix)/var/lock/subsys
-	$(INSTALL) -d $(targetprefix)/etc/{init.d,rc.d,samba}
-	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
-	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
-	$(INSTALL) -d $(targetprefix)/etc/samba/private
-	$(INSTALL) -d $(targetprefix)/media
-	$(INSTALL) -d $(targetprefix)/var/bin
-	touch $@
-
-#
 # TZDATA
 #
 TZDATA := tzdata
@@ -196,7 +172,7 @@ $(DEPDIR)/$(MPC): $(MPC_RPM)
 # LIBELF
 #
 LIBELF := libelf
-LIBELF_VERSION := 0.8.13-1
+LIBELF_VERSION := 0.8.13-2
 LIBELF_SPEC := stm-target-$(LIBELF).spec
 LIBELF_SPEC_PATCH :=
 LIBELF_PATCHES :=
@@ -249,24 +225,24 @@ $(GCC_RPM) $(LIBSTDC_RPM) $(LIBSTDC_DEV_RPM) $(LIBGCC_RPM): \
 $(DEPDIR)/$(GCC): $(DEPDIR)/$(GLIBC_DEV) $(GCC_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 $(DEPDIR)/$(LIBSTDC): $(DEPDIR)/$(CROSS_LIBGCC) $(LIBSTDC_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 $(DEPDIR)/$(LIBSTDC_DEV): $(DEPDIR)/$(LIBSTDC) $(LIBSTDC_DEV_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/lib{std,sup}c++.la; \
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/lib{std,sup}c++.la
 
 $(DEPDIR)/$(LIBGCC): $(LIBGCC_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps -Uhv \
 		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
-	[ "x$*" = "x" ] && touch $@ || true
+	touch $@
 
 # END OF BOOTSTRAP
 
@@ -417,7 +393,7 @@ $(DEPDIR)/$(NCURSES_DEV): $(DEPDIR)/$(NCURSES_BASE) $(NCURSES_DEV_RPM)
 # BASE-PASSWD
 #
 BASE_PASSWD := base-passwd
-BASE_PASSWD_VERSION := 3.5.9-9
+BASE_PASSWD_VERSION := 3.5.9-11
 BASE_PASSWD_SPEC := stm-target-$(BASE_PASSWD).spec
 BASE_PASSWD_SPEC_PATCH :=
 BASE_PASSWD_PATCHES :=

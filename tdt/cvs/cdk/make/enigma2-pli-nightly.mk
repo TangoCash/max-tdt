@@ -32,6 +32,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	echo "========================================================================================================"; \
 	echo " 3) Mon, 28 Jan 2013 21:30 - E2 OpenPli gstreamer / libplayer3 ce3b90e73e88660bafe900f781d434dd6bd25f71"; \
 	echo " 4) Sat,  2 Mar 2013 21:36 - E2 OpenPli gstreamer / libplayer3 4361a969cde00cd37d6d17933f2621ea49b5a30a"; \
+	echo " 5) Fri, 10 May 2013 15:43 - E2 OpenPli gstreamer / libplayer3 20a5a1f00cdadeff6d0e02861cf7ba8436fc49c5"; \
 	echo "========================================================================================================"; \
 	echo "Media Framwork : $(MEDIAFW)"; \
 	echo "External LCD   : $(EXTERNALLCD)"; \
@@ -41,6 +42,7 @@ $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	[ "$$REPLY" == "2" ] && DIFF="2" && REVISION=""; \
 	[ "$$REPLY" == "3" ] && DIFF="3" && REVISION="ce3b90e73e88660bafe900f781d434dd6bd25f71"; \
 	[ "$$REPLY" == "4" ] && DIFF="4" && REVISION="4361a969cde00cd37d6d17933f2621ea49b5a30a"; \
+	[ "$$REPLY" == "5" ] && DIFF="5" && REVISION="20a5a1f00cdadeff6d0e02861cf7ba8436fc49c5"; \
 	echo "Revision       : "$$REVISION; \
 	echo ""; \
 	[ -d "$(archivedir)/enigma2-pli-nightly.git" ] && \
@@ -68,7 +70,7 @@ $(appsdir)/enigma2-pli-nightly/config.status: \
 			--build=$(build) \
 			--host=$(target) \
 			--with-libsdl=no \
-			--datadir=/usr/share \
+			--datadir=/usr/local/share \
 			--libdir=/usr/lib \
 			--bindir=/usr/bin \
 			--prefix=/usr \

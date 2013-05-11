@@ -78,7 +78,7 @@ $(DEPDIR)/libz: @DEPENDS_libz@
 		./configure \
 			--prefix=/usr \
 			--shared && \
-		$(MAKE) all && \
+		$(MAKE) && \
 		@INSTALL_libz@
 	@DISTCLEANUP_libz@
 	touch $@
@@ -490,7 +490,7 @@ $(DEPDIR)/lcms: bootstrap libjpeg @DEPENDS_lcms@
 		$(MAKE) && \
 		@INSTALL_lcms@
 	@DISTCLEANUP_lcms@
-	[ "x$*" = "x" ] && touch $@
+	touch $@
 
 #
 # directfb
@@ -713,7 +713,7 @@ $(DEPDIR)/libdvdread: bootstrap @DEPENDS_libdvdread@
 $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@ && \
-		PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+		$(BUILDENV) \
 		./configure \
 			--disable-static \
 			--enable-shared \
@@ -1080,7 +1080,6 @@ $(DEPDIR)/elementtree: bootstrap @DEPENDS_elementtree@
 #
 $(DEPDIR)/libxml2: bootstrap @DEPENDS_libxml2@
 	@PREPARE_libxml2@
-	touch $@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxml2@ && \
 		$(BUILDENV) \
@@ -1577,7 +1576,7 @@ $(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plu
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
 		autoheader && \
 		autoconf && \
-		automake --foreign && \
+		automake --foreign --add-missing && \
 		libtoolize --force && \
 		$(BUILDENV) \
 		./configure \
@@ -1664,7 +1663,6 @@ $(DEPDIR)/graphlcd: bootstrap libfreetype libusb @DEPENDS_graphlcd@
 	@PREPARE_graphlcd@
 	[ -d "$(archivedir)/graphlcd-base-touchcol.git" ] && \
 	(cd $(archivedir)/graphlcd-base-touchcol.git; git pull ; git checkout touchcol; cd "$(buildprefix)";); \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_graphlcd@&& \
 		$(BUILDENV) \
 		$(MAKE) all DESTDIR=$(targetprefix)/usr && \
@@ -2491,4 +2489,3 @@ $(DEPDIR)/taglib: bootstrap @DEPENDS_taglib@
 		@INSTALL_taglib@
 	@DISTCLEANUP_taglib@
 	touch $@
-

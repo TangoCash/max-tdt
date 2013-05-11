@@ -3,6 +3,7 @@
 #
 HOST_U_BOOT := host-u-boot
 HOST_U_BOOT_VERSION := sh4-1.3.1_stm24_0057-57
+#HOST_U_BOOT_VERSION := sh4-v2010.03_stm24_0122-122
 HOST_U_BOOT_RAWVERSION := $(HOST_U_BOOT_VERSION)
 HOST_U_BOOT_DIR := u-boot/u-boot-sh4-$(word 2, $(subst -, ,$(HOST_U_BOOT_VERSION)))
 HOST_U_BOOT_SPEC := stm-$(HOST_U_BOOT).spec

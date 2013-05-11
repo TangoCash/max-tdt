@@ -332,7 +332,7 @@ neutrino-twin-distclean:
 #
 # neutrino-twin-next
 #
-$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libalsa libstb-hal-exp
+$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec openssl libopenthreads libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-twin-next
 	rm -rf $(appsdir)/neutrino-twin-next.org
 	rm -rf $(appsdir)/neutrino-twin-next.patched
@@ -499,4 +499,3 @@ neutrino-clean neutrino-distclean:
 	rm -f $(DEPDIR)/neutrino.do_prepare
 	cd $(appsdir)/neutrino && \
 		$(MAKE) distclean
-

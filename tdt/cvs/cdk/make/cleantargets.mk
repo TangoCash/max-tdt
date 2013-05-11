@@ -38,6 +38,7 @@ clean-local: mostlyclean-local depsclean rpmdepsclean
 	-rm -rf $(prefix)/*cdkroot-tftpboot
 	-rm -rf $(prefix)/release*
 	-rm -rf SOURCES SPECS BUILD && install -d SOURCES SPECS BUILD
+	-rm -rf build.env
 	-rm -rf $(DEPDIR)/u-boot-utils*
 	-rm -rf $(DEPDIR)/linux-kernel*
 

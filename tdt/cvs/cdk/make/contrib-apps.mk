@@ -9,7 +9,7 @@ $(DEPDIR)/bzip2: bootstrap @DEPENDS_bzip2@
 		$(MAKE) all && \
 		@INSTALL_bzip2@
 	@DISTCLEANUP_bzip2@
-	touch $@ || true
+	touch $@
 
 #
 # grep
@@ -30,7 +30,7 @@ $(DEPDIR)/grep: bootstrap @DEPENDS_grep@
 		$(MAKE) && \
 		@INSTALL_grep@
 	@DISTCLEANUP_grep@
-	touch $@ || true
+	touch $@
 
 #
 # CONSOLE_DATA
@@ -44,6 +44,7 @@ $(DEPDIR)/console_data: bootstrap @DEPENDS_console_data@
 			--host=$(target) \
 			--prefix=$(targetprefix) \
 			--with-main_compressor=gzip && \
+		$(MAKE) && \
 		@INSTALL_console_data@
 	@DISTCLEANUP_console_data@
 	touch $@
@@ -65,7 +66,7 @@ $(DEPDIR)/module_init_tools: bootstrap lsb @DEPENDS_module_init_tools@
 	$(call adapted-etc-files,$(MODULE_INIT_TOOLS_ADAPTED_ETC_FILES))
 	$(call initdconfig,module-init-tools)
 	@DISTCLEANUP_module_init_tools@
-	touch $@ || true
+	touch $@
 
 #
 # lsb
@@ -75,7 +76,7 @@ $(DEPDIR)/lsb: bootstrap @DEPENDS_lsb@
 	cd @DIR_lsb@ && \
 		@INSTALL_lsb@
 	@DISTCLEANUP_lsb@
-	touch $@ || true
+	touch $@
 
 #
 # portmap
@@ -91,7 +92,7 @@ $(DEPDIR)/portmap: bootstrap @DEPENDS_portmap@
 		@INSTALL_portmap@
 	$(call adapted-etc-files,$(PORTMAP_ADAPTED_ETC_FILES))
 	@DISTCLEANUP_portmap@
-	touch $@ || true
+	touch $@
 
 #
 # openrdate
@@ -105,13 +106,17 @@ $(DEPDIR)/openrdate: bootstrap @DEPENDS_openrdate@ $(OPENRDATE_ADAPTED_ETC_FILES
 			--host=$(target) \
 			--target=$(target) \
 			--prefix=/usr && \
-		$(MAKE) 
+		$(MAKE) && \
 		@INSTALL_openrdate@
 	( cd root/etc && for i in $(OPENRDATE_ADAPTED_ETC_FILES); do \
 		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done ) && \
+	( export HHL_CROSS_TARGET_DIR=$(prefix)/$*cdkroot && cd $(prefix)/$*cdkroot/etc/init.d && \
+		for s in rdate.sh ; do \
+			$(hostprefix)/bin/target-initdconfig --add $$s || \
+			echo "Unable to enable initd service: $$s" ; done && rm *rpmsave 2>/dev/null || true )
 	@DISTCLEANUP_openrdate@
-	touch $@ || true
+	touch $@
 
 #
 # e2fsprogs
@@ -148,7 +153,7 @@ $(DEPDIR)/e2fsprogs: bootstrap @DEPENDS_e2fsprogs@ | $(UTIL_LINUX)
 		$(MAKE) install install-libs DESTDIR=$(targetprefix) && \
 	$(INSTALL) e2fsck/e2fsck.static $(targetprefix)/sbin ) || true
 	@DISTCLEANUP_e2fsprogs@
-	touch $@ || true
+	touch $@
 
 #
 # util_linux
@@ -195,7 +200,7 @@ $(DEPDIR)/xfsprogs: bootstrap $(DEPDIR)/e2fsprogs $(DEPDIR)/libreadline @DEPENDS
 		export top_builddir=`pwd` && \
 		@INSTALL_xfsprogs@
 	@DISTCLEANUP_xfsprogs@
-	touch $@ || true
+	touch $@
 
 #
 # mc
@@ -216,7 +221,7 @@ $(DEPDIR)/mc: bootstrap glib2 @DEPENDS_mc@ | $(NCURSES_DEV)
 #		export top_builddir=`pwd` && \
 #		$(MAKE) install DESTDIR=$(prefix)/$*cdkroot
 	@DISTCLEANUP_mc@
-	touch $@ || true
+	touch $@
 
 #
 # sdparm
@@ -236,7 +241,7 @@ $(DEPDIR)/sdparm: bootstrap @DEPENDS_sdparm@
 		@INSTALL_sdparm@
 	@( cd $(prefix)/$*cdkroot/usr/share/man/man8 && gzip -v9 sdparm.8 )
 	@DISTCLEANUP_sdparm@
-	touch $@ || true
+	touch $@
 
 #
 # sg3_utils
@@ -266,7 +271,7 @@ $(DEPDIR)/sg3_utils: bootstrap @DEPENDS_sg3_utils@
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done ) && \
 	$(INSTALL) -m755 root/usr/sbin/sg_down.sh $(prefix)/$*cdkroot/usr/sbin
 	@DISTCLEANUP_sg3_utils@
-	touch $@ || true
+	touch $@
 
 #
 # ipkg
@@ -287,7 +292,7 @@ $(DEPDIR)/ipkg: bootstrap @DEPENDS_ipkg@
 	$(INSTALL) -d $(prefix)/$*cdkroot/usr/lib/ipkg
 	$(INSTALL) -m 644 root/usr/lib/ipkg/status.initial $(prefix)/$*cdkroot/usr/lib/ipkg/status
 	@DISTCLEANUP_ipkg@
-	touch $@ || true
+	touch $@
 
 #
 # zd1211
@@ -304,7 +309,7 @@ $(DEPDIR)/zd1211: bootstrap @DEPENDS_zd1211@
 			install && \
 	$(DEPMOD) -ae -b $(targetprefix) -r $(KERNELVERSION)
 	@DISTCLEANUP_zd1211@
-	touch $@ || true
+	touch $@
 
 #
 # nano
@@ -323,7 +328,7 @@ $(DEPDIR)/nano: bootstrap ncurses ncurses-dev @DEPENDS_nano@
 		$(MAKE) && \
 		@INSTALL_nano@
 	@DISTCLEANUP_nano@
-	touch $@ || true
+	touch $@
 
 #
 # rsync
@@ -341,7 +346,7 @@ $(DEPDIR)/rsync: bootstrap @DEPENDS_rsync@
 		$(MAKE) && \
 		@INSTALL_rsync@
 	@DISTCLEANUP_rsync@
-	touch $@ || true
+	touch $@
 
 #
 # rfkill
@@ -352,7 +357,7 @@ $(DEPDIR)/rfkill: bootstrap @DEPENDS_rfkill@
 		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_rfkill@
 	@DISTCLEANUP_rfkill@
-	touch $@ || true
+	touch $@
 
 #
 # lm_sensors
@@ -369,7 +374,7 @@ $(DEPDIR)/lm_sensors: bootstrap @DEPENDS_lm_sensors@
 		rm $(prefix)/$*cdkroot/usr/include/linux/i2c-dev.h && \
 		rm $(prefix)/$*cdkroot/usr/bin/ddcmon
 	@DISTCLEANUP_lm_sensors@
-	touch $@ || true
+	touch $@
 
 #
 # fuse
@@ -392,7 +397,7 @@ $(DEPDIR)/fuse: bootstrap @DEPENDS_fuse@
 		$(LN_SF) sh4-linux-fusermount $(prefix)/$*cdkroot/usr/bin/fusermount
 		$(LN_SF) sh4-linux-ulockmgr_server $(prefix)/$*cdkroot/usr/bin/ulockmgr_server
 	@DISTCLEANUP_fuse@
-	touch $@ || true
+	touch $@
 
 #
 # curlftpfs
@@ -410,7 +415,7 @@ $(DEPDIR)/curlftpfs: bootstrap fuse @DEPENDS_curlftpfs@
 		$(MAKE) && \
 		@INSTALL_curlftpfs@
 	@DISTCLEANUP_curlftpfs@
-	touch $@ || true
+	touch $@
 
 #
 # fbset
@@ -421,7 +426,7 @@ $(DEPDIR)/fbset: bootstrap @DEPENDS_fbset@
 		make CC="$(target)-gcc -Wall -O2 -I." && \
 		@INSTALL_fbset@
 	@DISTCLEANUP_fbset@
-	touch $@ || true
+	touch $@
 
 #
 # pngquant
@@ -432,7 +437,7 @@ $(DEPDIR)/pngquant: bootstrap libz libpng @DEPENDS_pngquant@
 		$(target)-gcc -O3 -Wall -I. -funroll-loops -fomit-frame-pointer -o pngquant pngquant.c rwpng.c -lpng -lz -lm && \
 		@INSTALL_pngquant@
 	@DISTCLEANUP_pngquant@
-	touch $@ || true
+	touch $@
 
 #
 # mplayer
@@ -450,7 +455,7 @@ $(DEPDIR)/mplayer: bootstrap @DEPENDS_mplayer@
 		$(MAKE) CC="$(target)-gcc" && \
 		@INSTALL_mplayer@
 	@DISTCLEANUP_mplayer@
-	touch $@ || true
+	touch $@
 
 #
 # mencoder
@@ -493,7 +498,7 @@ $(DEPDIR)/mencoder: bootstrap @DEPENDS_mencoder@
 		$(MAKE) CC="$(target)-gcc" && \
 		@INSTALL_mencoder@
 	@DISTCLEANUP_mencoder@
-	touch $@ || true
+	touch $@
 
 #
 # jfsutils
@@ -615,7 +620,7 @@ $(DEPDIR)/sysstat: bootstrap @DEPENDS_sysstat@
 		$(MAKE) && \
 		@INSTALL_sysstat@
 	@DISTCLEANUP_sysstat@
-	@touch $@
+	touch $@
 
 #
 # hotplug_e2
@@ -631,15 +636,15 @@ $(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr && \
-		$(MAKE) all
+		$(MAKE) all && \
 		@INSTALL_hotplug_e2@
 	@DISTCLEANUP_hotplug_e2@
-	touch $@ || true
+	touch $@
 
 #
 # autofs
 #
-$(DEPDIR)/autofs: bootstrap @DEPENDS_autofs@
+$(DEPDIR)/autofs: bootstrap e2fsprogs @DEPENDS_autofs@
 	@PREPARE_autofs@
 	cd @DIR_autofs@ && \
 		cp aclocal.m4 acinclude.m4 && \
@@ -649,7 +654,7 @@ $(DEPDIR)/autofs: bootstrap @DEPENDS_autofs@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr && \
-		$(MAKE) all CC=$(target)-gcc STRIP=$(target)-strip && \
+		$(MAKE) all CC=$(target)-gcc STRIP=$(target)-strip SUBDIRS="lib daemon modules" && \
 		@INSTALL_autofs@
 	@DISTCLEANUP_autofs@
 	touch $@
@@ -685,5 +690,4 @@ $(DEPDIR)/imagemagick: bootstrap @DEPENDS_imagemagick@
 		$(MAKE) all && \
 		@INSTALL_imagemagick@
 	@DISTCLEANUP_imagemagick@
-	touch $@ || true
-
+	touch $@

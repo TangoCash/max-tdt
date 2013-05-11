@@ -71,7 +71,7 @@ libao;1.1.0;libao-1.1.0;libao-1.1.0.tar.gz;extract:libao-1.1.0.tar.gz
 howl;0.9.8;howl-0.9.8;howl_0.9.8.orig.tar.gz;extract:howl_0.9.8.orig.tar.gz
 libopenthreads;1.00;openthreads;;
 libboost;boost-1.53.0;boost_1_53_0;boost_1_53_0.tar.bz2;extract:boost_1_53_0.tar.bz2;patch:libboost.diff
-libz;1.2.8;zlib-1.2.8;zlib-1.2.8.tar.gz;extract:zlib-1.2.8.tar.gz
+libz;1.2.8;zlib-1.2.8;zlib-1.2.8.tar.gz;extract:zlib-1.2.8.tar.gz;patch:zlib-1.2.8.patch
 libreadline;5.2;readline-5.2;readline-5.2.tar.gz;extract:readline-5.2.tar.gz;patch:readline-5.2-termcap_shlibs.patch
 libfreetype;2.3.12;freetype-2.3.12;freetype-2.3.12.tar.bz2;extract:freetype-2.3.12.tar.bz2;patch:libfreetype-2.3.12.diff
 #libfreetype;2.4.11;freetype-2.4.11;freetype-2.4.11.tar.bz2;extract:freetype-2.4.11.tar.bz2
@@ -82,7 +82,7 @@ libpng12;1.2.50;libpng-1.2.50;libpng-1.2.50.tar.bz2;extract:libpng-1.2.50.tar.bz
 libpng;1.5.6;libpng-1.5.6;libpng-1.5.6.tar.gz;extract:libpng-1.5.6.tar.gz;patch:libpng-1.5.6-workaround_for_stmfb_alpha_error.patch
 libungif;4.1.4;libungif-4.1.4;libungif-4.1.4.tar.bz2;extract:libungif-4.1.4.tar.bz2
 libgif;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
-libgif_current;5.0.2;giflib-5.0.2;giflib-5.0.2.tar.bz2;extract:giflib-5.0.2.tar.bz2
+libgif_current;5.0.4;giflib-5.0.4;giflib-5.0.4.tar.bz2;extract:giflib-5.0.4.tar.bz2
 libcurl;7.30.0;curl-7.30.0;curl-7.30.0.tar.bz2;extract:curl-7.30.0.tar.bz2
 libfribidi;0.19.5;fribidi-0.19.5;fribidi-0.19.5.tar.bz2;extract:fribidi-0.19.5.tar.bz2
 libsigc;1.2.5;libsigc++-1.2.5;libsigc++-1.2.5.tar.gz;extract:libsigc++-1.2.5.tar.gz
@@ -225,7 +225,7 @@ libdpf;0.12;dpflib-0.12;dpflib-0.12.tar.gz;extract:dpflib-0.12.tar.gz
 #
 # ide apps
 #
-autofs;4.1.4;autofs-4.1.4;autofs-4.1.4.tar.gz;extract:autofs-4.1.4.tar.gz;patch:autofs-4.1.4-misc-fixes.patch;patch:autofs-4.1.4-multi-parse-fix.patch;patch:autofs-4.1.4-non-replicated-ping.patch;patch:autofs-4.1.4-locking-fix-1.patch;patch:autofs-4.1.4-cross.patch;patch:autofs-4.1.4-Makefile.rules-cross.patch;patch:autofs-4.1.4-install.patch;patch:autofs-4.1.4-auto.net-sort-option-fix.patch;patch:autofs-4.1.4-autofs-additional-distros.patch;patch:autofs-4.1.4-no-bash.patch;patch:autofs-4.1.4-autofs-add-hotplug.patch;patch:autofs-4.1.4-no_man.patch
+autofs;4.1.4;autofs-4.1.4;autofs-4.1.4.tar.gz;extract:autofs-4.1.4.tar.gz;patch:autofs-4.1.4.patch
 dosfstools;3.0.16;dosfstools-3.0.16;dosfstools-3.0.16.tar.gz;extract:dosfstools-3.0.16.tar.gz
 e2fsprogs;1.42.7;e2fsprogs-1.42.7;e2fsprogs-1.42.7.tar.gz;extract:e2fsprogs-1.42.7.tar.gz;patch:e2fsprogs-remove.ldconfig.call.patch
 hddtemp;0.3-beta15;hddtemp-0.3-beta15;hddtemp-0.3-beta15.tar.bz2;extract:hddtemp-0.3-beta15.tar.bz2

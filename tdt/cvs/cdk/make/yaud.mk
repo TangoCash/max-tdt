@@ -2,6 +2,7 @@
 # BOOTSTRAP
 #
 $(DEPDIR)/bootstrap: \
+	build.env \
 	$(FILESYSTEM) \
 	| $(GLIBC_DEV) \
 	$(CROSS_LIBGCC) \

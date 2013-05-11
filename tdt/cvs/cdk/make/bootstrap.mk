@@ -27,26 +27,26 @@ $(DEPDIR)/$(HOST_RPMCONFIG): $(HOST_RPMCONFIG_RPM)
 #
 # HOST-LIBTOOL
 #
-HOST_LIBTOOL = host-libtool
-HOST_LIBTOOL_VERSION = 2.2.8-4
-HOST_LIBTOOL_SPEC = stm-$(HOST_LIBTOOL).spec
-HOST_LIBTOOL_SPEC_PATCH =
-HOST_LIBTOOL_PATCHES =
-
-HOST_LIBTOOL_RPM = RPMS/sh4/$(STLINUX)-$(HOST_LIBTOOL)-$(HOST_LIBTOOL_VERSION).sh4.rpm
-
-$(HOST_LIBTOOL_RPM): \
-		$(addprefix Patches/,$(HOST_LIBTOOL_SPEC_PATCH) $(HOST_LIBTOOL_PATCHES)) \
-		$(archivedir)/$(STLINUX)-$(HOST_LIBTOOL)-$(HOST_LIBTOOL_VERSION).src.rpm
-	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_LIBTOOL_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_LIBTOOL_SPEC) < $(buildprefix)/Patches/$(HOST_LIBTOOL_SPEC_PATCH) ) &&) \
-	$(if $(HOST_LIBTOOL_PATCHES),cp $(addprefix Patches/,$(HOST_LIBTOOL_PATCHES)) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_LIBTOOL_SPEC)
-
-$(DEPDIR)/$(HOST_LIBTOOL): $(HOST_LIBTOOL_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
-	touch $@
+#HOST_LIBTOOL = host-libtool
+#HOST_LIBTOOL_VERSION = 2.2.8-4
+#HOST_LIBTOOL_SPEC = stm-$(HOST_LIBTOOL).spec
+#HOST_LIBTOOL_SPEC_PATCH =
+#HOST_LIBTOOL_PATCHES =
+#
+#HOST_LIBTOOL_RPM = RPMS/sh4/$(STLINUX)-$(HOST_LIBTOOL)-$(HOST_LIBTOOL_VERSION).sh4.rpm
+#
+#$(HOST_LIBTOOL_RPM): \
+#		$(addprefix Patches/,$(HOST_LIBTOOL_SPEC_PATCH) $(HOST_LIBTOOL_PATCHES)) \
+#		$(archivedir)/$(STLINUX)-$(HOST_LIBTOOL)-$(HOST_LIBTOOL_VERSION).src.rpm
+#	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
+#	$(if $(HOST_LIBTOOL_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_LIBTOOL_SPEC) < $(buildprefix)/Patches/$(HOST_LIBTOOL_SPEC_PATCH) ) &&) \
+#	$(if $(HOST_LIBTOOL_PATCHES),cp $(addprefix Patches/,$(HOST_LIBTOOL_PATCHES)) SOURCES/ &&) \
+#	export PATH=$(hostprefix)/bin:$(PATH) && \
+#	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_LIBTOOL_SPEC)
+#
+#$(DEPDIR)/$(HOST_LIBTOOL): $(HOST_LIBTOOL_RPM)
+#	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
+#	touch $@
 
 #
 # HOST-BASE-PASSWD
@@ -123,74 +123,74 @@ $(DEPDIR)/$(HOST_LDD): $(HOST_LDD_RPM)
 #
 # HOST AUTOTOOLS
 #
-HOST_AUTOTOOLS = host-autotools
-HOST_AUTOTOOLS_VERSION = dev-20091012-3
-HOST_AUTOTOOLS_SPEC = stm-$(HOST_AUTOTOOLS)-dev.spec
-HOST_AUTOTOOLS_SPEC_PATCH =
-HOST_AUTOTOOLS_PATCHES =
-
-HOST_AUTOTOOLS_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOTOOLS)-$(HOST_AUTOTOOLS_VERSION).sh4.rpm
-
-$(HOST_AUTOTOOLS_RPM): \
-		$(addprefix Patches/,$(HOST_AUTOTOOLS_SPEC_PATCH) $(HOST_AUTOTOOLS_PATCHES)) \
-		$(archivedir)/$(STLINUX)-$(HOST_AUTOTOOLS)-$(HOST_AUTOTOOLS_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_AUTOTOOLS_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_AUTOTOOLS_SPEC) < $(buildprefix)/Patches/$(HOST_AUTOTOOLS_SPEC_PATCH) ) &&) \
-	$(if $(HOST_AUTOTOOLS_PATCHES),cp $(addprefix Patches/,$(HOST_AUTOTOOLS_PATCHES)) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_AUTOTOOLS_SPEC)
-
-$(DEPDIR)/$(HOST_AUTOTOOLS): $(HOST_AUTOTOOLS_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
-	touch $@
+#HOST_AUTOTOOLS = host-autotools
+#HOST_AUTOTOOLS_VERSION = dev-20091012-3
+#HOST_AUTOTOOLS_SPEC = stm-$(HOST_AUTOTOOLS)-dev.spec
+#HOST_AUTOTOOLS_SPEC_PATCH =
+#HOST_AUTOTOOLS_PATCHES =
+#
+#HOST_AUTOTOOLS_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOTOOLS)-$(HOST_AUTOTOOLS_VERSION).sh4.rpm
+#
+#$(HOST_AUTOTOOLS_RPM): \
+#		$(addprefix Patches/,$(HOST_AUTOTOOLS_SPEC_PATCH) $(HOST_AUTOTOOLS_PATCHES)) \
+#		$(archivedir)/$(STLINUX)-$(HOST_AUTOTOOLS)-$(HOST_AUTOTOOLS_VERSION).src.rpm
+#	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+#	$(if $(HOST_AUTOTOOLS_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_AUTOTOOLS_SPEC) < $(buildprefix)/Patches/$(HOST_AUTOTOOLS_SPEC_PATCH) ) &&) \
+#	$(if $(HOST_AUTOTOOLS_PATCHES),cp $(addprefix Patches/,$(HOST_AUTOTOOLS_PATCHES)) SOURCES/ &&) \
+#	export PATH=$(hostprefix)/bin:$(PATH) && \
+#	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_AUTOTOOLS_SPEC)
+#
+#$(DEPDIR)/$(HOST_AUTOTOOLS): $(HOST_AUTOTOOLS_RPM)
+#	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
+#	touch $@
 
 #
 # HOST AUTOMAKE
 #
-HOST_AUTOMAKE = host-automake
-HOST_AUTOMAKE_VERSION = 1.11.1-3
-HOST_AUTOMAKE_SPEC = stm-$(HOST_AUTOMAKE).spec
-HOST_AUTOMAKE_SPEC_PATCH =
-HOST_AUTOMAKE_PATCHES =
-
-HOST_AUTOMAKE_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOMAKE)-$(HOST_AUTOMAKE_VERSION).sh4.rpm
-
-$(HOST_AUTOMAKE_RPM): \
-		$(addprefix Patches/,$(HOST_AUTOMAKE_SPEC_PATCH) $(HOST_AUTOMAKE_PATCHES)) \
-		$(archivedir)/$(STLINUX)-$(HOST_AUTOMAKE)-$(HOST_AUTOMAKE_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_AUTOMAKE_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_AUTOMAKE_SPEC) < $(buildprefix)/Patches/$(HOST_AUTOMAKE_SPEC_PATCH) ) &&) \
-	$(if $(HOST_AUTOMAKE_PATCHES),cp $(addprefix Patches/,$(HOST_AUTOMAKE_PATCHES)) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_AUTOMAKE_SPEC)
-
-$(DEPDIR)/$(HOST_AUTOMAKE): $(HOST_AUTOMAKE_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
-	touch $@
+#HOST_AUTOMAKE = host-automake
+#HOST_AUTOMAKE_VERSION = 1.11.1-3
+#HOST_AUTOMAKE_SPEC = stm-$(HOST_AUTOMAKE).spec
+#HOST_AUTOMAKE_SPEC_PATCH =
+#HOST_AUTOMAKE_PATCHES =
+#
+#HOST_AUTOMAKE_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOMAKE)-$(HOST_AUTOMAKE_VERSION).sh4.rpm
+#
+#$(HOST_AUTOMAKE_RPM): \
+#		$(addprefix Patches/,$(HOST_AUTOMAKE_SPEC_PATCH) $(HOST_AUTOMAKE_PATCHES)) \
+#		$(archivedir)/$(STLINUX)-$(HOST_AUTOMAKE)-$(HOST_AUTOMAKE_VERSION).src.rpm
+#	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+#	$(if $(HOST_AUTOMAKE_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_AUTOMAKE_SPEC) < $(buildprefix)/Patches/$(HOST_AUTOMAKE_SPEC_PATCH) ) &&) \
+#	$(if $(HOST_AUTOMAKE_PATCHES),cp $(addprefix Patches/,$(HOST_AUTOMAKE_PATCHES)) SOURCES/ &&) \
+#	export PATH=$(hostprefix)/bin:$(PATH) && \
+#	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_AUTOMAKE_SPEC)
+#
+#$(DEPDIR)/$(HOST_AUTOMAKE): $(HOST_AUTOMAKE_RPM)
+#	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
+#	touch $@
 
 #
 # HOST AUTOCONF
 #
-HOST_AUTOCONF = host-autoconf
-HOST_AUTOCONF_VERSION = 2.64-6
-HOST_AUTOCONF_SPEC = stm-$(HOST_AUTOCONF).spec
-HOST_AUTOCONF_SPEC_PATCH = stm-$(HOST_AUTOCONF).$(HOST_AUTOCONF_VERSION).spec.diff
-HOST_AUTOCONF_PATCHES = stm-$(HOST_AUTOCONF).$(HOST_AUTOCONF_VERSION).diff
-
-HOST_AUTOCONF_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOCONF)-$(HOST_AUTOCONF_VERSION).sh4.rpm
-
-$(HOST_AUTOCONF_RPM): \
-		$(addprefix Patches/,$(HOST_AUTOCONF_SPEC_PATCH) $(HOST_AUTOCONF_PATCHES)) \
-		$(archivedir)/$(STLINUX)-$(HOST_AUTOCONF)-$(HOST_AUTOCONF_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
-	$(if $(HOST_AUTOCONF_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_AUTOCONF_SPEC) < $(buildprefix)/Patches/$(HOST_AUTOCONF_SPEC_PATCH) ) &&) \
-	$(if $(HOST_AUTOCONF_PATCHES),cp $(addprefix Patches/,$(HOST_AUTOCONF_PATCHES)) SOURCES/ &&) \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_AUTOCONF_SPEC)
-
-$(DEPDIR)/$(HOST_AUTOCONF): $(HOST_AUTOCONF_RPM)
-	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
-	touch $@
+#HOST_AUTOCONF = host-autoconf
+#HOST_AUTOCONF_VERSION = 2.64-6
+#HOST_AUTOCONF_SPEC = stm-$(HOST_AUTOCONF).spec
+#HOST_AUTOCONF_SPEC_PATCH = stm-$(HOST_AUTOCONF).$(HOST_AUTOCONF_VERSION).spec.diff
+#HOST_AUTOCONF_PATCHES = stm-$(HOST_AUTOCONF).$(HOST_AUTOCONF_VERSION).diff
+#
+#HOST_AUTOCONF_RPM = RPMS/sh4/$(STLINUX)-$(HOST_AUTOCONF)-$(HOST_AUTOCONF_VERSION).sh4.rpm
+#
+#$(HOST_AUTOCONF_RPM): \
+#		$(addprefix Patches/,$(HOST_AUTOCONF_SPEC_PATCH) $(HOST_AUTOCONF_PATCHES)) \
+#		$(archivedir)/$(STLINUX)-$(HOST_AUTOCONF)-$(HOST_AUTOCONF_VERSION).src.rpm
+#	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+#	$(if $(HOST_AUTOCONF_SPEC_PATCH),( cd SPECS && patch -p1 $(HOST_AUTOCONF_SPEC) < $(buildprefix)/Patches/$(HOST_AUTOCONF_SPEC_PATCH) ) &&) \
+#	$(if $(HOST_AUTOCONF_PATCHES),cp $(addprefix Patches/,$(HOST_AUTOCONF_PATCHES)) SOURCES/ &&) \
+#	export PATH=$(hostprefix)/bin:$(PATH) && \
+#	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_AUTOCONF_SPEC)
+#
+#$(DEPDIR)/$(HOST_AUTOCONF): $(HOST_AUTOCONF_RPM)
+#	@rpm  $(DRPM) --ignorearch --nodeps -Uhv $<
+#	touch $@
 
 #
 # HOST MODULE INIT TOOLS
@@ -557,6 +557,30 @@ $(DEPDIR)/$(CROSS_PROTOIZE): $(CROSS_PROTOIZE_RPM)
 
 ##############################                     #############################
 #
+# FILESYSTEM
+#
+$(DEPDIR)/filesystem: bootstrap-cross
+	$(INSTALL) -d $(targetprefix)/{bin,boot,dev,dev.static,etc,lib,mnt,opt,proc,root,sbin,sys,tmp,usr,var}
+	$(INSTALL) -d $(targetprefix)/etc/{default,opt}
+	$(INSTALL) -d $(targetprefix)/lib/lsb
+	$(INSTALL) -d $(targetprefix)/usr/{bin,include,lib,local,sbin,share,src}
+	$(INSTALL) -d $(targetprefix)/usr/local/{bin,include,lib,sbin,share,src}
+	$(INSTALL) -d $(targetprefix)/usr/share/{aclocal,doc,info,locale,man,misc,nls}
+	$(INSTALL) -d $(targetprefix)/usr/share/man/man{1..9}
+	$(INSTALL) -d $(targetprefix)/var/{backups,cache,lib,local,lock,log,mail,opt,run,spool}
+#	ln -sf $(targetprefix)/lib $(targetprefix)/lib64
+#	ln -sf $(targetprefix)/usr/lib $(targetprefix)/usr/lib64
+	$(INSTALL) -d $(targetprefix)/var/lib/misc
+	$(INSTALL) -d $(targetprefix)/var/lock/subsys
+	$(INSTALL) -d $(targetprefix)/etc/{init.d,rc.d,samba}
+	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
+	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
+	$(INSTALL) -d $(targetprefix)/etc/samba/private
+	$(INSTALL) -d $(targetprefix)/media
+	$(INSTALL) -d $(targetprefix)/var/bin
+	touch $@
+
+#
 # HOST-FILESYSTEM
 #
 host-filesystem:
@@ -695,4 +719,3 @@ $(DEPDIR)/host_autoconf: @DEPENDS_host_autoconf@
 		@INSTALL_host_autoconf@
 	@DISTCLEANUP_host_autoconf@
 	touch $@
-

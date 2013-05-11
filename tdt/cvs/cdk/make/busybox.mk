@@ -5,6 +5,7 @@ $(DEPDIR)/busybox: bootstrap @DEPENDS_busybox@ $(buildprefix)/Patches/busybox.co
 	@PREPARE_busybox@
 	cd @DIR_busybox@ && \
 		patch -p1 < ../Patches/busybox-1.21.0-mdev.patch && \
+		patch -p1 < ../Patches/busybox-1.21.0-ntfs.patch && \
 		patch -p1 < ../Patches/busybox-1.21.0-platform.patch && \
 		patch -p1 < ../Patches/busybox-1.21.0-xz.patch && \
 		$(INSTALL) -m644 $(lastword $^) .config && \

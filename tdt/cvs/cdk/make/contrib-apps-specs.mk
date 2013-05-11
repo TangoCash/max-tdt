@@ -300,10 +300,11 @@ UTIL_LINUX_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UTIL_LINUX)-$(UTIL_LINUX_VERSION).sh
 UTIL_LINUX_MOUNT_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UTIL_LINUX_MOUNT)-$(UTIL_LINUX_VERSION).sh4.rpm
 UTIL_LINUX_BSDUTILS_RPM := RPMS/sh4/$(STLINUX)-sh4-$(UTIL_LINUX_BSDUTILS)-$(UTIL_LINUX_VERSION).sh4.rpm
 
-$(UTIL_LINUX_RPM) $(UTIL_LINUX_MOUNT) $(UTIL_LINUX_BSDUTILS): | $(NCURSES) $(NCURSES_DEV) \
+$(UTIL_LINUX_RPM): \
 		$(addprefix Patches/,$(UTIL_LINUX_SPEC_PATCH) $(UTIL_LINUX_PATCHES)) \
-		$(archivedir)/$(STLINUX)-target-$(UTIL_LINUX)-$(UTIL_LINUX_VERSION).src.rpm
-	rpm  $(DRPM) --nosignature -Uhv $(lastword $^) && \
+		$(archivedir)/$(STLINUX)-target-$(UTIL_LINUX)-$(UTIL_LINUX_VERSION).src.rpm \
+		| $(NCURSES) $(NCURSES_DEV)
+	rpm $(DRPM) --nosignature -Uhv $(lastword $^) && \
 	$(if $(UTIL_LINUX_SPEC_PATCH),( cd SPECS && patch -p1 $(UTIL_LINUX_SPEC) < $(buildprefix)/Patches/$(UTIL_LINUX_SPEC_PATCH) ) &&) \
 	$(if $(UTIL_LINUX_PATCHES),cp $(addprefix Patches/,$(UTIL_LINUX_PATCHES)) SOURCES/ &&) \
 	export PATH=$(hostprefix)/bin:$(PATH) && \
@@ -311,10 +312,10 @@ $(UTIL_LINUX_RPM) $(UTIL_LINUX_MOUNT) $(UTIL_LINUX_BSDUTILS): | $(NCURSES) $(NCU
 
 $(DEPDIR)/$(UTIL_LINUX): $(UTIL_LINUX_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --force -Uhv \
-		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^); \
+		--badreloc --relocate $(targetprefix)=$(prefix)/$*cdkroot $(lastword $^)
+	touch $@
 	sed -i '/^dependency_libs=/{ s# /usr/lib# $(targetprefix)/usr/lib#g }' $(targetprefix)/usr/lib/lib{blkid,uuid}.la; \
 	sed -i "/^libdir/s|'/usr/lib'|'$(targetprefix)/usr/lib'|" $(targetprefix)/usr/lib/lib{blkid,uuid}.la
-	touch $@
 
 $(DEPDIR)/$(UTIL_LINUX_MOUNT): $(UTIL_LINUX_MOUNT_RPM)
 	@rpm --dbpath $(prefix)/$*cdkroot-rpmdb $(DRPM) --ignorearch --nodeps --force -Uhv \

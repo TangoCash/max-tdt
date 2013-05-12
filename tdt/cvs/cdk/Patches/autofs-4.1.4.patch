@@ -176,9 +176,7 @@ Index: b/modules/Makefile
 ===================================================================
 --- a/modules/Makefile
 +++ b/modules/Makefile
-@@ -4,21 +4,19 @@
- #
- 
+@@ -6,17 +6,15 @@
  -include ../Makefile.conf
  include ../Makefile.rules
  
@@ -202,11 +200,7 @@ Index: b/modules/Makefile
  
  ifeq ($(EXT2FS), 1)
    SRCS += mount_ext2.c
-   MODS += mount_ext2.so
- else
-@@ -41,10 +39,15 @@ endif
- ifeq ($(LDAP), 1)
-   SRCS += lookup_ldap.c
+@@ -43,6 +41,11 @@
    MODS += lookup_ldap.so
  endif
  
@@ -218,10 +212,15 @@ Index: b/modules/Makefile
  CFLAGS += -I../include -fPIC -DAUTOFS_LIB_DIR=\"$(autofslibdir)\" -DPATH_AUTOMOUNT=\"$(sbindir)/automount\"
  
  all: $(MODS)
- 
- clean:
-Index: autofs-4.1.4/man/Makefile
-===================================================================
+@@ -53,7 +56,7 @@
+ # mount_smbfs.so is an obsolete module which must be removed
+ install: all
+ 	install -d -m 755 $(INSTALLROOT)$(autofslibdir)
+-	install -c $(MODS) -m 755 $(INSTALLROOT)$(autofslibdir)
++	install -c -m 755 $(MODS) $(INSTALLROOT)$(autofslibdir)
+ 	-rm -f $(INSTALLROOT)$(autofslibdir)/mount_smbfs.so
+ ifeq ($(EXT2FS), 1)
+  ifeq ($(EXT3FS), 1)
 --- autofs-4.1.4.orig/man/Makefile	2003-09-29 10:22:35.000000000 +0200
 +++ autofs-4.1.4/man/Makefile	2006-06-19 15:09:33.124583912 +0200
 @@ -14,9 +14,9 @@
@@ -236,21 +235,6 @@ Index: autofs-4.1.4/man/Makefile
  
  clean:
  	rm -f $(GENFILES)
-Index: autofs-4.1.4/modules/Makefile
-===================================================================
---- autofs-4.1.4.orig/modules/Makefile	2004-08-29 14:46:23.000000000 +0200
-+++ autofs-4.1.4/modules/Makefile	2006-06-19 15:09:33.125583760 +0200
-@@ -53,7 +53,7 @@
- # mount_smbfs.so is an obsolete module which must be removed
- install: all
- 	install -d -m 755 $(INSTALLROOT)$(autofslibdir)
--	install -c $(MODS) -m 755 $(INSTALLROOT)$(autofslibdir)
-+	install -c -m 755 $(MODS) $(INSTALLROOT)$(autofslibdir)
- 	-rm -f $(INSTALLROOT)$(autofslibdir)/mount_smbfs.so
- ifeq ($(EXT2FS), 1)
-  ifeq ($(EXT3FS), 1)
-Index: autofs-4.1.4/samples/Makefile
-===================================================================
 --- autofs-4.1.4.orig/samples/Makefile	2005-01-04 15:36:54.000000000 +0100
 +++ autofs-4.1.4/samples/Makefile	2006-06-19 15:09:33.125583760 +0200
 @@ -27,19 +27,19 @@

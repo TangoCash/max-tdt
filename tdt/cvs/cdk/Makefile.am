@@ -1,16 +1,25 @@
 ## Makefile for Tuxbox
 
+# Include yaud targets
+include make/yaud.mk
+
 # Set up the build environment
 include make/buildenv.mk
+
+# Include bootstrap targets (SPECS derived)
+include make/bootstrap.mk
+
+# Include bare-os targets (mainly SPECS derived)
+include make/bare-os.mk
+
+# Target for building and install own independ ccache for tuxbox-cdk
+include make/ccache.mk
 
 # Include Archive targets (SPECS derived)
 include make/archive-specs.mk
 
 # Include host apps targets
 include make/hostapps.mk
-
-# Include bootstrap targets (SPECS derived)
-include make/bootstrap.mk
 
 # Include u-boot targets
 if ENABLE_TF7700
@@ -19,14 +28,8 @@ else
 include make/u-boot.mk
 endif
 
-# Target for building and install own independ ccache for tuxbox-cdk
-include make/ccache.mk
-
 # Include adapted etc files and etc read-write files
 include make/root-etc.mk
-
-# Include bare-os targets (mainly SPECS derived)
-include make/bare-os.mk
 
 # Include linux kernel targets
 include make/linux-kernel.mk
@@ -64,9 +67,6 @@ include make/neutrino.mk
 # Include neutrino-plugins targets
 include make/neutrino-plugins.mk
 
-# Include yaud targets
-include make/yaud.mk
-
 # Include misc targets (SPECS derived)
 include make/misc-specs.mk
 
@@ -92,9 +92,6 @@ include make/release_xbmc.mk
 # generated Makefile during make run, automake or configure does not
 # see it.)
 -include ./Makefile.local
-
-# add user specific stuff if needed
--include $(customizationsdir)/user.mk
 
 # this makes sure we do not build top-level dependencies in parallel
 # (which would not be too helpful anyway, running many configure and

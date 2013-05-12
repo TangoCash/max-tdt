@@ -30,7 +30,7 @@ module_init_tools;make:INSTALL=install:install:sbin_PROGRAMS="depmod modinfo":bi
 #
 # contrib apps
 #
-bzip2;make:install:PREFIX=TARGETS
+bzip2;make:install:PREFIX=TARGETS/usr
 grep;make:install:DESTDIR=TARGETS
 openrdate;make:install:DESTDIR=TARGETS
 mc;make:install:DESTDIR=TARGETS

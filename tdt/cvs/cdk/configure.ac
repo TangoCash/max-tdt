@@ -455,9 +455,15 @@ AC_SUBST(TARGET_LDFLAGS)
 
 AC_PREFIX_DEFAULT(/ufs910)
 
-if test "$prefix" = "NONE"; then
+if test "x$prefix" = xNONE; then
 	prefix=/ufs910
+else
+	prefix=$prefix
 fi
+
+#if test "$prefix" = "NONE"; then
+#	prefix=/ufs910
+#fi
 
 AC_ARG_WITH(targetprefix,
 	[  --with-targetprefix=DIR    prefix for target files [[PREFIX/cdkroot]]],

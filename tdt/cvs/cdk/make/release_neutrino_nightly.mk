@@ -748,6 +748,7 @@ endif
 	rm -rf $(prefix)/release_neutrino/usr/lib/alsaplayer
 	rm -f $(prefix)/release_neutrino/usr/lib/libgmp*
 	rm -f $(prefix)/release_neutrino/usr/lib/libmpfr*
+	rm -f $(prefix)/release_neutrino/usr/lib/libmpc*
 	rm -f $(prefix)/release_neutrino/usr/lib/libexpat*
 	rm -f $(prefix)/release_neutrino/usr/lib/libfontconfig*
 	rm -f $(prefix)/release_neutrino/usr/lib/libtermcap*

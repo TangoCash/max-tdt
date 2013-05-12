@@ -717,11 +717,19 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 		./configure \
 			--disable-static \
 			--enable-shared \
-			--enable-cross-compile \
+			--enable-small \
+			--disable-runtime-cpudetect \
+			\
 			--disable-ffserver \
 			--disable-ffplay \
 			--disable-ffprobe \
-			--disable-debug \
+			\
+			--disable-doc \
+			--disable-htmlpages \
+			--disable-manpages \
+			--disable-podpages \
+			--disable-txtpages \
+			\
 			--disable-asm \
 			--disable-altivec \
 			--disable-amd3dnow \
@@ -739,6 +747,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--disable-armv5te \
 			--disable-armv6 \
 			--disable-armv6t2 \
+			--disable-vfp \
 			--disable-neon \
 			--disable-vis \
 			--disable-inline-asm \
@@ -747,18 +756,19 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--disable-mipsdspr1 \
 			--disable-mipsdspr2 \
 			--disable-mipsfpu \
-			--disable-indevs \
-			--disable-outdevs \
+			--disable-fast-unaligned \
+			\
 			--disable-muxers \
-			--enable-muxer=ogg \
 			--enable-muxer=flac \
 			--enable-muxer=mp3 \
 			--enable-muxer=h261 \
 			--enable-muxer=h263 \
 			--enable-muxer=h264 \
+			--enable-muxer=image2 \
 			--enable-muxer=mpeg1video \
 			--enable-muxer=mpeg2video \
-			--enable-muxer=image2 \
+			--enable-muxer=ogg \
+			\
 			--disable-encoders \
 			--enable-encoder=aac \
 			--enable-encoder=h261 \
@@ -766,42 +776,44 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--enable-encoder=h263p \
 			--enable-encoder=ljpeg \
 			--enable-encoder=mjpeg \
-			--enable-encoder=png \
 			--enable-encoder=mpeg1video \
 			--enable-encoder=mpeg2video \
+			--enable-encoder=png \
+			\
 			--disable-decoders \
 			--enable-decoder=aac \
-			--enable-decoder=mp3 \
-			--enable-decoder=theora \
+			--enable-decoder=dvbsub \
+			--enable-decoder=flac \
 			--enable-decoder=h261 \
 			--enable-decoder=h263 \
 			--enable-decoder=h263i \
 			--enable-decoder=h264 \
+			--enable-decoder=iff_byterun1 \
+			--enable-decoder=mjpeg \
+			--enable-decoder=mp3 \
 			--enable-decoder=mpeg1video \
 			--enable-decoder=mpeg2video \
 			--enable-decoder=png \
-			--enable-decoder=mjpeg \
+			--enable-decoder=theora \
 			--enable-decoder=vorbis \
-			--enable-decoder=flac \
-			--enable-protocol=file \
-			--enable-encoder=mpeg2video \
-			--enable-muxer=mpeg2video \
+			\
 			--enable-parser=mjpeg \
 			--enable-demuxer=mjpeg \
-			--enable-decoder=dvbsub \
-			--enable-decoder=iff_byterun1 \
-			--disable-vfp \
-			--disable-runtime-cpudetect \
-			--enable-small \
+			--enable-protocol=file \
+			--disable-indevs \
+			--disable-outdevs \
 			--enable-avresample \
 			--enable-pthreads \
 			--enable-bzlib \
+			--disable-zlib \
+			--disable-bsfs \
 			--enable-librtmp \
 			--pkg-config="pkg-config" \
+			--enable-cross-compile \
 			--cross-prefix=$(target)- \
 			--target-os=linux \
 			--arch=sh4 \
-			--extra-cflags="-fno-strict-aliasing" \
+			--disable-debug \
 			--enable-stripping \
 			--prefix=/usr && \
 		$(MAKE) && \

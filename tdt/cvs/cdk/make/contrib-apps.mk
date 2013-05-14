@@ -229,7 +229,6 @@ $(DEPDIR)/mc: bootstrap glib2 @DEPENDS_mc@ | $(NCURSES_DEV)
 $(DEPDIR)/sdparm: bootstrap @DEPENDS_sdparm@
 	@PREPARE_sdparm@
 	cd @DIR_sdparm@ && \
-		export PATH=$(MAKE_PATH) && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -609,7 +608,6 @@ $(DEPDIR)/opkg: bootstrap @DEPENDS_opkg@
 #
 $(DEPDIR)/sysstat: bootstrap @DEPENDS_sysstat@
 	@PREPARE_sysstat@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sysstat@ && \
 		$(BUILDENV) \
 		./configure \
@@ -630,8 +628,8 @@ $(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
 	git clone git://openpli.git.sourceforge.net/gitroot/openpli/hotplug-e2-helper;
 	cd @DIR_hotplug_e2@ && patch -p1 < $(buildprefix)/Patches/hotplug-e2-helper-support_fw_upload.patch
 	cd @DIR_hotplug_e2@ && \
-		./autogen.sh &&\
 		$(BUILDENV) \
+		./autogen.sh &&\
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -647,9 +645,9 @@ $(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
 $(DEPDIR)/autofs: bootstrap e2fsprogs @DEPENDS_autofs@
 	@PREPARE_autofs@
 	cd @DIR_autofs@ && \
+		$(BUILDENV) \
 		cp aclocal.m4 acinclude.m4 && \
 		autoconf && \
-		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \

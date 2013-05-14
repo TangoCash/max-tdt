@@ -1,5 +1,5 @@
---- stm-target-gcc_4.6.3_org.spec	2013-04-01 20:26:55.479285247 +0200
-+++ stm-target-gcc_4.6.3.spec	2013-04-26 13:04:44.094467626 +0200
+--- stm-target-gcc_4.6.3_org.spec	2013-04-01 20:26:55.000000000 +0200
++++ stm-target-gcc.spec	2013-05-13 13:47:52.778325573 +0200
 @@ -1,9 +1,9 @@
  Summary: GNU Compiler Collection
  Name: %{_stm_pkg_prefix}-target-gcc
@@ -12,7 +12,15 @@
  Version: 4.6.3
  %else
  Version: 4.2.4
-@@ -78,6 +78,9 @@
+@@ -15,6 +15,7 @@
+ Source0: ftp://gcc.gnu.org/pub/gcc/releases/gcc-%{version}/gcc-%{version}.tar.bz2
+ Source1: gcc-protoize.1
+ 
++Patch0: stm-target-gcc.%{version}-%{release}.diff
+ Patch1: gcc-4.2.4-multilibpath.patch
+ Patch3: gcc-4.5.0-autoconf.patch
+ 
+@@ -78,6 +79,9 @@
  BuildRequires: %{_stm_pkg_prefix}-%{_stm_target_arch}-libelf
  %endif
  
@@ -22,7 +30,7 @@
  %description
  This is the GNU C compiler, a fairly portable optimizing compiler which
  supports multiple languages.  This package includes support for C, and
-@@ -90,10 +93,10 @@
+@@ -90,10 +94,10 @@
  Provides: %{_stm_pkg_prefix}-generic-%{_stm_target_arch}-gcc
  Requires: %{_stm_pkg_prefix}-%{_stm_target_arch}-binutils
  Requires: %{_stm_pkg_prefix}-%{_stm_target_arch}-cpp = %{version}
@@ -35,7 +43,15 @@
  Requires: %{_stm_pkg_prefix}-%{_stm_target_arch}-uclibc-nptl-dev
  %endif
  
-@@ -177,7 +180,7 @@
+@@ -168,6 +172,7 @@
+ 
+ %prep
+ %setup -n gcc-%{version} -q
++%patch0 -p1
+ 
+ # Common patches
+ %if "%{_stm_target_cpu}" != "arm"
+@@ -177,7 +182,7 @@
  %patch3 -p1
  
  # SH4 common patches
@@ -44,7 +60,7 @@
  %patch100 -p1
  %patch101 -p1
  %patch104 -p1
-@@ -190,7 +193,7 @@
+@@ -190,7 +195,7 @@
  %endif
  
  # SH4 uClibc patches
@@ -53,7 +69,7 @@
  %patch200 -p1
  %patch201 -p1
  %patch202 -p1
-@@ -203,7 +206,7 @@
+@@ -203,7 +208,7 @@
  %endif
  
  # ARM common patches
@@ -62,7 +78,7 @@
  %patch300 -p1
  %patch301 -p1
  %patch302 -p1
-@@ -215,12 +218,12 @@
+@@ -215,12 +220,12 @@
  %endif
  
  # ARM uClibc patches
@@ -77,7 +93,25 @@
  %patch500 -p1
  %endif
  
-@@ -275,7 +278,7 @@
+@@ -251,9 +256,6 @@
+ export CFLAGS="-Os"
+ export CXXFLAGS="-Os"
+ 
+-export CC_FOR_BUILD="gcc -m32"
+-export CXX_FOR_BUILD="g++ -m32"
+-
+ # When cross compiling this fails because it needs to run code
+ export ac_cv_header_stdc=yes
+ 
+@@ -267,7 +269,6 @@
+ 	--enable-nls \
+ 	--enable-c99 \
+ 	--enable-long-long \
+-	--with-system-zlib \
+ 	--enable-shared \
+ %if "%{_stm_target_arch}" != "armv7" && "%{_stm_target_arch}" != "armv7_uclibc"
+ 	--disable-libgomp \
+@@ -275,7 +276,7 @@
  	--disable-sjlj-exceptions \
  	--with-pkgversion="GCC" \
  	--with-bugurl="https://bugzilla.stlinux.com" \
@@ -86,7 +120,7 @@
  	--disable-libstdcxx-pch \
  	--enable-multilib \
  	--disable-multi-sysroot \
-@@ -288,7 +291,7 @@
+@@ -288,7 +289,7 @@
          --with-gmp=%{_stm_cross_target_dir} \
          --with-mpfr=%{_stm_cross_target_dir} \
          --without-ppl \
@@ -95,7 +129,7 @@
  	--with-included-gettext \
  %else
          --enable-symvers=gnu \
-@@ -297,13 +300,13 @@
+@@ -297,13 +298,13 @@
  %if "%{_stm_target_fpu}" == "no"
          --without-fp \
  %endif
@@ -112,7 +146,7 @@
          --with-tls=gnu2 \
  %endif
  %endif
-@@ -388,6 +391,8 @@
+@@ -388,6 +389,8 @@
  rm -r %{buildroot}%{_stm_cross_target_dir}%{_stm_target_man_dir}/man7
  rm -r %{buildroot}%{_gccdir}/install-tools
  rm -r %{buildroot}%{_stm_cross_target_dir}%{_stm_target_libexec_dir}/gcc/%{_stm_target_config}/%{version}/install-tools
@@ -121,7 +155,7 @@
  
  %unfixincludes %{buildroot}%{_gccdir}
  
-@@ -429,7 +434,7 @@
+@@ -429,7 +432,7 @@
  %{_gccdir}/include/mf-runtime.h
  %{_gccdir}/include/limits.h
  
@@ -130,7 +164,7 @@
  %{_gccdir}/include/mmintrin.h
  %endif
  
-@@ -489,7 +494,7 @@
+@@ -489,7 +492,7 @@
  %{_gccdir}/plugin/include/sysroot-suffix.h
  %endif
  
@@ -139,7 +173,7 @@
  %{_gccdir}/plugin/include/config/sh/sh.h
  %{_gccdir}/plugin/include/config/sh/elf.h
  %{_gccdir}/plugin/include/config/sh/linux.h
-@@ -497,7 +502,7 @@
+@@ -497,7 +500,7 @@
  %{_gccdir}/plugin/include/config/sh/little.h
  %endif
  
@@ -148,7 +182,7 @@
  %{_gccdir}/include/arm_neon.h
  %{_gccdir}/plugin/include/config/arm/aout.h
  %{_gccdir}/plugin/include/config/arm/arm-protos.h
-@@ -508,7 +513,7 @@
+@@ -508,7 +511,7 @@
  %{_gccdir}/plugin/include/config/arm/linux-elf.h
  %{_gccdir}/plugin/include/config/arm/linux-gas.h
  
@@ -157,7 +191,7 @@
  %{_gccdir}/include/omp.h
  %{_stm_cross_target_dir}%{_stm_target_lib_dir}/libgomp.a
  %{_stm_cross_target_dir}%{_stm_target_lib_dir}/libgomp.la
-@@ -667,7 +672,7 @@
+@@ -667,7 +670,7 @@
  %{_gccdir}/plugin/include/config/linux-android.h
  %endif
  
@@ -166,7 +200,7 @@
  %{_gccdir}/plugin/include/internal-fn.def
  %{_gccdir}/plugin/include/internal-fn.h
  %{_gccdir}/plugin/libgcc/config/arm/bpabi-lib.h
-@@ -714,11 +719,11 @@
+@@ -714,11 +717,11 @@
  %files -n %{_libcpp_pkgname}
  %defattr(-,root,root)
  %{_stm_cross_target_dir}%{_stm_target_lib_dir}/libstdc++.so.*

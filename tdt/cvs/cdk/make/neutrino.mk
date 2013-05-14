@@ -91,10 +91,9 @@ $(DEPDIR)/libstb-hal-exp.do_prepare:
 	touch $@
 
 $(appsdir)/libstb-hal-exp/config.status: bootstrap
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/libstb-hal-exp && \
-		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		./configure \
 			--host=$(target) \
 			--build=$(build) \
@@ -349,10 +348,9 @@ $(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsi
 	touch $@
 
 $(appsdir)/neutrino-twin-next/config.status:
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino-twin-next && \
-		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \

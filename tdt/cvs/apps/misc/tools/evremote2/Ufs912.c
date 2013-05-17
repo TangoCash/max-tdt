@@ -101,7 +101,6 @@ static tButton cButtonUFS912Frontpanel[] = {
 	{"FP_PLUS"		, "02", KEY_UP},
 	{"FP_TV_R"		, "08", KEY_OK},
 	{""			, ""  , KEY_NULL}
-/* Powerkey is used as HOME EXIT Button? */
 };
 
 static int pInit(Context_t* context, int argc, char* argv[]) 

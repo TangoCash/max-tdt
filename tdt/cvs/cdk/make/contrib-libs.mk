@@ -3,6 +3,7 @@
 #
 $(DEPDIR)/liblua: bootstrap ncurses $(archivedir)/luaposix.git @DEPENDS_liblua@
 	@PREPARE_liblua@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_liblua@ && \
 		$(BUILDENV) \
 		cp -r $(archivedir)/luaposix.git .; \
@@ -27,6 +28,7 @@ $(DEPDIR)/liblua: bootstrap ncurses $(archivedir)/luaposix.git @DEPENDS_liblua@
 #
 $(DEPDIR)/libao: bootstrap @DEPENDS_libao@
 	@PREPARE_libao@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libao@ && \
 		$(BUILDENV) \
 		./configure \
@@ -43,6 +45,7 @@ $(DEPDIR)/libao: bootstrap @DEPENDS_libao@
 #
 $(DEPDIR)/howl: bootstrap @DEPENDS_howl@
 	@PREPARE_howl@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_howl@ && \
 		$(BUILDENV) \
 		./configure \
@@ -86,8 +89,8 @@ $(DEPDIR)/libz: @DEPENDS_libz@
 $(DEPDIR)/libreadline: bootstrap ncurses-dev @DEPENDS_libreadline@
 	@PREPARE_libreadline@
 	cd @DIR_libreadline@ && \
-		$(BUILDENV) \
 		autoconf && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -174,8 +177,8 @@ $(DEPDIR)/libjpeg: bootstrap @DEPENDS_libjpeg@
 $(DEPDIR)/libjpeg_turbo: bootstrap @DEPENDS_libjpeg_turbo@
 	$(PREPARE_libjpeg_turbo@
 	cd @DIR_libjpeg_turbo@&& \
-		$(BUILDENV) \
 		export CC=$(target)-gcc && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -289,7 +292,9 @@ $(DEPDIR)/libgif_current: bootstrap @DEPENDS_libgif_current@
 #
 $(DEPDIR)/libcurl: bootstrap openssl rtmpdump @DEPENDS_libcurl@
 	@PREPARE_libcurl@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libcurl@ && \
+		autoreconf -vif -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -347,10 +352,11 @@ $(DEPDIR)/libsigc: bootstrap libstdc++-dev @DEPENDS_libsigc@
 #
 $(DEPDIR)/libmad: bootstrap @DEPENDS_libmad@
 	@PREPARE_libmad@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libmad@ && \
-		$(BUILDENV) \
 		touch NEWS AUTHORS ChangeLog; \
 		autoreconf -fi -I$(hostprefix)/share/aclocal; \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -387,8 +393,8 @@ $(DEPDIR)/libid3tag: bootstrap @DEPENDS_libid3tag@
 $(DEPDIR)/libvorbisidec: bootstrap libogg @DEPENDS_libvorbisidec@
 	@PREPARE_libvorbisidec@
 	cd @DIR_libvorbisidec@ && \
-		$(BUILDENV) \
 		ACLOCAL_FLAGS="-I . -I $(targetprefix)/usr/share/aclocal" \
+		$(BUILDENV) \
 		./autogen.sh \
 			--build=$(build) \
 			--host=$(target) \
@@ -491,6 +497,7 @@ $(DEPDIR)/lcms: bootstrap libjpeg @DEPENDS_lcms@
 #
 $(DEPDIR)/directfb: bootstrap libfreetype @DEPENDS_directfb@
 	@PREPARE_directfb@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_directfb@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
@@ -540,13 +547,14 @@ $(DEPDIR)/dfbpp: bootstrap libjpeg directfb @DEPENDS_dfbpp@
 #
 $(DEPDIR)/libstgles: bootstrap directfb @DEPENDS_libstgles@
 	@PREPARE_libstgles@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libstgles@&& \
-		$(BUILDENV) \
 		cp --remove-destination $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoconf && \
 		automake --foreign --add-missing && \
 		libtoolize --force && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -577,10 +585,11 @@ $(DEPDIR)/libexpat: bootstrap @DEPENDS_libexpat@
 #
 $(DEPDIR)/fontconfig: bootstrap libexpat libfreetype @DEPENDS_fontconfig@
 	@PREPARE_fontconfig@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_fontconfig@ && \
-		$(BUILDENV) \
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -655,10 +664,11 @@ $(DEPDIR)/libdvdcss: bootstrap @DEPENDS_libdvdcss@
 #
 $(DEPDIR)/libdvdnav: bootstrap libdvdread @DEPENDS_libdvdnav@
 	@PREPARE_libdvdnav@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdnav@ && \
-		$(BUILDENV) \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -678,6 +688,7 @@ $(DEPDIR)/libdvdnav: bootstrap libdvdread @DEPENDS_libdvdnav@
 #
 $(DEPDIR)/libdvdread: bootstrap @DEPENDS_libdvdread@
 	@PREPARE_libdvdread@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvdread@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
@@ -904,6 +915,7 @@ $(DEPDIR)/icu4c: bootstrap @DEPENDS_icu4c@
 #
 $(DEPDIR)/enchant: bootstrap glib2 @DEPENDS_enchant@
 	@PREPARE_enchant@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_enchant@ && \
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
@@ -927,11 +939,12 @@ $(DEPDIR)/enchant: bootstrap glib2 @DEPENDS_enchant@
 #
 $(DEPDIR)/lite: bootstrap directfb @DEPENDS_lite@
 	@PREPARE_lite@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_lite@ && \
-		$(BUILDENV) \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -947,10 +960,11 @@ $(DEPDIR)/lite: bootstrap directfb @DEPENDS_lite@
 #
 $(DEPDIR)/sqlite: bootstrap @DEPENDS_sqlite@
 	@PREPARE_sqlite@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sqlite@ && \
-		$(BUILDENV) \
 		libtoolize -f -c && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -965,6 +979,7 @@ $(DEPDIR)/sqlite: bootstrap @DEPENDS_sqlite@
 #
 $(DEPDIR)/libsoup: bootstrap @DEPENDS_libsoup@
 	@PREPARE_libsoup@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libsoup@ && \
 		$(BUILDENV) \
 		./configure \
@@ -983,6 +998,7 @@ $(DEPDIR)/libsoup: bootstrap @DEPENDS_libsoup@
 #
 $(DEPDIR)/pixman: bootstrap @DEPENDS_pixman@
 	@PREPARE_pixman@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_pixman@ && \
 		$(BUILDENV) \
 		./configure \
@@ -999,6 +1015,7 @@ $(DEPDIR)/pixman: bootstrap @DEPENDS_pixman@
 #
 $(DEPDIR)/cairo: bootstrap libpng pixman @DEPENDS_cairo@
 	@PREPARE_cairo@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_cairo@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1026,6 +1043,7 @@ $(DEPDIR)/cairo: bootstrap libpng pixman @DEPENDS_cairo@
 #
 $(DEPDIR)/libogg: bootstrap @DEPENDS_libogg@
 	@PREPARE_libogg@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libogg@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1042,6 +1060,7 @@ $(DEPDIR)/libogg: bootstrap @DEPENDS_libogg@
 #
 $(DEPDIR)/libflac: bootstrap @DEPENDS_libflac@
 	@PREPARE_libflac@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libflac@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1073,6 +1092,7 @@ $(DEPDIR)/elementtree: bootstrap @DEPENDS_elementtree@
 #
 $(DEPDIR)/libxml2: bootstrap @DEPENDS_libxml2@
 	@PREPARE_libxml2@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxml2@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1099,6 +1119,7 @@ $(DEPDIR)/libxml2: bootstrap @DEPENDS_libxml2@
 #
 $(DEPDIR)/libxslt: bootstrap libxml2 @DEPENDS_libxslt@
 	@PREPARE_libxslt@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libxslt@ && \
 		$(BUILDENV) \
 		CPPFLAGS="$(CPPFLAGS) -I$(targetprefix)/usr/include/libxml2" \
@@ -1260,10 +1281,10 @@ $(DEPDIR)/pyopenssl: bootstrap setuptools @DEPENDS_pyopenssl@
 $(DEPDIR)/python: bootstrap host_python openssl-dev sqlite libreadline bzip2 @DEPENDS_python@
 	@PREPARE_python@
 	( cd @DIR_python@ && \
-		$(BUILDENV) \
 		CONFIG_SITE= \
-		autoreconf -Wcross --verbose --install --force Modules/_ctypes/libffi && \
+		autoreconf --verbose --install --force Modules/_ctypes/libffi && \
 		autoconf && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -1340,6 +1361,7 @@ $(DEPDIR)/zope_interface: bootstrap python setuptools @DEPENDS_zope_interface@
 #
 $(DEPDIR)/gstreamer: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 	@PREPARE_gstreamer@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gstreamer@ && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
@@ -1363,6 +1385,7 @@ $(DEPDIR)/gstreamer: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 #
 $(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa libvorbis @DEPENDS_gst_plugins_base@
 	@PREPARE_gst_plugins_base@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
@@ -1391,6 +1414,7 @@ $(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa libvorbis @
 #
 $(DEPDIR)/gst_plugins_good: bootstrap gstreamer gst_plugins_base libsoup libflac @DEPENDS_gst_plugins_good@
 	@PREPARE_gst_plugins_good@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_good@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1413,6 +1437,7 @@ $(DEPDIR)/gst_plugins_good: bootstrap gstreamer gst_plugins_base libsoup libflac
 #
 $(DEPDIR)/gst_plugins_bad: bootstrap gstreamer gst_plugins_base libmodplug libmms @DEPENDS_gst_plugins_bad@
 	@PREPARE_gst_plugins_bad@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_bad@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1446,6 +1471,7 @@ $(DEPDIR)/gst_plugins_bad: bootstrap gstreamer gst_plugins_base libmodplug libmm
 #
 $(DEPDIR)/gst_plugins_ugly: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_plugins_ugly@
 	@PREPARE_gst_plugins_ugly@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_ugly@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1463,6 +1489,7 @@ $(DEPDIR)/gst_plugins_ugly: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_pl
 #
 $(DEPDIR)/gst_ffmpeg: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_ffmpeg@
 	@PREPARE_gst_ffmpeg@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_ffmpeg@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1516,6 +1543,7 @@ $(DEPDIR)/gst_ffmpeg: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_ffmpeg@
 #
 $(DEPDIR)/gst_plugins_fluendo_mpegdemux: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_plugins_fluendo_mpegdemux@
 	@PREPARE_gst_plugins_fluendo_mpegdemux@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_fluendo_mpegdemux@&& \
 		$(BUILDENV) \
 		./configure \
@@ -1533,6 +1561,7 @@ $(DEPDIR)/gst_plugins_fluendo_mpegdemux: bootstrap gstreamer gst_plugins_base @D
 #
 $(DEPDIR)/gst_plugin_subsink: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly @DEPENDS_gst_plugin_subsink@
 	@PREPARE_gst_plugin_subsink@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugin_subsink@ && \
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
 		autoheader && \
@@ -1554,6 +1583,7 @@ $(DEPDIR)/gst_plugin_subsink: bootstrap gstreamer gst_plugins_base gst_plugins_g
 #
 $(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugin_subsink libdca @DEPENDS_gst_plugins_dvbmediasink@
 	@PREPARE_gst_plugins_dvbmediasink@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_dvbmediasink@ && \
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
 		autoheader && \
@@ -1625,6 +1655,7 @@ $(DEPDIR)/liborc: @DEPENDS_liborc@
 #
 $(DEPDIR)/libusb: @DEPENDS_libusb@
 	@PREPARE_libusb@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libusb@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1661,6 +1692,7 @@ $(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb2 libdpf @D
 	touch $@
 
 $(DEPDIR)/lcd4_linux.do_compile: $(DEPDIR)/lcd4_linux.do_prepare
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_lcd4_linux@ && \
 	cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		aclocal && \
@@ -1722,6 +1754,7 @@ $(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
 #
 $(DEPDIR)/libgd2: bootstrap libpng libjpeg libiconv libfreetype @DEPENDS_libgd2@
 	@PREPARE_libgd2@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libgd2@ && \
 		chmod +w configure && \
 		libtoolize -f -c && \
@@ -1741,6 +1774,7 @@ $(DEPDIR)/libgd2: bootstrap libpng libjpeg libiconv libfreetype @DEPENDS_libgd2@
 #
 $(DEPDIR)/libusb2: bootstrap @DEPENDS_libusb2@
 	@PREPARE_libusb2@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libusb2@ && \
 		$(BUILDENV) \
 		./configure \
@@ -1775,6 +1809,7 @@ $(DEPDIR)/libusbcompat: bootstrap libusb2 @DEPENDS_libusbcompat@
 #
 $(DEPDIR)/evebrowser: $(DEPDIR)/webkitdfb @DEPENDS_evebrowser@
 	svn checkout https://eve-browser.googlecode.com/svn/trunk/ @DIR_evebrowser@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_evebrowser@ && \
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
 		autoheader && \
@@ -1796,6 +1831,7 @@ $(DEPDIR)/evebrowser: $(DEPDIR)/webkitdfb @DEPENDS_evebrowser@
 #
 $(DEPDIR)/brofs: bootstrap @DEPENDS_brofs@
 	@PREPARE_brofs@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_brofs@ && \
 		$(BUILDENV) \
 			$(MAKE) all && \
@@ -1808,6 +1844,7 @@ $(DEPDIR)/brofs: bootstrap @DEPENDS_brofs@
 #
 $(DEPDIR)/libcap: bootstrap @DEPENDS_libcap@
 	@PREPARE_libcap@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libcap@ && \
 		$(MAKE) \
 		DESTDIR=$(targetprefix) \
@@ -1828,13 +1865,14 @@ $(DEPDIR)/libcap: bootstrap @DEPENDS_libcap@
 #
 $(DEPDIR)/libalsa: bootstrap @DEPENDS_libalsa@
 	@PREPARE_libalsa@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libalsa@ && \
-		$(BUILDENV) \
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
 		autoheader && \
 		autoconf && \
 		automake --foreign && \
 		libtoolize --force && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -1881,10 +1919,11 @@ $(DEPDIR)/libopenthreads: bootstrap @DEPENDS_libopenthreads@
 #
 $(DEPDIR)/rtmpdump: bootstrap openssl openssl-dev @DEPENDS_rtmpdump@
 	@PREPARE_rtmpdump@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_rtmpdump@ && \
-		$(BUILDENV) \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
 		libtoolize -f -c && \
+		$(BUILDENV) \
 		make CROSS_COMPILE=$(target)- && \
 		@INSTALL_rtmpdump@
 	@DISTCLEANUP_rtmpdump@
@@ -1895,13 +1934,14 @@ $(DEPDIR)/rtmpdump: bootstrap openssl openssl-dev @DEPENDS_rtmpdump@
 #
 $(DEPDIR)/libdvbsipp: bootstrap @DEPENDS_libdvbsipp@
 	@PREPARE_libdvbsipp@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdvbsipp@ && \
-		$(BUILDENV) \
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
 		autoheader && \
 		autoconf && \
 		automake --foreign && \
 		libtoolize --force && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -1916,6 +1956,7 @@ $(DEPDIR)/libdvbsipp: bootstrap @DEPENDS_libdvbsipp@
 #
 $(DEPDIR)/tuxtxtlib: bootstrap @DEPENDS_tuxtxtlib@
 	@PREPARE_tuxtxtlib@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_tuxtxtlib@ && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoheader && \
@@ -1941,6 +1982,7 @@ $(DEPDIR)/tuxtxtlib: bootstrap @DEPENDS_tuxtxtlib@
 #
 $(DEPDIR)/tuxtxt32bpp: tuxtxtlib @DEPENDS_tuxtxt32bpp@
 	@PREPARE_tuxtxt32bpp@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_tuxtxt32bpp@ && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoheader && \
@@ -1966,6 +2008,7 @@ $(DEPDIR)/tuxtxt32bpp: tuxtxtlib @DEPENDS_tuxtxt32bpp@
 #
 $(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
 	@PREPARE_libdreamdvd@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdreamdvd@ && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoheader && \
@@ -1991,6 +2034,7 @@ $(DEPDIR)/libdreamdvd2: bootstrap libdvdnav @DEPENDS_libdreamdvd2@
 	[ -d "$(archivedir)/libdreamdvd.git" ] || \
 	git clone git://github.com/mirakels/libdreamdvd.git $(archivedir)/libdreamdvd.git; \
 	cp -ra $(archivedir)/libdreamdvd.git $(buildprefix)/libdreamdvd; \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libdreamdvd2@ && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoheader && \
@@ -2012,6 +2056,7 @@ $(DEPDIR)/libdreamdvd2: bootstrap libdvdnav @DEPENDS_libdreamdvd2@
 #
 $(DEPDIR)/libmpeg2: bootstrap @DEPENDS_libmpeg2@
 	@PREPARE_libmpeg2)
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libmpeg2@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2029,6 +2074,7 @@ $(DEPDIR)/libmpeg2: bootstrap @DEPENDS_libmpeg2@
 #
 $(DEPDIR)/libsamplerate: bootstrap @DEPENDS_libsamplerate@
 	@PREPARE_libsamplerate@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libsamplerate@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2045,6 +2091,7 @@ $(DEPDIR)/libsamplerate: bootstrap @DEPENDS_libsamplerate@
 #
 $(DEPDIR)/libvorbis: bootstrap @DEPENDS_libvorbis@
 	@PREPARE_libvorbis@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libvorbis@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2061,6 +2108,7 @@ $(DEPDIR)/libvorbis: bootstrap @DEPENDS_libvorbis@
 #
 $(DEPDIR)/libmodplug: bootstrap @DEPENDS_libmodplug@
 	@PREPARE_libmodplug@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libmodplug@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2077,6 +2125,7 @@ $(DEPDIR)/libmodplug: bootstrap @DEPENDS_libmodplug@
 #
 $(DEPDIR)/tiff: bootstrap @DEPENDS_tiff@
 	@PREPARE_tiff@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_tiff@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2093,6 +2142,7 @@ $(DEPDIR)/tiff: bootstrap @DEPENDS_tiff@
 #
 $(DEPDIR)/lzo: bootstrap @DEPENDS_lzo@
 	@PREPARE_lzo@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_lzo@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2109,6 +2159,7 @@ $(DEPDIR)/lzo: bootstrap @DEPENDS_lzo@
 #
 $(DEPDIR)/yajl: bootstrap @DEPENDS_yajl@
 	@PREPARE_yajl@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_yajl@ && \
 		sed -i "s/install: all/install: distro/g" configure && \
 		$(BUILDENV) \
@@ -2124,6 +2175,7 @@ $(DEPDIR)/yajl: bootstrap @DEPENDS_yajl@
 #
 $(DEPDIR)/libpcre: bootstrap @DEPENDS_libpcre@
 	@PREPARE_libpcre@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libpcre@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2144,6 +2196,7 @@ $(DEPDIR)/libpcre: bootstrap @DEPENDS_libpcre@
 #
 $(DEPDIR)/libcdio: bootstrap @DEPENDS_libcdio@
 	@PREPARE_libcdio@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libcdio@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2160,6 +2213,7 @@ $(DEPDIR)/libcdio: bootstrap @DEPENDS_libcdio@
 #
 $(DEPDIR)/jasper: bootstrap @DEPENDS_jasper@
 	@PREPARE_jasper@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_jasper@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2176,6 +2230,7 @@ $(DEPDIR)/jasper: bootstrap @DEPENDS_jasper@
 #
 $(DEPDIR)/mysql: bootstrap @DEPENDS_mysql@
 	@PREPARE_mysql@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_mysql@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2204,6 +2259,7 @@ $(DEPDIR)/mysql: bootstrap @DEPENDS_mysql@
 #
 $(DEPDIR)/libmicrohttpd: bootstrap @DEPENDS_libmicrohttpd@
 	@PREPARE_libmicrohttpd@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libmicrohttpd@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2220,6 +2276,7 @@ $(DEPDIR)/libmicrohttpd: bootstrap @DEPENDS_libmicrohttpd@
 #
 $(DEPDIR)/libexif: bootstrap @DEPENDS_libexif@
 	@PREPARE_libexif@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libexif@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2236,6 +2293,7 @@ $(DEPDIR)/libexif: bootstrap @DEPENDS_libexif@
 #
 $(DEPDIR)/minidlna: bootstrap ffmpeg libflac libogg libvorbis libid3tag sqlite libexif libjpeg @DEPENDS_minidlna@
 	@PREPARE_minidlna@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_minidlna@ && \
 		libtoolize -f -c && \
 		$(BUILDENV) \
@@ -2316,6 +2374,7 @@ $(DEPDIR)/libupnp: bootstrap @DEPENDS_libupnp@
 #
 $(DEPDIR)/rarfs: bootstrap libstdc++-dev fuse @DEPENDS_rarfs@
 	@PREPARE_rarfs@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_rarfs@ && \
 		export PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig && \
 		$(BUILDENV) \
@@ -2336,6 +2395,7 @@ $(DEPDIR)/rarfs: bootstrap libstdc++-dev fuse @DEPENDS_rarfs@
 #
 $(DEPDIR)/sshfs: bootstrap fuse @DEPENDS_sshfs@
 	@PREPARE_sshfs@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_sshfs@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2353,6 +2413,7 @@ $(DEPDIR)/sshfs: bootstrap fuse @DEPENDS_sshfs@
 #
 $(DEPDIR)/gmediarender: bootstrap libstdc++-dev gst_plugins_dvbmediasink libupnp @DEPENDS_gmediarender@
 	@PREPARE_gmediarender@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gmediarender@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2370,6 +2431,7 @@ $(DEPDIR)/gmediarender: bootstrap libstdc++-dev gst_plugins_dvbmediasink libupnp
 #
 $(DEPDIR)/mediatomb: bootstrap libstdc++-dev ffmpeg libcurl sqlite libexpat @DEPENDS_mediatomb@
 	@PREPARE_mediatomb@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_mediatomb@ && \
 		$(BUILDENV) \
 		./configure \
@@ -2410,6 +2472,7 @@ $(DEPDIR)/tinyxml: @DEPENDS_tinyxml@
 #
 $(DEPDIR)/libnfs: bootstrap @DEPENDS_libnfs@
 	@PREPARE_libnfs@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libnfs@ && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoheader && \

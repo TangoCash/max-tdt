@@ -628,8 +628,8 @@ $(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
 	git clone git://openpli.git.sourceforge.net/gitroot/openpli/hotplug-e2-helper;
 	cd @DIR_hotplug_e2@ && patch -p1 < $(buildprefix)/Patches/hotplug-e2-helper-support_fw_upload.patch
 	cd @DIR_hotplug_e2@ && \
-		$(BUILDENV) \
 		./autogen.sh &&\
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -645,9 +645,9 @@ $(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
 $(DEPDIR)/autofs: bootstrap e2fsprogs @DEPENDS_autofs@
 	@PREPARE_autofs@
 	cd @DIR_autofs@ && \
-		$(BUILDENV) \
 		cp aclocal.m4 acinclude.m4 && \
 		autoconf && \
+		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \

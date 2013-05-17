@@ -211,16 +211,16 @@ $(DEPDIR)/wireless_tools: bootstrap @DEPENDS_wireless_tools@
 	cd @DIR_wireless_tools@ && \
 		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_wireless_tools@
-	@DISTCLEANUP_wireless_tools@
+#	@DISTCLEANUP_wireless_tools@
 	touch $@
 
 #
 # wpa_supplicant
 #
-$(DEPDIR)/wpa_supplicant: bootstrap wireless_tools openssl openssl-dev @DEPENDS_wpa_supplicant@
+$(DEPDIR)/wpa_supplicant: bootstrap openssl openssl-dev wireless_tools @DEPENDS_wpa_supplicant@
 	@PREPARE_wpa_supplicant@
 	cd @DIR_wpa_supplicant@/wpa_supplicant && \
-		$(INSTALL) -m 644 ../../$(word 1,$^) .config && \
+		$(INSTALL) -m 644 $(buildprefix)/Patches/wpa_supplicant.config .config && \
 		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_wpa_supplicant@
 	@DISTCLEANUP_wpa_supplicant@

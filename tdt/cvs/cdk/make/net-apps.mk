@@ -211,7 +211,7 @@ $(DEPDIR)/wireless_tools: bootstrap @DEPENDS_wireless_tools@
 	cd @DIR_wireless_tools@ && \
 		$(MAKE) $(MAKE_OPTS) && \
 		@INSTALL_wireless_tools@
-#	@DISTCLEANUP_wireless_tools@
+	@DISTCLEANUP_wireless_tools@
 	touch $@
 
 #

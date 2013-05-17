@@ -1280,6 +1280,7 @@ $(DEPDIR)/pyopenssl: bootstrap setuptools @DEPENDS_pyopenssl@
 #
 $(DEPDIR)/python: bootstrap host_python openssl-dev sqlite libreadline bzip2 @DEPENDS_python@
 	@PREPARE_python@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	( cd @DIR_python@ && \
 		CONFIG_SITE= \
 		autoreconf --verbose --install --force Modules/_ctypes/libffi && \

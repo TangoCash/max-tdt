@@ -428,6 +428,7 @@ $(appsdir)/neutrino-hd2-exp/config.status:
 			--with-plugindir=/var/plugins \
 			--enable-libeplayer3 \
 			--enable-standaloneplugins \
+			--enable-radiotext \
 			--enable-upnp \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \

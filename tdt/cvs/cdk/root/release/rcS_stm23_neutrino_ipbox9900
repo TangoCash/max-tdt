@@ -105,26 +105,19 @@ if [ ! -e /var/etc/.firstboot ]; then
       echo "starting neutrino->"
       /usr/local/bin/neutrino
       rtv=$?
-      echo "e2 ended <- RTV: " $rtv
+      echo "neutrino ended <- RTV: " $rtv
       case "$rtv" in
 		0) echo "0"
-		   echo "ERROR"
-		   init 6;;
-		1) echo "1"
 		   echo "SHUTDOWN"
-		   echo "SHUTDOWN" > /dev/dbox/vfd
 		   init 0;;
-		2) echo "2"
+		1) echo "1"
 		   echo "REBOOT"
 		   init 6;;
-		3) echo "3"
-		   echo "RESTART"
-		   echo "0" > /proc/progress;;
 		*) echo "*"
 		   echo "ERROR"
-		   echo "0" > /proc/progress;;
-     esac
-   done 
+		   init 6;;
+      esac
+   done
 fi
 echo "REBOOT IPBOX" > /dev/dbox/vfd
 echo "REBOOT IPBOX"

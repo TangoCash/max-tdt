@@ -139,17 +139,11 @@ if [ ! -e /var/etc/.firstboot ]; then
       echo "neutrino ended <- RTV: " $rtv
       case "$rtv" in
 		0) echo "0"
-		   echo "ERROR"
-		   init 6;;
-		1) echo "1"
 		   echo "SHUTDOWN"
 		   init 0;;
-		2) echo "2"
+		1) echo "1"
 		   echo "REBOOT"
 		   init 6;;
-		3) echo "3"
-		   echo "RESTART"
-		   echo "0" > /proc/progress;;
 		*) echo "*"
 		   echo "ERROR"
 		   init 6;;
@@ -160,4 +154,4 @@ fi
 #never reached
 echo "REBOOT SPARK-7162" > /dev/vfd
 echo "REBOOT SPARK-7162"
-reboot -f
+init 6

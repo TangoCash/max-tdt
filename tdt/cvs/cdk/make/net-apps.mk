@@ -1,36 +1,27 @@
 #
 # nfs_utils
 #
-$(DEPDIR)/nfs_utils.do_prepare: bootstrap e2fsprogs libevent libnfsidmap @DEPENDS_nfs_utils@
+$(DEPDIR)/nfs_utils: bootstrap e2fsprogs $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) @DEPENDS_nfs_utils@
 	@PREPARE_nfs_utils@
-	touch $@
-
-$(DEPDIR)/nfs_utils.do_compile: $(DEPDIR)/nfs_utils.do_prepare
 	cd @DIR_nfs_utils@ && \
 		$(BUILDENV) \
 		./configure \
+			CC_FOR_BUILD=$(target)-gcc \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix= \
-			--exec-prefix=/usr \
-			--target=$(target) \
-			CC_FOR_BUILD=$(target)-gcc \
+			--prefix=/usr \
 			--disable-gss \
-			--disable-nfsv41 \
+			--enable-ipv6=no \
+			--disable-tirpc \
+			--disable-nfsv4 \
 			--without-tcp-wrappers && \
-		$(MAKE)
-	touch $@
-
-$(DEPDIR)/nfs_utils: \
-$(DEPDIR)/%nfs_utils: $(NFS_UTILS_ADAPTED_ETC_FILES:%=root/etc/%) $(DEPDIR)/nfs_utils.do_compile
-	$(INSTALL) -d $(prefix)/$*cdkroot/etc/{default,init.d} && \
-	cd @DIR_nfs_utils@ && \
+		$(MAKE) && \
 		@INSTALL_nfs_utils@
-	( cd root/etc && for i in $(NFS_UTILS_ADAPTED_ETC_FILES); do \
+	( cd $(buildprefix)/root/etc && for i in $(NFS_UTILS_ADAPTED_ETC_FILES); do \
 		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
 		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done )
 	@DISTCLEANUP_nfs_utils@
-	[ "x$*" = "x" ] && touch $@ || true
+	@touch $@
 
 #
 # libevent
@@ -98,48 +89,69 @@ $(DEPDIR)/ethtool: bootstrap @DEPENDS_ethtool@
 #
 # samba
 #
-$(DEPDIR)/samba.do_prepare: bootstrap @DEPENDS_samba@
+$(DEPDIR)/samba: bootstrap $(SAMBA_ADAPTED_ETC_FILES:%=root/etc/%) @DEPENDS_samba@
 	@PREPARE_samba@
-	touch $@
-
-$(DEPDIR)/samba.do_compile: $(DEPDIR)/samba.do_prepare
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_samba@ && \
 		cd source3 && \
 		./autogen.sh && \
 		$(BUILDENV) \
+		libreplace_cv_HAVE_GETADDRINFO=no \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
 			--prefix= \
 			--exec-prefix=/usr \
-			--with-automount \
-			--with-smbmount \
+			--disable-pie \
+			--disable-avahi \
+			--disable-cups \
+			--disable-relro \
+			--disable-swat \
+			--disable-shared-libs \
+			--disable-socket-wrapper \
+			--disable-nss-wrapper \
+			--disable-smbtorture4 \
+			--disable-fam \
+			--disable-iprint \
+			--disable-dnssd \
+			--disable-pthreadpool \
+			--disable-dmalloc \
+			--with-included-iniparser \
+			--with-included-popt \
+			--with-sendfile-support \
+			--without-aio-support \
+			--without-cluster-support \
+			--without-ads \
+			--without-krb5 \
+			--without-dnsupdate \
+			--without-automount \
+			--without-ldap \
+			--without-pam \
+			--without-pam_smbpass \
+			--without-winbind \
+			--without-wbclient \
+			--without-syslog \
+			--without-nisplus-home \
+			--without-quotas \
+			--without-sys-quotas \
+			--without-utmp \
+			--without-acl-support \
 			--with-configdir=/etc/samba \
-			--with-privatedir=/etc/samba/private \
+			--with-privatedir=/etc/samba \
 			--with-mandir=/usr/share/man \
 			--with-piddir=/var/run \
 			--with-logfilebase=/var/log \
 			--with-lockdir=/var/lock \
 			--with-swatdir=/usr/share/swat \
 			--disable-cups && \
-		$(MAKE) $(MAKE_OPTS)
-	touch $@
-
-$(DEPDIR)/samba: \
-$(DEPDIR)/%samba: $(DEPDIR)/samba.do_compile
-	cd @DIR_samba@ && \
-		cd source3 && \
-		$(MAKE) $(MAKE_OPTS) installservers installbin installcifsmount installman installscripts installdat installmodules \
+		$(MAKE) $(MAKE_OPTS) && \
+		$(MAKE) $(MAKE_OPTS) installservers installbin installscripts installdat installmodules \
 			SBIN_PROGS="bin/smbd bin/nmbd bin/winbindd" DESTDIR=$(prefix)/$*cdkroot/ prefix=./. && \
-		$(INSTALL) -d $(prefix)/$*cdkroot/etc/samba && \
-		$(INSTALL) -c -m644 ../examples/smb.conf.default $(prefix)/$*cdkroot/etc/samba/smb.conf
+	( cd $(buildprefix)/root/etc && for i in $(SAMBA_ADAPTED_ETC_FILES); do \
+		[ -f $$i ] && $(INSTALL) -m644 $$i $(prefix)/$*cdkroot/etc/$$i || true; \
+		[ "$${i%%/*}" = "init.d" ] && chmod 755 $(prefix)/$*cdkroot/etc/$$i || true; done )
 	@DISTCLEANUP_samba@
-	[ "x$*" = "x" ] && touch $@ || true
-
-samba_ADAPTED_FILES = /etc/samba/smb.conf /etc/init.d/samba
-samba_INITD_FILES = samba
-ETC_RW_FILES += samba/smb.conf init.d/samba
+	touch $@
 
 #
 # netio

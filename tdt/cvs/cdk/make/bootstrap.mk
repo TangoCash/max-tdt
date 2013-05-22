@@ -570,7 +570,7 @@ $(DEPDIR)/filesystem: bootstrap-cross
 	$(INSTALL) -d $(targetprefix)/var/{backups,cache,lib,local,lock,log,mail,opt,run,spool}
 #	ln -sf $(targetprefix)/lib $(targetprefix)/lib64
 #	ln -sf $(targetprefix)/usr/lib $(targetprefix)/usr/lib64
-	$(INSTALL) -d $(targetprefix)/var/lib/misc
+	$(INSTALL) -d $(targetprefix)/var/lib/{misc,nfs}
 	$(INSTALL) -d $(targetprefix)/var/lock/subsys
 	$(INSTALL) -d $(targetprefix)/etc/{init.d,rc.d,samba}
 	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}

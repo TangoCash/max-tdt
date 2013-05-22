@@ -241,16 +241,16 @@ xfsprogs;3.1.8;xfsprogs-3.1.8;xfsprogs-3.1.8.tar.gz;extract:xfsprogs-3.1.8.tar.g
 # net apps
 #
 portmap;6.0.0;portmap-6.0.0;portmap_6.0.0.orig.tar.gz:portmap_6.0.diff:portmap_6.0.0-2.diff.gz;extract:portmap_6.0.0.orig.tar.gz;patch:portmap_6.0.diff
-nfs_utils;1.2.5;nfs-utils-1.2.5;nfs-utils-1.2.5.tar.bz2;extract:nfs-utils-1.2.5.tar.bz2
+nfs_utils;1.2.3;nfs-utils-1.2.3;nfs-utils-1.2.3.tar.bz2;extract:nfs-utils-1.2.3.tar.bz2;patch:nfs-utils-1.2.3.patch
 libevent;2.0.20-stable;libevent-2.0.20-stable;libevent-2.0.20-stable.tar.gz;extract:libevent-2.0.20-stable.tar.gz
 libnfsidmap;0.25;libnfsidmap-0.25;libnfsidmap-0.25.tar.gz;extract:libnfsidmap-0.25.tar.gz
 vsftpd;2.3.4;vsftpd-2.3.4;vsftpd-2.3.4.tar.gz:vsftpd_2.3.4.diff;extract:vsftpd-2.3.4.tar.gz;patch:vsftpd_2.3.4.diff
 netkit_ftp;0.17;netkit-ftp-0.17;netkit-ftp-0.17.tar.gz:netkit-ftp.diff;extract:netkit-ftp-0.17.tar.gz;patch:netkit-ftp.diff
-samba;3.5.5;samba-3.5.5;samba-3.5.5.tar.gz:samba-3.5.5.diff;extract:samba-3.5.5.tar.gz;patch:samba-3.5.5.diff
+samba;3.6.12;samba-3.6.12;samba-3.6.12.tar.gz:samba-3.6.12.patch;extract:samba-3.6.12.tar.gz;patch:samba-3.6.12.patch
 netio;1.26;netio126;netio126.zip;extract:netio126.zip:netio126
 lighttpd;1.4.15;lighttpd-1.4.15;lighttpd-1.4.15.tar.gz;extract:lighttpd-1.4.15.tar.gz
 zd1211;2_15_0_0;ZD1211LnxDrv_2_15_0_0;zd1211lnxdrv_2_15_0_0.tar.gz:zd1211.diff;extract:zd1211lnxdrv_2_15_0_0.tar.gz;patch:zd1211.diff
-wireless_tools;29;wireless_tools.29;wireless_tools.29.tar.gz;extract:wireless_tools.29.tar.gz
+wireless_tools;29;wireless_tools.29;wireless_tools.29.tar.gz;extract:wireless_tools.29.tar.gz;patch:wireless-tools.patch
 wpa_supplicant;0.7.3;wpa_supplicant-0.7.3;wpa_supplicant-0.7.3.tar.gz;extract:wpa_supplicant-0.7.3.tar.gz
 #wpa_supplicant;1.0;wpa_supplicant-1.0;wpa_supplicant-1.0.tar.gz;extract:wpa_supplicant-1.0.tar.gz
 ethtool;6;ethtool-6;ethtool-6.tar.gz;extract:ethtool-6.tar.gz

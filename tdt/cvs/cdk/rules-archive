@@ -34,7 +34,7 @@ ccache-3.1.8.tar.gz;http://samba.org/ftp/ccache
 busybox-1.21.0.tar.bz2;http://www.busybox.net/downloads
 lsb_3.2-20.tar.gz;http://debian.sdinet.de/etch/sdinet/lsb
 ipkg-0.99.163.tar.gz;ftp://ftp.gwdg.de/linux/handhelds/packages/ipkg
-module-init-tools-3.16.tar.bz2;http://ftp.be.debian.org/pub/linux/utils/kernel/module-init-tools
+module-init-tools-3.16.tar.bz2;http://ftp.osuosl.org/pub/linux/utils/kernel/module-init-tools
 sysvinit-2.86.tar.gz;ftp://ftp.cistron.nl/pub/people/miquels/sysvinit
 sysvinit_2.86.ds1.orig.tar.gz;http://ftp.de.debian.org/debian/pool/main/s/sysvinit
 sysvinit_2.86.ds1-38.diff.gz;http://ftp.de.debian.org/debian/pool/main/s/sysvinit
@@ -118,7 +118,7 @@ ffmpeg-1.2.1.tar.gz;http://ffmpeg.org/releases
 libass-0.10.1.tar.gz;http://libass.googlecode.com/files
 libcap-2.22.tar.bz2;http://mirror.linux.org.au/linux/libs/security/linux-privs/libcap2
 libogg-1.2.2.tar.gz;http://downloads.xiph.org/releases/ogg
-flac-1.2.1.tar.gz;http://ignum.dl.sourceforge.net/project/flac/flac-src/flac-1.2.1-src
+flac-1.2.1.tar.gz;http://sourceforge.net/projects/flac/files/flac-src/flac-1.2.1-src
 BroFS1.2.tgz;http://www.avalpa.com/assets/freesoft/other
 alsa-lib-1.0.25.tar.bz2;ftp://gd.tuwien.ac.at/opsys/linux/alsa/lib
 rtmpdump-2.4.tar.gz;http://rtmpdump.mplayerhq.hu/download
@@ -231,13 +231,12 @@ xfsprogs-3.1.8.tar.gz;http://ftp.gwdg.de/pub/linux/misc/xfs/xfs/cmd_tars
 autofs-4.1.4.tar.gz;http://kernel.org/pub/linux/daemons/autofs/v4
 portmap_6.0.0.orig.tar.gz;http://ftp.de.debian.org/debian/pool/main/p/portmap
 portmap_6.0.0-2.diff.gz ;http://debian.osuosl.org/debian/pool/main/p/portmap
-nfs-utils-1.2.5.tar.bz2;http://downloads.sourceforge.net/project/nfs/nfs-utils/1.2.5
+nfs-utils-1.2.3.tar.bz2;http://downloads.sourceforge.net/project/nfs/nfs-utils/1.2.3
 libevent-2.0.20-stable.tar.gz;http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0
 libnfsidmap-0.25.tar.gz;http://www.citi.umich.edu/projects/nfsv4/linux/libnfsidmap
 vsftpd-2.3.4.tar.gz;http://gd.tuwien.ac.at/infosys/servers/ftp/vsftpd
 netkit-ftp-0.17.tar.gz;ftp://ftp.uk.linux.org/pub/linux/Networking/netkit
-samba-3.0.28.tar.gz;http://www.samba.org/samba/ftp/stable
-samba-3.5.5.tar.gz;http://www.samba.org/samba/ftp/stable
+samba-3.6.12.tar.gz;http://www.samba.org/samba/ftp/stable
 netio126.zip;http://bnsmb.de/files/public/windows
 lighttpd-1.4.15.tar.gz;http://www.lighttpd.net/download
 zd1211lnxdrv_2_15_0_0.tar.gz;http://www.lutec.eu/treiber

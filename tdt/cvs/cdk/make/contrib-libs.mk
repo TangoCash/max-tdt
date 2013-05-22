@@ -1106,7 +1106,6 @@ $(DEPDIR)/libxml2: bootstrap @DEPENDS_libxml2@
 			--without-mem-debug && \
 		$(MAKE) all && \
 		@INSTALL_libxml2@ && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libxml2.la,$(targetprefix)/usr/lib/libxml2.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxml2mod.la && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < xml2-config > $(crossprefix)/bin/xml2-config && \
 		chmod 755 $(crossprefix)/bin/xml2-config && \
 		sed -e "/^XML2_LIBDIR/ s,/usr/lib,$(targetprefix)/usr/lib,g" -i $(targetprefix)/usr/lib/xml2Conf.sh && \
@@ -1136,8 +1135,6 @@ $(DEPDIR)/libxslt: bootstrap libxml2 @DEPENDS_libxslt@
 			--without-mem-debug && \
 		$(MAKE) all && \
 		@INSTALL_libxslt@ && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxsltmod.la && \
-		sed -e "/^dependency_libs/ s,/usr/lib/libexslt.la,$(targetprefix)/usr/lib/libexslt.la,g" -i $(targetprefix)$(PYTHON_DIR)/site-packages/libxsltmod.la && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < xslt-config > $(crossprefix)/bin/xslt-config && \
 		chmod 755 $(crossprefix)/bin/xslt-config && \
 		sed -e "/^dependency_libs/ s,/usr/lib/libxslt.la,$(targetprefix)/usr/lib/libxslt.la,g" -i $(targetprefix)/usr/lib/libexslt.la && \
@@ -1383,7 +1380,7 @@ $(DEPDIR)/gstreamer: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 #
 # gst_plugins_base
 #
-$(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa libvorbis @DEPENDS_gst_plugins_base@
+$(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa @DEPENDS_gst_plugins_base@
 	@PREPARE_gst_plugins_base@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
@@ -1399,10 +1396,7 @@ $(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa libvorbis @
 			--disable-vorbis \
 			--disable-x \
 			--disable-examples \
-			--disable-oggtest \
-			--disable-vorbistest \
 			--disable-freetypetest \
-			--with-gudev \
 			--with-audioresample-format=int && \
 		$(MAKE) && \
 		@INSTALL_gst_plugins_base@
@@ -1435,7 +1429,7 @@ $(DEPDIR)/gst_plugins_good: bootstrap gstreamer gst_plugins_base libsoup libflac
 #
 # gst_plugins_bad
 #
-$(DEPDIR)/gst_plugins_bad: bootstrap gstreamer gst_plugins_base libmodplug libmms @DEPENDS_gst_plugins_bad@
+$(DEPDIR)/gst_plugins_bad: bootstrap gstreamer gst_plugins_base libmodplug @DEPENDS_gst_plugins_bad@
 	@PREPARE_gst_plugins_bad@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_bad@ && \

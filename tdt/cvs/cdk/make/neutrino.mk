@@ -426,6 +426,7 @@ $(appsdir)/neutrino-hd2-exp/config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
+			--with-isocodesdir=/usr/share/iso-codes \
 			--enable-libeplayer3 \
 			--enable-standaloneplugins \
 			--enable-radiotext \

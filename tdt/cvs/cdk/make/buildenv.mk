@@ -107,8 +107,7 @@ EXPORT_BUILDENV := \
 	export CFLAGS="$(TARGET_CFLAGS)" && \
 	export CXXFLAGS="$(TARGET_CFLAGS)" && \
 	export LDFLAGS="$(TARGET_LDFLAGS) -Wl,-rpath -Wl,/usr/lib -Wl,-rpath-link -Wl,$(targetprefix)/usr/lib -L$(targetprefix)/lib -L$(targetprefix)/usr/lib" && \
-	export PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig" && \
-	export LD_LIBRARY_PATH=$(targetprefix)/usr/lib
+	export PKG_CONFIG_PATH="$(targetprefix)/usr/lib/pkgconfig"
 
 build.env:
 	echo '$(EXPORT_BUILDENV)' |sed 's/&&/\n/g' |sed 's/^ //' > $@

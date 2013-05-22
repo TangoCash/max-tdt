@@ -23,7 +23,7 @@ PREFIX=/usr
 [ -x $PREFIX/sbin/exportfs ] || exit 0
 
 # Read config
-DEFAULTFILE=/etc/nfs-kernel-server
+DEFAULTFILE=/etc/default/nfs-kernel-server
 #RPCNFSDCOUNT=8
 RPCNFSDCOUNT=4
 RPCMOUNTDOPTS=

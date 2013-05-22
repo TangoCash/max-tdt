@@ -16,7 +16,7 @@ set -e
 DESC="NFS common utilities"
 
 # Read config
-DEFAULTFILE=/etc/nfs-common
+DEFAULTFILE=/etc/default/nfs-common
 PREFIX=/usr
 NEED_LOCKD=
 if [ -f $DEFAULTFILE ]; then

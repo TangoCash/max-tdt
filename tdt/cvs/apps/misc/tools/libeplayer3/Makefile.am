@@ -5,9 +5,9 @@ CXXFLAGS = -Wall
 INCLUDES = \
 	-Iinclude
 
-libeplayer3_la_SOURCES =  \
+libeplayer3_la_SOURCES = \
 	container/container.c container/container_ffmpeg.c container/text_srt.c \
-    container/text_ssa.c container/container_ass.c \
+	container/text_ssa.c container/container_ass.c \
 	manager/audio.c manager/manager.c manager/subtitle.c manager/video.c \
 	output/output_subtitle.c output/linuxdvb.c output/output.c \
 	playback/playback.c output/writer/writer.c output/writer/aac.c output/writer/wmv.c \

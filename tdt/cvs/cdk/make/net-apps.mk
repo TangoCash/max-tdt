@@ -39,7 +39,7 @@ $(DEPDIR)/libevent: bootstrap @DEPENDS_libevent@
 	@PREPARE_libevent@
 	cd @DIR_libevent@ && \
 		$(BUILDENV) \
-		./configure
+		./configure \
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=$(prefix)/$*cdkroot/usr/ && \
@@ -55,8 +55,8 @@ $(DEPDIR)/libnfsidmap: bootstrap @DEPENDS_libnfsidmap@
 	@PREPARE_libnfsidmap@
 	cd @DIR_libnfsidmap@ && \
 		$(BUILDENV) \
-		ac_cv_func_malloc_0_nonnull=yes
-		./configure
+		ac_cv_func_malloc_0_nonnull=yes \
+		./configure \
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=$(prefix)/$*cdkroot/usr/ && \

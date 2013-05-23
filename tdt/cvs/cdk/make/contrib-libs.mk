@@ -1382,6 +1382,7 @@ $(DEPDIR)/gstreamer: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 #
 $(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa @DEPENDS_gst_plugins_base@
 	@PREPARE_gst_plugins_base@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
 		$(BUILDENV) \
 		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \

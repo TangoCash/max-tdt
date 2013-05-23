@@ -904,6 +904,15 @@ endif
 	fi
 
 #
+# NFS-UTILS
+#
+	if [ -e $(targetprefix)/usr/sbin/rpc.nfsd ]; then \
+		cp -f $(targetprefix)/usr/sbin/exportfs $(prefix)/release/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/rpc.nfsd $(prefix)/release/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/rpc.mountd $(prefix)/release/usr/sbin/; \
+	fi
+
+#
 # AUTOFS
 #
 	if [ -d $(prefix)/release/usr/lib/autofs ]; then \

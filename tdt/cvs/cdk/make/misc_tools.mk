@@ -5,6 +5,7 @@ misc-tools-clean:
 	-$(MAKE) -C $(appsdir)/misc/tools distclean
 
 $(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev bzip2 libpng libjpeg ffmpeg
+	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/misc/tools && $(CONFIGURE) \
 	$(if $(MULTICOM324), --enable-multicom324) \
 	$(if $(MULTICOM406), --enable-multicom406) \

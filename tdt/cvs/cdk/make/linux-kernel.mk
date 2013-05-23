@@ -328,8 +328,6 @@ else
 GRAPHICFWDIRECTFB_SED_CONF=-i s"/^CONFIG_BPA2_DIRECTFBOPTIMIZED=y/\# CONFIG_BPA2_DIRECTFBOPTIMIZED is not set/"
 endif
 
-NFS_FLASH_SED_CONF=$(foreach param,XCONFIG_NFS_FS XCONFIG_LOCKD XCONFIG_SUNRPC,-e s"/^.*$(param)[= ].*/$(param)=m/")
-
 if ENABLE_XFS
 XFS_SED_CONF=$(foreach param,CONFIG_XFS_FS,-e s"/^.*$(param)[= ].*/$(param)=m/")
 else
@@ -359,7 +357,6 @@ $(DEPDIR)/linux-kernel.do_compile: \
 		@M4@ $(buildprefix)/Patches/$(HOST_KERNEL_CONFIG) > .config && \
 	if [ `grep -c "CONFIG_BPA2_DIRECTFBOPTIMIZED" .config` -eq 0 ]; then echo "# CONFIG_BPA2_DIRECTFBOPTIMIZED is not set" >> .config; fi && \
 		sed $(GRAPHICFWDIRECTFB_SED_CONF) .config && \
-		sed $(NFS_FLASH_SED_CONF) -i .config && \
 		sed $(XFS_SED_CONF) $(NFSSERVER_SED_CONF) $(NTFS_SED_CONF) -i .config && \
 		$(MAKE) $(if $(TF7700),TF7700=y) ARCH=sh CROSS_COMPILE=$(target)- uImage modules
 	touch $@

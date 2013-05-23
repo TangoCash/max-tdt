@@ -22,6 +22,7 @@ CONFIGPARAM=" \
  --with-customizationsdir=$KATIDIR/custom \
  --with-flashscriptdir=$KATIDIR/flash \
  --with-archivedir=$HOME/Archive \
+ --enable-nfsserver \
  --enable-ccache"
 
 ##############################################

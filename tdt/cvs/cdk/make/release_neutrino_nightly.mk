@@ -776,6 +776,15 @@ endif
 	rm -f $(prefix)/release_neutrino/bin/libstb-hal-test
 
 #
+# NFS-UTILS
+#
+	if [ -e $(targetprefix)/usr/sbin/rpc.nfsd ]; then \
+		cp -f $(targetprefix)/usr/sbin/exportfs $(prefix)/release_neutrino/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/rpc.nfsd $(prefix)/release_neutrino/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/rpc.mountd $(prefix)/release_neutrino/usr/sbin/; \
+	fi
+
+#
 # AUTOFS
 #
 	if [ -d $(prefix)/release_neutrino/usr/lib/autofs ]; then \

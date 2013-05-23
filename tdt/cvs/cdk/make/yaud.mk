@@ -73,8 +73,8 @@ $(DEPDIR)/disk-utils: \
 $(DEPDIR)/yaud-none: \
 	bare-os \
 	linux-kernel \
-	net-utils \
 	disk-utils \
+	net-utils \
 	driver \
 	misc-tools
 	touch $@

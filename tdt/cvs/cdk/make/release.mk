@@ -232,7 +232,7 @@ release_ufc960: release_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontcontroller/micom/micom.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/frontends/*.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7109c3.ko $(prefix)/release/lib/modules/
-	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/ufs922_fan/fan_ctrl.ko $(prefix)/release/lib/modules/
+#	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/ufs922_fan/fan_ctrl.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release/boot/video.elf
 	rm -f $(prefix)/release/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116}.fw
 	rm -f $(prefix)/release/bin/evremote
@@ -473,6 +473,8 @@ release_vip1_v2: release_common_utils
 	cp $(targetprefix)/boot/video_7109.elf $(prefix)/release/boot/video.elf
 	rm -f $(prefix)/release/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
 	cp -f $(buildprefix)/root/release/fstab_vip2 $(prefix)/release/etc/fstab
+	cp -f $(targetprefix)/sbin/shutdown $(prefix)/release/sbin/
+	cp $(targetprefix)/bin/stslave $(prefix)/release/bin
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release/etc/
 	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc

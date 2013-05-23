@@ -1382,10 +1382,9 @@ $(DEPDIR)/gstreamer: bootstrap glib2 libxml2 @DEPENDS_gstreamer@
 #
 $(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa @DEPENDS_gst_plugins_base@
 	@PREPARE_gst_plugins_base@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_base@ && \
-		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
+		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
@@ -1393,8 +1392,10 @@ $(DEPDIR)/gst_plugins_base: bootstrap glib2 gstreamer libogg libalsa @DEPENDS_gs
 			--disable-theora \
 			--disable-gnome_vfs \
 			--disable-pango \
-			--disable-vorbis \
 			--disable-x \
+			--disable-ivorbis \
+			--disable-vorbis \
+			--disable-vorbistest \
 			--disable-examples \
 			--disable-freetypetest \
 			--with-audioresample-format=int && \

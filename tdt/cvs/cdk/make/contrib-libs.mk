@@ -1559,10 +1559,12 @@ $(DEPDIR)/gst_plugin_subsink: bootstrap gstreamer gst_plugins_base gst_plugins_g
 	@PREPARE_gst_plugin_subsink@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugin_subsink@ && \
+		touch NEWS README AUTHORS ChangeLog && \
 		aclocal -I $(hostprefix)/share/aclocal -I m4 && \
+		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		autoheader && \
 		autoconf && \
-		automake --foreign && \
+		automake --add-missing && \
 		libtoolize --force && \
 		$(BUILDENV) \
 		./configure \

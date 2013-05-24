@@ -100,7 +100,7 @@ $(DEPDIR)/$(HOST_DISTRIBUTIONUTILS): $(HOST_DISTRIBUTIONUTILS_RPM)
 # HOST-LDD
 #
 HOST_LDD = host-ldd
-HOST_LDD_VERSION = 1.0-6
+HOST_LDD_VERSION = 1.0-7
 HOST_LDD_SPEC = stm-$(HOST_LDD).spec
 HOST_LDD_SPEC_PATCH =
 HOST_LDD_PATCHES =
@@ -618,6 +618,7 @@ bootstrap-host: \
 	host_autoconf \
 	host_automake \
 	host_pkgconfig \
+	host-ldd \
 	host-base-passwd \
 	host-distributionutils \
 	host-mtd-utils \

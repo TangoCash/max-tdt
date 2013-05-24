@@ -98,8 +98,8 @@ $(DEPDIR)/libstb-hal-exp.do_prepare:
 
 $(appsdir)/libstb-hal-exp/config.status: bootstrap
 	cd $(appsdir)/libstb-hal-exp && \
-		$(BUILDENV) \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
 		./configure \
 			--host=$(target) \
 			--build=$(build) \

@@ -909,9 +909,13 @@ endif
 # NFS-UTILS
 #
 	if [ -e $(targetprefix)/usr/sbin/rpc.nfsd ]; then \
+		cp -f $(targetprefix)/etc/exports $(prefix)/release/etc/; \
+		cp -f $(targetprefix)/etc/init.d/nfs-common $(prefix)/release/etc/init.d/; \
+		cp -f $(targetprefix)/etc/init.d/nfs-kernel-server $(prefix)/release/etc/init.d/; \
 		cp -f $(targetprefix)/usr/sbin/exportfs $(prefix)/release/usr/sbin/; \
 		cp -f $(targetprefix)/usr/sbin/rpc.nfsd $(prefix)/release/usr/sbin/; \
 		cp -f $(targetprefix)/usr/sbin/rpc.mountd $(prefix)/release/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/rpc.statd $(prefix)/release/usr/sbin/; \
 	fi
 
 #

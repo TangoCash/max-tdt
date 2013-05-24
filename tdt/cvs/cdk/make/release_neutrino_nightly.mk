@@ -779,9 +779,13 @@ endif
 # NFS-UTILS
 #
 	if [ -e $(targetprefix)/usr/sbin/rpc.nfsd ]; then \
+		cp -f $(targetprefix)/etc/exports $(prefix)/release_neutrino/etc/; \
+		cp -f $(targetprefix)/etc/init.d/nfs-common $(prefix)/release_neutrino/etc/init.d/; \
+		cp -f $(targetprefix)/etc/init.d/nfs-kernel-server $(prefix)/release_neutrino/etc/init.d/; \
 		cp -f $(targetprefix)/usr/sbin/exportfs $(prefix)/release_neutrino/usr/sbin/; \
 		cp -f $(targetprefix)/usr/sbin/rpc.nfsd $(prefix)/release_neutrino/usr/sbin/; \
 		cp -f $(targetprefix)/usr/sbin/rpc.mountd $(prefix)/release_neutrino/usr/sbin/; \
+		cp -f $(targetprefix)/usr/sbin/rpc.statd $(prefix)/release_neutrino/usr/sbin/; \
 	fi
 
 #

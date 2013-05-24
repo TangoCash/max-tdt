@@ -478,7 +478,7 @@ release_neutrino_base:
 	ln -sf /usr/share/tuxbox/neutrino/icons/logo $(prefix)/release_neutrino/logos && \
 	ln -sf /usr/share $(prefix)/release_neutrino/share && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/{bin,boot,etc,httpd,lib,plugins,tuxbox,update} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/lib/nfs && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/var/lib/nfs && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/var/tuxbox/config/{locale,zapit} && \
 	ln -sf /usr/share/tuxbox/neutrino/icons/logo $(prefix)/release_neutrino/var/httpd/logos && \

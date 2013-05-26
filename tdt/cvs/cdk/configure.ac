@@ -344,6 +344,14 @@ AC_ARG_ENABLE(hs7810a,
 AM_CONDITIONAL(ENABLE_HS7810A,test "$enable_hs7810a" = "yes")
 AC_SUBST(HS7810A)
 
+AC_ARG_ENABLE(vitamin_hd5000,
+	AS_HELP_STRING(--enable-vitamin_hd5000,    enable vitamin_hd5000 stuff),
+	[case "${enableval}" in
+		yes) VITAMIN_HD5000=vitamin_hd5000 ;;
+	esac],[enable_vitamin_hd5000=no])
+AM_CONDITIONAL(ENABLE_VITAMIN_HD5000,test "$enable_vitamin_hd5000" = "yes")
+AC_SUBST(VITAMIN_HD5000)
+
 AC_ARG_ENABLE(hs7110,
 	AS_HELP_STRING(--enable-hs7110, enable fortis hs7110 stuff),
 	[case "${enableval}" in
@@ -454,16 +462,9 @@ AC_SUBST(TARGET_CXXFLAGS)
 AC_SUBST(TARGET_LDFLAGS)
 
 AC_PREFIX_DEFAULT(/ufs910)
-
-if test "x$prefix" = xNONE; then
+if test "$prefix" = "NONE"; then
 	prefix=/ufs910
-else
-	prefix=$prefix
 fi
-
-#if test "$prefix" = "NONE"; then
-#	prefix=/ufs910
-#fi
 
 AC_ARG_WITH(targetprefix,
 	[  --with-targetprefix=DIR    prefix for target files [[PREFIX/cdkroot]]],

@@ -168,7 +168,8 @@ PLATFORM_CPPFLAGS := \
 	$(if $(CUBEREVO_9500HD),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_CUBEREVO_9500HD -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include" --enable-cuberevo) \
 	$(if $(IPBOX9900),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX9900 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include") \
 	$(if $(IPBOX99),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX99 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include") \
-	$(if $(IPBOX55),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX55 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include")
+	$(if $(IPBOX55),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_IPBOX55 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include") \
+	$(if $(VITAMIN_HD5000),CPPFLAGS="$(CPPFLAGS) -DPLATFORM_VITAMIN_HD5000 -I$(driverdir)/include -I $(buildprefix)/$(KERNEL_DIR)/include")
 
 DRIVER_PLATFORM := \
 	$(if $(UFS910),UFS910=$(UFS910)) \
@@ -200,6 +201,7 @@ DRIVER_PLATFORM := \
 	$(if $(IPBOX9900),IPBOX9900=$(IPBOX9900)) \
 	$(if $(IPBOX99),IPBOX99=$(IPBOX99)) \
 	$(if $(IPBOX55),IPBOX55=$(IPBOX55)) \
+	$(if $(VITAMIN_HD5000),VITAMIN_HD5000=$(VITAMIN_HD5000)) \
 	$(if $(PLAYER191),PLAYER191=$(PLAYER191))
 
 DEPDIR = .deps

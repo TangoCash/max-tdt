@@ -38,6 +38,7 @@ $(DEPDIR)/misc-tools: $(appsdir)/misc/tools/config.status
 	$(if $(IPBOX9900), -DPLATFORM_IPBOX9900) \
 	$(if $(IPBOX99), -DPLATFORM_IPBOX99) \
 	$(if $(IPBOX55), -DPLATFORM_IPBOX55) \
+	$(if $(VITAMIN_HD5000), -DPLATFORM_VITAMIN_HD5000) \
 	$(if $(PLAYER191), -DPLAYER191)" && \
 	$(MAKE) -C $(appsdir)/misc/tools install prefix=$(targetprefix)
 	touch $@

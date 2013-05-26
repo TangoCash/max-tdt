@@ -366,9 +366,9 @@ AC_SUBST(CATALOGS)
 
 AC_DEFUN([TUXBOX_BOXTYPE],[
 AC_ARG_WITH(boxtype,
-	[  --with-boxtype     valid values: ufs910,ufs912,ufs913,ufs922,ipbox55,ipbox99,ipbox9900,cuberevo,cuberevo_mini,cuberevo_mini2,cuberevo_mini_fta,cuberevo_250hd,cuberevo_2000hd,cuberevo_9500hd,tf7700,fortis_hdbox,octagon1008,atevio7500,spark,spark7162,hl101,hs7110,hs7810a,adb_box,whitebox,vip,homecast5101],
+	[  --with-boxtype     valid values: ufs910,ufs912,ufs913,ufs922,ipbox55,ipbox99,ipbox9900,cuberevo,cuberevo_mini,cuberevo_mini2,cuberevo_mini_fta,cuberevo_250hd,cuberevo_2000hd,cuberevo_9500hd,tf7700,fortis_hdbox,octagon1008,atevio7500,spark,spark7162,hl101,hs7110,hs7810a,adb_box,whitebox,vip,homecast5101,vitamin_hd5000],
 	[case "${withval}" in
-		ufs910|ufs912|ufs913|ufs922|ufc960|ipbox55|ipbox99|ipbox9900|cuberevo|cuberevo_mini|cuberevo_mini2|cuberevo_mini_fta|cuberevo_250hd|cuberevo_2000hd|cuberevo_9500hd|tf7700|fortis_hdbox|octagon1008|atevio7500|spark|spark7162|hl101|hs7110|hs7810a|adb_box|whitebox|vip|homecast5101)
+		ufs910|ufs912|ufs913|ufs922|ufc960|ipbox55|ipbox99|ipbox9900|cuberevo|cuberevo_mini|cuberevo_mini2|cuberevo_mini_fta|cuberevo_250hd|cuberevo_2000hd|cuberevo_9500hd|tf7700|fortis_hdbox|octagon1008|atevio7500|spark|spark7162|hl101|hs7110|hs7810a|adb_box|whitebox|vip|homecast5101|vitamin_hd5000)
 			BOXTYPE="$withval"
 			;;
 		*)
@@ -405,6 +405,7 @@ AM_CONDITIONAL(BOXTYPE_ADB_BOX, test "$BOXTYPE" = "adb_box")
 AM_CONDITIONAL(BOXTYPE_WHITEBOX, test "$BOXTYPE" = "whitebox")
 AM_CONDITIONAL(BOXTYPE_VIP, test "$BOXTYPE" = "vip")
 AM_CONDITIONAL(BOXTYPE_HOMECAST5101, test "$BOXTYPE" = "homecast5101")
+AM_CONDITIONAL(BOXTYPE_VITAMIN_HD5000, test "$BOXTYPE" = "vitamin_hd5000")
 ])
 
 dnl backward compatiblity

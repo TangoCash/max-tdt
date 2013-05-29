@@ -419,6 +419,7 @@ $(DEPDIR)/glib2: bootstrap libffi @DEPENDS_glib2@
 	echo "glib_cv_uscore=no" >> @DIR_glib2@/config.cache
 	cd @DIR_glib2@ && \
 		$(BUILDENV) \
+		PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 		./configure \
 			--cache-file=config.cache \
 			--disable-gtk-doc \
@@ -692,7 +693,7 @@ $(DEPDIR)/libdvdread: bootstrap @DEPENDS_libdvdread@
 	cd @DIR_libdvdread@ && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		cp $(hostprefix)/share/libtool/config/ltmain.sh .. && \
-		autoreconf --verbose --force --install -I$(hostprefix)/share/aclocal && \
+		autoreconf -f -i -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \

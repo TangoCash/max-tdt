@@ -36,9 +36,7 @@ $(DEPDIR)/bare-os: \
 	$(BC) \
 	$(SYSVINIT) \
 	$(SYSVINITTOOLS) \
-	$(DISTRIBUTIONUTILS) \
 	\
-	u-boot-utils \
 	diverse-tools
 	touch $@
 
@@ -84,10 +82,6 @@ $(DEPDIR)/yaud-none: \
 #
 yaud-neutrino: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino release_neutrino
-	@TUXBOX_YAUD_CUSTOMIZE@
-
-yaud-neutrino-twin: yaud-none lirc stslave \
-		boot-elf remote firstboot neutrino-twin release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
 yaud-neutrino-twin-next: yaud-none lirc stslave \

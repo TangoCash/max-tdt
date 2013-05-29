@@ -131,7 +131,7 @@ libstb-hal-exp-distclean:
 #
 # NEUTRINO MP
 #
-$(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl libopenthreads libusb2 libalsa libstb-hal
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -200,7 +200,7 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 #
 # NEUTRINO MP EXP
 #
-$(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost openssl liblua libopenthreads libusb2 libalsa libstb-hal-exp
+$(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl liblua libopenthreads libusb2 libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-mp-exp
 	rm -rf $(appsdir)/neutrino-mp-exp.org
 	[ -d "$(archivedir)/neutrino-mp-exp.git" ] && \
@@ -265,74 +265,6 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
 	mkdir -p $(prefix)/release_neutrino/usr/local/sbin
 	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
-
-#
-# neutrino-twin
-#
-$(DEPDIR)/neutrino-twin.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec libboost openssl libopenthreads libalsa libstb-hal-exp
-	rm -rf $(appsdir)/neutrino-twin
-	rm -rf $(appsdir)/neutrino-twin.org
-	rm -rf $(appsdir)/neutrino-twin.patched
-	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] && \
-	(cd $(archivedir)/cst-public-gui-neutrino.git; git pull ; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/cst-public-gui-neutrino.git" ] || \
-	git clone git://c00lstreamtech.de/cst-public-gui-neutrino.git $(archivedir)/cst-public-gui-neutrino.git; \
-	cp -ra $(archivedir)/cst-public-gui-neutrino.git $(appsdir)/neutrino-twin; \
-	(cd $(appsdir)/neutrino-twin; git checkout --track -b pu/cc origin/pu/cc; cd "$(buildprefix)";); \
-	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.org
-	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin.diff"
-	cp -ra $(appsdir)/neutrino-twin $(appsdir)/neutrino-twin.patched
-#	cd $(appsdir)/neutrino-twin && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-patched.diff"
-	touch $@
-
-$(appsdir)/neutrino-twin/config.status:
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd $(appsdir)/neutrino-twin && \
-		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			$(N_CONFIG_OPTS) \
-			--with-boxtype=$(BOXTYPE) \
-			--with-tremor \
-			--enable-giflib \
-			--enable-fb_blit \
-			--with-libdir=/usr/lib \
-			--with-datadir=/usr/share/tuxbox \
-			--with-fontdir=/usr/share/fonts \
-			--with-configdir=/var/tuxbox/config \
-			--with-gamesdir=/var/tuxbox/games \
-			--with-plugindir=/var/plugins \
-			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp/include \
-			--with-stb-hal-build=$(appsdir)/libstb-hal-exp \
-			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
-			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
-			$(PLATFORM_CPPFLAGS) \
-			CPPFLAGS="$(N_CPPFLAGS) -DFB_BLIT"
-
-$(DEPDIR)/neutrino-twin.do_compile: $(appsdir)/neutrino-twin/config.status
-	cd $(appsdir)/neutrino-twin && \
-		$(MAKE) all
-	touch $@
-
-$(DEPDIR)/neutrino-twin: neutrino-twin.do_prepare neutrino-twin.do_compile
-	$(MAKE) -C $(appsdir)/neutrino-twin install DESTDIR=$(targetprefix) && \
-	rm -f $(targetprefix)/var/etc/.version
-	make $(targetprefix)/var/etc/.version
-	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
-	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
-	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
-	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
-	touch $@
-
-neutrino-twin-clean:
-	rm -f $(DEPDIR)/neutrino-twin
-	cd $(appsdir)/neutrino-twin && \
-		$(MAKE) distclean
-
-neutrino-twin-distclean:
-	rm -f $(DEPDIR)/neutrino-twin*
 
 #
 # neutrino-twin-next

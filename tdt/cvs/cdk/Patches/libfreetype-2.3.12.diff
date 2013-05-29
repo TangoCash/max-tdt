@@ -13,6 +13,42 @@ diff -uNr freetype-2.3.9.org/builds/unix/freetype-config.in freetype-2.3.9/build
  fi
  
  if test "$echo_libs" = "yes" ; then
+diff -urN freetype-2.3.11.orig/builds/unix/configure.ac freetype-2.3.11/builds/unix/configure.ac
+--- freetype-2.3.11.orig/builds/unix/configure.ac	2009-10-10 19:37:46.000000000 +0100
++++ freetype-2.3.11/builds/unix/configure.ac	2009-10-13 03:15:23.048587672 +0100
+@@ -179,7 +179,7 @@
+ esac
+ 
+ if test x"${ft_use_autoconf_sizeof_types}" = xyes; then
+-  AC_DEFINE([FT_USE_AUTOCONF_SIZEOF_TYPES])
++  AC_DEFINE([FT_USE_AUTOCONF_SIZEOF_TYPES], [1], [use sizeof int/long as determined by autoconf])
+ fi
+ 
+ CPPFLAGS="${orig_CPPFLAGS}"
+diff -urN freetype-2.3.11.orig/builds/unix/configure.raw freetype-2.3.11/builds/unix/configure.raw
+--- freetype-2.3.11.orig/builds/unix/configure.raw	2009-10-10 19:19:54.000000000 +0100
++++ freetype-2.3.11/builds/unix/configure.raw	2009-10-13 03:15:15.369085935 +0100
+@@ -179,7 +179,7 @@
+ esac
+ 
+ if test x"${ft_use_autoconf_sizeof_types}" = xyes; then
+-  AC_DEFINE([FT_USE_AUTOCONF_SIZEOF_TYPES])
++  AC_DEFINE([FT_USE_AUTOCONF_SIZEOF_TYPES], [1], [use sizeof int/long as determined by autoconf])
+ fi
+ 
+ CPPFLAGS="${orig_CPPFLAGS}"
+diff -urN freetype-2.3.11.orig/builds/unix/configure.ac freetype-2.3.11/builds/unix/configure.ac
+--- freetype-2.3.11.orig/builds/unix/configure.ac	2009-10-16 22:48:54.362154000 +0100
++++ freetype-2.3.11/builds/unix/configure.ac	2009-10-16 23:03:41.100261807 +0100
+@@ -12,6 +12,8 @@
+ # fully.
+ 
+ AC_INIT([FreeType], [2.3.12], [freetype@nongnu.org], [freetype])
++AC_CONFIG_MACRO_DIR([.])
++m4_include([ft-munmap.m4])
+ AC_CONFIG_SRCDIR([ftconfig.in])
+ 
+ 
 diff -uNr freetype-2.3.9.org/builds/unix/unix-cc.in freetype-2.3.9/builds/unix/unix-cc.in
 --- freetype-2.3.9.org/builds/unix/unix-cc.in	2006-10-15 10:57:22.000000000 +0200
 +++ freetype-2.3.9/builds/unix/unix-cc.in	2009-08-19 18:39:34.000000000 +0200

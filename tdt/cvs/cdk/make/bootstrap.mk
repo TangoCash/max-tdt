@@ -608,16 +608,16 @@ cross-sh4-filesystem:
 #
 # BOOTSTRAP-HOST
 #
-bootstrap-host: \
+bootstrap-host: | \
 	host-filesystem \
 	cross-sh4-filesystem \
 	$(CCACHE) \
-	host-rpmconfig \
-	host-autotools \
 	host_libtool \
+	host-rpmconfig \
 	host_autoconf \
-	host_automake \
 	host_pkgconfig \
+	host-autotools \
+	host_automake \
 	host-ldd \
 	host-base-passwd \
 	host-distributionutils \
@@ -631,11 +631,11 @@ bootstrap-host: \
 bootstrap-cross: \
 	bootstrap-host \
 	cross-sh4-distributionutils \
-	cross-sh4-binutils \
-	cross-sh4-binutils-dev \
 	cross-sh4-gmp \
 	cross-sh4-mpfr \
 	cross-sh4-mpc \
+	cross-sh4-binutils \
+	cross-sh4-binutils-dev \
 	cross-sh4-cpp \
 	cross-sh4-gcc \
 	cross-sh4-g++ \
@@ -658,6 +658,7 @@ $(DEPDIR)/host_libtool: @DEPENDS_host_libtool@
 	@PREPARE_host_libtool@
 	cd @DIR_host_libtool@ && \
 		./configure \
+			lt_cv_sys_dlsearch_path="" \
 			--prefix=$(hostprefix) && \
 		$(MAKE) && \
 		@INSTALL_host_libtool@

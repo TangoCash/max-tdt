@@ -67,6 +67,6 @@ $(HOST_U_BOOT_TOOLS_RPM): \
 	$(if $(HOST_U_BOOT_TOOLS_PATCHES),cp $(HOST_U_BOOT_TOOLS_PATCHES:%=Patches/%) SOURCES/ &&) \
 	rpmbuild $(DRPMBUILD) -bb -v --clean --target=sh4-linux SPECS/$(HOST_U_BOOT_TOOLS_SPEC)
 
-$(DEPDIR)/$(HOST_U_BOOT_TOOLS): u-boot-utils.do_prepare $(HOST_U_BOOT_TOOLS_RPM) | bootstrap-cross
+$(DEPDIR)/$(HOST_U_BOOT_TOOLS): u-boot-utils $(HOST_U_BOOT_TOOLS_RPM) | bootstrap-cross
 	@rpm $(DRPM) --ignorearch --nodeps -Uhv $(lastword $^)
 	touch $@

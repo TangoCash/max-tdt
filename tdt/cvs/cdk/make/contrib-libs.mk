@@ -806,7 +806,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--enable-avresample \
 			--enable-pthreads \
 			--enable-bzlib \
-			--disable-zlib \
+			--enable-zlib \
 			--disable-bsfs \
 			--enable-librtmp \
 			--pkg-config="pkg-config" \
@@ -815,13 +815,13 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--target-os=linux \
 			--arch=sh4 \
 			--disable-debug \
+			--extra-cflags="-fno-strict-aliasing" \
 			--enable-stripping \
 			--prefix=/usr && \
 		$(MAKE) && \
 		@INSTALL_ffmpeg@
-	@DISTCLEANUP_ffmpeg@
+#	@DISTCLEANUP_ffmpeg@
 	touch $@
-
 #
 # libass
 #

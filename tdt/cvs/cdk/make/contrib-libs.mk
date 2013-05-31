@@ -820,7 +820,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--prefix=/usr && \
 		$(MAKE) && \
 		@INSTALL_ffmpeg@
-#	@DISTCLEANUP_ffmpeg@
+	@DISTCLEANUP_ffmpeg@
 	touch $@
 #
 # libass

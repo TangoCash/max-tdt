@@ -32,6 +32,10 @@ if [ ! -e /var/etc/.firstboot ]; then
    else
      if [ -e /etc/network/interfaces ]; then
 	 ip addr flush eth0
+	 HWADDR=`grep -E -o '[[:xdigit:]]{2}(:[[:xdigit:]]{2}){5}' /dev/mtd2`
+	 ifconfig eth0 down
+	 ifconfig eth0 hw ether $HWADDR
+#	 ifconfig eth0 up
 	 /etc/init.d/networking stop
 	 DHCP=`grep -c dhcp /etc/network/interfaces`
 	 if [ "$DHCP" -eq "1" ]; then

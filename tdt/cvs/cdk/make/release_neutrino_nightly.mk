@@ -796,6 +796,7 @@ endif
 		cp -f $(buildprefix)/root/release/auto.hotplug $(prefix)/release_neutrino/etc/; \
 		cp -f $(buildprefix)/root/release/auto.network $(prefix)/release_neutrino/etc/; \
 		cp -f $(buildprefix)/root/release/autofs $(prefix)/release_neutrino/etc/init.d/; \
+		ln -s /usr/sbin/automount $(prefix)/release_neutrino/sbin/automount; \
 	fi
 
 #

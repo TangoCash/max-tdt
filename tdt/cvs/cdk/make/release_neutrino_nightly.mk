@@ -775,6 +775,11 @@ endif
 	rm -f $(prefix)/release_neutrino/bin/gitVCInfo
 	rm -f $(prefix)/release_neutrino/bin/libstb-hal-test
 
+# removing stslave
+	rm -f $(prefix)/release_neutrino/usr/lib/libbfd*
+	rm -f $(prefix)/release_neutrino/usr/lib/libopcodes*
+	rm -f $(prefix)/release_neutrino/bin/stslave
+
 #
 # NFS-UTILS
 #

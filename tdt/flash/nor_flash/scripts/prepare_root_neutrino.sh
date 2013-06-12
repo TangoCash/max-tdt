@@ -35,7 +35,7 @@ rm -f $TMPROOTDIR/etc
 mkdir -p $TMPROOTDIR/etc/init.d
 echo "#!/bin/sh" > $TMPROOTDIR/etc/init.d/rcS
 echo "mount -n -t proc proc /proc" >> $TMPROOTDIR/etc/init.d/rcS
-if [ "$HOST" == "cuberevo-mini2" ]; then
+if [ "$HOST" == "cuberevo-mini2" -o "$HOST" == "cuberevo" ]; then
 	echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock4 /var" >> $TMPROOTDIR/etc/init.d/rcS
 else
 	echo "mount -t jffs2 -o rw,noatime,nodiratime /dev/mtdblock3 /var" >> $TMPROOTDIR/etc/init.d/rcS

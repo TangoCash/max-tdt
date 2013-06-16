@@ -259,7 +259,7 @@ $(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 	[ -d "$(archivedir)/neutrino-mp.git" ] || \
 	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-exp; \
-	(cd $(appsdir)/neutrino-mp-exp; git checkout experimental-next; cd "$(buildprefix)";); \
+	(cd $(appsdir)/neutrino-mp-exp; git checkout experimental; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-mp-exp $(appsdir)/neutrino-mp-exp.org
 	touch $@
 

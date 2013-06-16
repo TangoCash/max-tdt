@@ -96,6 +96,10 @@ yaud-neutrino-mp-exp: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino-mp-exp release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
+yaud-neutrino-mp-exp-next: yaud-none lirc stslave \
+		boot-elf remote firstboot neutrino-mp-exp-next release_neutrino_nightly
+	@TUXBOX_YAUD_CUSTOMIZE@
+
 yaud-neutrino-mp-plugins: yaud-none lirc stslave \
 		boot-elf remote firstboot neutrino-mp neutrino-mp-plugins release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@

@@ -16,11 +16,11 @@ $(targetprefix)/var/etc/.version:
 N_CPPFLAGS = -I$(driverdir)/bpamem
 
 if BOXTYPE_SPARK
-N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom
+N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom_spark
 endif
 
 if BOXTYPE_SPARK7162
-N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom
+N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom_spark
 endif
 
 N_CONFIG_OPTS = --enable-silent-rules --enable-freesatepg
@@ -80,7 +80,8 @@ libstb-hal-clean:
 		$(MAKE) distclean
 
 libstb-hal-distclean:
-	rm -f $(DEPDIR)/libstb-hal*
+	rm -f $(DEPDIR)/libstb-hal
+	rm -f $(DEPDIR)/libstb-hal.org
 
 #
 # LIBSTB-HAL-EXP
@@ -88,11 +89,12 @@ libstb-hal-distclean:
 $(DEPDIR)/libstb-hal-exp.do_prepare:
 	rm -rf $(appsdir)/libstb-hal-exp
 	rm -rf $(appsdir)/libstb-hal-exp.org
-	[ -d "$(archivedir)/libstb-hal-exp.git" ] && \
-	(cd $(archivedir)/libstb-hal-exp.git; git pull; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/libstb-hal-exp.git" ] || \
-	git clone -b experimental git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal-exp.git; \
-	cp -ra $(archivedir)/libstb-hal-exp.git $(appsdir)/libstb-hal-exp;\
+	[ -d "$(archivedir)/libstb-hal.git" ] && \
+	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal.git" ] || \
+	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-exp;\
+	(cd $(appsdir)/libstb-hal-exp; git checkout experimental; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/libstb-hal-exp $(appsdir)/libstb-hal-exp.org
 	touch $@
 
@@ -126,7 +128,56 @@ libstb-hal-exp-clean:
 		$(MAKE) distclean
 
 libstb-hal-exp-distclean:
-	rm -f $(DEPDIR)/libstb-hal-exp*
+	rm -f $(DEPDIR)/libstb-hal-exp
+	rm -f $(DEPDIR)/libstb-hal-exp.org
+
+#
+# libstb-hal-exp-next
+#
+$(DEPDIR)/libstb-hal-exp-next.do_prepare:
+	rm -rf $(appsdir)/libstb-hal-exp
+	rm -rf $(appsdir)/libstb-hal-exp.org
+	[ -d "$(archivedir)/libstb-hal.git" ] && \
+	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal.git" ] || \
+	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-exp;\
+	(cd $(appsdir)/libstb-hal-exp; git checkout experimental-next; cd "$(buildprefix)";); \
+	cp -ra $(appsdir)/libstb-hal-exp $(appsdir)/libstb-hal-exp.org
+	touch $@
+
+$(appsdir)/libstb-hal-exp-next/config.status: bootstrap
+	cd $(appsdir)/libstb-hal-exp && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			--build=$(build) \
+			--prefix= \
+			--with-target=cdk \
+			--with-boxtype=$(BOXTYPE) \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/libstb-hal-exp-next.do_compile: $(appsdir)/libstb-hal-exp/config.status
+	cd $(appsdir)/libstb-hal-exp && \
+		$(MAKE)
+	touch $@
+
+$(DEPDIR)/libstb-hal-exp-next: libstb-hal-exp-next.do_prepare libstb-hal-exp-next.do_compile
+	$(MAKE) -C $(appsdir)/libstb-hal-exp install DESTDIR=$(targetprefix)
+	touch $@
+
+libstb-hal-exp-next-clean:
+	rm -f $(DEPDIR)/libstb-hal-exp-next
+	cd $(appsdir)/libstb-hal-exp-next && \
+		$(MAKE) distclean
+
+libstb-hal-exp-next-distclean:
+	rm -f $(DEPDIR)/libstb-hal-exp-next
+	rm -f $(DEPDIR)/libstb-hal-exp-next.org
 
 #
 # NEUTRINO MP
@@ -203,11 +254,12 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 $(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl liblua libopenthreads libusb2 libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-mp-exp
 	rm -rf $(appsdir)/neutrino-mp-exp.org
-	[ -d "$(archivedir)/neutrino-mp-exp.git" ] && \
-	(cd $(archivedir)/neutrino-mp-exp.git; git pull; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/neutrino-mp-exp.git" ] || \
-	git clone -b experimental git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp-exp.git; \
-	cp -ra $(archivedir)/neutrino-mp-exp.git $(appsdir)/neutrino-mp-exp; \
+	[ -d "$(archivedir)/neutrino-mp.git" ] && \
+	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp.git" ] || \
+	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-exp; \
+	(cd $(appsdir)/neutrino-mp-exp; git checkout experimental-next; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-mp-exp $(appsdir)/neutrino-mp-exp.org
 	touch $@
 
@@ -256,7 +308,8 @@ neutrino-mp-exp-clean:
 		$(MAKE) distclean
 
 neutrino-mp-exp-distclean:
-	rm -f $(DEPDIR)/neutrino-mp-exp*
+	rm -f $(DEPDIR)/neutrino-mp-exp
+	rm -f $(DEPDIR)/neutrino-mp-exp.org
 
 neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 	mkdir -p $(prefix)/release_neutrino/usr/local/bin
@@ -267,9 +320,72 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
 
 #
+# neutrino-mp-exp-next
+#
+$(DEPDIR)/neutrino-mp-exp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl liblua libopenthreads libusb2 libalsa libstb-hal-exp-next
+	rm -rf $(appsdir)/neutrino-mp-exp-next
+	rm -rf $(appsdir)/neutrino-mp-exp-next.org
+	[ -d "$(archivedir)/neutrino-mp.git" ] && \
+	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp.git" ] || \
+	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-exp-next; \
+	(cd $(appsdir)/neutrino-mp-exp-next; git checkout experimental-next; cd "$(buildprefix)";); \
+	cp -ra $(appsdir)/neutrino-mp-exp-next $(appsdir)/neutrino-mp-exp-next.org
+	touch $@
+
+$(appsdir)/neutrino-mp-exp-next/config.status:
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/neutrino-mp-exp-next && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/plugins \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-exp \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/neutrino-mp-exp-next.do_compile: $(appsdir)/neutrino-mp-exp-next/config.status
+	cd $(appsdir)/neutrino-mp-exp-next && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/neutrino-mp-exp-next: neutrino-mp-exp-next.do_prepare neutrino-mp-exp-next.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-mp-exp-next install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-mp-exp-next-clean:
+	rm -f $(DEPDIR)/neutrino-mp-exp-next
+	cd $(appsdir)/neutrino-mp-exp-next && \
+		$(MAKE) distclean
+
+neutrino-mp-exp-next-distclean:
+	rm -f $(DEPDIR)/neutrino-mp-exp-next
+	rm -f $(DEPDIR)/neutrino-mp-exp-next.org
+
+#
 # neutrino-twin-next
 #
-$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec openssl libopenthreads libalsa libstb-hal-exp
+$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec openssl libopenthreads libalsa libstb-hal-exp-next
 	rm -rf $(appsdir)/neutrino-twin-next
 	rm -rf $(appsdir)/neutrino-twin-next.org
 	rm -rf $(appsdir)/neutrino-twin-next.patched

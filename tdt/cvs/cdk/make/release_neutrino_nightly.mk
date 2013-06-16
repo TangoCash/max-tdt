@@ -750,6 +750,7 @@ endif
 	rm -rf $(prefix)/release_neutrino/usr/lib/gio
 	rm -rf $(prefix)/release_neutrino/usr/lib/glib-2.0
 	rm -rf $(prefix)/release_neutrino/usr/lib/libffi-3.0.10
+	rm -f $(prefix)/release_neutrino/usr/lib/libbfd*
 	rm -f $(prefix)/release_neutrino/usr/lib/libgmp*
 	rm -f $(prefix)/release_neutrino/usr/lib/libmpfr*
 	rm -f $(prefix)/release_neutrino/usr/lib/libmpc*
@@ -762,6 +763,7 @@ endif
 	rm -f $(prefix)/release_neutrino/usr/lib/libdvdnav*
 	rm -f $(prefix)/release_neutrino/usr/lib/libdvdread*
 	rm -f $(prefix)/release_neutrino/lib/libncurses*
+	rm -f $(prefix)/release_neutrino/usr/lib/libopcodes*
 	rm -f $(prefix)/release_neutrino/lib/libSegFault*
 	rm -f $(prefix)/release_neutrino/lib/libthread_db*
 	rm -f $(prefix)/release_neutrino/usr/lib/libthread_db*
@@ -774,11 +776,6 @@ endif
 	rm -f $(prefix)/release_neutrino/lib/modules/lzo*.ko
 	rm -f $(prefix)/release_neutrino/bin/gitVCInfo
 	rm -f $(prefix)/release_neutrino/bin/libstb-hal-test
-
-# removing stslave
-	rm -f $(prefix)/release_neutrino/usr/lib/libbfd*
-	rm -f $(prefix)/release_neutrino/usr/lib/libopcodes*
-	rm -f $(prefix)/release_neutrino/bin/stslave
 
 #
 # NFS-UTILS

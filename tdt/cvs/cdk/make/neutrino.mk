@@ -135,14 +135,14 @@ libstb-hal-exp-distclean:
 # libstb-hal-exp-next
 #
 $(DEPDIR)/libstb-hal-exp-next.do_prepare:
-	rm -rf $(appsdir)/libstb-hal-exp
-	rm -rf $(appsdir)/libstb-hal-exp.org
+	rm -rf $(appsdir)/libstb-hal-exp-next
+	rm -rf $(appsdir)/libstb-hal-exp-next.org
 	[ -d "$(archivedir)/libstb-hal.git" ] && \
 	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal.git" ] || \
 	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
 	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-exp-next;\
-	(cd $(appsdir)/libstb-hal-exp; git checkout experimental-next; cd "$(buildprefix)";); \
+	(cd $(appsdir)/libstb-hal-exp-next; git checkout experimental-next; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/libstb-hal-exp-next $(appsdir)/libstb-hal-exp-next.org
 	touch $@
 

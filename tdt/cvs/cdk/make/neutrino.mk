@@ -351,8 +351,8 @@ $(appsdir)/neutrino-mp-exp-next/config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
-			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp/include \
-			--with-stb-hal-build=$(appsdir)/libstb-hal-exp \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-exp-next/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-exp-next \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \

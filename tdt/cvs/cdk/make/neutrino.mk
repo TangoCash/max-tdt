@@ -147,7 +147,7 @@ $(DEPDIR)/libstb-hal-exp-next.do_prepare:
 	touch $@
 
 $(appsdir)/libstb-hal-exp-next/config.status: bootstrap
-	cd $(appsdir)/libstb-hal-exp && \
+	cd $(appsdir)/libstb-hal-exp-next && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \

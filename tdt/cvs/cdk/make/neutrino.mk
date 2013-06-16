@@ -161,13 +161,13 @@ $(appsdir)/libstb-hal-exp-next/config.status: bootstrap
 			$(PLATFORM_CPPFLAGS) \
 			CPPFLAGS="$(N_CPPFLAGS)"
 
-$(DEPDIR)/libstb-hal-exp-next.do_compile: $(appsdir)/libstb-hal-exp/config.status
-	cd $(appsdir)/libstb-hal-exp && \
+$(DEPDIR)/libstb-hal-exp-next.do_compile: $(appsdir)/libstb-hal-exp-next/config.status
+	cd $(appsdir)/libstb-hal-exp-next && \
 		$(MAKE)
 	touch $@
 
 $(DEPDIR)/libstb-hal-exp-next: libstb-hal-exp-next.do_prepare libstb-hal-exp-next.do_compile
-	$(MAKE) -C $(appsdir)/libstb-hal-exp install DESTDIR=$(targetprefix)
+	$(MAKE) -C $(appsdir)/libstb-hal-exp-next install DESTDIR=$(targetprefix)
 	touch $@
 
 libstb-hal-exp-next-clean:

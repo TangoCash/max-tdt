@@ -71,6 +71,7 @@ SIZE=`stat mtd_root.sum.bin -t --format %s`
 SIZE=`printf "0x%x" $SIZE`
 if [[ $SIZE > "0x4000000" ]]; then
   echo "ROOT TO BIG. $SIZE instead of 0x4000000" > /dev/stderr
+  read -p "Press ENTER to continue..."
 fi
 
 #mv $CURDIR/mtd_kernel.pad.bin $OUTDIR/uImage

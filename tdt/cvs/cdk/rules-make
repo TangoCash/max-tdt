@@ -60,7 +60,6 @@ mplayer;1.0;mplayer-export-*;mplayer-export-snapshot.tar.bz2;extract:mplayer-exp
 mencoder;1.0;mplayer-export-*;mplayer-export-snapshot.tar.bz2;extract:mplayer-export-snapshot.tar.bz2
 opkg;0.1.8+svnr587;opkg-0.1.8+svnr587;opkg-0.1.8+svnr587.tar.gz;extract:opkg-0.1.8+svnr587.tar.gz;patch:opkg-0.1.8-dont-segfault.diff
 sysstat;10.0.4;sysstat-10.0.4;sysstat-10.0.4.tar.gz;extract:sysstat-10.0.4.tar.gz
-hotplug_e2;1.0;hotplug-e2-helper;;
 imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:ImageMagick-6.7.7-7.tar.bz2
 
 #
@@ -123,8 +122,6 @@ brofs;1.2;BroFS1.2;BroFS1.2.tgz;extract:BroFS1.2.tgz
 libalsa;1.0.25;alsa-lib-1.0.25;alsa-lib-1.0.25.tar.bz2;extract:alsa-lib-1.0.25.tar.bz2
 rtmpdump;2.4;rtmpdump-2.4;rtmpdump-2.4.tar.gz;extract:rtmpdump-2.4.tar.gz;move:rtmpdump:rtmpdump-2.4
 libdvbsipp;0.3.6;libdvbsi++-0.3.6;libdvbsi++-0.3.6.tar.bz2;extract:libdvbsi++-0.3.6.tar.bz2;patch:libdvbsi++-0.3.6.patch
-libdreamdvd;1.0;libdreamdvd;;link:../apps/misc/tools/libdreamdvd:libdreamdvd
-libdreamdvd2;1.0;libdreamdvd;;patch:libdreamdvd-1.0-support_sh4.patch
 libmpeg2;0.5.1;libmpeg2-0.5.1;libmpeg2-0.5.1.tar.gz;extract:libmpeg2-0.5.1.tar.gz
 libsamplerate;0.1.8;libsamplerate-0.1.8;libsamplerate-0.1.8.tar.gz;extract:libsamplerate-0.1.8.tar.gz
 libvorbis;1.3.2;libvorbis-1.3.2;libvorbis-1.3.2.tar.bz2;extract:libvorbis-1.3.2.tar.bz2
@@ -208,6 +205,9 @@ enigma2_networkbrowser;1.0;enigma2-networkbrowser;enigma2-openpli-plugins-enigma
 enigma2_webinterface;1.0;enigma2-webinterface;enigma2-openpli-plugins-enigma2.git;extract:enigma2-openpli-plugins-enigma2.git/webinterface:enigma2-webinterface
 enigma2_openwebif;1.0;e2openplugin-OpenWebif;e2openplugin-OpenWebif.git;extract:e2openplugin-OpenWebif.git
 enigma2_plugins_all;1.0;enigma2-plugins-all;enigma2-openpli-plugins-enigma2.git;extract:enigma2-openpli-plugins-enigma2.git:enigma2-plugins-all;patch:enigma2-plugins.patch
+hotplug_e2;1.0;hotplug-e2-helper;;
+libdreamdvd;1.0;libdreamdvd;;link:../apps/misc/tools/libdreamdvd:libdreamdvd
+libdreamdvd2;libdreamdvd;libdreamdvd;libdreamdvd.git:libdreamdvd-1.0-support_sh4.patch;extract:libdreamdvd.git;patch:libdreamdvd-1.0-support_sh4.patch
 
 #
 # EXTERNAL_LCD

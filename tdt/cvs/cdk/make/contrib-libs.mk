@@ -176,7 +176,7 @@ $(DEPDIR)/libjpeg: bootstrap @DEPENDS_libjpeg@
 #
 $(DEPDIR)/libjpeg_turbo: bootstrap @DEPENDS_libjpeg_turbo@
 	$(PREPARE_libjpeg_turbo@
-	cd @DIR_libjpeg_turbo@&& \
+	cd @DIR_libjpeg_turbo@ && \
 		export CC=$(target)-gcc && \
 		$(BUILDENV) \
 		./configure \
@@ -206,7 +206,7 @@ $(DEPDIR)/libjpeg_turbo: bootstrap @DEPENDS_libjpeg_turbo@
 #
 $(DEPDIR)/libpng12: bootstrap @DEPENDS_libpng12@
 	@PREPARE_libpng12@
-	cd @DIR_libpng12@&& \
+	cd @DIR_libpng12@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -222,7 +222,7 @@ $(DEPDIR)/libpng12: bootstrap @DEPENDS_libpng12@
 #
 # libpng
 #
-$(DEPDIR)/libpng: bootstrap @DEPENDS_libpng@
+$(DEPDIR)/libpng: bootstrap libz @DEPENDS_libpng@
 	@PREPARE_libpng@
 	cd @DIR_libpng@ && \
 		$(BUILDENV) \
@@ -549,7 +549,7 @@ $(DEPDIR)/dfbpp: bootstrap libjpeg directfb @DEPENDS_dfbpp@
 $(DEPDIR)/libstgles: bootstrap directfb @DEPENDS_libstgles@
 	@PREPARE_libstgles@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_libstgles@&& \
+	cd @DIR_libstgles@ && \
 		cp --remove-destination $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		aclocal -I $(hostprefix)/share/aclocal && \
 		autoconf && \
@@ -803,7 +803,6 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--enable-protocol=file \
 			--disable-indevs \
 			--disable-outdevs \
-			--enable-avresample \
 			--enable-pthreads \
 			--enable-bzlib \
 			--enable-zlib \
@@ -815,7 +814,6 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--target-os=linux \
 			--arch=sh4 \
 			--disable-debug \
-			--extra-cflags="-fno-strict-aliasing" \
 			--enable-stripping \
 			--prefix=/usr && \
 		$(MAKE) && \
@@ -827,7 +825,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 #
 $(DEPDIR)/libass: bootstrap libfreetype libfribidi @DEPENDS_libass@
 	@PREPARE_libass@
-	cd @DIR_libass@&& \
+	cd @DIR_libass@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -1222,7 +1220,7 @@ $(DEPDIR)/twistedmail: bootstrap setuptools @DEPENDS_twistedmail@
 #
 $(DEPDIR)/pilimaging: bootstrap libjpeg libfreetype python @DEPENDS_pilimaging@
 	@PREPARE_pilimaging@
-	cd @DIR_pilimaging@&& \
+	cd @DIR_pilimaging@ && \
 		sed -ie "s|"darwin"|"darwinNot"|g" "setup.py"; \
 		sed -ie "s|ZLIB_ROOT = None|ZLIB_ROOT = libinclude(\"${targetprefix}/usr\")|" "setup.py"; \
 		CC='$(target)-gcc' LDSHARED='$(target)-gcc -shared' \
@@ -1541,7 +1539,7 @@ $(DEPDIR)/gst_ffmpeg: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_ffmpeg@
 $(DEPDIR)/gst_plugins_fluendo_mpegdemux: bootstrap gstreamer gst_plugins_base @DEPENDS_gst_plugins_fluendo_mpegdemux@
 	@PREPARE_gst_plugins_fluendo_mpegdemux@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_gst_plugins_fluendo_mpegdemux@&& \
+	cd @DIR_gst_plugins_fluendo_mpegdemux@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
@@ -1674,7 +1672,7 @@ $(DEPDIR)/graphlcd: bootstrap libfreetype libusb @DEPENDS_graphlcd@
 	@PREPARE_graphlcd@
 	[ -d "$(archivedir)/graphlcd-base-touchcol.git" ] && \
 	(cd $(archivedir)/graphlcd-base-touchcol.git; git pull ; git checkout touchcol; cd "$(buildprefix)";); \
-	cd @DIR_graphlcd@&& \
+	cd @DIR_graphlcd@ && \
 		$(BUILDENV) \
 		$(MAKE) all DESTDIR=$(targetprefix)/usr && \
 		@INSTALL_graphlcd@
@@ -1725,7 +1723,7 @@ $(DEPDIR)/%lcd4_linux: $(DEPDIR)/lcd4_linux.do_compile
 #
 $(DEPDIR)/libdpfax: bootstrap libusbcompat @DEPENDS_libdpfax@
 	@PREPARE_libdpfax@
-	cd @DIR_libdpfax@&& \
+	cd @DIR_libdpfax@ && \
 		$(BUILDENV) \
 			$(MAKE) all &&\
 		@INSTALL_libdpfax@

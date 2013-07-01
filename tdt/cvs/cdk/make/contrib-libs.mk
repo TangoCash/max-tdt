@@ -803,6 +803,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--enable-protocol=file \
 			--disable-indevs \
 			--disable-outdevs \
+			--enable-avresample \
 			--enable-pthreads \
 			--enable-bzlib \
 			--enable-zlib \

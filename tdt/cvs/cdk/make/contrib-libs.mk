@@ -2026,6 +2026,7 @@ $(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
 # libdreamdvd2
 #
 $(DEPDIR)/libdreamdvd2: bootstrap libdvdnav @DEPENDS_libdreamdvd2@
+	@PREPARE_libdreamdvd2@
 	[ -d "$(archivedir)/libdreamdvd.git" ] && \
 	(cd $(archivedir)/libdreamdvd.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libdreamdvd.git" ] || \

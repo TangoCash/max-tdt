@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zapit api="3">
-	<sat name="Astra (19.2E)" position="192" diseqc="-1" uncommited="-1">
+	<sat name="Astra 1KR/1L/1M/2C (19.2E)" position="192" diseqc="-1" uncommited="-1">
 		<TS id="0003" on="0085" frq="11719000" inv="2" sr="27500000" fec="3" pol="0">
 			<S action="replace" i="00f1" n="Sky Sport News" t="1" s="1"/>
 			<S action="replace" i="010f" n="Sky Select 3" t="1" s="1"/>

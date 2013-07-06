@@ -43,8 +43,9 @@
 			<S action="replace" i="016d" n="Blue Movie 3" t="1" s="1"/>
 		</TS>
 		<TS id="000c" on="0085" frq="12304000" inv="2" sr="27500000" fec="18" pol="0">
-			<S action="replace" i="00f2" n="Sky Sport News HD" t="1" s="1"/>
-			<S action="replace" i="011f" n="Sky Bundesliga HD 4" t="1" s="1"/>
-			<S action="replace" i="0120" n="Sky Sport HD 5" t="1" s="1"/>
+			<S action="replace" i="00f2" n="Sky Sport News HD" t="19" s="1"/>
+			<S action="replace" i="011f" n="Sky Bundesliga HD 4" t="19" s="1"/>
+			<S action="replace" i="0120" n="Sky Sport HD 5" t="19" s="1"/>
+		</TS>
 	</sat>
 </zapit>

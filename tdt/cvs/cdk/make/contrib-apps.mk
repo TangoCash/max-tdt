@@ -689,3 +689,17 @@ $(DEPDIR)/imagemagick: bootstrap @DEPENDS_imagemagick@
 		@INSTALL_imagemagick@
 	@DISTCLEANUP_imagemagick@
 	touch $@
+
+#
+# shairport
+#
+$(DEPDIR)/shairport: bootstrap howl @DEPENDS_shairport@
+	@PREPARE_shairport@
+	git clone -b 1.0-dev git://github.com/abrasive/shairport @DIR_shairport@;
+	cd @DIR_shairport@ && \
+		$(BUILDENV) \
+		$(MAKE) all CC=$(target)-gcc LD=$(target)-ld && \
+		@INSTALL_shairport@
+	@DISTCLEANUP_shairport@
+	touch $@
+

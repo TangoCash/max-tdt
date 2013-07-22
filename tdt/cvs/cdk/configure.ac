@@ -833,6 +833,7 @@ TUXBOX_RULES_MAKE(mencoder)
 TUXBOX_RULES_MAKE(opkg)
 TUXBOX_RULES_MAKE(sysstat)
 TUXBOX_RULES_MAKE(imagemagick)
+TUXBOX_RULES_MAKE(shairport)
 
 #
 # contrib libs

@@ -47,6 +47,7 @@ mencoder;make:install INSTALLSTRIP="":DESTDIR=TARGETS
 opkg;rewrite-pkgconfig:libopkg.pc;make:install:DESTDIR=TARGETS;link:/usr/bin/opkg-cl:TARGETS/usr/bin/opkg;mkdir:TARGETS/var/opkg;rewrite-libtool:TARGETS/usr/lib/libopkg.la
 sysstat;make:install:DESTDIR=TARGETS
 imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/MagickWand.pc:wand/Wand.pc:Magick++/lib/ImageMagick++.pc:Magick++/lib/Magick++.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libMagickCore.la:TARGETS/usr/lib/libMagickWand.la:TARGETS/usr/lib/libMagick++.la
+shairport;make:install:PREFIX=TARGETS/usr
 
 #
 # contrib libs

@@ -62,6 +62,7 @@ mplayer-export-snapshot.tar.bz2;ftp://ftp.mplayerhq.hu/MPlayer/releases
 opkg-0.1.8+svnr587.tar.gz;http://src.evolux.yourweb.de
 sysstat-10.0.4.tar.gz;http://pagesperso-orange.fr/sebastien.godard
 ImageMagick-6.7.7-7.tar.bz2;ftp://ftp.fifi.org/pub/ImageMagick
+shairport.git;git://github.com/abrasive/shairport
 
 #
 # contrib libs

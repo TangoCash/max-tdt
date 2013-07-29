@@ -321,7 +321,7 @@
 +			elif sharedata['mounttype'] == 'cifs':
 +				list.append("/")
 +			list.append(sharedata['sharedir'])
-+			if sharedata['hdd_replacement']:
++			if sharedata['hdd_replacement'] is True:
 +				list.append('\t#HDD_REPLACEMENT')
 +			list.append('\n')
  

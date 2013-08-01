@@ -81,7 +81,8 @@ libstb-hal-clean:
 
 libstb-hal-distclean:
 	rm -f $(DEPDIR)/libstb-hal
-	rm -f $(DEPDIR)/libstb-hal.org
+	rm -f $(DEPDIR)/libstb-hal.do_compile
+	rm -f $(DEPDIR)/libstb-hal.do_prepare
 
 #
 # LIBSTB-HAL-EXP
@@ -129,7 +130,8 @@ libstb-hal-exp-clean:
 
 libstb-hal-exp-distclean:
 	rm -f $(DEPDIR)/libstb-hal-exp
-	rm -f $(DEPDIR)/libstb-hal-exp.org
+	rm -f $(DEPDIR)/libstb-hal-exp.do_compile
+	rm -f $(DEPDIR)/libstb-hal-exp.do_prepare
 
 #
 # libstb-hal-exp-next
@@ -177,7 +179,8 @@ libstb-hal-exp-next-clean:
 
 libstb-hal-exp-next-distclean:
 	rm -f $(DEPDIR)/libstb-hal-exp-next
-	rm -f $(DEPDIR)/libstb-hal-exp-next.org
+	rm -f $(DEPDIR)/libstb-hal-exp-next.do_compile
+	rm -f $(DEPDIR)/libstb-hal-exp-next.do_prepare
 
 #
 # NEUTRINO MP
@@ -238,7 +241,9 @@ neutrino-mp-clean:
 		$(MAKE) distclean
 
 neutrino-mp-distclean:
-	rm -f $(DEPDIR)/neutrino-mp*
+	rm -f $(DEPDIR)/neutrino-mp
+	rm -f $(DEPDIR)/neutrino-mp.do_compile
+	rm -f $(DEPDIR)/neutrino-mp.do_prepare
 
 neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 	mkdir -p $(prefix)/release_neutrino/usr/local/bin
@@ -309,7 +314,8 @@ neutrino-mp-exp-clean:
 
 neutrino-mp-exp-distclean:
 	rm -f $(DEPDIR)/neutrino-mp-exp
-	rm -f $(DEPDIR)/neutrino-mp-exp.org
+	rm -f $(DEPDIR)/neutrino-mp-exp.do_compile
+	rm -f $(DEPDIR)/neutrino-mp-exp.do_prepare
 
 neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 	mkdir -p $(prefix)/release_neutrino/usr/local/bin
@@ -380,7 +386,8 @@ neutrino-mp-exp-next-clean:
 
 neutrino-mp-exp-next-distclean:
 	rm -f $(DEPDIR)/neutrino-mp-exp-next
-	rm -f $(DEPDIR)/neutrino-mp-exp-next.org
+	rm -f $(DEPDIR)/neutrino-mp-exp-next.do_compile
+	rm -f $(DEPDIR)/neutrino-mp-exp-next.do_prepare
 
 #
 # neutrino-twin-next
@@ -397,8 +404,6 @@ $(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsi
 	(cd $(appsdir)/neutrino-twin-next; git checkout --track -b next-cc origin/next-cc; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-twin-next $(appsdir)/neutrino-twin-next.org
 	cd $(appsdir)/neutrino-twin-next && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-next.diff"
-	cp -ra $(appsdir)/neutrino-twin-next $(appsdir)/neutrino-twin-next.patched
-#	cd $(appsdir)/neutrino-twin-next && patch -p1 < "$(buildprefix)/Patches/neutrino-twin-next-patched.diff"
 	touch $@
 
 $(appsdir)/neutrino-twin-next/config.status:
@@ -447,7 +452,9 @@ neutrino-twin-next-clean:
 		$(MAKE) distclean
 
 neutrino-twin-next-distclean:
-	rm -f $(DEPDIR)/neutrino-twin-next*
+	rm -f $(DEPDIR)/neutrino-twin-next
+	rm -f $(DEPDIR)/neutrino-twin-next.do_compile
+	rm -f $(DEPDIR)/neutrino-twin-next.do_prepare
 
 #
 # neutrino-hd2-exp branch
@@ -509,7 +516,9 @@ neutrino-hd2-exp-clean:
 		$(MAKE) clean
 
 neutrino-hd2-exp-distclean:
-	rm -f $(DEPDIR)/neutrino-hd2-exp*
+	rm -f $(DEPDIR)/neutrino-hd2-exp
+	rm -f $(DEPDIR)/neutrino-hd2-exp.do_compile
+	rm -f $(DEPDIR)/neutrino-hd2-exp.do_prepare
 
 #
 #NORMAL

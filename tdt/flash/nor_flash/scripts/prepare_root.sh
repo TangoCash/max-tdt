@@ -9,13 +9,15 @@ TMPKERNELDIR=$5
 
 find $RELEASEDIR -mindepth 1 -maxdepth 1 -exec cp -at$TMPROOTDIR -- {} +
 
-cd $TMPROOTDIR/dev/
-if [ -e $TMPROOTDIR/var/etc/init.d/makedev ]; then
-	$TMPROOTDIR/var/etc/init.d/makedev start
-else
-	$TMPROOTDIR/etc/init.d/makedev start
+if [ ! -e $TMPROOTDIR/dev/mtd0 ]; then
+	cd $TMPROOTDIR/dev/
+	if [ -e $TMPROOTDIR/var/etc/init.d/makedev ]; then
+		$TMPROOTDIR/var/etc/init.d/makedev start
+	else
+		$TMPROOTDIR/etc/init.d/makedev start
+	fi
+	cd -
 fi
-cd -
 
 # --- BOOT ---
 mv $TMPROOTDIR/boot/uImage $TMPKERNELDIR/uImage

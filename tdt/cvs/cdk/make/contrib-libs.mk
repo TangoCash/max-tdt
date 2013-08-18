@@ -797,10 +797,12 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--enable-decoder=png \
 			--enable-decoder=theora \
 			--enable-decoder=vorbis \
+			--enable-decoder=wmv3 \
+			\
+			--enable-demuxer=mjpeg \
+			--enable-demuxer=wav \
 			\
 			--enable-parser=mjpeg \
-			--enable-demuxer=mjpeg \
-			--enable-protocol=file \
 			--disable-indevs \
 			--disable-outdevs \
 			--enable-avresample \

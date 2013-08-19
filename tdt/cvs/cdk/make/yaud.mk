@@ -31,7 +31,6 @@ $(DEPDIR)/bare-os: \
 	busybox \
 	\
 	libz \
-	$(INITSCRIPTS) \
 	$(NETBASE) \
 	$(BC) \
 	$(SYSVINIT) \
@@ -47,10 +46,10 @@ $(DEPDIR)/bare-os: \
 #
 $(DEPDIR)/net-utils: \
 	$(NETKIT_FTP) \
-	autofs \
 	portmap \
 	nfs_utils \
 	vsftpd \
+	autofs \
 	$(CIFS)
 	touch $@
 #	opkg

@@ -12,11 +12,10 @@ $(DEPDIR)/%diverse-tools: $(DIVERSE_TOOLS_ADAPTED_ETC_FILES:%=root/etc/%)
 			$(hostprefix)/bin/target-initdconfig --add $${s#init.d/} || \
 			echo "Unable to enable initd service: $${s#init.d/}" ) ; done && rm *rpmsave 2>/dev/null || true ) && \
 	ln -sf /usr/share/zoneinfo/CET $(prefix)/$*cdkroot/etc/localtime
-	$(INSTALL_BIN) root/usr/sbin/mountro $(prefix)/$*cdkroot/usr/sbin/
-	$(INSTALL_BIN) root/usr/sbin/mountrw $(prefix)/$*cdkroot/usr/sbin/
+#	$(INSTALL_BIN) root/usr/sbin/mountro $(prefix)/$*cdkroot/usr/sbin/
+#	$(INSTALL_BIN) root/usr/sbin/mountrw $(prefix)/$*cdkroot/usr/sbin/
 #	$(INSTALL_BIN) root/bin/devinit $(prefix)/$*cdkroot/bin
-	[ "x$*" = "x" ] && touch $@ || true
-	@TUXBOX_YAUD_CUSTOMIZE@
+	touch $@
 
 #
 # Adapted etc files and etc read-write files
@@ -36,25 +35,46 @@ ETC_RW_FILES += shells shells.conf init.d/httpd
 SYSVINIT_ADAPTED_ETC_FILES = inittab
 #ETC_RW_FILES +=
 
-INITSCRIPTS_ADAPTED_ETC_FILES = vdstandby.cfg hostname init.d/mountvirtfs init.d/checkroot.sh init.d/mountall.sh
-ETC_RW_FILES += \
-	nologin \
+INITSCRIPTS_ADAPTED_ETC_FILES = \
 	hostname \
 	vdstandby.cfg \
-	init.d/bootmisc.sh \
-	init.d/halt \
-	init.d/hostname.sh \
-	init.d/mountnfs.sh \
+	init.d/autofs \
+	init.d/bootclean.sh \
+	init.d/checkroot.sh \
+	init.d/getfb.awk \
+	init.d/hostname \
+	init.d/makedev \
+	init.d/mountvirtfs \
+	init.d/mountall \
+	init.d/network \
+	init.d/networking \
+	init.d/rc \
+	init.d/reboot \
+	init.d/sendsigs \
+	init.d/udhcpc \
+	init.d/umountfs \
+	init.d/vsftpd
+
+ETC_RW_FILES += \
+	hostname \
+	vdstandby.cfg \
+	init.d/autofs \
+	init.d/bootclean.sh \
+	init.d/checkroot.sh \
+	init.d/getfb.awk \
+	init.d/hostname \
+	init.d/makedev \
+	init.d/mountvirtfs \
+	init.d/mountall \
+	init.d/network \
+	init.d/networking \
 	init.d/rc \
 	init.d/reboot \
 	init.d/rmnologin \
 	init.d/sendsigs \
-	init.d/single \
-	init.d/skeleton \
-	init.d/stop-bootlogd \
+	init.d/udhcpc \
 	init.d/umountfs \
-	init.d/umountnfs.sh \
-	init.d/urandom
+	init.d/vsftpd
 
 OPENRDATE_ADAPTED_ETC_FILES = init.d/rdate.sh
 ETC_RW_FILES += init.d/rdate.sh localtime
@@ -82,9 +102,6 @@ ETC_RW_FILES += samba/smb.conf init.d/samba
 
 E2FSPROGS_ADAPTED_ETC_FILES =
 ETC_RW_FILES += mke2fs.conf
-
-SG3_UTILS_ADAPTED_ETC_FILES = init.d/sg_down
-ETC_RW_FILES += init.d/sg_down
 
 DIVERSE_TOOLS_ADAPTED_ETC_FILES = init.d/swap
 ETC_RW_FILES += init.d/swap

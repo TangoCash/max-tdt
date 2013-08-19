@@ -561,7 +561,10 @@ $(DEPDIR)/$(CROSS_PROTOIZE): $(CROSS_PROTOIZE_RPM)
 #
 $(DEPDIR)/filesystem: bootstrap-cross
 	$(INSTALL) -d $(targetprefix)/{bin,boot,dev,dev.static,etc,lib,mnt,opt,proc,root,sbin,sys,tmp,usr,var}
-	$(INSTALL) -d $(targetprefix)/etc/{default,opt}
+	$(INSTALL) -d $(targetprefix)/etc/{default,init.d,mdev,opt,rc.d,samba}
+	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
+	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
+	$(INSTALL) -d $(targetprefix)/etc/samba/private
 	$(INSTALL) -d $(targetprefix)/lib/lsb
 	$(INSTALL) -d $(targetprefix)/usr/{bin,include,lib,local,sbin,share,src}
 	$(INSTALL) -d $(targetprefix)/usr/local/{bin,include,lib,sbin,share,src}
@@ -572,10 +575,6 @@ $(DEPDIR)/filesystem: bootstrap-cross
 #	ln -sf $(targetprefix)/usr/lib $(targetprefix)/usr/lib64
 	$(INSTALL) -d $(targetprefix)/var/lib/{misc,nfs}
 	$(INSTALL) -d $(targetprefix)/var/lock/subsys
-	$(INSTALL) -d $(targetprefix)/etc/{init.d,rc.d,samba}
-	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
-	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
-	$(INSTALL) -d $(targetprefix)/etc/samba/private
 	$(INSTALL) -d $(targetprefix)/media
 	$(INSTALL) -d $(targetprefix)/var/bin
 	touch $@

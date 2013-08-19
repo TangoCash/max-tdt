@@ -9,12 +9,21 @@ release_neutrino_common_utils:
 #	remove the slink to busybox
 	rm -f $(prefix)/release_neutrino/sbin/halt
 	cp -f $(targetprefix)/sbin/halt $(prefix)/release_neutrino/sbin/
-	cp $(buildprefix)/root/release/umountfs $(prefix)/release_neutrino/etc/init.d/
-	cp $(buildprefix)/root/release/rc $(prefix)/release_neutrino/etc/init.d/
-	cp $(buildprefix)/root/release/sendsigs $(prefix)/release_neutrino/etc/init.d/
-	chmod 755 $(prefix)/release_neutrino/etc/init.d/umountfs
-	chmod 755 $(prefix)/release_neutrino/etc/init.d/rc
-	chmod 755 $(prefix)/release_neutrino/etc/init.d/sendsigs
+	cp -f $(targetprefix)/etc/init.d/umountfs $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/sendsigs $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/reboot $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/rc $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/network $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/networking $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/mountvirtfs $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/mountall $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/hostname $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/vsftpd $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/bootclean.sh $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/getfb.awk $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/makedev $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/udhcpc $(prefix)/release_neutrino/etc/init.d/
+	cp -f $(targetprefix)/etc/init.d/autofs $(prefix)/release_neutrino/etc/init.d/
 	mkdir -p $(prefix)/release_neutrino/etc/rc.d/rc0.d
 	ln -s ../init.d $(prefix)/release_neutrino/etc/rc.d
 	ln -fs halt $(prefix)/release_neutrino/sbin/reboot
@@ -464,7 +473,7 @@ release_neutrino_base:
 	rm -rf $(prefix)/release_neutrino || true
 	$(INSTALL_DIR) $(prefix)/release_neutrino && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/{bin,boot,dev,dev.static,etc,hdd,lib,media,mnt,proc,ram,root,sbin,swap,sys,tmp,usr,var} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/{fonts,init.d,network} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/{fonts,init.d,network,mdev} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/etc/network/{if-down.d,if-post-down.d,if-pre-up.d,if-up.d} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/lib/{modules,firmware} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/hdd/{movie,music,picture} && \
@@ -506,9 +515,7 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/sbin/sfdisk $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/tune2fs $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/etc/init.d/portmap $(prefix)/release_neutrino/etc/init.d/ && \
-	cp -dp $(buildprefix)/root/etc/init.d/udhcpc $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -dp $(targetprefix)/sbin/MAKEDEV $(prefix)/release_neutrino/sbin/MAKEDEV && \
-	cp -f $(buildprefix)/root/release/makedev $(prefix)/release_neutrino/etc/init.d/ && \
 	cp $(targetprefix)/boot/uImage $(prefix)/release_neutrino/boot/ && \
 	cp $(targetprefix)/boot/audio.elf $(prefix)/release_neutrino/lib/firmware/audio.elf && \
 	cp -a $(targetprefix)/dev/* $(prefix)/release_neutrino/dev/ && \
@@ -534,28 +541,17 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/etc/vdstandby.cfg $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/network/interfaces $(prefix)/release_neutrino/etc/network/ && \
 	cp -dp $(targetprefix)/etc/network/options $(prefix)/release_neutrino/etc/network/ && \
-	cp -dp $(targetprefix)/etc/init.d/umountfs $(prefix)/release_neutrino/etc/init.d/ && \
-	cp -dp $(targetprefix)/etc/init.d/sendsigs $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/release/reboot $(prefix)/release_neutrino/etc/init.d/ && \
+	cp -aR $(buildprefix)/root/etc/mdev/* $(prefix)/release_neutrino/etc/mdev/ && \
 	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release_neutrino/usr/share/udhcpc/ && \
 	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release_neutrino/usr/share/zoneinfo/ && \
 	echo "576i50" > $(prefix)/release_neutrino/etc/videomode && \
 	cp $(buildprefix)/root/release/rcS_stm23_neutrino$(if $(TF7700),_$(TF7700))$(if $(OCTAGON1008),_$(OCTAGON1008))$(if $(FORTIS_HDBOX),_$(FORTIS_HDBOX))$(if $(ATEVIO7500),_$(ATEVIO7500))$(if $(HS7810A),_$(HS7810A))$(if $(HS7110),_$(HS7110))$(if $(WHITEBOX),_$(WHITEBOX))$(if $(HL101),_$(HL101))$(if $(VIP1_V2),_$(VIP1_V2))$(if $(VIP2_V1),_$(VIP2_V1))$(if $(ADB_BOX),_$(ADB_BOX))$(if $(UFS910),_$(UFS910))$(if $(UFS912),_$(UFS912))$(if $(UFS913),_$(UFS913))$(if $(UFS922),_$(UFS922))$(if $(CUBEREVO),_$(CUBEREVO))$(if $(CUBEREVO_MINI),_$(CUBEREVO_MINI))$(if $(CUBEREVO_MINI2),_$(CUBEREVO_MINI2))$(if $(CUBEREVO_MINI_FTA),_$(CUBEREVO_MINI_FTA))$(if $(CUBEREVO_250HD),_$(CUBEREVO_250HD))$(if $(CUBEREVO_2000HD),_$(CUBEREVO_2000HD))$(if $(CUBEREVO_9500HD),_$(CUBEREVO_9500HD))$(if $(SPARK),_$(SPARK))$(if $(SPARK7162),_$(SPARK7162)) $(prefix)/release_neutrino/etc/init.d/rcS
 	chmod 755 $(prefix)/release_neutrino/etc/init.d/rcS && \
-	cp $(buildprefix)/root/release/mountvirtfs $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/release/mountall $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/release/hostname $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/release/vsftpd $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -dp $(targetprefix)/usr/sbin/vsftpd $(prefix)/release_neutrino/usr/bin/ && \
-	cp $(buildprefix)/root/release/bootclean.sh $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/release/network $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/release/networking $(prefix)/release_neutrino/etc/init.d/ && \
-	cp $(buildprefix)/root/bootscreen/bootlogo.mvi $(prefix)/release_neutrino/var/boot/ && \
 	cp $(buildprefix)/root/bin/autologin $(prefix)/release_neutrino/bin/ && \
 	cp -p $(targetprefix)/usr/bin/killall $(prefix)/release_neutrino/usr/bin/ && \
 	cp -dp $(targetprefix)/bin/hotplug $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release_neutrino/sbin/ && \
-	cp $(buildprefix)/root/release/getfb.awk $(prefix)/release_neutrino/etc/init.d/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
 	ln -sf ../../bin/busybox $(prefix)/release_neutrino/usr/bin/ether-wake && \
 	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release_neutrino/sbin/

@@ -798,6 +798,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 			--enable-decoder=theora \
 			--enable-decoder=vorbis \
 			--enable-decoder=wmv3 \
+			--enable-decoder=pcm_s16le \
 			\
 			--enable-demuxer=mjpeg \
 			--enable-demuxer=wav \

@@ -525,6 +525,7 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/etc/hostname $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/hosts $(prefix)/release_neutrino/etc/ && \
 	cp $(buildprefix)/root/etc/inetd.conf $(prefix)/release_neutrino/etc/ && \
+	cp $(buildprefix)/root/etc/modules.available $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/localtime $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/mtab $(prefix)/release_neutrino/etc/ && \
 	cp -dp $(targetprefix)/etc/passwd $(prefix)/release_neutrino/etc/ && \

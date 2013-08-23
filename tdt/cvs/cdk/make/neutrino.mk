@@ -185,7 +185,7 @@ libstb-hal-exp-next-distclean:
 #
 # NEUTRINO MP
 #
-$(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg_old libopenthreads libusb2 libalsa libstb-hal
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -256,7 +256,7 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 #
 # NEUTRINO MP EXP
 #
-$(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl liblua libopenthreads libusb2 libalsa libstb-hal-exp
+$(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg_old liblua libopenthreads libusb2 libalsa libstb-hal-exp
 	rm -rf $(appsdir)/neutrino-mp-exp
 	rm -rf $(appsdir)/neutrino-mp-exp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -328,7 +328,7 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 #
 # neutrino-mp-exp-next
 #
-$(DEPDIR)/neutrino-mp-exp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl liblua libopenthreads libusb2 libalsa libstb-hal-exp-next
+$(DEPDIR)/neutrino-mp-exp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 ntp libalsa libstb-hal-exp-next
 	rm -rf $(appsdir)/neutrino-mp-exp-next
 	rm -rf $(appsdir)/neutrino-mp-exp-next.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -392,7 +392,7 @@ neutrino-mp-exp-next-distclean:
 #
 # neutrino-twin-next
 #
-$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec openssl libopenthreads libalsa libstb-hal-exp-next
+$(DEPDIR)/neutrino-twin-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libgif_current libid3tag libcurl libmad libvorbisidec openssl ffmpeg libopenthreads libalsa libstb-hal-exp-next
 	rm -rf $(appsdir)/neutrino-twin-next
 	rm -rf $(appsdir)/neutrino-twin-next.org
 	rm -rf $(appsdir)/neutrino-twin-next.patched
@@ -459,7 +459,7 @@ neutrino-twin-next-distclean:
 #
 # neutrino-hd2-exp branch
 #
-$(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl libusb2
+$(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl ffmpeg libusb2
 	rm -rf $(appsdir)/neutrino-hd2-exp
 	rm -rf $(appsdir)/neutrino-hd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \
@@ -523,7 +523,7 @@ neutrino-hd2-exp-distclean:
 #
 #NORMAL
 #
-$(appsdir)/neutrino/config.status: bootstrap $(EXTERNALLCD_DEP) libfreetype libpng libid3tag openssl libcurl libmad libboost libgif
+$(appsdir)/neutrino/config.status: bootstrap $(EXTERNALLCD_DEP) libfreetype libpng libid3tag openssl libcurl libmad libboost libgif ffmpeg_old
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/neutrino && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \

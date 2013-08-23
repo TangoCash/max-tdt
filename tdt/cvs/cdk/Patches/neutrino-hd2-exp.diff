@@ -9,4 +9,124 @@
  		sleep 180 && rm svn_version.h & echo "#define SVNVERSION \"$$(svnversion -n || echo svn_oops!)\" " > svn_version.h ; \
  	else \
  		rm svn_version.h; echo '#define BUILT_DATE "'`date`'"' > svn_version.h ; \
+--- neutrino-hd2-exp.org/lib/libeplayer3/container/container_ffmpeg.c	2013-06-15 11:19:50.779431040 +0200
++++ neutrino-hd2-exp/lib/libeplayer3/container/container_ffmpeg.c	2013-07-28 20:59:12.090386998 +0200
+@@ -38,7 +38,9 @@
+ #include <pthread.h>
+ 
+ #include <libavutil/avutil.h>
++#include <libavutil/time.h>
+ #include <libavformat/avformat.h>
++#include <libavutil/opt.h>
+ 
+ #include "common.h"
+ #include "misc.h"
+@@ -48,11 +50,15 @@
+ #include "ffmpeg_metadata.h"
+ #include "subtitle.h"
+ 
++#if LIBAVCODEC_VERSION_MAJOR > 54
++#define AVCODEC_MAX_AUDIO_FRAME_SIZE 192000 // 1 second of 48khz 32bit audio
++#endif
++
+ /* ***************************** */
+ /* Makros/Constants              */
+ /* ***************************** */
+ 
+-//#define FFMPEG_DEBUG
++#define FFMPEG_DEBUG
+ 
+ #ifdef FFMPEG_DEBUG
+ 
+@@ -131,9 +137,11 @@
+ 	ffmpeg_printf(100, "::%d released mutex\n", line);
+ }
+ 
+-static char *Codec2Encoding(enum CodecID id, int* version)
++//static char *Codec2Encoding(enum CodecID id, int* version)
++static char* Codec2Encoding(AVCodecContext *codec, int* version)
+ {
+-	switch (id)
++//	switch (id)
++	switch (codec->codec_id)
+ 	{
+ 		case CODEC_ID_MPEG1VIDEO:
+ 			return "V_MPEG1";
+@@ -250,7 +258,8 @@
+ #endif 
+ 
+ 		default:
+-			ffmpeg_err("ERROR! CODEC NOT FOUND -> %d\n",id);
++//			ffmpeg_err("ERROR! CODEC NOT FOUND -> %d\n",id);
++			ffmpeg_err("ERROR! CODEC NOT FOUND -> %d\n",codec->codec_id);
+ 	}
+ 	
+ 	return NULL;
+@@ -632,7 +641,7 @@
+ 							avOut.len        = decoded_data_size;
+ 
+ 							avOut.pts        = pts;
+-							avOut.extradata  = &extradata;
++							avOut.extradata  = (unsigned char *) &extradata;
+ 							avOut.extralen   = sizeof(extradata);
+ 							avOut.frameRate  = 0;
+ 							avOut.timeScale  = 0;
+@@ -800,7 +809,7 @@
+ 							SubtitleData_t data;
+ 							data.data      = line;
+ 							data.len       = strlen((char*)line);
+-							data.extradata = DEFAULT_ASS_HEAD;
++							data.extradata = (unsigned char *) DEFAULT_ASS_HEAD;
+ 							data.extralen  = strlen(DEFAULT_ASS_HEAD);
+ 							data.pts       = pts;
+ 							data.duration  = duration;
+@@ -898,7 +907,7 @@
+ 	
+ 	// FIXME:set max probe duration for ts files to 1
+ 	if ( strstr(filename, ".ts") )
+-		avContext->max_analyze_duration = 1;
++		avContext->max_analyze_duration = 5;
+ 
+ 	ffmpeg_printf(20, "find_streaminfo\n");
+ 
+@@ -937,7 +946,8 @@
+ 		AVStream * stream = avContext->streams[n];
+ 		int version = 0;
+ 
+-		char * encoding = Codec2Encoding(stream->codec->codec_id, &version);
++//		char * encoding = Codec2Encoding(stream->codec->codec_id, &version);
++		char * encoding = Codec2Encoding(stream->codec, &version);
+ 
+ 		if (encoding != NULL)
+ 			ffmpeg_printf(1, "%d. encoding = %s - version %d\n", n, encoding, version);
+@@ -1085,7 +1095,8 @@
+ 
+ 					AVCodec *codec = avcodec_find_decoder(stream->codec->codec_id);
+ 
+-					if(codec != NULL && !avcodec_open(stream->codec, codec))
++//					if(codec != NULL && !avcodec_open(stream->codec, codec))
++					if(codec != NULL && !avcodec_open2(stream->codec, codec, NULL))
+ 						printf("AVCODEC__INIT__SUCCESS\n");
+ 					else
+ 						printf("AVCODEC__INIT__FAILED\n");
+--- neutrino-hd2-exp.org/lib/libdvbsub/dvbsubtitle.cpp	2013-06-09 12:29:32.013820475 +0200
++++ neutrino-hd2-exp/lib/libdvbsub/dvbsubtitle.cpp	2013-07-28 18:52:14.506635644 +0200
+@@ -193,7 +193,7 @@
+ 		return;
+ 	}
+ 
+-	avctx = avcodec_alloc_context();
++	avctx = avcodec_alloc_context3(avcodec);
+ 
+ 	if (!avctx) 
+ 	{
+@@ -201,7 +201,7 @@
+ 		return;
+ 	}
+ 
+-	if (avcodec_open(avctx, avcodec) < 0)
++	if (avcodec_open2(avctx, avcodec, NULL) < 0)
+ 		dbgconverter("cDvbSubtitleConverter: unable to open codec !\n");
+ 
+ #if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(52, 64, 0)
 

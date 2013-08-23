@@ -711,119 +711,65 @@ $(DEPDIR)/libdvdread: bootstrap @DEPENDS_libdvdread@
 #
 # ffmpeg
 #
+FFMPEG_CONFIGURE  = --disable-static --enable-shared --enable-small --disable-runtime-cpudetect
+FFMPEG_CONFIGURE += --disable-ffserver --disable-ffplay --disable-ffprobe
+FFMPEG_CONFIGURE += --disable-doc --disable-htmlpages --disable-manpages --disable-podpages --disable-txtpages
+FFMPEG_CONFIGURE += --disable-asm --disable-altivec --disable-amd3dnow --disable-amd3dnowext --disable-mmx --disable-mmxext
+FFMPEG_CONFIGURE += --disable-sse --disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4 --disable-sse42 --disable-avx --disable-fma4
+FFMPEG_CONFIGURE += --disable-armv5te --disable-armv6 --disable-armv6t2 --disable-vfp --disable-neon --disable-vis --disable-inline-asm
+FFMPEG_CONFIGURE += --disable-yasm --disable-mips32r2 --disable-mipsdspr1 --disable-mipsdspr2 --disable-mipsfpu --disable-fast-unaligned
+FFMPEG_CONFIGURE += --disable-muxers
+FFMPEG_CONFIGURE += --enable-muxer=flac --enable-muxer=mp3 --enable-muxer=h261 --enable-muxer=h263 --enable-muxer=h264
+FFMPEG_CONFIGURE += --enable-muxer=image2 --enable-muxer=mpeg1video --enable-muxer=mpeg2video --enable-muxer=ogg
+FFMPEG_CONFIGURE += --disable-encoders
+FFMPEG_CONFIGURE += --enable-encoder=aac --enable-encoder=h261 --enable-encoder=h263 --enable-encoder=h263p --enable-encoder=ljpeg
+FFMPEG_CONFIGURE += --enable-encoder=mjpeg --enable-encoder=mpeg1video --enable-encoder=mpeg2video --enable-encoder=png
+FFMPEG_CONFIGURE += --disable-decoders
+FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dvbsub --enable-decoder=flac --enable-decoder=h261 --enable-decoder=h263
+FFMPEG_CONFIGURE += --enable-decoder=h263i --enable-decoder=h264 --enable-decoder=iff_byterun1 --enable-decoder=mjpeg
+FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=png
+FFMPEG_CONFIGURE += --enable-decoder=theora --enable-decoder=vorbis --enable-decoder=wmv3 --enable-decoder=pcm_s16le
+FFMPEG_CONFIGURE += --enable-demuxer=mjpeg --enable-demuxer=wav
+FFMPEG_CONFIGURE += --enable-parser=mjpeg
+FFMPEG_CONFIGURE += --disable-indevs --disable-outdevs --disable-bsfs --disable-debug
+FFMPEG_CONFIGURE += --enable-pthreads --enable-bzlib --enable-zlib --enable-librtmp --enable-stripping
+
 $(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
-	cd @DIR_ffmpeg@ && \
+	cd @DIR_ffmpeg@; \
 		$(BUILDENV) \
 		./configure \
-			--disable-static \
-			--enable-shared \
-			--enable-small \
-			--disable-runtime-cpudetect \
-			\
-			--disable-ffserver \
-			--disable-ffplay \
-			--disable-ffprobe \
-			\
-			--disable-doc \
-			--disable-htmlpages \
-			--disable-manpages \
-			--disable-podpages \
-			--disable-txtpages \
-			\
-			--disable-asm \
-			--disable-altivec \
-			--disable-amd3dnow \
-			--disable-amd3dnowext \
-			--disable-mmx \
-			--disable-mmxext \
-			--disable-sse \
-			--disable-sse2 \
-			--disable-sse3 \
-			--disable-ssse3 \
-			--disable-sse4 \
-			--disable-sse42 \
-			--disable-avx \
-			--disable-fma4 \
-			--disable-armv5te \
-			--disable-armv6 \
-			--disable-armv6t2 \
-			--disable-vfp \
-			--disable-neon \
-			--disable-vis \
-			--disable-inline-asm \
-			--disable-yasm \
-			--disable-mips32r2 \
-			--disable-mipsdspr1 \
-			--disable-mipsdspr2 \
-			--disable-mipsfpu \
-			--disable-fast-unaligned \
-			\
-			--disable-muxers \
-			--enable-muxer=flac \
-			--enable-muxer=mp3 \
-			--enable-muxer=h261 \
-			--enable-muxer=h263 \
-			--enable-muxer=h264 \
-			--enable-muxer=image2 \
-			--enable-muxer=mpeg1video \
-			--enable-muxer=mpeg2video \
-			--enable-muxer=ogg \
-			\
-			--disable-encoders \
-			--enable-encoder=aac \
-			--enable-encoder=h261 \
-			--enable-encoder=h263 \
-			--enable-encoder=h263p \
-			--enable-encoder=ljpeg \
-			--enable-encoder=mjpeg \
-			--enable-encoder=mpeg1video \
-			--enable-encoder=mpeg2video \
-			--enable-encoder=png \
-			\
-			--disable-decoders \
-			--enable-decoder=aac \
-			--enable-decoder=dvbsub \
-			--enable-decoder=flac \
-			--enable-decoder=h261 \
-			--enable-decoder=h263 \
-			--enable-decoder=h263i \
-			--enable-decoder=h264 \
-			--enable-decoder=iff_byterun1 \
-			--enable-decoder=mjpeg \
-			--enable-decoder=mp3 \
-			--enable-decoder=mpeg1video \
-			--enable-decoder=mpeg2video \
-			--enable-decoder=png \
-			--enable-decoder=theora \
-			--enable-decoder=vorbis \
-			--enable-decoder=wmv3 \
-			--enable-decoder=pcm_s16le \
-			\
-			--enable-demuxer=mjpeg \
-			--enable-demuxer=wav \
-			\
-			--enable-parser=mjpeg \
-			--disable-indevs \
-			--disable-outdevs \
+			$(FFMPEG_CONFIGURE) \
 			--enable-avresample \
-			--enable-pthreads \
-			--enable-bzlib \
-			--enable-zlib \
-			--disable-bsfs \
-			--enable-librtmp \
 			--pkg-config="pkg-config" \
 			--enable-cross-compile \
 			--cross-prefix=$(target)- \
 			--target-os=linux \
 			--arch=sh4 \
-			--disable-debug \
-			--enable-stripping \
-			--prefix=/usr && \
-		$(MAKE) && \
+			--prefix=/usr; \
+		$(MAKE); \
 		@INSTALL_ffmpeg@
 	@DISTCLEANUP_ffmpeg@
 	touch $@
+
+$(DEPDIR)/ffmpeg_old: bootstrap libass rtmpdump @DEPENDS_ffmpeg_old@
+	@PREPARE_ffmpeg_old@
+	cd @DIR_ffmpeg_old@; \
+		$(BUILDENV) \
+		./configure \
+			$(FFMPEG_CONFIGURE) \
+			--enable-avresample \
+			--pkg-config="pkg-config" \
+			--enable-cross-compile \
+			--cross-prefix=$(target)- \
+			--target-os=linux \
+			--arch=sh4 \
+			--prefix=/usr; \
+		$(MAKE); \
+		@INSTALL_ffmpeg_old@
+	@DISTCLEANUP_ffmpeg_old@
+	touch $@
+
 #
 # libass
 #

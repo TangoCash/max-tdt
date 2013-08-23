@@ -4,7 +4,11 @@
 misc-tools-clean:
 	-$(MAKE) -C $(appsdir)/misc/tools distclean
 
-$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev bzip2 libpng libjpeg ffmpeg
+if ENABLE_EPLAYER3
+EPLAYER3_LIBS = bzip2 ffmpeg_old
+endif
+
+$(appsdir)/misc/tools/config.status: bootstrap driver libstdc++-dev libpng libjpeg $(EPLAYER3_LIBS)
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd $(appsdir)/misc/tools && $(CONFIGURE) \
 	$(if $(MULTICOM324), --enable-multicom324) \

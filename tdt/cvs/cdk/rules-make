@@ -122,7 +122,7 @@ evebrowser;0.0.1;evebrowser-0.0.1
 dvbdata;0.6;dvbdata-0.6;dvbdata-0.6.tar.gz;extract:dvbdata-0.6.tar.gz
 brofs;1.2;BroFS1.2;BroFS1.2.tgz;extract:BroFS1.2.tgz
 libalsa;1.0.25;alsa-lib-1.0.25;alsa-lib-1.0.25.tar.bz2;extract:alsa-lib-1.0.25.tar.bz2
-rtmpdump;2.4;rtmpdump-2.4;rtmpdump-2.4.tar.gz;extract:rtmpdump-2.4.tar.gz;move:rtmpdump:rtmpdump-2.4
+rtmpdump;2.4;rtmpdump-2.4;rtmpdump-2.4.tar.gz;extract:rtmpdump-2.4.tar.gz;move:rtmpdump:rtmpdump-2.4;patch:rtmpdump-2.4.patch
 libdvbsipp;0.3.6;libdvbsi++-0.3.6;libdvbsi++-0.3.6.tar.bz2;extract:libdvbsi++-0.3.6.tar.bz2;patch:libdvbsi++-0.3.6.patch
 libmpeg2;0.5.1;libmpeg2-0.5.1;libmpeg2-0.5.1.tar.gz;extract:libmpeg2-0.5.1.tar.gz
 libsamplerate;0.1.8;libsamplerate-0.1.8;libsamplerate-0.1.8.tar.gz;extract:libsamplerate-0.1.8.tar.gz
@@ -202,7 +202,6 @@ libdreamdvd2;libdreamdvd;libdreamdvd;libdreamdvd.git:libdreamdvd-1.0-support_sh4
 graphlcd;base-touchcol;graphlcd-base-touchcol;graphlcd-base-touchcol.git:graphlcd.patch;extract:graphlcd-base-touchcol.git;patch:graphlcd.patch
 lcd4_linux;;lcd4linux;lcd4linux.svn;extract:lcd4linux.svn;patch:lcd4linux-dpf.patch;patch:lcd4linux-spf.patch
 libusb;0.1.12;libusb-0.1.12;libusb-0.1.12.tar.gz;extract:libusb-0.1.12.tar.gz
-#libusb2;1.0.8;libusb-1.0.8;libusb-1.0.8.tar.bz2;extract:libusb-1.0.8.tar.bz2
 libusb2;1.0.9;libusb-1.0.9;libusb-1.0.9.tar.bz2;extract:libusb-1.0.9.tar.bz2
 libusbcompat;0.1.3;libusb-compat-0.1.3;libusb-compat-0.1.3.tar.bz2;extract:libusb-compat-0.1.3.tar.bz2
 libgd2;2.0.35;gd-2.0.35;gd-2.0.35.tar.gz;extract:gd-2.0.35.tar.gz
@@ -234,6 +233,7 @@ libevent;2.0.20-stable;libevent-2.0.20-stable;libevent-2.0.20-stable.tar.gz;extr
 libnfsidmap;0.25;libnfsidmap-0.25;libnfsidmap-0.25.tar.gz;extract:libnfsidmap-0.25.tar.gz
 vsftpd;2.3.4;vsftpd-2.3.4;vsftpd-2.3.4.tar.gz:vsftpd_2.3.4.diff;extract:vsftpd-2.3.4.tar.gz;patch:vsftpd_2.3.4.diff
 netkit_ftp;0.17;netkit-ftp-0.17;netkit-ftp-0.17.tar.gz:netkit-ftp.diff;extract:netkit-ftp-0.17.tar.gz;patch:netkit-ftp.diff
+ntp;4.2.6p5;ntp-4.2.6p5;ntp-4.2.6p5.tar.gz;extract:ntp-4.2.6p5.tar.gz;patch:ntp-4.2.6p5.patch
 samba;3.6.12;samba-3.6.12;samba-3.6.12.tar.gz:samba-3.6.12.patch;extract:samba-3.6.12.tar.gz;patch:samba-3.6.12.patch
 netio;1.26;netio126;netio126.zip;extract:netio126.zip:netio126
 lighttpd;1.4.15;lighttpd-1.4.15;lighttpd-1.4.15.tar.gz;extract:lighttpd-1.4.15.tar.gz

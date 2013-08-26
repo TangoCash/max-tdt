@@ -44,7 +44,7 @@ $(DEPDIR)/libstb-hal.do_prepare:
 	[ -d "$(archivedir)/libstb-hal.git" ] && \
 	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal.git" ] || \
-	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	git clone git://gitorious.org/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
 	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal;\
 	cp -ra $(appsdir)/libstb-hal $(appsdir)/libstb-hal.org
 	touch $@
@@ -93,7 +93,7 @@ $(DEPDIR)/libstb-hal-exp.do_prepare:
 	[ -d "$(archivedir)/libstb-hal.git" ] && \
 	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal.git" ] || \
-	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	git clone git://gitorious.org/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
 	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-exp;\
 	(cd $(appsdir)/libstb-hal-exp; git checkout experimental; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/libstb-hal-exp $(appsdir)/libstb-hal-exp.org
@@ -142,7 +142,7 @@ $(DEPDIR)/libstb-hal-exp-next.do_prepare:
 	[ -d "$(archivedir)/libstb-hal.git" ] && \
 	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/libstb-hal.git" ] || \
-	git clone git://gitorious.org/~max10/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	git clone git://gitorious.org/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
 	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-exp-next;\
 	(cd $(appsdir)/libstb-hal-exp-next; git checkout experimental-next; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/libstb-hal-exp-next $(appsdir)/libstb-hal-exp-next.org
@@ -191,7 +191,7 @@ $(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libf
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
 	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp.git" ] || \
-	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	git clone git://gitorious.org/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp; \
 	cp -ra $(appsdir)/neutrino-mp $(appsdir)/neutrino-mp.org
 	touch $@
@@ -262,7 +262,7 @@ $(DEPDIR)/neutrino-mp-exp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp 
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
 	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp.git" ] || \
-	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	git clone git://gitorious.org/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-exp; \
 	(cd $(appsdir)/neutrino-mp-exp; git checkout experimental; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-mp-exp $(appsdir)/neutrino-mp-exp.org
@@ -334,7 +334,7 @@ $(DEPDIR)/neutrino-mp-exp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvb
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
 	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp.git" ] || \
-	git clone git://gitorious.org/~max10/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	git clone git://gitorious.org/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-exp-next; \
 	(cd $(appsdir)/neutrino-mp-exp-next; git checkout experimental-next; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-mp-exp-next $(appsdir)/neutrino-mp-exp-next.org

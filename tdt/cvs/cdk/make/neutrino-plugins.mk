@@ -11,7 +11,7 @@ $(DEPDIR)/neutrino-mp-plugins.do_prepare:
 	[ -d "$(archivedir)/neutrino-mp-plugins.git" ] && \
 	(cd $(archivedir)/neutrino-mp-plugins.git; git pull; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-mp-plugins.git" ] || \
-	git clone git://gitorious.org/~tangocash/neutrino-hd/tangocashs-neutrino-mp-plugins.git $(archivedir)/neutrino-mp-plugins.git; \
+	git clone git://gitorious.org/neutrino-hd/tangocashs-neutrino-mp-plugins.git $(archivedir)/neutrino-mp-plugins.git; \
 	cp -ra $(archivedir)/neutrino-mp-plugins.git $(appsdir)/neutrino-mp-plugins;\
 	cp -ra $(appsdir)/neutrino-mp-plugins $(appsdir)/neutrino-mp-plugins.org
 	touch $@

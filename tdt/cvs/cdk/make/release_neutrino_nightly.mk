@@ -674,7 +674,6 @@ endif
 	cp -R $(targetprefix)/lib/* $(prefix)/release_neutrino/lib/
 	rm -f $(prefix)/release_neutrino/lib/*.{a,o,la}
 	chmod 755 $(prefix)/release_neutrino/lib/*
-	ln -s /var/plugins/libfx2.so $(prefix)/release_neutrino/lib/libfx2.so
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release_neutrino/usr/lib/
 	rm -rf $(prefix)/release_neutrino/usr/lib/{engines,enigma2,gconv,ldscripts,libxslt-plugins,pkgconfig,python$(PYTHON_VERSION),sigc++-1.2,X11,lua}
@@ -874,6 +873,28 @@ endif
 		cp -f $(targetprefix)/var/plugins/tuxcom* $(prefix)/release_neutrino/var/plugins; \
 	fi
 
+#
+# Plugins
+#
+	if [ -e $(targetprefix)/var/plugins/libfx2.so ]; then \
+		cp -f $(targetprefix)/var/plugins/*.so $(prefix)/release_neutrino/var/plugins; \
+		cp -f $(targetprefix)/var/plugins/*.cfg $(prefix)/release_neutrino/var/plugins; \
+		ln -s /var/plugins/libfx2.so $(prefix)/release_neutrino/lib/libfx2.so; \
+		cp -af $(targetprefix)/bin/{shellexec,msgbox,getrc,input} $(prefix)/release_neutrino/bin; \
+	fi
+	if [ -e $(prefix)/release_neutrino/var/plugins/tuxwetter.so ]; then \
+		cp -rf $(targetprefix)/var/tuxbox/config/tuxwetter $(prefix)/release_neutrino/var/tuxbox/config; \
+	fi
+#
+# shairport
+#
+	if [ -e $(targetprefix)/usr/bin/shairport ]; then \
+		cp -f $(targetprefix)/usr/bin/shairport $(prefix)/release_neutrino/usr/bin; \
+		cp -f $(targetprefix)/usr/bin/mDNSPublish $(prefix)/release_neutrino/usr/bin; \
+		cp -f $(targetprefix)/usr/bin/mDNSResponder $(prefix)/release_neutrino/usr/bin; \
+		cp -f $(targetprefix)/usr/lib/libhowl.so* $(prefix)/release_neutrino/usr/lib; \
+		cp -f $(targetprefix)/usr/lib/libmDNSResponder.so* $(prefix)/release_neutrino/usr/lib; \
+	fi
 #
 # Neutrino HD2 Workaround Build in Player
 #

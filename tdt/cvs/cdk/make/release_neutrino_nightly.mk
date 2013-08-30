@@ -885,9 +885,9 @@ endif
 	if [ -e $(prefix)/release_neutrino/var/plugins/tuxwetter.so ]; then \
 		cp -rf $(targetprefix)/var/tuxbox/config/tuxwetter $(prefix)/release_neutrino/var/tuxbox/config; \
 	fi
-	if [ -e $(prefix)/release_neutrino/var/plugins/sokoban.so ]; then \
+	if [ -e $(prefix)/release_neutrino/var/plugins/soko.so ]; then \
 		cp -rf $(targetprefix)/usr/share/tuxbox/sokoban $(prefix)/release_neutrino/var/plugins; \
-		ln -s /var/plugins/sokoban $(prefix)/usr/share/tuxbox/sokoban; \
+		ln -s /var/plugins/sokoban $(prefix)/release_neutrino/usr/share/tuxbox/sokoban; \
 	fi
 #
 # shairport

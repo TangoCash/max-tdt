@@ -1,7 +1,7 @@
 #!/bin/bash
 # based on the original make.sh
 # Author: TangoCash
-# Last modified: 04.05.13
+# Last modified: 30.08.13
 setparameters() {
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
@@ -415,12 +415,13 @@ ${DIALOG} --cancel-label "Exit" --menu \
 1	"make yaud-neutrino" \
 2	"make yaud-neutrino-mp" \
 3	"make yaud-neutrino-mp-exp" \
-4	"make yaud-neutrino-hd2-exp" \
-5	"make yaud-enigma2-pli-nightly" \
+4	"make yaud-neutrino-mp-exp-next" \
+5	"make yaud-neutrino-hd2-exp" \
 6	"make yaud-xbmc-nightly" \
 7	"make clean" \
 8	"make distclean" \
 9	"make flashimage" \
+10	"make yaud-enigma2-pli-nightly" \
 2> ${tempfile}
 
 opt=${?}
@@ -435,9 +436,9 @@ case "$REPLY" in
 	   makeyaud;;
 	3) MKTARGET="yaud-neutrino-mp-exp"
 	   makeyaud;;
-	4) MKTARGET="yaud-neutrino-hd2-exp"
+	4) MKTARGET="yaud-neutrino-mp-exp-next"
 	   makeyaud;;
-	5) MKTARGET="yaud-enigma2-pli-nightly"
+	5) MKTARGET="yaud-neutrino-hd2-exp"
 	   makeyaud;;
 	6) MKTARGET="yaud-xbmc-nightly"
 	   makeyaud;;
@@ -447,6 +448,8 @@ case "$REPLY" in
 	   makeyaud;;
 	9) MKTARGET=""
 	   makeflash;;
+	10) MKTARGET="yaud-enigma2-pli-nightly"
+	    makeyaud;;
 	255) cleanup && exit;;
 	*) MKTARGET="yaud-neutrino-mp";;
 esac

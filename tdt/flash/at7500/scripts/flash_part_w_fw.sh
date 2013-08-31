@@ -22,8 +22,21 @@ PAD=$CURDIR/../common/pad
 FUP=$CURDIR/fup
 
 HOST=`cat $TMPEXTDIR/etc/hostname`
-[ -d $CURDIR/../../cvs/apps/libstb-hal-exp ] && HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp && git log | grep "^commit" | wc -l`-exp || HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l`
-[ -d $CURDIR/../../cvs/apps/neutrino-mp-exp ] && NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp || NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
+if [ -d $CURDIR/../../cvs/apps/libstb-hal-exp-next ]; then
+	HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp-next && git log | grep "^commit" | wc -l`-exp-next
+elif [ -d $CURDIR/../../cvs/apps/libstb-hal-exp ]; then
+	HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal-exp && git log | grep "^commit" | wc -l`-exp
+else
+	HAL_REV=_HAL-rev`cd $CURDIR/../../cvs/apps/libstb-hal && git log | grep "^commit" | wc -l`
+fi
+
+if [ -d $CURDIR/../../cvs/apps/neutrino-mp-exp-next ]; then
+	NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp-next && git log | grep "^commit" | wc -l`-exp-next
+elif [ -d $CURDIR/../../cvs/apps/neutrino-mp-exp ]; then
+	NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp-exp && git log | grep "^commit" | wc -l`-exp
+else
+	NMP_REV=_NMP-rev`cd $CURDIR/../../cvs/apps/neutrino-mp && git log | grep "^commit" | wc -l`
+fi
 gitversion="_BASE-rev`(cd $CURDIR/../../ && git log | grep "^commit" | wc -l)`$HAL_REV$NMP_REV"
 OUTFILE=$OUTDIR/update_w_fw.ird
 OUTFILE_Z=$OUTDIR/$HOST$gitversion

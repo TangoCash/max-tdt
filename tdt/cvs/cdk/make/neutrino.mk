@@ -491,6 +491,8 @@ $(appsdir)/neutrino-hd2-exp/config.status:
 			--enable-standaloneplugins \
 			--enable-radiotext \
 			--enable-upnp \
+			--enable-scart \
+			--enable-ci \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \

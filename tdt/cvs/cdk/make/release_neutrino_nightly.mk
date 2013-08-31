@@ -673,6 +673,7 @@ endif
 #
 	cp -R $(targetprefix)/lib/* $(prefix)/release_neutrino/lib/
 	rm -f $(prefix)/release_neutrino/lib/*.{a,o,la}
+	ln -s /var/plugins/libfx2.so $(prefix)/release_neutrino/lib/libfx2.so
 	chmod 755 $(prefix)/release_neutrino/lib/*
 
 	cp -R $(targetprefix)/usr/lib/* $(prefix)/release_neutrino/usr/lib/
@@ -879,7 +880,6 @@ endif
 	if [ -e $(targetprefix)/var/plugins/libfx2.so ]; then \
 		cp -f $(targetprefix)/var/plugins/*.so $(prefix)/release_neutrino/var/plugins; \
 		cp -f $(targetprefix)/var/plugins/*.cfg $(prefix)/release_neutrino/var/plugins; \
-		ln -s /var/plugins/libfx2.so $(prefix)/release_neutrino/lib/libfx2.so; \
 		cp -af $(targetprefix)/bin/{shellexec,msgbox,getrc,input} $(prefix)/release_neutrino/bin; \
 	fi
 	if [ -e $(prefix)/release_neutrino/var/plugins/tuxwetter.so ]; then \

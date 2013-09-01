@@ -29,12 +29,12 @@ mkdir -p $TMPKERNELDIR
 mkdir -p $TMPSTORAGEDIR
 
 echo "This script creates flashable images for NOR flash receivers."
-echo "Author: Schischu, Oxygen-1, BPanther, TangoCash"
+echo "Author: Schischu, Oxygen-1, BPanther, TangoCash, Grabber66"
 echo "Last Change: 05-05-2013"
 echo "Changed for \"classic flash\" (no mini_fo) for UFS910 and add more receivers by BPanther, 13-Feb-2013."
 echo ""
 echo "Supported receivers (autoselection) are:"
-echo "UFS910, UFS922, Octagon1008, Fortis HDBox, Cuberevo MINI2, Cuberevo"
+echo "UFS910, UFS922, Octagon1008, Fortis HDBox, Cuberevo MINI2, Cuberevo, Cuberevo 2000HD"
 echo "-----------------------------------------------------------------------"
 echo "It's expected that an image was already build prior to this execution!"
 echo "-----------------------------------------------------------------------"

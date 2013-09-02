@@ -21,7 +21,7 @@
  
  #include "common.h"
  #include "misc.h"
-@@ -48,11 +50,15 @@
+@@ -48,6 +50,10 @@
  #include "ffmpeg_metadata.h"
  #include "subtitle.h"
  
@@ -32,12 +32,6 @@
  /* ***************************** */
  /* Makros/Constants              */
  /* ***************************** */
- 
--//#define FFMPEG_DEBUG
-+#define FFMPEG_DEBUG
- 
- #ifdef FFMPEG_DEBUG
- 
 @@ -131,9 +137,11 @@
  	ffmpeg_printf(100, "::%d released mutex\n", line);
  }
@@ -80,11 +74,13 @@
  							data.extralen  = strlen(DEFAULT_ASS_HEAD);
  							data.pts       = pts;
  							data.duration  = duration;
-@@ -898,7 +907,7 @@
+@@ -897,8 +906,8 @@
+ 	avContext->flags |= AVFMT_FLAG_GENPTS;
  	
  	// FIXME:set max probe duration for ts files to 1
- 	if ( strstr(filename, ".ts") )
--		avContext->max_analyze_duration = 1;
+-	//if ( strstr(filename, ".ts") )
+-	//	avContext->max_analyze_duration = 1;
++	if ( strstr(filename, ".ts") )
 +		avContext->max_analyze_duration = 5;
  
  	ffmpeg_printf(20, "find_streaminfo\n");

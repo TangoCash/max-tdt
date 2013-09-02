@@ -109,11 +109,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    mknod /dev/rc c 147 1 
    mknod /dev/sci0 c 169 0
    mknod /dev/sci1 c 169 1 
-   
-   /bin/evremote2 hl101 &
 
-   /etc/init.d/mountall start
-   /etc/init.d/hostname start
+   /bin/evremote2 hl101 &
 
    echo "starting telnetd"
    /usr/sbin/telnetd -l /bin/autologin

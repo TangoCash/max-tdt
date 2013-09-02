@@ -97,7 +97,6 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "LOADING e2"
 
    /etc/init.d/mountall start
-
    /etc/init.d/hostname start
 
    echo "starting telnetd"

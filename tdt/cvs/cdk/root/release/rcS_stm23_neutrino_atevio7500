@@ -114,9 +114,6 @@ if [ ! -e /var/etc/.firstboot ]; then
    fp_control -t "LOADING neutrino"
    echo "LOADING neutrino"
 
-   /etc/init.d/mountall start
-   /etc/init.d/hostname start
-
    echo "starting telnetd"
    /usr/sbin/telnetd -l /bin/autologin
    /etc/init.d/vsftpd start

@@ -109,9 +109,6 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    stfbcontrol a 255
 
-   /etc/init.d/mountall start
-   /etc/init.d/hostname start
-
    echo "starting telnetd"
    /usr/sbin/telnetd -l /bin/autologin
    /etc/init.d/vsftpd start

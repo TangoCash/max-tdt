@@ -953,7 +953,7 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 	mv -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/start.jpg $(prefix)/release_neutrino/var/boot/
 	ln -s /var/boot/start.jpg $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/
 
-	mkdir -p $(prefix)/release_neutrino/usr/share/alsa/alsa.conf.d
+	mkdir -p $(prefix)/release_neutrino/usr/share/alsa
 	cp -dp $(targetprefix)/usr/share/alsa/alsa.conf $(prefix)/release_neutrino/usr/share/alsa/alsa.conf
 
 #

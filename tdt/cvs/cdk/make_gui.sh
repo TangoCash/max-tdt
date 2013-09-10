@@ -1,7 +1,7 @@
 #!/bin/bash
 # based on the original make.sh
 # Author: TangoCash
-# Last modified: 30.08.13
+# Last modified: 10.09.13
 setparameters() {
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
@@ -381,8 +381,8 @@ CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
 
 ##############################################
 
-./autogen.sh | ${DIALOG} --progressbox "configuring... please wait...." 40 120
-./configure $CONFIGPARAM | ${DIALOG} --progressbox "configuring... please wait...." 40 120
+./autogen.sh 2>&1 | ${DIALOG} --progressbox "configuring... please wait...." 40 120
+./configure $CONFIGPARAM 2>&1 | ${DIALOG} --progressbox "configuring... please wait...." 40 120
 
 ##############################################
 
@@ -412,16 +412,16 @@ ${DIALOG} --cancel-label "Exit" --menu \
                             Your build environment is ready :-)\n\
                             Your next step could be:\n\
                             ----------------------------------------\n" 0 0 0 \
-1	"make yaud-neutrino" \
-2	"make yaud-neutrino-mp" \
-3	"make yaud-neutrino-mp-exp" \
-4	"make yaud-neutrino-mp-exp-next" \
-5	"make yaud-neutrino-hd2-exp" \
-6	"make yaud-xbmc-nightly" \
-7	"make clean" \
-8	"make distclean" \
-9	"make flashimage" \
-10	"make yaud-enigma2-pli-nightly" \
+1	"Build Neutrino-MP" \
+2	"Build Neutrino HD2" \
+3	"Build Flashimage" \
+4	"Quick Cleanup" \
+5	"Complete Cleanup" \
+6	"Reconfigure Build Environment" \
+-	"---(not maintained)---" \
+97	"Build Neutrino (old)" \
+98	"Build XBMC (nightly)" \
+99	"Build Enigma2 (pli-nightly)" \
 2> ${tempfile}
 
 opt=${?}
@@ -430,28 +430,29 @@ if [ $opt != 0 ]; then cleanup; exit; fi
 REPLY=`cat $tempfile`
 
 case "$REPLY" in
-	1) MKTARGET="yaud-neutrino"
+	1) MKTARGET="yaud-none lirc boot-elf remote firstboot"
+	   selectbranch
+	   addons
+	   MKTARGET="$MKTARGET release_neutrino_nightly"
 	   makeyaud;;
-	2) MKTARGET="yaud-neutrino-mp"
+	2) MKTARGET="yaud-neutrino-hd2-exp"
 	   makeyaud;;
-	3) MKTARGET="yaud-neutrino-mp-exp"
-	   makeyaud;;
-	4) MKTARGET="yaud-neutrino-mp-exp-next"
-	   makeyaud;;
-	5) MKTARGET="yaud-neutrino-hd2-exp"
-	   makeyaud;;
-	6) MKTARGET="yaud-xbmc-nightly"
-	   makeyaud;;
-	7) MKTARGET="clean"
-	   makeyaud;;
-	8) MKTARGET="distclean"
-	   makeyaud;;
-	9) MKTARGET=""
+	3) MKTARGET=""
 	   makeflash;;
-	10) MKTARGET="yaud-enigma2-pli-nightly"
+	4) MKTARGET="clean"
+	   makeyaud;;
+	5) MKTARGET="distclean"
+	   makeyaud;;
+	6) configmenu
+	   doconfig;;
+	97) MKTARGET="yaud-neutrino"
+	    makeyaud;;
+	98) MKTARGET="yaud-xbmc-nightly"
+	    makeyaud;;
+	99) MKTARGET="yaud-enigma2-pli-nightly"
 	    makeyaud;;
 	255) cleanup && exit;;
-	*) MKTARGET="yaud-neutrino-mp";;
+	*) MKTARGET="";;
 esac
 }
 ##############################################
@@ -462,23 +463,62 @@ else
 	BOXTYPE=`cat $KATIDIR/tufsbox/release/etc/hostname`
 fi
 
-if [ -e $KATIDIR/flash/$BOXTYPE/$BOXTYPE.sh ]; then
- ${DIALOG} --passwordbox "sudo password to run flashscript ?" 0 0 2> $tempfile
- cd $KATIDIR/flash/$BOXTYPE
- echo `cat $tempfile` | sudo -S ./$BOXTYPE.sh | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
+if [ "$BOXTYPE" = "" ]; then
+	${DIALOG} --msgbox "No Target build to create Flashimage" 0 0
+	cleanup
+else
+	if [ -e $KATIDIR/flash/$BOXTYPE/$BOXTYPE.sh ]; then
+	 ${DIALOG} --insecure --passwordbox "sudo password to run flashscript ?" 0 0 2> $tempfile
+	 cd $KATIDIR/flash/$BOXTYPE
+	 echo `cat $tempfile` | sudo -S ./$BOXTYPE.sh 2>&1 | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
+	fi
+	if [ -e $KATIDIR/flash/$BOXTYPE/make_flash.sh ]; then
+	 ${DIALOG} --insecure --passwordbox "sudo password to run flashscript ?" 0 0 2> $tempfile
+	 cd $KATIDIR/flash/$BOXTYPE
+	 echo `cat $tempfile` | sudo -S ./make_flash.sh 2>&1 | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
+	fi
+	
+	cd $CURDIR
+	cleanup
 fi
-if [ -e $KATIDIR/flash/$BOXTYPE/make_flash.sh ]; then
- ${DIALOG} --passwordbox "sudo password to run flashscript ?" 0 0 2> $tempfile
- cd $KATIDIR/flash/$BOXTYPE
- echo `cat $tempfile` | sudo -S ./make_flash.sh | ${DIALOG} --programbox "preparing flashimage... please wait...." 40 120
-fi
+}
+##############################################
+selectbranch() {
+BRANCH=`${DIALOG} --radiolist "\n Select Neutrino-MP Branch: \n " $height $width $listheight \
+1	"Master" off \
+2	"Experimental" off \
+3	"Next" on \
+3>&1 1>&2 2>&3`
 
-cd $CURDIR
-cleanup
+for i in $BRANCH; do
+   case "$i" in
+      1 ) MKTARGET="$MKTARGET neutrino-mp";;
+      2 ) MKTARGET="$MKTARGET neutrino-mp-exp";;
+      3 ) MKTARGET="$MKTARGET neutrino-mp-exp-next";;
+   esac
+done
+clear
+}
+##############################################
+addons() {
+ADDONS=`${DIALOG} --checklist "\n Select Addons to build: \n " $height $width $listheight \
+1	"Plugins" off \
+2	"Apple Airplay" off \
+3>&1 1>&2 2>&3`
+
+for i in $ADDONS; do
+   case "$i" in
+      \"1\" ) MKTARGET="$MKTARGET neutrino-mp-plugins";;
+      \"2\" ) MKTARGET="$MKTARGET shairport";;
+   esac
+done
+
+clear
 }
 ##############################################
 makeyaud() {
-make ${MKTARGET} --no-print-directory --silent 2>&1 | tee make.log | ${DIALOG} --programbox "compiling... please wait...." 40 120
+make --no-print-directory --silent ${MKTARGET} 2>&1 | tee make.log | ${DIALOG} --programbox "compiling... please wait...." 40 120
+#${DIALOG} --pause "$MKTARGET" $height $width 10
 }
 ##############################################
 cleanup() {

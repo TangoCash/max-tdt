@@ -729,19 +729,17 @@ FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dvbsub --enable-decode
 FFMPEG_CONFIGURE += --enable-decoder=h263i --enable-decoder=h264 --enable-decoder=iff_byterun1 --enable-decoder=mjpeg
 FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=png
 FFMPEG_CONFIGURE += --enable-decoder=theora --enable-decoder=vorbis --enable-decoder=wmv3 --enable-decoder=pcm_s16le
-FFMPEG_CONFIGURE += --enable-demuxer=mjpeg --enable-demuxer=wav
+FFMPEG_CONFIGURE += --enable-demuxer=mjpeg --enable-demuxer=wav --enable-demuxer=rtsp
 FFMPEG_CONFIGURE += --enable-parser=mjpeg
 FFMPEG_CONFIGURE += --disable-indevs --disable-outdevs --disable-bsfs --disable-debug
-FFMPEG_CONFIGURE += --enable-pthreads --enable-bzlib --enable-zlib --enable-librtmp --enable-stripping
+FFMPEG_CONFIGURE += --enable-pthreads --enable-bzlib --enable-zlib --enable-stripping
 
-$(DEPDIR)/ffmpeg: bootstrap libass rtmpdump @DEPENDS_ffmpeg@
+$(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@; \
 		$(BUILDENV) \
 		./configure \
 			$(FFMPEG_CONFIGURE) \
-			--enable-avresample \
-			--pkg-config="pkg-config" \
 			--enable-cross-compile \
 			--cross-prefix=$(target)- \
 			--target-os=linux \

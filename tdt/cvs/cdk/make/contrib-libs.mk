@@ -175,7 +175,7 @@ $(DEPDIR)/libjpeg: bootstrap @DEPENDS_libjpeg@
 # libjpeg_turbo
 #
 $(DEPDIR)/libjpeg_turbo: bootstrap @DEPENDS_libjpeg_turbo@
-	$(PREPARE_libjpeg_turbo@
+	@PREPARE_libjpeg_turbo@
 	cd @DIR_libjpeg_turbo@ && \
 		export CC=$(target)-gcc && \
 		$(BUILDENV) \

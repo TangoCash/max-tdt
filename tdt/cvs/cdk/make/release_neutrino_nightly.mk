@@ -165,7 +165,7 @@ release_neutrino_ufs910: release_neutrino_common_utils
 	rm $(prefix)/release_neutrino/lib/firmware/component_7105_pdk7105.fw
 	rm $(prefix)/release_neutrino/lib/firmware/component_7111_mb618.fw
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 
@@ -242,7 +242,7 @@ release_neutrino_spark: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 	cp -dp $(buildprefix)/root/etc/lircd_spark.conf $(prefix)/release_neutrino/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/
 	cp -f $(buildprefix)/root/sbin/flash_* $(prefix)/release_neutrino/sbin
 	cp -f $(buildprefix)/root/sbin/nand* $(prefix)/release_neutrino/sbin
 
@@ -266,7 +266,7 @@ release_neutrino_spark7162: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 	rm -f $(prefix)/release_neutrino/bin/eeprom
 	cp -dp $(buildprefix)/root/etc/lircd_spark7162.conf $(prefix)/release_neutrino/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/
 	cp -f $(buildprefix)/root/sbin/flashcp $(prefix)/release_neutrino/sbin
 	cp -f $(buildprefix)/root/sbin/flash_* $(prefix)/release_neutrino/sbin
 	cp -f $(buildprefix)/root/sbin/nand* $(prefix)/release_neutrino/sbin
@@ -392,7 +392,7 @@ release_neutrino_hl101: release_neutrino_common_utils
 	cp $(targetprefix)/lib/firmware/dvb-fe-stv6306.fw $(prefix)/release_neutrino/lib/firmware/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	cp -dp $(buildprefix)/root/etc/lircd_hl101.conf $(prefix)/release_neutrino/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/
 
 #
 # release_adb_box
@@ -413,7 +413,7 @@ release_neutrino_adb_box: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	cp -f $(buildprefix)/root/release/fstab_adb_box $(prefix)/release_neutrino/etc/fstab
 	cp -dp $(buildprefix)/root/etc/lircd_adb_box.conf $(prefix)/release_neutrino/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/lircd
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/lircd
 
 #
 # release_vip1_v2
@@ -429,7 +429,7 @@ release_neutrino_vip1_v2: release_neutrino_common_utils
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,cx21143,stv6306}.fw
 	cp -f $(buildprefix)/root/release/fstab_vip2 $(prefix)/release_neutrino/etc/fstab
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/
 
 #
 # release_vip2_v1
@@ -448,7 +448,7 @@ release_neutrino_hs5101: release_neutrino_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7100.ko $(prefix)/release_neutrino/lib/modules/
 	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release_neutrino/lib/firmware/video.elf
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release_neutrino/etc/
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release_neutrino/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release_neutrino/usr/bin/
 	rm -f $(prefix)/release_neutrino/lib/firmware/dvb-fe-{avl2108,avl6222,cx21143,stv6306}.fw
 	rm -f $(prefix)/release_neutrino/bin/vdstandby
 
@@ -551,7 +551,6 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/usr/sbin/vsftpd $(prefix)/release_neutrino/usr/bin/ && \
 	cp $(buildprefix)/root/bin/autologin $(prefix)/release_neutrino/bin/ && \
 	cp -p $(targetprefix)/usr/bin/killall $(prefix)/release_neutrino/usr/bin/ && \
-	cp -dp $(targetprefix)/bin/hotplug $(prefix)/release_neutrino/sbin/ && \
 	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release_neutrino/sbin/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
 	ln -sf ../../bin/busybox $(prefix)/release_neutrino/usr/bin/ether-wake && \

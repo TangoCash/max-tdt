@@ -1,3 +1,15 @@
+--- enigma2-networkbrowser/src/MountView.py.org	2013-07-28 20:28:50.837430438 +0200
++++ enigma2-networkbrowser/src/MountView.py	2013-07-28 20:30:35.265442621 +0200
+@@ -110,7 +110,7 @@
+                 cur = self["config"].getCurrent()
+                 if cur:
+                         returnValue = cur[1]
+-                        self.applyConfigRef = self.session.openWithCallback(self.applyConfigfinishedCB, MessageBox, _("Please wait while removing your network mount..."), type = MessageBox.TYPE_INFO, enable_input = False)
++                        self.applyConfigRef = self.session.openWithCallback(self.applyConfigfinishedCB, MessageBox, _("Please wait while removing your network mount..."), type = MessageBox.TYPE_INFO, timeout = 10)
+                         iAutoMount.removeMount(returnValue,self.removeDataAvail)
+ 
+         def removeDataAvail(self, data):
+
 --- enigma2-networkbrowser/src/NetworkBrowser.py.org	2012-03-31 14:38:41.108148992 -0700
 +++ enigma2-networkbrowser/src/NetworkBrowser.py	2012-04-01 11:34:30.679747955 -0700
 @@ -134,7 +134,6 @@

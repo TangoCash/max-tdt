@@ -70,7 +70,7 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 #
 # libz
 #
-$(DEPDIR)/libz: @DEPENDS_libz@
+$(DEPDIR)/libz: bootstrap @DEPENDS_libz@
 	@PREPARE_libz@
 	cd @DIR_libz@ && \
 		ln -sf /bin/true ./ldconfig && \
@@ -139,8 +139,6 @@ $(DEPDIR)/lirc: bootstrap @DEPENDS_lirc@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
-			--sbindir=\$${exec_prefix}/bin \
-			--mandir=\$${prefix}/share/man \
 			--with-kerneldir=$(buildprefix)/$(KERNEL_DIR) \
 			--without-x \
 			--with-devdir=/dev \
@@ -304,7 +302,6 @@ $(DEPDIR)/libcurl: bootstrap openssl rtmpdump @DEPENDS_libcurl@
 			--disable-debug \
 			--disable-verbose \
 			--disable-manual \
-			--mandir=/usr/share/man \
 			--with-random && \
 		$(MAKE) all && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < curl-config > $(crossprefix)/bin/curl-config && \
@@ -706,6 +703,52 @@ $(DEPDIR)/libdvdread: bootstrap @DEPENDS_libdvdread@
 		chmod 755 $(crossprefix)/bin/dvdread-config && \
 		@INSTALL_libdvdread@
 	@DISTCLEANUP_libdvdread@
+	touch $@
+
+#
+# libdreamdvd2
+#
+$(DEPDIR)/libdreamdvd2: bootstrap libdvdnav @DEPENDS_libdreamdvd2@
+	@PREPARE_libdreamdvd2@
+	[ -d "$(archivedir)/libdreamdvd.git" ] && \
+	(cd $(archivedir)/libdreamdvd.git; git pull ; cd "$(buildprefix)";); \
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd @DIR_libdreamdvd2@ && \
+		aclocal -I $(hostprefix)/share/aclocal && \
+		autoheader && \
+		autoconf && \
+		automake --foreign --add-missing && \
+		libtoolize --force && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr && \
+		$(MAKE) all && \
+		@INSTALL_libdreamdvd2@
+	@DISTCLEANUP_libdreamdvd2@
+	touch $@
+
+#
+# libdreamdvd
+#
+$(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
+	@PREPARE_libdreamdvd@
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd @DIR_libdreamdvd@ && \
+		aclocal -I $(hostprefix)/share/aclocal && \
+		autoheader && \
+		autoconf && \
+		automake --foreign && \
+		libtoolize --force && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr && \
+		$(MAKE) all && \
+		@INSTALL_libdreamdvd@
+	@DISTCLEANUP_libdreamdvd@
 	touch $@
 
 #
@@ -1526,7 +1569,7 @@ $(DEPDIR)/gst_plugin_subsink: bootstrap gstreamer gst_plugins_base gst_plugins_g
 #
 # gst_plugins_dvbmediasink
 #
-$(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugin_subsink libdca @DEPENDS_gst_plugins_dvbmediasink@
+$(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plugins_good gst_plugins_bad gst_plugins_ugly gst_plugin_subsink @DEPENDS_gst_plugins_dvbmediasink@
 	@PREPARE_gst_plugins_dvbmediasink@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_gst_plugins_dvbmediasink@ && \
@@ -1543,54 +1586,6 @@ $(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plu
 		$(MAKE) && \
 		@INSTALL_gst_plugins_dvbmediasink@
 	@DISTCLEANUP_gst_plugins_dvbmediasink@
-	touch $@
-
-#
-# libmms
-#
-$(DEPDIR)/libmms: bootstrap @DEPENDS_libmms@
-	@PREPARE_libmms@
-	cd @DIR_libmms@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_libmms@
-	@DISTCLEANUP_libmms@
-	touch $@
-
-#
-# libdca
-#
-$(DEPDIR)/libdca: @DEPENDS_libdca@
-	@PREPARE_libdca@
-	cd @DIR_libdca@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_libdca@
-	@DISTCLEANUP_libdca@
-	touch $@
-
-#
-# liborc
-#
-$(DEPDIR)/liborc: @DEPENDS_liborc@
-	@PREPARE_liborc@
-	cd @DIR_liborc@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_liborc@
-	@DISTCLEANUP_liborc@
 	touch $@
 
 ##############################   EXTERNAL_LCD   ################################
@@ -1946,55 +1941,6 @@ $(DEPDIR)/tuxtxt32bpp: tuxtxtlib @DEPENDS_tuxtxt32bpp@
 		$(MAKE) all && \
 		@INSTALL_tuxtxt32bpp@
 	@DISTCLEANUP_tuxtxt32bpp@
-	touch $@
-
-#
-# libdreamdvd
-#
-$(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
-	@PREPARE_libdreamdvd@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_libdreamdvd@ && \
-		aclocal -I $(hostprefix)/share/aclocal && \
-		autoheader && \
-		autoconf && \
-		automake --foreign && \
-		libtoolize --force && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_libdreamdvd@
-	@DISTCLEANUP_libdreamdvd@
-	touch $@
-
-#
-# libdreamdvd2
-#
-$(DEPDIR)/libdreamdvd2: bootstrap libdvdnav @DEPENDS_libdreamdvd2@
-	@PREPARE_libdreamdvd2@
-	[ -d "$(archivedir)/libdreamdvd.git" ] && \
-	(cd $(archivedir)/libdreamdvd.git; git pull; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/libdreamdvd.git" ] || \
-	git clone git://github.com/mirakels/libdreamdvd.git $(archivedir)/libdreamdvd.git; \
-	cp -ra $(archivedir)/libdreamdvd.git $(buildprefix)/libdreamdvd; \
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_libdreamdvd2@ && \
-		aclocal -I $(hostprefix)/share/aclocal && \
-		autoheader && \
-		autoconf && \
-		automake --foreign --add-missing && \
-		libtoolize --force && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_libdreamdvd2@
-	@DISTCLEANUP_libdreamdvd2@
 	touch $@
 
 #

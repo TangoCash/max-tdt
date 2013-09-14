@@ -251,4 +251,5 @@ elif test "$BOXTYPE" = "homecast5101"; then
 elif test "$BOXTYPE" = "vitamin_hd5000"; then
 	AC_DEFINE(HAVE_VITAMIN_HD5000_HARDWARE, 1, [building for a vitamin_hd5000])
 fi
+
 ])

@@ -334,24 +334,6 @@ else
 GRAPHICFWDIRECTFB_SED_CONF=-i s"/^CONFIG_BPA2_DIRECTFBOPTIMIZED=y/\# CONFIG_BPA2_DIRECTFBOPTIMIZED is not set/"
 endif
 
-if ENABLE_XFS
-XFS_SED_CONF=$(foreach param,CONFIG_XFS_FS,-e s"/^.*$(param)[= ].*/$(param)=m/")
-else
-XFS_SED_CONF=-e ""
-endif
-
-if ENABLE_NFSSERVER
-NFSSERVER_SED_CONF=$(foreach param,CONFIG_NFSD,-e s"/^.*$(param)[= ].*/$(param)=m\nCONFIG_NFSD_V3=y\n\# CONFIG_NFSD_V3_ACL is not set\n\# CONFIG_NFSD_V4 is not set\nCONFIG_NFSD_TCP=y/")
-else
-NFSSERVER_SED_CONF=-e ""
-endif
-
-if ENABLE_NTFS
-NTFS_SED_CONF=$(foreach param,CONFIG_NTFS_FS,-e s"/^.*$(param)[= ].*/$(param)=m/")
-else
-NTFS_SED_CONF=-e ""
-endif
-
 $(DEPDIR)/linux-kernel.do_compile: \
 		bootstrap-cross \
 		linux-kernel.do_prepare \

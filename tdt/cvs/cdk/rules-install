@@ -57,7 +57,7 @@ libao;rewrite-pkgconfig:libao.pc;make:install:prefix=TARGETS/usr;rewrite-libtool
 howl;rewrite-pkgconfig:howl.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libhowl.la:TARGETS/usr/lib/libhowl.la
 libopenthreads;rewrite-pkgconfig:packaging/pkgconfig/openthreads.pc;make:install:DESTDIR=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libopcodes.la
 libboost;remove:TARGETS/include/boost;move:boost:TARGETS/usr/include/boost
-libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr;install:-m644:libz.a:TARGETS/usr/lib
+libz;rewrite-pkgconfig:zlib.pc;make:install:prefix=TARGETS/usr
 libreadline;make:install:DESTDIR=TARGETS
 libfreetype;rewrite-pkgconfig:builds/unix/freetype2.pc;make:install:libdir=TARGETS/usr/lib:includedir=TARGETS/usr/include:bindir=TARGETS/usr/bin:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libfreetype.la
 fontconfig;rewrite-pkgconfig:fontconfig.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libfontconfig.la;rewrite-dependency:TARGETS/usr/lib/libfontconfig.la
@@ -66,6 +66,7 @@ libjpeg;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libjpeg.
 libjpeg_turbo;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libjpeg.la
 libpng12;rewrite-pkgconfig:libpng12.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng12.la
 libpng;rewrite-pkgconfig:libpng15.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng15.la
+#libpng;rewrite-pkgconfig:libpng16.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng16.la
 libungif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libungif.la
 libgif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgif.la
 libgif_current;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgif.la
@@ -96,7 +97,7 @@ a52dec;make:install:DESTDIR=TARGETS
 libdvdcss;rewrite-pkgconfig:src/libdvdcss.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvdcss.la
 libdvdnav;rewrite-pkgconfig:misc/dvdnav.pc:misc/dvdnavmini.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvdnav.la:TARGETS/usr/lib/libdvdnavmini.la
 libdvdread;rewrite-pkgconfig:misc/dvdread.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvdread.la
-ffmpeg_old;rewrite-pkgconfig:libavcodec/libavcodec.pc:libavdevice/libavdevice.pc:libavfilter/libavfilter.pc:libavformat/libavformat.pc:libavresample/libavresample.pc:libavutil/libavutil.pc:libswresample/libswresample.pc:libswscale/libswscale.pc;make:install:DESTDIR=TARGET
+ffmpeg_old;rewrite-pkgconfig:libavcodec/libavcodec.pc:libavdevice/libavdevice.pc:libavfilter/libavfilter.pc:libavformat/libavformat.pc:libavresample/libavresample.pc:libavutil/libavutil.pc:libswresample/libswresample.pc:libswscale/libswscale.pc;make:install:DESTDIR=TARGETS
 ffmpeg;rewrite-pkgconfig:libavcodec/libavcodec.pc:libavdevice/libavdevice.pc:libavfilter/libavfilter.pc:libavformat/libavformat.pc:libavresample/libavresample.pc:libavutil/libavutil.pc:libswresample/libswresample.pc:libswscale/libswscale.pc;make:install:DESTDIR=TARGETS
 libass;rewrite-pkgconfig:libass.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libass.la
 libcap;make:install:DESTDIR=TARGETS
@@ -105,7 +106,7 @@ libflac;rewrite-pkgconfig:src/libFLAC/flac.pc;make:install:DESTDIR=TARGETS;rewri
 evebrowser;make:install:DESTDIR=TARGETS
 brofs;make:install:DESTDIR=TARGETS/usr/bin
 libalsa;rewrite-pkgconfig:utils/alsa.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libasound.la
-alsautils;make:install:DESTDIR=TARGET
+alsautils;make:install:DESTDIR=TARGETS
 rtmpdump;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-pkgconfig::TARGETS/usr/lib/pkgconfig/librtmp.pc
 libdvbsipp;rewrite-pkgconfig:libdvbsi++.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libdvbsi++.la
 libpcre;rewrite-pkgconfig:libpcre.pc:libpcrecpp.pc:libpcreposix.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libpcre.la:TARGETS/usr/lib/libpcreposix.la
@@ -180,14 +181,14 @@ libdpf;make:install:DESTDIR=TARGETS
 #
 dosfstools;make:install:PREFIX=TARGETS
 e2fsprogs;rewrite-pkgconfig:lib/blkid/blkid.pc:lib/e2p/e2p.pc:lib/et/com_err.pc:lib/ext2fs/ext2fs.pc:lib/quota/quota.pc:lib/ss/ss.pc:lib/uuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/blkid.pc:TARGETS/usr/lib/pkgconfig/uuid.pc
-fdisk;make:install:DESTDIR=TARGET
+fdisk;make:install:DESTDIR=TARGETS
 hddtemp;make:install:DESTDIR=TARGETS
 hdparm;make:install:DESTDIR=TARGETS
 jfsutils;make:install:mandir=/usr/share/man:DESTDIR=TARGETS
 lm_sensors;make:user_install:MACHINE=sh:PREFIX=/usr:MANDIR=/usr/share/man:DESTDIR=TARGETS
 sdparm;make:install:DESTDIR=TARGETS
 parted;make:install
-util_linux;rewrite-pkgconfig:libblkid/blkid.pc:libuuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libuuid.la;rewrite-dependency:TARGETS/usr/lib/libblkid.la
+utillinux;rewrite-pkgconfig:libblkid/blkid.pc:libuuid/uuid.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libblkid.la:TARGETS/usr/lib/libuuid.la;rewrite-dependency:TARGETS/usr/lib/libblkid.la
 xfsprogs;make:install:prefix=TARGETS/usr
 
 #
@@ -201,7 +202,7 @@ libevent;make:install
 netkit-ftpx;make:install:DESTDIR=TARGETS
 vsftpd;make:install:PREFIX=TARGETS
 netkit_ftp;make:install:MANDIR=/usr/share/man:INSTALLROOT=TARGETS
-ntp;make:install:DESTDIR=TARGET
+ntp;make:install:DESTDIR=TARGETS
 samba;make:install:DESTDIR=TARGETS
 netio;install:-m755:netio:TARGETS/usr/bin;install:-m755:bin/linux-i386:HOST/bin/netio
 lighttpd;make:install:DESTDIR=TARGETS

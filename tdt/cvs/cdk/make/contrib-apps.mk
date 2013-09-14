@@ -156,11 +156,11 @@ $(DEPDIR)/e2fsprogs: bootstrap @DEPENDS_e2fsprogs@ | $(UTIL_LINUX)
 	touch $@
 
 #
-# util_linux
+# utillinux
 #
-$(DEPDIR)/util_linux: bootstrap libz ncurses-dev @DEPENDS_util_linux@
-	@PREPARE_util_linux@
-	cd @DIR_util_linux@ && \
+$(DEPDIR)/utillinux: bootstrap libz ncurses-dev @DEPENDS_utillinux@
+	@PREPARE_utillinux@
+	cd @DIR_utillinux@ && \
 		$(BUILDENV) \
 		CFLAGS="$(TARGET_CFLAGS) -D_FILE_OFFSET_BITS=64 -I$(targetprefix)/include/ncurses" \
 		./configure \
@@ -169,10 +169,12 @@ $(DEPDIR)/util_linux: bootstrap libz ncurses-dev @DEPENDS_util_linux@
 			--prefix=/usr \
 			--disable-libmount \
 			--disable-static \
+			--disable-rpath \
+			--disable-bash-completion \
 			--disable-wall && \
 		$(MAKE) ARCH=sh4 && \
-		@INSTALL_util_linux@
-	@DISTCLEANUP_util_linux@
+		@INSTALL_utillinux@
+	@DISTCLEANUP_utillinux@
 	touch $@
 
 #
@@ -538,7 +540,7 @@ $(DEPDIR)/hddtemp: bootstrap @DEPENDS_hddtemp@
 	cd @DIR_hddtemp@ && \
 		$(BUILDENV) \
 		./configure \
-		--with-db_path=/var/hddtemp.db \
+			--with-db_path=/var/hddtemp.db \
 			--build=$(build) \
 			--host=$(target) \
 			--prefix= && \

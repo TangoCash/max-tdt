@@ -167,6 +167,23 @@ $(DEPDIR)/netio: bootstrap @DEPENDS_netio@
 	touch $@
 
 #
+# ntp
+#
+$(DEPDIR)/ntp: bootstrap @DEPENDS_ntp@
+	@PREPARE_ntp@
+	cd @DIR_ntp@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--target=$(target) \
+			--prefix=/usr && \
+		$(MAKE) && \
+		@INSTALL_ntp@
+	@DISTCLEANUP_ntp@
+	touch $@
+
+#
 # lighttpd
 #
 $(DEPDIR)/lighttpd.do_prepare: bootstrap @DEPENDS_lighttpd@

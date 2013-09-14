@@ -46,62 +46,6 @@ if test -z "$TARGET_CFLAGS" -o -z "$TARGET_CXXFLAGS"; then
 	TARGET_CXXFLAGS="$TARGET_CFLAGS"
 fi
 
-AC_ARG_ENABLE(lirc,
-	AS_HELP_STRING(--enable-lirc, include lirc in yadds and images),
-	[case "${enableval}" in
-		yes) LIRC=lirc ;;
-	esac], [enable_lirc=no])
-AM_CONDITIONAL(ENABLE_LIRC,test "$enable_lirc" = "yes")
-AC_SUBST(LIRC)
-
-AC_ARG_ENABLE(xfs,
-	AS_HELP_STRING(--enable-xfs, include xfs drivers in yauds and images),
-	[case "${enableval}" in
-		yes) XFSPROGS=xfsprogs ;;
-	esac],[enable_xfs=no])
-AM_CONDITIONAL(ENABLE_XFS,test "$enable_xfs" = "yes")
-AC_SUBST(XFSPROGS)
-
-AC_ARG_ENABLE(ntfs,
-	AS_HELP_STRING(--enable-ntfs, include ntfs drivers in yauds and images),
-	[case "${enableval}" in
-		yes) NTFS=ntfs ;;
-	esac],[enable_ntfs=no])
-AM_CONDITIONAL(ENABLE_NTFS,test "$enable_ntfs" = "yes")
-AC_SUBST(NTFS)
-
-AC_ARG_ENABLE(nfsserver,
-	AS_HELP_STRING(--enable-nfsserver, enable NFS server),
-	[case "${enableval}" in
-		yes) NFSSERVER=nfs_utils ;;
-	esac],[enable_nfsserver=no])
-AM_CONDITIONAL(ENABLE_NFSSERVER,test "$enable_nfsserver" = "yes")
-AC_SUBST(NFSSERVER)
-
-AC_ARG_ENABLE(cifs,
-	AS_HELP_STRING(--enable-cifs, enable the samba clients),
-	[case "${enableval}" in
-		yes) CIFS=samba ;;
-	esac],[enable_cifs=no])
-AM_CONDITIONAL(ENABLE_CIFS,test "$enable_cifs" = "yes")
-AC_SUBST(CIFS)
-
-AC_ARG_ENABLE(sg3,
-	AS_HELP_STRING(--enable-sg3, enable the sg3-utils),
-	[case "${enableval}" in
-		yes) SG3=sg3_utils ;;
-	esac],[enable_sg3=no])
-AM_CONDITIONAL(ENABLE_SG3,test "$enable_sg3" = "yes")
-AC_SUBST(SG3)
-
-AC_ARG_ENABLE(var,
-	AS_HELP_STRING(--enable-var, move stock and libs into var),
-	[case "${enableval}" in
-		yes) VAR=var ;;
-	esac],[enable_var=no])
-AM_CONDITIONAL(ENABLE_VAR,test "$enable_var" = "yes")
-AC_SUBST(VAR)
-
 AC_ARG_WITH(rootpartitionsize,
 	[  --with-rootpartitionsize=SIZE    size of the root partition],
 	[ROOT_PARTITION_SIZE="$withval"],[ROOT_PARTITION_SIZE="0x240000"])
@@ -988,7 +932,7 @@ TUXBOX_RULES_MAKE(jfsutils)
 TUXBOX_RULES_MAKE(lm_sensors)
 TUXBOX_RULES_MAKE(parted)
 TUXBOX_RULES_MAKE(sdparm)
-TUXBOX_RULES_MAKE(util_linux)
+TUXBOX_RULES_MAKE(utillinux)
 TUXBOX_RULES_MAKE(xfsprogs)
 
 #
@@ -1003,6 +947,7 @@ TUXBOX_RULES_MAKE(vsftpd)
 TUXBOX_RULES_MAKE(netkit_ftp)
 TUXBOX_RULES_MAKE(samba)
 TUXBOX_RULES_MAKE(netio)
+TUXBOX_RULES_MAKE(ntp)
 TUXBOX_RULES_MAKE(lighttpd)
 TUXBOX_RULES_MAKE(wireless_tools)
 TUXBOX_RULES_MAKE(zd1211)
@@ -1124,11 +1069,6 @@ driver directory            : $driverdir
 host apps directory         : $hostappsdir
 customization directory     : $customizationsdir
 archive directory           : $archivedir
-XFS support for IDE         : $enable_xfs
-NFS server                  : $enable_nfsserver
-Samba Clients               : $enable_cifs
-NTFS support for IDE        : $enable_ntfs
-sg3 utils                   : $enable_sg3
 DEBUG                       : $enable_debug
 Player191                   : $enable_player191
 Multicom324                 : $enable_multicom324

@@ -821,9 +821,9 @@ $(DEPDIR)/libass: bootstrap libfreetype libfribidi @DEPENDS_libass@
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
+			--prefix=/usr \
 			--disable-fontconfig \
-			--disable-enca \
-			--prefix=/usr && \
+			--disable-enca && \
 		$(MAKE) && \
 		@INSTALL_libass@
 	@DISTCLEANUP_libass@

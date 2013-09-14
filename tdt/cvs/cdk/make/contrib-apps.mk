@@ -562,6 +562,21 @@ $(DEPDIR)/hdparm: bootstrap @DEPENDS_hdparm@
 	touch $@
 
 #
+# fdisk
+#
+$(DEPDIR)/fdisk: bootstrap parted @DEPENDS_fdisk@
+	@PREPARE_fdisk@
+	cd @DIR_fdisk@ && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			--prefix=/usr \
+		$(MAKE) all && \
+		@INSTALL_fdisk@
+	@DISTCLEANUP_fdisk@
+	touch $@
+
+#
 # parted
 #
 $(DEPDIR)/parted: bootstrap libreadline e2fsprogs @DEPENDS_parted@

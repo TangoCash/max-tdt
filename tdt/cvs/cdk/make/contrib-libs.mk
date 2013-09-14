@@ -1830,6 +1830,30 @@ $(DEPDIR)/libalsa: bootstrap @DEPENDS_libalsa@
 	touch $@
 
 #
+# alsautils
+#
+$(DEPDIR)/alsautils: bootstrap @DEPENDS_alsautils@
+	@PREPARE_alsautils@
+	cd @DIR_alsautils@ && \
+		sed -ir -r "s/(alsamixer|amidi|aplay|iecset|speaker-test|seq|alsactl|alsaucm)//g" Makefile.am && \
+		autoreconf -fi -I $(targetprefix)/usr/share/aclocal && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr \
+			--disable-nls \
+			--disable-alsatest \
+			--disable-alsaconf \
+			--disable-alsaloop \
+			--disable-alsamixer \
+			--disable-xmlto && \
+		$(MAKE) && \
+		@INSTALL_alsautils@
+	@DISTCLEANUP_alsautils@
+	touch $@
+
+#
 # libopenthreads
 #
 $(DEPDIR)/libopenthreads: bootstrap @DEPENDS_libopenthreads@
@@ -2197,39 +2221,6 @@ $(DEPDIR)/minidlna: bootstrap ffmpeg libflac libogg libvorbis libid3tag sqlite l
 	touch $@
 
 #
-# vlc
-#
-$(DEPDIR)/vlc: bootstrap libstdc++-dev libfribidi ffmpeg @DEPENDS_vlc@
-	@PREPARE_vlc@
-	cd @DIR_vlc@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--disable-fontconfig \
-			--prefix=/usr \
-			--disable-xcb \
-			--disable-glx \
-			--disable-qt4 \
-			--disable-mad \
-			--disable-postproc \
-			--disable-a52 \
-			--disable-qt4 \
-			--disable-skins2 \
-			--disable-remoteosd \
-			--disable-lua \
-			--disable-libgcrypt \
-			--disable-nls \
-			--disable-mozilla \
-			--disable-dbus \
-			--disable-sdl \
-			--enable-run-as-root && \
-		$(MAKE) && \
-		@INSTALL_vlc@
-	@DISTCLEANUP_vlc@
-	touch $@
-
-#
 # djmount
 #
 $(DEPDIR)/djmount: bootstrap fuse @DEPENDS_djmount@
@@ -2319,34 +2310,6 @@ $(DEPDIR)/gmediarender: bootstrap libstdc++-dev gst_plugins_dvbmediasink libupnp
 	touch $@
 
 #
-# mediatomb
-#
-$(DEPDIR)/mediatomb: bootstrap libstdc++-dev ffmpeg libcurl sqlite libexpat @DEPENDS_mediatomb@
-	@PREPARE_mediatomb@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_mediatomb@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--disable-ffmpegthumbnailer \
-			--disable-libmagic \
-			--disable-mysql \
-			--disable-id3lib \
-			--disable-taglib \
-			--disable-lastfmlib \
-			--disable-libexif \
-			--disable-libmp4v2 \
-			--disable-inotify \
-			--with-avformat-h=$(targetprefix)/usr/include \
-			--disable-rpl-malloc \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_mediatomb@
-	@DISTCLEANUP_mediatomb@
-	touch $@
-
-#
 # tinyxml
 #
 $(DEPDIR)/tinyxml: @DEPENDS_tinyxml@
@@ -2393,3 +2356,4 @@ $(DEPDIR)/taglib: bootstrap @DEPENDS_taglib@
 		@INSTALL_taglib@
 	@DISTCLEANUP_taglib@
 	touch $@
+

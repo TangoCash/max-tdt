@@ -551,6 +551,8 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/usr/sbin/vsftpd $(prefix)/release_neutrino/usr/bin/ && \
 	cp $(buildprefix)/root/bin/autologin $(prefix)/release_neutrino/bin/ && \
 	cp -p $(targetprefix)/usr/bin/killall $(prefix)/release_neutrino/usr/bin/ && \
+	cp -dp $(targetprefix)/bin/hotplug $(prefix)/release_neutrino/sbin/ && \
+	rm -f $(prefix)/release_neutrino/bin/hotplug && \
 	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release_neutrino/sbin/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
 	ln -sf ../../bin/busybox $(prefix)/release_neutrino/usr/bin/ether-wake && \

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 
-
 REPONAME=$1
 USERNAME=$2
 EMAIL=$3

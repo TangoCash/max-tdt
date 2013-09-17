@@ -710,9 +710,10 @@ $(DEPDIR)/imagemagick: bootstrap @DEPENDS_imagemagick@
 #
 # shairport
 #
-$(DEPDIR)/shairport: bootstrap howl @DEPENDS_shairport@
+$(DEPDIR)/shairport: bootstrap openssl openssl-dev howl libalsa @DEPENDS_shairport@
 	@PREPARE_shairport@
-	git clone -b 1.0-dev git://github.com/abrasive/shairport @DIR_shairport@;
+	[ -d "$(archivedir)/shairport.git" ] && \
+	(cd $(archivedir)/shairport.git; git pull; cd "$(buildprefix)";); \
 	cd @DIR_shairport@ && \
 		$(BUILDENV) \
 		$(MAKE) all CC=$(target)-gcc LD=$(target)-ld && \

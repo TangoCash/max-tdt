@@ -638,25 +638,6 @@ $(DEPDIR)/sysstat: bootstrap @DEPENDS_sysstat@
 	touch $@
 
 #
-# hotplug_e2
-#
-$(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
-	@PREPARE_hotplug_e2@
-	[ -d "$(archivedir)/hotplug-e2-helper.git" ] && \
-	(cd $(archivedir)/hotplug-e2-helper.git; git pull; cd "$(buildprefix)";); \
-	cd @DIR_hotplug_e2@ && \
-		./autogen.sh &&\
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) all && \
-		@INSTALL_hotplug_e2@
-	@DISTCLEANUP_hotplug_e2@
-	touch $@
-
-#
 # autofs
 #
 $(DEPDIR)/autofs: bootstrap e2fsprogs @DEPENDS_autofs@
@@ -705,6 +686,25 @@ $(DEPDIR)/imagemagick: bootstrap @DEPENDS_imagemagick@
 		$(MAKE) all && \
 		@INSTALL_imagemagick@
 	@DISTCLEANUP_imagemagick@
+	touch $@
+
+#
+# hotplug_e2
+#
+$(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
+	@PREPARE_hotplug_e2@
+	[ -d "$(archivedir)/hotplug-e2-helper.git" ] && \
+	(cd $(archivedir)/hotplug-e2-helper.git; git pull; cd "$(buildprefix)";); \
+	cd @DIR_hotplug_e2@ && \
+		./autogen.sh &&\
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr && \
+		$(MAKE) all && \
+		@INSTALL_hotplug_e2@
+	@DISTCLEANUP_hotplug_e2@
 	touch $@
 
 #

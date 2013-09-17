@@ -190,9 +190,9 @@ enigma2_networkbrowser;1.0;enigma2-networkbrowser;enigma2-openpli-plugins-enigma
 enigma2_webinterface;1.0;enigma2-webinterface;enigma2-openpli-plugins-enigma2.git;extract:enigma2-openpli-plugins-enigma2.git/webinterface:enigma2-webinterface
 enigma2_openwebif;1.0;e2openplugin-OpenWebif;e2openplugin-OpenWebif.git;extract:e2openplugin-OpenWebif.git
 enigma2_plugins_all;1.0;enigma2-plugins-all;enigma2-openpli-plugins-enigma2.git;extract:enigma2-openpli-plugins-enigma2.git:enigma2-plugins-all;patch:enigma2-plugins.patch
-hotplug_e2;1.0;hotplug-e2-helper;hotplug-e2-helper.git;extract:hotplug-e2-helper.git;patch:hotplug-e2-helper-support_fw_upload.patch
 libdreamdvd;1.0;libdreamdvd;;link:../apps/misc/tools/libdreamdvd:libdreamdvd
 libdreamdvd2;libdreamdvd;libdreamdvd;libdreamdvd.git:libdreamdvd-1.0-support_sh4.patch;extract:libdreamdvd.git;patch:libdreamdvd-1.0-support_sh4.patch
+hotplug_e2;1.0;hotplug-e2-helper;hotplug-e2-helper.git;extract:hotplug-e2-helper.git;patch:hotplug-e2-helper-support_fw_upload.patch
 
 #
 # EXTERNAL_LCD

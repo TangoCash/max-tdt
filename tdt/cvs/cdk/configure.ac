@@ -304,13 +304,21 @@ AC_ARG_ENABLE(hs7110,
 AM_CONDITIONAL(ENABLE_HS7110,test "$enable_hs7110" = "yes")
 AC_SUBST(HS7110)
 
-AC_ARG_ENABLE(whitebox,
-	AS_HELP_STRING(--enable-whitebox, enable fortis whitebox stuff),
+AC_ARG_ENABLE(atemio520,
+	AS_HELP_STRING(--enable-atemio520, enable atemio520 stuff),
 	[case "${enableval}" in
-		yes) WHITEBOX=whitebox ;;
-	esac],[enable_WHITEBOX=no])
-AM_CONDITIONAL(ENABLE_WHITEBOX,test "$enable_whitebox" = "yes")
-AC_SUBST(WHITEBOX)
+		yes) ATEMIO520=atemio520 ;;
+	esac],[enable_ATEMIO520=no])
+AM_CONDITIONAL(ENABLE_ATEMIO520,test "$enable_atemio520" = "yes")
+AC_SUBST(ATEMIO520)
+
+AC_ARG_ENABLE(atemio530,
+	AS_HELP_STRING(--enable-atemio530, enable atemio530 stuff),
+	[case "${enableval}" in
+		yes) ATEMIO530=atemio530 ;;
+	esac],[enable_ATEMIO530=no])
+AM_CONDITIONAL(ENABLE_ATEMIO530,test "$enable_atemio530" = "yes")
+AC_SUBST(ATEMIO530)
 
 AC_ARG_ENABLE(cuberevo,
 	AS_HELP_STRING(--enable-cuberevo, enable cuberevo stuff),

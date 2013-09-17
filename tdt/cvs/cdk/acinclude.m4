@@ -65,7 +65,7 @@ CPU_ARCH="sh4"
 target_alias="sh4-linux"
 
 AC_ARG_WITH(boxtype,
-	[  --with-boxtype     valid values: ufs910,ufs912,ufs913,ufs922,ufc960,ipbox55,ipbox99,ipbox9900,cuberevo,cuberevo_mini,cuberevo_mini2,cuberevo_mini_fta,cuberevo_250hd,cuberevo_2000hd,cuberevo_9500hd,tf7700,fortis_hdbox,octagon1008,atevio7500,spark,spark7162,hl101,hs7110,hs7810a,adb_box,whitebox,vip,homecast5101,vitamin_hd5000],
+	[  --with-boxtype     valid values: ufs910,ufs912,ufs913,ufs922,ufc960,ipbox55,ipbox99,ipbox9900,cuberevo,cuberevo_mini,cuberevo_mini2,cuberevo_mini_fta,cuberevo_250hd,cuberevo_2000hd,cuberevo_9500hd,tf7700,fortis_hdbox,octagon1008,atevio7500,spark,spark7162,hl101,hs7110,hs7810a,adb_box,atemio520,atemio530,vip,homecast5101,vitamin_hd5000],
 	[case "${withval}" in
 dnl		To-Do: extend CPU types and kernel versions when needed
 		ufs910)
@@ -146,7 +146,10 @@ dnl		To-Do: extend CPU types and kernel versions when needed
 		vip)
 			BOXTYPE="$withval"
 			;;
-		whitebox)
+		atemio520)
+			BOXTYPE="$withval"
+			;;
+		atemio530)
 			BOXTYPE="$withval"
 			;;
 		homecast5101)
@@ -187,7 +190,8 @@ AM_CONDITIONAL(BOXTYPE_HL101, test "$BOXTYPE" = "hl101")
 AM_CONDITIONAL(BOXTYPE_HS7110, test "$BOXTYPE" = "hs7110")
 AM_CONDITIONAL(BOXTYPE_HS7810A, test "$BOXTYPE" = "hs7810a")
 AM_CONDITIONAL(BOXTYPE_ADB_BOX, test "$BOXTYPE" = "adb_box")
-AM_CONDITIONAL(BOXTYPE_WHITEBOX, test "$BOXTYPE" = "whitebox")
+AM_CONDITIONAL(BOXTYPE_ATEMIO520, test "$BOXTYPE" = "atemio520")
+AM_CONDITIONAL(BOXTYPE_ATEMIO530, test "$BOXTYPE" = "atemio530")
 AM_CONDITIONAL(BOXTYPE_VIP, test "$BOXTYPE" = "vip")
 AM_CONDITIONAL(BOXTYPE_HOMECAST5101, test "$BOXTYPE" = "homecast5101")
 AM_CONDITIONAL(BOXTYPE_VITAMIN_HD5000, test "$BOXTYPE" = "vitamin_hd5000")
@@ -242,8 +246,10 @@ elif test "$BOXTYPE" = "hs7810a"; then
 	AC_DEFINE(HAVE_HS7810A_HARDWARE, 1, [building for a hs7810a])
 elif test "$BOXTYPE" = "adb_box"; then
 	AC_DEFINE(HAVE_ADB_BOX_HARDWARE, 1, [building for a adb_box])
-elif test "$BOXTYPE" = "whitebox"; then
-	AC_DEFINE(HAVE_WHITEBOX_HARDWARE, 1, [building for a whitebox])
+elif test "$BOXTYPE" = "atemio520"; then
+	AC_DEFINE(HAVE_ATEMIO520_HARDWARE, 1, [building for a atemio520])
+elif test "$BOXTYPE" = "atemio530"; then
+	AC_DEFINE(HAVE_ATEMIO530_HARDWARE, 1, [building for a atemio530])
 elif test "$BOXTYPE" = "vip"; then
 	AC_DEFINE(HAVE_VIP_HARDWARE, 1, [building for an vip])
 elif test "$BOXTYPE" = "homecast5101"; then

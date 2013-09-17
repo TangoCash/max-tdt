@@ -98,14 +98,24 @@ HS7110PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
 
-WHITEBOXPATCHES_24 = $(COMMONPATCHES_24) \
+ATEMIO520PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
-		linux-sh4-whitebox_setup_stm24$(PATCH_STR).patch \
+		linux-sh4-atemio520_setup_stm24$(PATCH_STR).patch \
 		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
-		linux-squashfs3.0_lzma_stm24.patch \
-		linux-squashfs-downgrade-stm24-2.6.25.patch \
+		linux-squashfs3.0_lzma_stm23.patch \
+		linux-squashfs-downgrade-stm24-patch-2.6.25 \
+		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
+
+ATEMIO530PATCHES_24 = $(COMMONPATCHES_24) \
+		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
+		linux-sh4-lmb_stm24$(PATCH_STR).patch \
+		linux-sh4-atemio530_setup_stm24$(PATCH_STR).patch \
+		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
+		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
+		linux-squashfs3.0_lzma_stm23.patch \
+		linux-squashfs-downgrade-stm24-patch-2.6.25 \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
 
 UFS922PATCHES_24 = $(COMMONPATCHES_24) \
@@ -209,7 +219,8 @@ KERNELPATCHES_24 =  \
 		$(if $(FORTIS_HDBOX),$(FORTISPATCHES_24)) \
 		$(if $(HS7810A),$(HS7810APATCHES_24)) \
 		$(if $(HS7110),$(HS7110PATCHES_24)) \
-		$(if $(WHITEBOX),$(WHITEBOXPATCHES_24)) \
+		$(if $(ATEMIO520),$(ATEMIO520PATCHES_24)) \
+		$(if $(ATEMIO530),$(ATEMIO530PATCHES_24)) \
 		$(if $(ATEVIO7500),$(ATEVIO7500PATCHES_24)) \
 		$(if $(OCTAGON1008),$(OCTAGON1008PATCHES_24)) \
 		$(if $(ADB_BOX),$(ADB_BOXPATCHES_24)) \

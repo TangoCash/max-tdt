@@ -83,17 +83,18 @@ echo "23) IPBOX55"
 echo "24) Fortis HS7810A"
 echo "25) B4Team ADB 5800S"
 echo "26) Fortis HS7110"
-echo "27) WHITEBOX"
+echo "27) Atemio520"
 echo "28) Kathrein UFS-913"
 echo "29) Kathrein UFC-960"
 echo "30) Vitamin HD5000"
+echo "31) Atemio530"
 
 case $1 in
 	[1-9] | 1[0-9] | 2[0-9]) REPLY=$1
 	echo -e "\nSelected target: $REPLY\n"
 	;;
 	*)
-	read -p "Select target (1-30)? ";;
+	read -p "Select target (1-31)? ";;
 esac
 
 case "$REPLY" in
@@ -122,10 +123,11 @@ case "$REPLY" in
 	24) TARGET="--enable-hs7810a";BOXTYPE="--with-boxtype=hs7810a";;
 	25) TARGET="--enable-adb_box";BOXTYPE="--with-boxtype=adb_box";;
 	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
-	27) TARGET="--enable-whitebox";BOXTYPE="--with-boxtype=whitebox";;
+	27) TARGET="--enable-atemio520";BOXTYPE="--with-boxtype=atemio520";;
 	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
 	29) TARGET="--enable-ufc960";BOXTYPE="--with-boxtype=ufc960";;
 	30) TARGET="--enable-vitamin_hd5000";BOXTYPE="--with-boxtype=vitamin_hd5000";;
+	31) TARGET="--enable-atemio530";BOXTYPE="--with-boxtype=atemio530";;
 	 *) TARGET="--enable-atevio7500";BOXTYPE="--with-boxtype=atevio7500";;
 esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
@@ -412,6 +414,8 @@ echo "Your next step could be:"
 echo "----------------------------------------"
 echo "make yaud-neutrino"
 echo "make yaud-neutrino-mp"
+echo "make yaud-neutrino-mp-exp"
+echo "make yaud-neutrino-mp-exp-next"
 echo "make yaud-neutrino-hd2-exp"
 echo "make yaud-enigma2-pli-nightly"
 echo "make yaud-xbmc-nightly"

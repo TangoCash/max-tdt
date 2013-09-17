@@ -89,9 +89,11 @@ ${DIALOG} --menu "\n Select Target:\n " $height $width $listheight \
 24	"Fortis HS7810A" \
 25	"B4Team ADB 5800S" \
 26	"Fortis HS7110" \
-27	"WHITEBOX" \
+27	"Atemio520" \
 28	"Kathrein UFS-913" \
 29	"Kathrein UFC-960" \
+28	"Vitamin HD5000" \
+29	"Atemio530" \
 2> ${tempfile}
 
 opt=${?}
@@ -125,10 +127,12 @@ case "$REPLY" in
 	24) TARGET="--enable-hs7810a";BOXTYPE="--with-boxtype=hs7810a";;
 	25) TARGET="--enable-adb_box";BOXTYPE="--with-boxtype=adb_box";;
 	26) TARGET="--enable-hs7110";BOXTYPE="--with-boxtype=hs7110";;
-	27) TARGET="--enable-whitebox";BOXTYPE="--with-boxtype=whitebox";;
+	27) TARGET="--enable-atemio520";BOXTYPE="--with-boxtype=atemio520";;
 	28) TARGET="--enable-ufs913";BOXTYPE="--with-boxtype=ufs913";;
 	29) TARGET="--enable-ufc960";BOXTYPE="--with-boxtype=ufc960";;
-	 *) TARGET="--enable-ufs910";BOXTYPE="--with-boxtype=ufs910";;
+	30) TARGET="--enable-vitamin_hd5000";BOXTYPE="--with-boxtype=vitamin_hd5000";;
+	31) TARGET="--enable-atemio530";BOXTYPE="--with-boxtype=atemio530";;
+	 *) TARGET="--enable-atevio7500";BOXTYPE="--with-boxtype=atevio7500";;
 esac
 CONFIGPARAM="$CONFIGPARAM $TARGET $BOXTYPE"
 clear

@@ -144,6 +144,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    done
 fi
 
+#never reached
 echo "REBOOT" > /dev/fplarge
 echo "REBOOT"
-fi
+init 6

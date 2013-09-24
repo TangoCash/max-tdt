@@ -13,6 +13,7 @@ mknod -m 0666 /dev/fplarge c 62 2 2>/dev/null
 mknod -m 0666 /dev/fpsmall c 62 3 2>/dev/null
 
 insmod $MODDIR/e2_proc.ko
+insmod $MODDIR/tffp.ko
 
 if [ -e /var/etc/.firstboot ]; then
    echo "WAIT" > /dev/fpsmall
@@ -27,6 +28,9 @@ fi
 if [ -e /dev/ttyAS1 ]; then
    rm -f /dev/ttyAS1
 fi
+
+# Update the GMT offset in case it changed during the standby
+/bin/tffpctl --setgmtoffset
 
 /etc/init.d/portmap start
 /etc/init.d/autofs start
@@ -86,9 +90,10 @@ if [ ! -e /var/etc/.firstboot ]; then
    echo "init frontpanel"
    insmod $MODDIR/boxtype.ko
    insmod $MODDIR/simu_button.ko
+   tffpctl --keyemulationmode 2
    /bin/evremote2 110 10 &
 
-   showiframe -p /var/boot/bootlogo.mvi &
+   #showiframe -p /var/boot/bootlogo.mvi &
    stfbcontrol a 0
 
    # Workaround why is jfs always not mountable?
@@ -129,6 +134,8 @@ if [ ! -e /var/etc/.firstboot ]; then
       echo "starting neutrino ->"
       /usr/local/bin/neutrino
       rtv=$?
+      # update the GMT offset in case it changed while being turned on
+      /bin/tffpctl --setgmtoffset
       echo "neutrino ended <- RTV: " $rtv
       case "$rtv" in
 		0) echo "0"

@@ -140,6 +140,8 @@ $(DEPDIR)/e2fsprogs: bootstrap @DEPENDS_e2fsprogs@ | $(UTIL_LINUX)
 			--disable-testio-debug \
 			--disable-defrag \
 			--disable-nls \
+			--disable-libuuid \
+			--disable-libblkid \
 			--enable-elf-shlibs \
 			--enable-verbose-makecmds \
 			--enable-symlink-install \

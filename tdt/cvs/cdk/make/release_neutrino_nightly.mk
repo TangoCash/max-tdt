@@ -973,6 +973,8 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 	mkdir -p $(prefix)/release_neutrino/usr/share/alsa
 	cp -dp $(targetprefix)/usr/share/alsa/alsa.conf $(prefix)/release_neutrino/usr/share/alsa/alsa.conf
 
+	rm -f $(prefix)/release_neutrino/usr/lib/*.py
+
 #
 # sh4-linux-strip all
 #

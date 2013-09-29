@@ -140,6 +140,8 @@ $(DEPDIR)/e2fsprogs: bootstrap utillinux @DEPENDS_e2fsprogs@
 			--disable-testio-debug \
 			--disable-defrag \
 			--disable-nls \
+			--disable-libuuid \
+			--disable-libblkid \
 			--enable-elf-shlibs \
 			--enable-verbose-makecmds \
 			--enable-symlink-install \

@@ -169,7 +169,6 @@ $(DEPDIR)/utillinux: bootstrap libz ncurses-dev @DEPENDS_utillinux@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
-			--disable-libmount \
 			--disable-static \
 			--disable-rpath \
 			--disable-libuuid \

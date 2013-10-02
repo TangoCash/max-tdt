@@ -974,6 +974,12 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 	cp -dp $(targetprefix)/usr/share/alsa/alsa.conf $(prefix)/release_neutrino/usr/share/alsa/alsa.conf
 
 	rm -f $(prefix)/release_neutrino/usr/lib/*.py
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v1.jpg
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v2.jpg
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v3.jpg
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v4.jpg
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v5.jpg
+	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v6.jpg
 
 #
 # sh4-linux-strip all

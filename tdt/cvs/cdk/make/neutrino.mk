@@ -328,7 +328,7 @@ neutrino-mp-exp-updateyaud: neutrino-mp-exp-clean neutrino-mp-exp
 #
 # neutrino-mp-exp-next
 #
-$(DEPDIR)/neutrino-mp-exp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libao libstb-hal-exp-next
+$(DEPDIR)/neutrino-mp-exp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal-exp-next
 	rm -rf $(appsdir)/neutrino-mp-exp-next
 	rm -rf $(appsdir)/neutrino-mp-exp-next.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \

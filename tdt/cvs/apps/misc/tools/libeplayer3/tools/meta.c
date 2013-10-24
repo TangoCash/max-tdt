@@ -30,7 +30,8 @@ void dump_metadata()
 int main(int argc,char* argv[])
 {
     char file[255] = {""};
-    int  err, i;
+    unsigned int i;
+    int  err;
 
     if (argc < 2)
     {

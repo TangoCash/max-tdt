@@ -136,14 +136,28 @@ static int writeData(void* _call)
         int x,y;
         const unsigned char *src = call->data;
         unsigned char *dst = call->destination + (call->y * dst_stride + call->x * 4);
+	//uint32_t *dst = call->destination + call->y * dst_stride + call->x;
         unsigned int k,ck,t;
+
+	static uint32_t last_color = 0, colortable[256];
+
+	if (last_color != call->color) {
+		// call->color is rgba, our spark frame buffer is argb
+		uint32_t c = call->color >> 8, a = 255 - (call->color & 0xff);
+		int i;
+		for (i = 0; i < 256; i++) {
+			uint32_t k = (a * i) >> 8;
+			colortable[i] = k ? (c | (k << 24)) : 0;
+		}
+		last_color = call->color;
+	}
 
         fb_printf(100, "x           %d\n", call->x);
         fb_printf(100, "y           %d\n", call->y);
         fb_printf(100, "width       %d\n", call->Width);
         fb_printf(100, "height      %d\n", call->Height);
         fb_printf(100, "stride      %d\n", call->Stride);
-        fb_printf(100, "color       %d\n", call->color);
+        fb_printf(100, "color       0x%.8X\n", call->color);
         fb_printf(100, "data        %p\n", call->data);
         fb_printf(100, "dest        %p\n", call->destination);
         fb_printf(100, "dest.stride %d\n", call->destStride);
@@ -153,8 +167,13 @@ static int writeData(void* _call)
         for (y=0;y<call->Height;y++)
         {
             for (x = 0; x < call->Width; x++)
-            {
-                k = ((unsigned)src[x]) * opacity / 255;
+            {                
+		//uint32_t c = colortable[src[x]];
+		//if (c)
+		//	*dst = c;
+		
+		
+		k = ((unsigned)src[x]) * opacity / 255;
                 ck = 255 - k;
                 t = *dst;
                 *dst++ = (k*b + ck*t) / 255;
@@ -162,7 +181,9 @@ static int writeData(void* _call)
                 *dst++ = (k*g + ck*t) / 255;
                 t = *dst;
                 *dst++ = (k*r + ck*t) / 255;
-                *dst++ = 0;
+		t = *dst;
+		if(k > t)*dst++ = k;
+		else dst++;
             }
 
             dst += dst_delta;

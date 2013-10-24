@@ -64,7 +64,7 @@ static const char FILENAME[] = __FILE__;
 /* Varaibles                     */
 /* ***************************** */
 
-static Track_t * Tracks;
+static Track_t * Tracks = NULL;
 static int TrackCount = 0;
 static int CurrentTrack = -1; //no as default.
 
@@ -82,12 +82,23 @@ static int ManagerAdd(Context_t  *context, Track_t track) {
 
     if (Tracks == NULL) {
         Tracks = malloc(sizeof(Track_t) * TRACKWRAP);
+	int i;
+	for (i = 0; i < TRACKWRAP; i++)
+		Tracks[i].Id = -1;
     }
 
     if (Tracks == NULL)
     {
         subtitle_mgr_err("%s:%s malloc failed\n", FILENAME, __FUNCTION__);
         return cERR_SUBTITLE_MGR_ERROR;
+    }
+
+    int i;
+    for (i = 0; i < TRACKWRAP; i++) {
+        if (Tracks[i].Id == track.Id) {
+            Tracks[i].pending = 0;
+            return cERR_SUBTITLE_MGR_NO_ERROR;
+        }
     }
 
     if (TrackCount < TRACKWRAP) {
@@ -107,7 +118,7 @@ static int ManagerAdd(Context_t  *context, Track_t track) {
     return cERR_SUBTITLE_MGR_NO_ERROR;
 }
 
-static char ** ManagerList(Context_t  *context) {
+static char ** ManagerList(Context_t  *context __attribute__((unused))) {
     char ** tracklist = NULL;
     int i = 0, j = 0;
 
@@ -123,6 +134,8 @@ static char ** ManagerList(Context_t  *context) {
         }
 
         for (i = 0, j = 0; i < TrackCount; i++, j+=2) {
+	    if (Tracks[i].pending)
+		continue;
             tracklist[j]    = strdup(Tracks[i].Name);
             tracklist[j+1]  = strdup(Tracks[i].Encoding);
         }
@@ -135,28 +148,31 @@ static char ** ManagerList(Context_t  *context) {
     return tracklist;
 }
 
-static int ManagerDel(Context_t * context) {
+static int ManagerDel(Context_t * context, int onlycurrent) {
 
     int i = 0;
 
     subtitle_mgr_printf(10, "%s::%s\n", FILENAME, __FUNCTION__);
 
-    if(Tracks != NULL) {
-        for (i = 0; i < TrackCount; i++) {
-            freeTrack(&Tracks[i]);
-        }
-
-        free(Tracks);
-        Tracks = NULL;
-    } else
-    {
-        subtitle_mgr_err("%s::%s nothing to delete!\n", FILENAME, __FUNCTION__);
-        return cERR_SUBTITLE_MGR_ERROR;
+		if(onlycurrent == 0) {
+	    if(Tracks != NULL) {
+	        for (i = 0; i < TrackCount; i++) {
+	            freeTrack(&Tracks[i]);
+	        }
+	
+	        free(Tracks);
+	        Tracks = NULL;
+	    } else
+	    {
+	        subtitle_mgr_err("%s::%s nothing to delete!\n", FILENAME, __FUNCTION__);
+	        return cERR_SUBTITLE_MGR_ERROR;
+	    }
+	
+	    TrackCount = 0;
+	    context->playback->isSubtitle = 0;
     }
-
-    TrackCount = 0;
+    
     CurrentTrack = -1;
-    context->playback->isSubtitle = 0;
 
     subtitle_mgr_printf(10, "%s::%s return no error\n", FILENAME, __FUNCTION__);
 
@@ -176,6 +192,7 @@ static int Command(void  *_context, ManagerCmd_t command, void * argument) {
         break;
     }
     case MANAGER_LIST: {
+	container_ffmpeg_update_tracks(context, context->playback->uri, 0);
         *((char***)argument) = (char **)ManagerList(context);
         break;
     }
@@ -230,7 +247,16 @@ static int Command(void  *_context, ManagerCmd_t command, void * argument) {
         break;
     }
     case MANAGER_DEL: {
-        ret = ManagerDel(context);
+    		if(argument == NULL)
+    			ret = ManagerDel(context, 0);
+    		else
+        	ret = ManagerDel(context, *((int*)argument));
+        break;
+    }
+    case MANAGER_INIT_UPDATE: {
+	int i;
+	for (i = 0; i < TrackCount; i++)
+		Tracks[i].pending = 1;
         break;
     }
     default:

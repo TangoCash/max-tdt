@@ -110,6 +110,7 @@ static int            destStride       = 0;
 static int            shareFramebuffer = 0;
 static int            framebufferFD    = -1;
 static unsigned char* destination      = NULL;
+static void           (*framebufferBlit)() = NULL;
 
 /* ***************************** */
 /* Prototypes                    */
@@ -430,6 +431,7 @@ static void* SubtitleThread(void* data) {
     unsigned long long int  Pts                 = 0;
 
     subtitle_printf(10, "\n");
+    hasThreadStarted = 1;
 
     while ( context->playback->isCreationPhase ) {
         subtitle_err("Thread waiting for end of init phase...\n");
@@ -440,7 +442,7 @@ static void* SubtitleThread(void* data) {
 
     while ( context &&
             context->playback &&
-            context->playback->isPlaying) {
+            context->playback->isPlaying && hasThreadStarted == 1) {
 
         int curtrackid = -1;
         
@@ -457,7 +459,7 @@ static void* SubtitleThread(void* data) {
 
             if (context && context->playback)
                 context->playback->Command(context, PLAYBACK_PTS, &Pts);
-            else return NULL;
+            else break;
 
             if(Pts > subPts) {
                 subtitle_printf(10,"subtitle is to late, ignoring\n");
@@ -471,7 +473,7 @@ static void* SubtitleThread(void* data) {
             while ( context &&
                     context->playback &&
                     context->playback->isPlaying &&
-                    Pts < subPts) {
+                    Pts < subPts && hasThreadStarted == 1) {
 
                 unsigned long int diff = subPts - Pts;
                 diff = (diff*1000)/90.0;
@@ -494,7 +496,7 @@ static void* SubtitleThread(void* data) {
             if (    context &&
                     context->playback &&
                     context->playback->isPlaying &&
-                    subText != NULL ) {
+                    subText != NULL && hasThreadStarted == 1) {
 
                 if(clientFunction != NULL)
                     clientFunction(subMilliDuration, strlen(subText), subText, clientData);
@@ -529,7 +531,7 @@ static int Write(void* _context, void *data) {
     int DataLength;
     unsigned long long int Pts;
     float Duration;
-    
+ 
     subtitle_printf(10, "\n");
 
     if (data == NULL)
@@ -597,7 +599,7 @@ static int Write(void* _context, void *data) {
     return cERR_SUBTITLE_NO_ERROR;
 }
 
-static int subtitle_Open(context) {
+static int subtitle_Open(Context_t* context __attribute__((unused))) {
     int i;
 
     subtitle_printf(10, "\n");
@@ -629,7 +631,7 @@ static int subtitle_Open(context) {
     return cERR_SUBTITLE_NO_ERROR;
 }
 
-static int subtitle_Close(Context_t* context) {
+static int subtitle_Close(Context_t* context __attribute__((unused))) {
     int i;
 
     subtitle_printf(10, "\n");
@@ -676,7 +678,6 @@ static int subtitle_Play(Context_t* context) {
         } else
         {
            subtitle_printf(10, "Created thread\n");
-           hasThreadStarted = 1;
         }
     }
     else
@@ -690,15 +691,18 @@ static int subtitle_Play(Context_t* context) {
     return cERR_SUBTITLE_NO_ERROR;
 }
 
-static int subtitle_Stop(context) {
-    int wait_time = 20;
+static int subtitle_Stop(Context_t* context __attribute__((unused))) {
+    int wait_time = 100;
     int i;
     
     subtitle_printf(10, "\n");
 
-    while ( (hasThreadStarted != 0) && (--wait_time) > 0 ) {
-        subtitle_printf(10, "Waiting for subtitle thread to terminate itself, will try another %d times\n", wait_time);
-        usleep(100000);
+		if(hasThreadStarted != 0) {
+	    hasThreadStarted = 2;
+	    while ( (hasThreadStarted != 0) && (--wait_time) > 0 ) {
+	        subtitle_printf(10, "Waiting for subtitle thread to terminate itself, will try another %d times\n", wait_time);
+	        usleep(100000);
+	    }
     }
 
     if (wait_time == 0) {
@@ -785,6 +789,7 @@ static int Command(void  *_context, OutputCmd_t command, void * argument) {
         out->framebufferFD = framebufferFD;
         out->destination = destination;
         out->destStride = destStride;
+        out->framebufferBlit = framebufferBlit;
         break;
     }
     case OUTPUT_SET_SUBTITLE_OUTPUT: {
@@ -795,6 +800,7 @@ static int Command(void  *_context, OutputCmd_t command, void * argument) {
         framebufferFD = out->framebufferFD;
         destination = out->destination;
         destStride = out->destStride;
+        framebufferBlit = out->framebufferBlit;
         break;
     }
     case OUTPUT_SUBTITLE_REGISTER_FUNCTION: {

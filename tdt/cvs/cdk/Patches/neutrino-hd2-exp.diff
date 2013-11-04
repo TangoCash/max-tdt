@@ -1,16 +1,27 @@
---- neutrino-hd2-exp.org/src/gui/Makefile.am	2013-02-01 20:28:48.465181387 +0100
-+++ neutrino-hd2-exp/src/gui/Makefile.am	2013-02-01 20:51:33.353237972 +0100
-@@ -1,7 +1,7 @@
- BUILT_SOURCES  = svn_version.h
+diff -NEbur '--exclude-from=diff-exclude' neutrino-hd2-exp.org/lib/libdvbsub/dvbsubtitle.cpp neutrino-hd2-exp/lib/libdvbsub/dvbsubtitle.cpp
+--- neutrino-hd2-exp.org/lib/libdvbsub/dvbsubtitle.cpp	2013-11-04 08:57:06.603494566 +0100
++++ neutrino-hd2-exp/lib/libdvbsub/dvbsubtitle.cpp	2013-11-04 09:03:25.127510258 +0100
+@@ -193,7 +193,7 @@
+ 		return;
+ 	}
  
- svn_version.h:
--	@if test -d .svn ; then \
-+	@if test -d ../../.svn ; then \
- 		sleep 180 && rm svn_version.h & echo "#define SVNVERSION \"$$(svnversion -n || echo svn_oops!)\" " > svn_version.h ; \
- 	else \
- 		rm svn_version.h; echo '#define BUILT_DATE "'`date`'"' > svn_version.h ; \
---- neutrino-hd2-exp.org/lib/libeplayer3/container/container_ffmpeg.c	2013-06-15 11:19:50.779431040 +0200
-+++ neutrino-hd2-exp/lib/libeplayer3/container/container_ffmpeg.c	2013-07-28 20:59:12.090386998 +0200
+-	avctx = avcodec_alloc_context();
++	avctx = avcodec_alloc_context3(avcodec);
+ 
+ 	if (!avctx) 
+ 	{
+@@ -201,7 +201,7 @@
+ 		return;
+ 	}
+ 
+-	if (avcodec_open(avctx, avcodec) < 0)
++	if (avcodec_open2(avctx, avcodec, NULL) < 0)
+ 		dbgconverter("cDvbSubtitleConverter: unable to open codec !\n");
+ 
+ #if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(52, 64, 0)
+diff -NEbur '--exclude-from=diff-exclude' neutrino-hd2-exp.org/lib/libeplayer3/container/container_ffmpeg.c neutrino-hd2-exp/lib/libeplayer3/container/container_ffmpeg.c
+--- neutrino-hd2-exp.org/lib/libeplayer3/container/container_ffmpeg.c	2013-11-04 08:57:06.255494551 +0100
++++ neutrino-hd2-exp/lib/libeplayer3/container/container_ffmpeg.c	2013-11-04 09:03:25.123510258 +0100
 @@ -38,7 +38,9 @@
  #include <pthread.h>
  
@@ -46,7 +57,7 @@
  	{
  		case CODEC_ID_MPEG1VIDEO:
  			return "V_MPEG1";
-@@ -250,7 +258,8 @@
+@@ -255,7 +263,8 @@
  #endif 
  
  		default:
@@ -56,7 +67,7 @@
  	}
  	
  	return NULL;
-@@ -632,7 +641,7 @@
+@@ -637,7 +646,7 @@
  							avOut.len        = decoded_data_size;
  
  							avOut.pts        = pts;
@@ -65,7 +76,7 @@
  							avOut.extralen   = sizeof(extradata);
  							avOut.frameRate  = 0;
  							avOut.timeScale  = 0;
-@@ -800,7 +809,7 @@
+@@ -805,7 +814,7 @@
  							SubtitleData_t data;
  							data.data      = line;
  							data.len       = strlen((char*)line);
@@ -74,18 +85,17 @@
  							data.extralen  = strlen(DEFAULT_ASS_HEAD);
  							data.pts       = pts;
  							data.duration  = duration;
-@@ -897,8 +906,8 @@
- 	avContext->flags |= AVFMT_FLAG_GENPTS;
+@@ -901,6 +910,9 @@
  	
- 	// FIXME:set max probe duration for ts files to 1
--	//if ( strstr(filename, ".ts") )
--	//	avContext->max_analyze_duration = 1;
+ 	avContext->flags |= AVFMT_FLAG_GENPTS;
+ 
 +	if ( strstr(filename, ".ts") )
 +		avContext->max_analyze_duration = 5;
- 
++
  	ffmpeg_printf(20, "find_streaminfo\n");
  
-@@ -937,7 +946,8 @@
+ #if LIBAVCODEC_VERSION_MAJOR < 54
+@@ -940,7 +952,8 @@
  		AVStream * stream = avContext->streams[n];
  		int version = 0;
  
@@ -95,7 +105,7 @@
  
  		if (encoding != NULL)
  			ffmpeg_printf(1, "%d. encoding = %s - version %d\n", n, encoding, version);
-@@ -1085,7 +1095,8 @@
+@@ -1089,7 +1102,8 @@
  
  					AVCodec *codec = avcodec_find_decoder(stream->codec->codec_id);
  
@@ -105,24 +115,28 @@
  						printf("AVCODEC__INIT__SUCCESS\n");
  					else
  						printf("AVCODEC__INIT__FAILED\n");
---- neutrino-hd2-exp.org/lib/libdvbsub/dvbsubtitle.cpp	2013-06-09 12:29:32.013820475 +0200
-+++ neutrino-hd2-exp/lib/libdvbsub/dvbsubtitle.cpp	2013-07-28 18:52:14.506635644 +0200
-@@ -193,7 +193,7 @@
- 		return;
- 	}
+Binärdateien neutrino-hd2-exp.org/lib/libeplayer3/eplayer3 und neutrino-hd2-exp/lib/libeplayer3/eplayer3 sind verschieden.
+Binärdateien neutrino-hd2-exp.org/lib/libeplayer3/meta und neutrino-hd2-exp/lib/libeplayer3/meta sind verschieden.
+diff -NEbur '--exclude-from=diff-exclude' neutrino-hd2-exp.org/src/gui/infoviewer.cpp neutrino-hd2-exp/src/gui/infoviewer.cpp
+--- neutrino-hd2-exp.org/src/gui/infoviewer.cpp	2013-11-04 08:57:10.335494720 +0100
++++ neutrino-hd2-exp/src/gui/infoviewer.cpp	2013-11-04 09:06:08.091517014 +0100
+@@ -35,6 +35,7 @@
+ #include <config.h>
+ #endif
+ #include <string>
++#include <unistd.h>
+ #include <algorithm>
  
--	avctx = avcodec_alloc_context();
-+	avctx = avcodec_alloc_context3(avcodec);
+ #include <sys/types.h>
+diff -NEbur '--exclude-from=diff-exclude' neutrino-hd2-exp.org/src/gui/Makefile.am neutrino-hd2-exp/src/gui/Makefile.am
+--- neutrino-hd2-exp.org/src/gui/Makefile.am	2013-11-04 08:57:10.347494721 +0100
++++ neutrino-hd2-exp/src/gui/Makefile.am	2013-11-04 09:03:25.123510258 +0100
+@@ -3,7 +3,7 @@
+ BUILT_SOURCES  = svn_version.h
  
- 	if (!avctx) 
- 	{
-@@ -201,7 +201,7 @@
- 		return;
- 	}
- 
--	if (avcodec_open(avctx, avcodec) < 0)
-+	if (avcodec_open2(avctx, avcodec, NULL) < 0)
- 		dbgconverter("cDvbSubtitleConverter: unable to open codec !\n");
- 
- #if LIBAVCODEC_VERSION_INT >= AV_VERSION_INT(52, 64, 0)
-
+ svn_version.h:
+-	@if test -d .svn ; then \
++	@if test -d ../../.svn ; then \
+ 		sleep 180 && rm svn_version.h & echo "#define SVNVERSION \"$$(svnversion -n || echo svn_oops!)\" " > svn_version.h ; \
+ 	else \
+ 		rm svn_version.h; echo '#define BUILT_DATE "'`date`'"' > svn_version.h ; \

@@ -1,7 +1,7 @@
 #
 # busybox
 #
-$(DEPDIR)/busybox: bootstrap @DEPENDS_busybox@ $(buildprefix)/Patches/busybox.config$(if $(UFS912)$(UFS913)$(ATEVIO7500)$(SPARK)$(SPARK7162),_nandwrite)
+$(DEPDIR)/busybox: bootstrap @DEPENDS_busybox@ $(buildprefix)/Patches/busybox.config$(if $(UFS912)$(UFS913)$(SPARK)$(SPARK7162),_nandwrite)
 	@PREPARE_busybox@
 	cd @DIR_busybox@ && \
 		$(INSTALL) -m644 $(lastword $^) .config && \

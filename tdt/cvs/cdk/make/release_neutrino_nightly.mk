@@ -720,7 +720,12 @@ endif
 	cp $(targetprefix)/usr/local/bin/pzapit $(prefix)/release_neutrino/usr/local/bin/
 	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
 	mkdir -p $(prefix)/release_neutrino/usr/local/sbin
-	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
+	if [ -e $(targetprefix)/usr/local/sbin/udpstreampes ]; then \
+		cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/; \
+	fi
+	if [ -e $(targetprefix)/usr/local/bin/udpstreampes ]; then \
+		cp $(targetprefix)/usr/local/bin/udpstreampes $(prefix)/release_neutrino/usr/local/bin/; \
+	fi
 
 #
 # channellist / tuxtxt

@@ -80,7 +80,7 @@ rm -f $CURDIR/mtd_root.bin
 
 #SIZE=`stat mtd_root.sum.pad.bin -t --format %s`
 SIZE=`stat mtd_root.sum.bin -t --format %s`
-SIZE=`printf "0x%x" $SIZE`
+SIZE=`printf "0x%07x" $SIZE`
 if [[ $SIZE > "0x4000000" ]]; then
   echo "ROOT TO BIG. $SIZE instead of 0x4000000" > /dev/stderr
   read -p "Press ENTER to continue..."

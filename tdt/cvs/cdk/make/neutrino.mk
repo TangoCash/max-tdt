@@ -460,20 +460,20 @@ neutrino-twin-next-distclean:
 # neutrino-hd2-exp branch
 #
 $(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl ffmpeg libusb2 libalsa
-	rm -rf $(appsdir)/neutrino-hd2-exp
-	rm -rf $(appsdir)/neutrino-hd2-exp.org
+	rm -rf $(appsdir)/nhd2-exp
+	rm -rf $(appsdir)/nhd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \
 	(cd $(archivedir)/neutrino-hd2-exp.svn; svn up ; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] || \
 	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(archivedir)/neutrino-hd2-exp.svn; \
-	cp -ra $(archivedir)/neutrino-hd2-exp.svn $(appsdir)/neutrino-hd2-exp; \
-	cp -ra $(appsdir)/neutrino-hd2-exp $(appsdir)/neutrino-hd2-exp.org
-	cd $(appsdir)/neutrino-hd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
+	cp -ra $(archivedir)/neutrino-hd2-exp.svn $(appsdir)/nhd2-exp; \
+	cp -ra $(appsdir)/nhd2-exp $(appsdir)/nhd2-exp.org
+	cd $(appsdir)/nhd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 	touch $@
 
-$(appsdir)/neutrino-hd2-exp/config.status:
+$(appsdir)/nhd2-exp/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd $(appsdir)/neutrino-hd2-exp && \
+	cd $(appsdir)/nhd2-exp && \
 		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
 		$(BUILDENV) \
 		./configure \
@@ -499,7 +499,7 @@ $(appsdir)/neutrino-hd2-exp/config.status:
 			CPPFLAGS="$(N_CPPFLAGS)"
 
 $(DEPDIR)/neutrino-hd2-exp: neutrino-hd2-exp.do_prepare neutrino-hd2-exp.do_compile
-	$(MAKE) -C $(appsdir)/neutrino-hd2-exp install DESTDIR=$(targetprefix) && \
+	$(MAKE) -C $(appsdir)/nhd2-exp install DESTDIR=$(targetprefix) && \
 	rm -f $(targetprefix)/var/etc/.version
 	make $(targetprefix)/var/etc/.version
 	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
@@ -507,14 +507,14 @@ $(DEPDIR)/neutrino-hd2-exp: neutrino-hd2-exp.do_prepare neutrino-hd2-exp.do_comp
 	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
 	touch $@
 
-$(DEPDIR)/neutrino-hd2-exp.do_compile: $(appsdir)/neutrino-hd2-exp/config.status
-	cd $(appsdir)/neutrino-hd2-exp && \
+$(DEPDIR)/neutrino-hd2-exp.do_compile: $(appsdir)/nhd2-exp/config.status
+	cd $(appsdir)/nhd2-exp && \
 		$(MAKE) all
 	touch $@
 
 neutrino-hd2-exp-clean:
 	rm -f $(DEPDIR)/neutrino-hd2-exp
-	cd $(appsdir)/neutrino-hd2-exp && \
+	cd $(appsdir)/nhd2-exp && \
 		$(MAKE) clean
 
 neutrino-hd2-exp-distclean:

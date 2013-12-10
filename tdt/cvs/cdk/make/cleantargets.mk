@@ -54,6 +54,7 @@ distclean-local:
 	-rm -f linux-sh4
 	-rm -rf $(appsdir)/enigma2-*
 	-rm -rf $(appsdir)/neutrino-*
+	-rm -rf $(appsdir)/nhd2-*
 	-rm -rf $(appsdir)/libstb-*
 	-rm -rf $(appsdir)/xbmc-*
 	-rm -rf $(DEPDIR)

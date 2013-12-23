@@ -25,7 +25,7 @@ host_python;2.7.3;host-python-2.7.3;Python-2.7.3.tar.bz2:python_2.7.3.diff;extra
 host_libtool;2.4.2;libtool-2.4.2;libtool-2.4.2.tar.gz;extract:libtool-2.4.2.tar.gz;patch:libtool-2.4.2-duckbox-branding.patch
 host_pkgconfig;0.28;pkg-config-0.28;pkg-config-0.28.tar.gz;extract:pkg-config-0.28.tar.gz
 host_automake;1.11.6;automake-1.11.6;automake-1.11.6.tar.gz;extract:automake-1.11.6.tar.gz;patch:automake-py-compile-compile-only-optimized-byte-code.patch
-host_autoconf;2.64;autoconf-2.64;autoconf-2.64.tar.gz;extract:autoconf-2.64.tar.gz;patch:autoconf-remove-usr-local-lib-from-m4.patch
+host_autoconf;2.64;autoconf-2.64;autoconf-2.64.tar.gz;extract:autoconf-2.64.tar.gz;patch:autoconf-remove-usr-local-lib-from-m4.patch;patch:autoconf.texi.2.65.patch
 
 #
 # ccache

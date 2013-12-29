@@ -457,7 +457,7 @@ neutrino-twin-next-distclean:
 	rm -f $(DEPDIR)/neutrino-twin-next.do_prepare
 
 #
-# neutrino-hd2-exp branch
+# neutrino-hd2-exp
 #
 $(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl ffmpeg libusb2 libalsa
 	rm -rf $(appsdir)/nhd2-exp
@@ -468,8 +468,9 @@ $(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_
 	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(archivedir)/neutrino-hd2-exp.svn; \
 	cp -ra $(archivedir)/neutrino-hd2-exp.svn $(appsdir)/nhd2-exp; \
 	cp -ra $(appsdir)/nhd2-exp $(appsdir)/nhd2-exp.org
-	cd $(appsdir)/nhd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 	touch $@
+
+#	cd $(appsdir)/nhd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 
 $(appsdir)/nhd2-exp/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \

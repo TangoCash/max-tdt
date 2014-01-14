@@ -158,7 +158,7 @@ echo -e "\nKernel:"
 echo "   1) STM 24 P0207"
 echo "   2) STM 24 P0209"
 echo "   3) STM 24 P0210"
-echo "   4) STM 24 P0211"
+echo "   4) STM 24 P0211 (recommended)"
 case $2 in
 	[1-4]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"
@@ -202,7 +202,7 @@ cd - &>/dev/null
 
 echo -e "\nPlayer:"
 echo "   1) Player 191 (stmfb-3.1_stm24_0102)"
-echo "   2) Player 191 (stmfb-3.1_stm24_0104)"
+echo "   2) Player 191 (stmfb-3.1_stm24_0104, recommended)"
 case $4 in
 	[1-2]) REPLY=$4
 	echo -e "\nSelected player: $REPLY\n"
@@ -274,8 +274,8 @@ esac
 ##############################################
 
 echo -e "\nMulticom:"
-echo "   1) Multicom 3.2.4 (Player191)"
-echo "   2) Multicom 4.0.6 (Player191)"
+echo "   1) Multicom 3.2.4 (Player191, recommended)"
+echo "   2) Multicom 4.0.6 (Player191) - not yet ready!"
 case $5 in
 	[1-2]) REPLY=$5
 	echo -e "\nSelected multicom: $REPLY\n"
@@ -329,7 +329,7 @@ esac
 echo -e "\nMedia Framework:"
 echo "   1) eplayer3"
 echo "   2) gstreamer"
-echo "   3) use build-in"
+echo "   3) use build-in (recommended)"
 case $6 in
 	[1-3]) REPLY=$6
 	echo -e "\nSelected media framework: $REPLY\n"
@@ -367,7 +367,7 @@ esac
 ##############################################
 
 echo -e "\nGraphic Framework:"
-echo "   1) Framebuffer"
+echo "   1) Framebuffer (recommended)"
 echo "   2) DirectFB (Recommended XBMC)"
 case $8 in
 	[1-2]) REPLY=$8

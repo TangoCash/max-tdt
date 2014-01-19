@@ -435,7 +435,8 @@ REPLY=`cat $tempfile`
 
 case "$REPLY" in
 	1) MKTARGET="yaud-none lirc boot-elf remote firstboot"
-	   selectbranch
+	   MKTARGET="$MKTARGET neutrino-mp"
+	   # selectbranch
 	   addons
 	   MKTARGET="$MKTARGET release_neutrino_nightly"
 	   makeyaud;;

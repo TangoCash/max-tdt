@@ -156,6 +156,72 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
 
 #
+# neutrino-mp-next
+#
+$(DEPDIR)/neutrino-mp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal
+	rm -rf $(appsdir)/neutrino-mp-next
+	rm -rf $(appsdir)/neutrino-mp-next.org
+	[ -d "$(archivedir)/neutrino-mp.git" ] && \
+	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp.git" ] || \
+	git clone git://gitorious.org/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
+	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-next; \
+	(cd $(appsdir)/neutrino-mp-next; git checkout next; cd "$(buildprefix)";); \
+	cp -ra $(appsdir)/neutrino-mp-next $(appsdir)/neutrino-mp-next.org
+	touch $@
+
+$(appsdir)/neutrino-mp-next/config.status:
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/neutrino-mp-next && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--enable-lua \
+			--enable-ffmpegdec \
+			--with-boxtype=$(BOXTYPE) \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/plugins \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/neutrino-mp-next.do_compile: $(appsdir)/neutrino-mp-next/config.status
+	cd $(appsdir)/neutrino-mp-next && \
+		$(MAKE) all
+	touch $@
+
+$(DEPDIR)/neutrino-mp-next: neutrino-mp-next.do_prepare neutrino-mp-next.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-mp-next install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-mp-next-clean:
+	rm -f $(DEPDIR)/neutrino-mp-next
+	cd $(appsdir)/neutrino-mp-next && \
+		$(MAKE) distclean
+
+neutrino-mp-next-distclean:
+	rm -f $(DEPDIR)/neutrino-mp-next
+	rm -f $(DEPDIR)/neutrino-mp-next.do_compile
+	rm -f $(DEPDIR)/neutrino-mp-next.do_prepare
+
+#
 # neutrino-hd2-exp
 #
 $(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl ffmpeg libusb2 libalsa

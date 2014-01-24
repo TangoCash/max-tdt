@@ -85,6 +85,56 @@ libstb-hal-distclean:
 	rm -f $(DEPDIR)/libstb-hal.do_prepare
 
 #
+# libstb-hal-next
+#
+$(DEPDIR)/libstb-hal-next.do_prepare:
+	rm -rf $(appsdir)/libstb-hal-next
+	rm -rf $(appsdir)/libstb-hal-next.org
+	[ -d "$(archivedir)/libstb-hal.git" ] && \
+	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal.git" ] || \
+	git clone git://gitorious.org/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
+	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-next;\
+	(cd $(appsdir)/libstb-hal-next; git checkout next; cd "$(buildprefix)";); \
+	cp -ra $(appsdir)/libstb-hal-next $(appsdir)/libstb-hal-next.org
+	touch $@
+
+$(appsdir)/libstb-hal-next/config.status: bootstrap
+	export PATH=$(hostprefix)/bin:$(PATH) && \
+	cd $(appsdir)/libstb-hal-next && \
+		ACLOCAL_FLAGS="-I $(hostprefix)/share/aclocal" ./autogen.sh && \
+		$(BUILDENV) \
+		./configure \
+			--host=$(target) \
+			--build=$(build) \
+			--prefix= \
+			--with-target=cdk \
+			--with-boxtype=$(BOXTYPE) \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			$(PLATFORM_CPPFLAGS) \
+			CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/libstb-hal-next.do_compile: $(appsdir)/libstb-hal-next/config.status
+	cd $(appsdir)/libstb-hal-next && \
+		$(MAKE)
+	touch $@
+
+$(DEPDIR)/libstb-hal-next: libstb-hal-next.do_prepare libstb-hal-next.do_compile
+	$(MAKE) -C $(appsdir)/libstb-hal-next install DESTDIR=$(targetprefix)
+	touch $@
+
+libstb-hal-next-clean:
+	rm -f $(DEPDIR)/libstb-hal-next
+	cd $(appsdir)/libstb-hal-next && \
+		$(MAKE) distclean
+
+libstb-hal-next-distclean:
+	rm -f $(DEPDIR)/libstb-hal-next
+	rm -f $(DEPDIR)/libstb-hal-next.do_compile
+	rm -f $(DEPDIR)/libstb-hal-next.do_prepare
+
+#
 # NEUTRINO MP
 #
 $(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal
@@ -158,7 +208,7 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 #
 # neutrino-mp-next
 #
-$(DEPDIR)/neutrino-mp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-mp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal-next
 	rm -rf $(appsdir)/neutrino-mp-next
 	rm -rf $(appsdir)/neutrino-mp-next.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -189,8 +239,8 @@ $(appsdir)/neutrino-mp-next/config.status:
 			--with-configdir=/var/tuxbox/config \
 			--with-gamesdir=/var/tuxbox/games \
 			--with-plugindir=/var/plugins \
-			--with-stb-hal-includes=$(appsdir)/libstb-hal/include \
-			--with-stb-hal-build=$(appsdir)/libstb-hal \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-next/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-next \
 			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
 			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
 			$(PLATFORM_CPPFLAGS) \

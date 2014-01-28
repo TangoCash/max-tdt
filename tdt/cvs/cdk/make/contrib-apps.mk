@@ -712,7 +712,7 @@ $(DEPDIR)/hotplug_e2: bootstrap @DEPENDS_hotplug_e2@
 #
 # shairport
 #
-$(DEPDIR)/shairport: bootstrap openssl openssl-dev libalsa @DEPENDS_shairport@
+$(DEPDIR)/shairport: bootstrap openssl openssl-dev howl libalsa @DEPENDS_shairport@
 	@PREPARE_shairport@
 	[ -d "$(archivedir)/shairport.git" ] && \
 	(cd $(archivedir)/shairport.git; git pull; cd "$(buildprefix)";); \

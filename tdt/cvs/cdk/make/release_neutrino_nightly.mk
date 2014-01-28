@@ -916,8 +916,12 @@ endif
 #
 	if [ -e $(targetprefix)/usr/bin/shairport ]; then \
 		cp -f $(targetprefix)/usr/bin/shairport $(prefix)/release_neutrino/usr/bin; \
+		cp -f $(targetprefix)/usr/bin/mDNSPublish $(prefix)/release_neutrino/usr/bin; \
+		cp -f $(targetprefix)/usr/bin/mDNSResponder $(prefix)/release_neutrino/usr/bin; \
 		cp -f $(buildprefix)/root/etc/init.d/shairport $(prefix)/release_neutrino/etc/init.d/shairport; \
 		chmod 755 $(prefix)/release_neutrino/etc/init.d/shairport; \
+		cp -f $(targetprefix)/usr/lib/libhowl.so* $(prefix)/release_neutrino/usr/lib; \
+		cp -f $(targetprefix)/usr/lib/libmDNSResponder.so* $(prefix)/release_neutrino/usr/lib; \
 	fi
 #
 # Neutrino HD2 Workaround Build in Player

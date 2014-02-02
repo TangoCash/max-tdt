@@ -62,7 +62,7 @@ dir /usr/sbin						0777 0 0
 dir   /bin						0777 0 0
 # the busybox 1.11 from the release directory needs libcrypt.so.1
 # (uncomment at the bottom)
-#file  /bin/busybox	../../../tufsbox/release/bin/busybox 	0755 0 0
+#file  /bin/busybox	../../../tufsbox/release_neutrino/bin/busybox 	0755 0 0
 # busybox 1.13.1
 file  /bin/busybox	../tfinstaller/busybox 			0755 0 0
 slink /bin/echo		/bin/busybox			0777 0 0
@@ -98,10 +98,10 @@ file /etc/inittab	../tfinstaller/inittab 	  		0755 0 0
 dir  /etc/init.d 					0755 0 0
 file /etc/init.d/rcS	../tfinstaller/rcS				0755 0 0
 
-file /drvko/e2_proc.ko	../../../tufsbox/release/lib/modules/e2_proc.ko	0755 0 0
-file /drvko/tffp.ko	../../../tufsbox/release/lib/modules/tffp.ko	0755 0 0
-file /sbin/tffpctl	../../../tufsbox/release/bin/tffpctl		0755 0 0
-file /sbin/tfd2mtd      ../../../tufsbox/release/bin/tfd2mtd            0755 0 0
+file /drvko/e2_proc.ko	../../../tufsbox/release_neutrino/lib/modules/e2_proc.ko	0755 0 0
+file /drvko/tffp.ko	../../../tufsbox/release_neutrino/lib/modules/tffp.ko	0755 0 0
+file /sbin/tffpctl	../../../tufsbox/release_neutrino/bin/tffpctl		0755 0 0
+file /sbin/tfd2mtd      ../../../tufsbox/release_neutrino/bin/tfd2mtd            0755 0 0
 
 slink /init		/bin/busybox			0755 0 0
 
@@ -112,13 +112,13 @@ file /deploy/U-Boot_Settings_usb.mtd2	../tfinstaller/U-Boot_Settings_usb.mtd2	07
 file /deploy/u-boot.mtd1		../tfinstaller/u-boot.ftfd	0755 0 0
 
 dir  /lib									0755 0 0
-file /lib/libc.so.6		../../../tufsbox/release/lib/libc.so.6		0755 0 0
-file /lib/libpthread.so.0	../../../tufsbox/release/lib/libpthread.so.0	0755 0 0
-file /lib/ld-linux.so.2		../../../tufsbox/release/lib/ld-linux.so.2	0755 0 0
-file /lib/libe2p.so.2		../../../tufsbox/release/lib/libe2p.so.2	0755 0 0
-file /lib/libext2fs.so.2	../../../tufsbox/release/lib/libext2fs.so.2	0755 0 0
-file /lib/libcom_err.so.2	../../../tufsbox/release/lib/libcom_err.so.2	0755 0 0
+file /lib/libc.so.6		../../../tufsbox/release_neutrino/lib/libc.so.6		0755 0 0
+file /lib/libpthread.so.0	../../../tufsbox/release_neutrino/lib/libpthread.so.0	0755 0 0
+file /lib/ld-linux.so.2		../../../tufsbox/release_neutrino/lib/ld-linux.so.2	0755 0 0
+file /lib/libe2p.so.2		../../../tufsbox/release_neutrino/usr/lib/libe2p.so.2	0755 0 0
+file /lib/libext2fs.so.2	../../../tufsbox/release_neutrino/usr/lib/libext2fs.so.2	0755 0 0
+file /lib/libcom_err.so.2	../../../tufsbox/release_neutrino/usr/lib/libcom_err.so.2	0755 0 0
 file /lib/libblkid.so.1		../../../tufsbox/cdkroot/usr/lib/libblkid.so.1	0755 0 0
 file /lib/libuuid.so.1		../../../tufsbox/cdkroot/usr/lib/libuuid.so.1	0755 0 0
-#file /lib/libcrypt.so.1		../../../tufsbox/release/lib/libcrypt.so.1	0755 0 0
+#file /lib/libcrypt.so.1		../../../tufsbox/release_neutrino/lib/libcrypt.so.1	0755 0 0
 

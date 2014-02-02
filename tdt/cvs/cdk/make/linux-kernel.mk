@@ -359,6 +359,12 @@ $(DEPDIR)/linux-kernel.do_compile: \
 		$(MAKE) $(if $(TF7700),TF7700=y) ARCH=sh CROSS_COMPILE=$(target)- uImage modules
 	touch $@
 
+$(DEPDIR)/tfkernel.do_compile:
+	cd $(KERNEL_DIR) && \
+		export PATH=$(hostprefix)/bin:$(PATH) && \
+		$(MAKE) $(if $(TF7700),TF7700=y) ARCH=sh CROSS_COMPILE=$(target)- uImage
+	touch $@
+
 $(DEPDIR)/linux-kernel: bootstrap $(DEPDIR)/linux-kernel.do_compile
 	@$(INSTALL) -d $(prefix)/$*cdkroot/boot && \
 	$(INSTALL) -d $(prefix)/$*$(notdir $(bootprefix)) && \

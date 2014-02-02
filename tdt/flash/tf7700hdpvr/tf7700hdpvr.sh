@@ -23,4 +23,3 @@ tar -cvzf $CURDIR/out/rootfs.tar.gz *
 cd -
 
 echo "REMEMBER THAT AUDIO.ELF and VIDEO.ELF have to exist"
-

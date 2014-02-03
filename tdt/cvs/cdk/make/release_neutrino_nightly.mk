@@ -496,7 +496,8 @@ release_neutrino_base:
 	$(INSTALL_DIR) $(prefix)/release_neutrino/media/{dvd,nfs,usb} && \
 	ln -sf /hdd $(prefix)/release_neutrino/media/hdd && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/mnt/{hdd,nfs,usb} && \
-	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib,share} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/{bin,lib,local,share} && \
+	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/local/{bin,sbin} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/{fonts,tuxbox,udhcpc,zoneinfo} && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino && \
 	$(INSTALL_DIR) $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/icons/logo && \
@@ -714,12 +715,13 @@ endif
 #
 # neutrino
 #
-	mkdir -p $(prefix)/release_neutrino/usr/local/bin
 	ln -sf /usr/share $(prefix)/release_neutrino/usr/local/share
 	cp $(targetprefix)/usr/local/bin/neutrino $(prefix)/release_neutrino/usr/local/bin/
 	cp $(targetprefix)/usr/local/bin/pzapit $(prefix)/release_neutrino/usr/local/bin/
 	cp $(targetprefix)/usr/local/bin/sectionsdcontrol $(prefix)/release_neutrino/usr/local/bin/
-	mkdir -p $(prefix)/release_neutrino/usr/local/sbin
+	if [ -e $(targetprefix)/usr/local/bin/rcsim ]; then \
+		cp $(targetprefix)/usr/local/bin/rcsim $(prefix)/release_neutrino/bin/; \
+	fi
 	if [ -e $(targetprefix)/usr/local/sbin/udpstreampes ]; then \
 		cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/; \
 	fi
@@ -922,6 +924,13 @@ endif
 		chmod 755 $(prefix)/release_neutrino/etc/init.d/shairport; \
 		cp -f $(targetprefix)/usr/lib/libhowl.so* $(prefix)/release_neutrino/usr/lib; \
 		cp -f $(targetprefix)/usr/lib/libmDNSResponder.so* $(prefix)/release_neutrino/usr/lib; \
+	fi
+#
+# xupnpd
+#
+	if [ -e $(targetprefix)/usr/bin/xupnpd ]; then \
+		cp -f $(targetprefix)/usr/bin/xupnpd $(prefix)/release_neutrino/usr/bin; \
+		cp -aR $(targetprefix)/usr/share/xupnpd $(prefix)/release_neutrino/usr/share; \
 	fi
 #
 # Neutrino HD2 Workaround Build in Player

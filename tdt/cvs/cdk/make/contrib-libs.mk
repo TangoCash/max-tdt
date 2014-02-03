@@ -7,19 +7,14 @@ $(DEPDIR)/liblua: bootstrap ncurses $(archivedir)/luaposix.git @DEPENDS_liblua@
 	cd @DIR_liblua@ && \
 		$(BUILDENV) \
 		cp -r $(archivedir)/luaposix.git .; \
-		cd luaposix.git; cp lposix.c lua52compat.h ../src/; cd ..; \
-		sed -i 's/<config.h>/"config.h"/' src/lposix.c; \
+		cd luaposix.git/ext; cp posix/posix.c include/lua52compat.h ../../src/; cd ../..; \
+		sed -i 's/<config.h>/"config.h"/' src/posix.c; \
 		sed -i '/^#define/d' src/lua52compat.h; \
 		sed -i 's@^#define LUA_ROOT.*@#define LUA_ROOT "/"@' src/luaconf.h; \
 		sed -i '/^#define LUA_USE_READLINE/d' src/luaconf.h; \
 		sed -i 's/ -lreadline//' src/Makefile; \
-		sed -i 's|man/man1|.remove|' Makefile; \
-		$(MAKE) linux \
-		CC='$(target)-gcc' \
-		AR='$(target)-ar rcu' \
-		RANLIB='$(target)-ranlib' && \
-		@INSTALL_liblua@ && \
-		rm -rf $(targetprefix)/.remove
+		$(MAKE) linux CC='$(target)-gcc' LDFLAGS="-L$(targetprefix)/usr/lib" && \
+		@INSTALL_liblua@
 	@DISTCLEANUP_liblua@
 	touch $@
 
@@ -73,7 +68,6 @@ $(DEPDIR)/libboost: bootstrap @DEPENDS_libboost@
 $(DEPDIR)/libz: bootstrap @DEPENDS_libz@
 	@PREPARE_libz@
 	cd @DIR_libz@ && \
-		ln -sf /bin/true ./ldconfig && \
 		$(BUILDENV) \
 		./configure \
 			--prefix=/usr \
@@ -107,7 +101,7 @@ $(DEPDIR)/libreadline: bootstrap ncurses-dev @DEPENDS_libreadline@
 #
 # libfreetype
 #
-$(DEPDIR)/libfreetype: bootstrap @DEPENDS_libfreetype@
+$(DEPDIR)/libfreetype: bootstrap libpng @DEPENDS_libfreetype@
 	@PREPARE_libfreetype@
 	cd @DIR_libfreetype@ && \
 		sed -i '/#define FT_CONFIG_OPTION_OLD_INTERNALS/d' include/freetype/config/ftoption.h && \
@@ -258,37 +252,22 @@ $(DEPDIR)/libungif: bootstrap @DEPENDS_libungif@
 $(DEPDIR)/libgif: bootstrap @DEPENDS_libgif@
 	@PREPARE_libgif@
 	cd @DIR_libgif@ && \
+		export ac_cv_prog_have_xmlto=no && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr \
-			--without-x && \
+			--bindir=/.remove \
+			--prefix=/usr && \
 		$(MAKE) && \
 		@INSTALL_libgif@
 	@DISTCLEANUP_libgif@
 	touch $@
 
 #
-# libgif_current
-#
-$(DEPDIR)/libgif_current: bootstrap @DEPENDS_libgif_current@
-	@PREPARE_libgif_current@
-	cd @DIR_libgif_current@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) && \
-		@INSTALL_libgif_current@
-	@DISTCLEANUP_libgif_current@
-	touch $@
-
-#
 # libcurl
 #
-$(DEPDIR)/libcurl: bootstrap openssl rtmpdump @DEPENDS_libcurl@
+$(DEPDIR)/libcurl: bootstrap @DEPENDS_libcurl@
 	@PREPARE_libcurl@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libcurl@ && \
@@ -298,10 +277,16 @@ $(DEPDIR)/libcurl: bootstrap openssl rtmpdump @DEPENDS_libcurl@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
-			--with-ssl \
 			--disable-debug \
 			--disable-verbose \
 			--disable-manual \
+			--disable-file \
+			--disable-rtsp \
+			--disable-dict \
+			--disable-imap \
+			--disable-pop3 \
+			--disable-smtp \
+			--without-ssl \
 			--with-random && \
 		$(MAKE) all && \
 		sed -e "s,^prefix=,prefix=$(targetprefix)," < curl-config > $(crossprefix)/bin/curl-config && \
@@ -424,8 +409,7 @@ $(DEPDIR)/glib2: bootstrap libffi @DEPENDS_glib2@
 			--enable-static \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr \
-			--mandir=/usr/share/man && \
+			--prefix=/usr && \
 		$(MAKE) all && \
 		@INSTALL_glib2@
 	@DISTCLEANUP_glib2@
@@ -652,7 +636,7 @@ $(DEPDIR)/libdvdcss: bootstrap @DEPENDS_libdvdcss@
 			--host=$(target) \
 			--prefix=/usr \
 			--disable-doc && \
-		$(MAKE) all
+		$(MAKE) all && \
 		@INSTALL_libdvdcss@
 	@DISTCLEANUP_libdvdcss@
 	touch $@
@@ -779,7 +763,7 @@ FFMPEG_CONFIGURE += --enable-pthreads --enable-bzlib --enable-zlib --enable-stri
 
 $(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
-	cd @DIR_ffmpeg@; \
+	cd @DIR_ffmpeg@ && \
 		$(BUILDENV) \
 		./configure \
 			$(FFMPEG_CONFIGURE) \
@@ -787,8 +771,8 @@ $(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
 			--cross-prefix=$(target)- \
 			--target-os=linux \
 			--arch=sh4 \
-			--prefix=/usr; \
-		$(MAKE); \
+			--prefix=/usr && \
+		$(MAKE) && \
 		@INSTALL_ffmpeg@
 	@DISTCLEANUP_ffmpeg@
 	touch $@
@@ -1089,7 +1073,6 @@ $(DEPDIR)/libxml2: bootstrap @DEPENDS_libxml2@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
-			--mandir=/usr/share/man \
 			--with-python=$(hostprefix) \
 			--without-c14n \
 			--without-debug \
@@ -1411,7 +1394,6 @@ $(DEPDIR)/gst_plugins_good: bootstrap gstreamer gst_plugins_base libsoup libflac
 			--disable-esdtest \
 			--disable-aalib \
 			--disable-shout2 \
-			--disable-shout2test \
 			--disable-x && \
 		$(MAKE) && \
 		@INSTALL_gst_plugins_good@
@@ -1589,25 +1571,6 @@ $(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plu
 	touch $@
 
 ##############################   EXTERNAL_LCD   ################################
-
-#
-# libusb
-#
-$(DEPDIR)/libusb: @DEPENDS_libusb@
-	@PREPARE_libusb@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_libusb@ && \
-		$(BUILDENV) \
-		./configure \
-			--build=$(build) \
-			--host=$(target) \
-			--prefix=/usr \
-			--disable-build-docs && \
-		$(MAKE) all && \
-		@INSTALL_libusb@
-	@DISTCLEANUP_libusb@
-	touch $@
-
 #
 # graphlcd
 #
@@ -1622,12 +1585,10 @@ $(DEPDIR)/graphlcd: bootstrap libfreetype libusb @DEPENDS_graphlcd@
 	@DISTCLEANUP_graphlcd@
 	touch $@
 
-##############################   LCD4LINUX   ###################################
-
 #
 # LCD4LINUX
 #--with-python
-$(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb2 libdpf @DEPENDS_lcd4_linux@
+$(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb libdpf @DEPENDS_lcd4_linux@
 	@PREPARE_lcd4_linux@
 	touch $@
 
@@ -1710,26 +1671,27 @@ $(DEPDIR)/libgd2: bootstrap libpng libjpeg libiconv libfreetype @DEPENDS_libgd2@
 	touch $@
 
 #
-# libusb2
+# libusb
 #
-$(DEPDIR)/libusb2: bootstrap @DEPENDS_libusb2@
-	@PREPARE_libusb2@
+$(DEPDIR)/libusb: bootstrap @DEPENDS_libusb@
+	@PREPARE_libusb@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
-	cd @DIR_libusb2@ && \
+	cd @DIR_libusb@ && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr && \
-		$(MAKE) && \
-		@INSTALL_libusb2@
-	@DISTCLEANUP_libusb2@
+			--prefix=/usr \
+			--disable-build-docs && \
+		$(MAKE) all && \
+		@INSTALL_libusb@
+	@DISTCLEANUP_libusb@
 	touch $@
 
 #
 # libusbcompat
 #
-$(DEPDIR)/libusbcompat: bootstrap libusb2 @DEPENDS_libusbcompat@
+$(DEPDIR)/libusbcompat: bootstrap libusb @DEPENDS_libusbcompat@
 	@PREPARE_libusbcompat@
 	cd @DIR_libusbcompat@ && \
 		$(BUILDENV) \
@@ -2005,7 +1967,7 @@ $(DEPDIR)/libsamplerate: bootstrap @DEPENDS_libsamplerate@
 #
 # libvorbis
 #
-$(DEPDIR)/libvorbis: bootstrap @DEPENDS_libvorbis@
+$(DEPDIR)/libvorbis: bootstrap libogg @DEPENDS_libvorbis@
 	@PREPARE_libvorbis@
 	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libvorbis@ && \
@@ -2284,7 +2246,6 @@ $(DEPDIR)/sshfs: bootstrap fuse @DEPENDS_sshfs@
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--prefix=/usr
 			--prefix=/usr && \
 		$(MAKE) all && \
 		@INSTALL_sshfs@

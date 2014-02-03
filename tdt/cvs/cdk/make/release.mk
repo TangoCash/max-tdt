@@ -162,7 +162,7 @@ release_ufs910: release_common_utils
 	rm -f $(prefix)/release/lib/firmware/dvb-fe-{avl2108,avl6222,cx24116,stv6306}.fw
 	mv $(prefix)/release/lib/firmware/dvb-fe-cx21143.fw $(prefix)/release/lib/firmware/dvb-fe-cx24116.fw
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release/etc/
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc
 	rm -f $(prefix)/release/bin/vdstandby
 	cp -f $(buildprefix)/root/usr/local/share/enigma2/keymap_ufs910.xml $(prefix)/release/usr/local/share/enigma2/keymap.xml
@@ -261,7 +261,7 @@ release_spark: release_common_utils
 	rm -f $(prefix)/release/bin/gotosleep
 	rm -f $(prefix)/release/bin/vdstandby
 	cp -dp $(buildprefix)/root/etc/lircd_spark.conf $(prefix)/release/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc
 	cp -f $(buildprefix)/root/sbin/flash_* $(prefix)/release/sbin
 	cp -f $(buildprefix)/root/sbin/nand* $(prefix)/release/sbin
@@ -290,7 +290,7 @@ release_spark7162: release_common_utils
 	rm -f $(prefix)/release/bin/gotosleep
 	rm -f $(prefix)/release/bin/vdstandby
 	cp -dp $(buildprefix)/root/etc/lircd_spark7162.conf $(prefix)/release/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc
 	cp -f $(buildprefix)/root/sbin/flashcp $(prefix)/release/sbin
 	cp -f $(buildprefix)/root/sbin/flash_* $(prefix)/release/sbin
@@ -449,7 +449,7 @@ release_hl101: release_common_utils
 	cp $(targetprefix)/lib/firmware/dvb-fe-stv6306.fw $(prefix)/release/lib/firmware/
 	rm -f $(prefix)/release/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	cp -dp $(buildprefix)/root/etc/lircd_hl101.conf $(prefix)/release/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc
 	rm -f $(prefix)/release/bin/evremote
 	rm -f $(prefix)/release/bin/vdstandby
@@ -474,7 +474,7 @@ release_adb_box: release_common_utils
 	rm -f $(prefix)/release/lib/firmware/dvb-fe-{avl6222,cx24116,cx21143}.fw
 	cp -f $(buildprefix)/root/release/fstab_adb_box $(prefix)/release/etc/fstab
 	cp -dp $(buildprefix)/root/etc/lircd_adb_box.conf $(prefix)/release/etc/lircd.conf
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/lircd
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/lircd
 	mkdir -p $(prefix)/release/var/run/lirc
 	rm -f $(prefix)/release/bin/evremote
 	rm -f $(prefix)/release/bin/vdstandby
@@ -496,7 +496,7 @@ release_vip1_v2: release_common_utils
 	cp -f $(targetprefix)/sbin/shutdown $(prefix)/release/sbin/
 	cp $(targetprefix)/bin/stslave $(prefix)/release/bin
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release/etc/
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc
 	rm -f $(prefix)/release/bin/vdstandby
 	cp $(targetprefix)/usr/local/share/fonts/* $(prefix)/release/usr/local/share/fonts/
@@ -519,7 +519,7 @@ release_hs5101: release_common_utils
 	cp $(targetprefix)/lib/modules/$(KERNELVERSION)/extra/stgfb/stmfb/stmcore-display-stx7100.ko $(prefix)/release/lib/modules/
 	cp $(targetprefix)/boot/video_7100.elf $(prefix)/release/boot/video.elf
 	cp -dp $(targetprefix)/etc/lircd.conf $(prefix)/release/etc/
-	cp -p $(targetprefix)/usr/bin/lircd $(prefix)/release/usr/bin/
+	cp -p $(targetprefix)/usr/sbin/lircd $(prefix)/release/usr/bin/
 	mkdir -p $(prefix)/release/var/run/lirc
 	rm -f $(prefix)/release/lib/firmware/dvb-fe-{avl2108,avl6222,cx21143,stv6306}.fw
 	rm -f $(prefix)/release/bin/vdstandby
@@ -879,7 +879,7 @@ endif
 	fi
 
 #
-# Delete unnecessary plugins and files
+# delete unnecessary plugins and files
 #
 	rm -rf $(prefix)/release/lib/autofs
 	rm -rf $(prefix)/release/lib/modules/$(KERNELVERSION)
@@ -902,11 +902,11 @@ endif
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pyOpenSSL-0.11-py$(PYTHON_VERSION).egg-info
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/python_wifi-0.5.0-py$(PYTHON_VERSION).egg-info
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pycrypto-2.5-py$(PYTHON_VERSION).egg-info
-	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pyusb-1.0.0a2-py$(PYTHON_VERSION).egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/pyusb-1.0.0a3-py$(PYTHON_VERSION).egg-info
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/setuptools
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/setuptools-0.6c11-py$(PYTHON_VERSION).egg-info
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/zope.interface-4.0.1-py$(PYTHON_VERSION).egg-info
-	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/Twisted-12.1.0-py$(PYTHON_VERSION).egg-info
+	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/Twisted-13.0.0-py$(PYTHON_VERSION).egg-info
 	rm -rf $(prefix)/release$(PYTHON_DIR)/site-packages/twisted/{test,conch,mail,manhole,names,news,trial,words,application,enterprise,flow,lore,pair,runner,scripts,tap,topfiles}
 	rm -rf $(prefix)/release$(PYTHON_DIR)/{bsddb,compiler,curses,distutils,lib-old,lib-tk,plat-linux3,test}
 

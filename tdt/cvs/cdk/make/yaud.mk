@@ -111,10 +111,6 @@ yaud-neutrino-hd2-exp-plugins: yaud-none lirc \
 		boot-elf remote firstboot neutrino-hd2-exp neutrino-mp-plugins release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
-yaud-neutrino-twin-next: yaud-none lirc \
-		boot-elf remote firstboot neutrino-twin-next release_neutrino_nightly
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 yaud-enigma2-pli-nightly: yaud-none host_python lirc \
 		boot-elf remote firstboot enigma2-pli-nightly enigma2-plugins release
 	@TUXBOX_YAUD_CUSTOMIZE@

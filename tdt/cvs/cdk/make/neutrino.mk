@@ -13,6 +13,13 @@ $(targetprefix)/var/etc/.version:
 #
 #
 #
+NEUTRINO_DEPS  = bootstrap openssl libcurl libid3tag libmad libvorbisidec libpng libjpeg libgif libfreetype
+NEUTRINO_DEPS += ffmpeg liblua libdvbsipp libopenthreads libusb libalsa
+NEUTRINO_DEPS += $(EXTERNALLCD_DEP) $(MEDIAFW_DEP)
+
+N_CFLAGS   = -Wall -W -Wshadow -pipe -Os -fno-strict-aliasing
+#-rdynamic
+
 N_CPPFLAGS = -I$(driverdir)/bpamem
 
 if BOXTYPE_SPARK
@@ -24,6 +31,7 @@ N_CPPFLAGS += -I$(driverdir)/frontcontroller/aotom_spark
 endif
 
 N_CONFIG_OPTS = --enable-silent-rules --enable-freesatepg
+# --enable-pip
 
 if ENABLE_EXTERNALLCD
 N_CONFIG_OPTS += --enable-graphlcd
@@ -35,8 +43,9 @@ else
 N_CONFIG_OPTS += --enable-libeplayer3
 endif
 
+################################################################################
 #
-# LIBSTB-HAL
+# libstb-hal
 #
 $(DEPDIR)/libstb-hal.do_prepare:
 	rm -rf $(appsdir)/libstb-hal
@@ -84,6 +93,7 @@ libstb-hal-distclean:
 	rm -f $(DEPDIR)/libstb-hal.do_compile
 	rm -f $(DEPDIR)/libstb-hal.do_prepare
 
+################################################################################
 #
 # libstb-hal-next
 #
@@ -134,10 +144,11 @@ libstb-hal-next-distclean:
 	rm -f $(DEPDIR)/libstb-hal-next.do_compile
 	rm -f $(DEPDIR)/libstb-hal-next.do_prepare
 
+################################################################################
 #
 # NEUTRINO MP
 #
-$(DEPDIR)/neutrino-mp.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal
+$(DEPDIR)/neutrino-mp.do_prepare: | $(NEUTRINO_DEPS) libstb-hal
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -158,6 +169,7 @@ $(appsdir)/neutrino-mp/config.status:
 			--host=$(target) \
 			$(N_CONFIG_OPTS) \
 			--with-boxtype=$(BOXTYPE) \
+			--enable-giflib \
 			--with-tremor \
 			--with-libdir=/usr/lib \
 			--with-datadir=/usr/share/tuxbox \
@@ -205,10 +217,15 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 	mkdir -p $(prefix)/release_neutrino/usr/local/sbin
 	cp $(targetprefix)/usr/local/sbin/udpstreampes $(prefix)/release_neutrino/usr/local/sbin/
 
+################################################################################
 #
 # neutrino-mp-next
 #
-$(DEPDIR)/neutrino-mp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec openssl ffmpeg liblua libopenthreads libusb2 libalsa libstb-hal-next
+NEUTRINO_MP_NEXT_PATCHES =
+#NEUTRINO_MP_NEXT_PATCHES += $(PATCHES)/
+#NEUTRINO_MP_NEXT_PATCHES += $(PATCHES)/mp_ci_module_capmt.patch
+
+$(DEPDIR)/neutrino-mp-next.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-next
 	rm -rf $(appsdir)/neutrino-mp-next
 	rm -rf $(appsdir)/neutrino-mp-next.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -218,6 +235,10 @@ $(DEPDIR)/neutrino-mp-next.do_prepare: | bootstrap $(EXTERNALLCD_DEP) libdvbsipp
 	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-next; \
 	(cd $(appsdir)/neutrino-mp-next; git checkout next; cd "$(buildprefix)";); \
 	cp -ra $(appsdir)/neutrino-mp-next $(appsdir)/neutrino-mp-next.org
+	for i in $(NEUTRINO_MP_NEXT_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		cd $(appsdir)/neutrino-mp-next && patch -p1 -i $$i; \
+	done;
 	touch $@
 
 $(appsdir)/neutrino-mp-next/config.status:
@@ -231,6 +252,7 @@ $(appsdir)/neutrino-mp-next/config.status:
 			$(N_CONFIG_OPTS) \
 			--enable-lua \
 			--enable-ffmpegdec \
+			--enable-giflib \
 			--with-boxtype=$(BOXTYPE) \
 			--with-tremor \
 			--with-libdir=/usr/lib \
@@ -271,10 +293,14 @@ neutrino-mp-next-distclean:
 	rm -f $(DEPDIR)/neutrino-mp-next.do_compile
 	rm -f $(DEPDIR)/neutrino-mp-next.do_prepare
 
+################################################################################
 #
 # neutrino-hd2-exp
 #
-$(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_DEP) libfreetype libjpeg libpng libungif libid3tag libcurl libmad libvorbisidec libboost libflac openssl ffmpeg libusb2 libalsa
+NEUTRINO_HD2_PATCHES =
+NEUTRINO_HD2_PATCHES+= $(PATCHES)/neutrino-hd2-exp.diff
+
+$(DEPDIR)/neutrino-hd2-exp.do_prepare: | $(NEUTRINO_DEPS) libflac
 	rm -rf $(appsdir)/nhd2-exp
 	rm -rf $(appsdir)/nhd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \
@@ -283,9 +309,11 @@ $(DEPDIR)/neutrino-hd2-exp.do_prepare: | bootstrap $(MEDIAFW_DEP) $(EXTERNALLCD_
 	svn co http://neutrinohd2.googlecode.com/svn/branches/nhd2-exp $(archivedir)/neutrino-hd2-exp.svn; \
 	cp -ra $(archivedir)/neutrino-hd2-exp.svn $(appsdir)/nhd2-exp; \
 	cp -ra $(appsdir)/nhd2-exp $(appsdir)/nhd2-exp.org
+	for i in $(NEUTRINO_HD2_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		cd $(appsdir)/nhd2-exp && patch -p1 -i $$i; \
+	done;
 	touch $@
-
-#	cd $(appsdir)/nhd2-exp && patch -p1 < "$(buildprefix)/Patches/neutrino-hd2-exp.diff"
 
 $(appsdir)/nhd2-exp/config.status:
 	export PATH=$(hostprefix)/bin:$(PATH) && \
@@ -338,6 +366,7 @@ neutrino-hd2-exp-distclean:
 	rm -f $(DEPDIR)/neutrino-hd2-exp.do_compile
 	rm -f $(DEPDIR)/neutrino-hd2-exp.do_prepare
 
+################################################################################
 #
 #NORMAL
 #
@@ -381,3 +410,4 @@ neutrino-clean neutrino-distclean:
 	rm -f $(DEPDIR)/neutrino.do_prepare
 	cd $(appsdir)/neutrino && \
 		$(MAKE) distclean
+

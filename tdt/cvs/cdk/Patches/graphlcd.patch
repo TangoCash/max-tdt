@@ -449,34 +449,6 @@ diff -Naur graphlcd-base-touchcol.git/glcddrivers/ax206dpf.c graphlcd-base-touch
  	return usb_dev;
  }
  
-diff -Naur graphlcd-base-touchcol.git/glcddrivers/ax206dpf.c.rej graphlcd-base-touchcol/glcddrivers/ax206dpf.c.rej
---- graphlcd-base-touchcol.git/glcddrivers/ax206dpf.c.rej	1970-01-01 01:00:00.000000000 +0100
-+++ graphlcd-base-touchcol/glcddrivers/ax206dpf.c.rej	2014-02-03 15:43:49.951114684 +0100
-@@ -0,0 +1,24 @@
-+--- glcddrivers/ax206dpf.c	2013-06-30 19:53:11.000000000 
-++++ glcddrivers/ax206dpf.c	2013-07-13 10:53:05.000000000 
-+@@ -214,18 +216,15 @@
-+     {
-+         dh[di]->dpfh = NULL;
-+         dh[di]->attached = false;
-+         return 0;
-+     }
-+     dh[di]->attached = true;
-+-    struct usb_device *dev = usb_device(dh[di]->dpfh->dev.udev);
-+-    char *s1 = dev->bus->dirname;
-+-    char *s2 = dev->filename;
-+-    if (strlen(s1) > 3) s1 = (char *) "???";
-+-    if (strlen(s2) > 3) s2 = (char *) "???";
-+-    sprintf(dh[di]->address, "%s:%s", s1, s2);
-++    struct libusb_device *dev = libusb_get_device(dh[di]->dpfh->dev.udev);
-++
-++    sprintf(dh[di]->address, "%03u:%03u", libusb_get_bus_number(dev), libusb_get_device_address(dev));
-+     
-+     // See, if we have to rotate the display
-+     dh[di]->isPortrait = dh[di]->dpfh->width < dh[di]->dpfh->height;
-+     dh[di]->rotate90 = dh[di]->isPortrait != portrait;
-+     dh[di]->flip = (!dh[di]->isPortrait && dh[di]->rotate90);    // adjust to make rotate por/land = physical por/land
-+     if (flips.size() >= di + 1 && flips[di] == 'y')
 diff -Naur graphlcd-base-touchcol.git/glcddrivers/ax206dpf.h graphlcd-base-touchcol/glcddrivers/ax206dpf.h
 --- graphlcd-base-touchcol.git/glcddrivers/ax206dpf.h	2014-02-03 15:33:45.179140000 +0100
 +++ graphlcd-base-touchcol/glcddrivers/ax206dpf.h	2014-02-03 15:43:49.951114684 +0100

@@ -1,9 +1,5 @@
-#
-#
-#
 export CFLAGS
 export CXXFLAGS
-
 export DRPM
 export DRPMBUILD
 
@@ -69,6 +65,7 @@ endif
 #
 #
 #
+export RM=$(shell which rm) -f
 INSTALL_DIR=$(INSTALL) -d
 INSTALL_BIN=$(INSTALL) -m 755
 INSTALL_FILE=$(INSTALL) -m 644
@@ -81,6 +78,18 @@ ADAPTED_ETC_FILES =
 ETC_RW_FILES =
 SOCKSIFY=
 WGET=$(SOCKSIFY) wget
+
+
+BASE_DIR    := $(shell pwd)
+PATCHES      = $(BASE_DIR)/Patches
+BUILD_TMP    = $(BASE_DIR)/BUILD
+
+# unpack tarballs, clean up
+UNTAR = tar -C $(BUILD_TMP) -xf $(archivedir)
+REMOVE = rm -rf $(BUILD_TMP)
+PATCH = patch -p1 -i $(PATCHES)
+# wget tarballs into archive directory
+WGETN = wget -t3 -T10 -c -P $(archivedir)
 
 #
 #

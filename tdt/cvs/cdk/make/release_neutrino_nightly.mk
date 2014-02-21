@@ -988,6 +988,7 @@ $(DEPDIR)/%release_neutrino_nightly: release_neutrino_base release_neutrino_$(TF
 	mkdir -p $(prefix)/release_neutrino/usr/share/alsa
 	cp -dp $(targetprefix)/usr/share/alsa/alsa.conf $(prefix)/release_neutrino/usr/share/alsa/alsa.conf
 
+	rm -rf $(prefix)/release_neutrino/var/etc/fonts
 	rm -f $(prefix)/release_neutrino/bin/pic2m2v
 	rm -f $(prefix)/release_neutrino/usr/lib/*.py
 	rm -f $(prefix)/release_neutrino/usr/share/tuxbox/neutrino/httpd/images/rc_cst_v1.jpg

@@ -95,6 +95,10 @@ yaud-neutrino-mp-plugins: yaud-none lirc \
 		boot-elf remote firstboot neutrino-mp neutrino-mp-plugins release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@
 
+yaud-neutrino-mp-next-plugins: yaud-none lirc \
+		boot-elf remote firstboot neutrino-mp-next neutrino-mp-plugins release_neutrino_nightly
+	@TUXBOX_YAUD_CUSTOMIZE@
+
 yaud-neutrino-mp-all: yaud-none lirc \
 		boot-elf remote firstboot neutrino-mp neutrino-mp-plugins shairport release_neutrino_nightly
 	@TUXBOX_YAUD_CUSTOMIZE@

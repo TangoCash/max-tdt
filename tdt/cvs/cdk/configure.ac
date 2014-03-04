@@ -118,6 +118,14 @@ AC_ARG_ENABLE(p0211,
 AM_CONDITIONAL(ENABLE_P0211,test "$enable_p0211" = "yes")
 AC_SUBST(P0211)
 
+AC_ARG_ENABLE(p0212,
+	AS_HELP_STRING(--enable-p0212, set up the CDK to use the STLinux 2.4 with patchlevel 0212),
+	[case "${enableval}" in
+		yes) P0212=p0212 ;;
+	esac], [enable_p0212=no])
+AM_CONDITIONAL(ENABLE_P0212,test "$enable_p0212" = "yes")
+AC_SUBST(P0212)
+
 AC_ARG_WITH(cpu,
 	[  --with-cpu=MODEL    cpu model [[sh4]]],
 	[CPU_MODEL="$withval"],[CPU_MODEL="sh4"])
@@ -652,13 +660,13 @@ if test "$enable_ccache" = "yes"; then
 		fi
 		ccacheinfo="
 ----------------------------------------
-ccache installdir           : $ccachedir
+ccache installdir                   $ccachedir
 $($ccachedir/ccache -s)
 ----------------------------------------"
 	else
 		ccacheinfo="
 ----------------------------------------
-ccache installdir           : $ccachedir
+ccache installdir                    $ccachedir
 ccache is not yet installed, but installation starts on first build of cdk environment or you can run make ccache
 ----------------------------------------"
 	fi
@@ -691,6 +699,7 @@ TUXBOX_RULES_MAKE(linuxp0207)
 TUXBOX_RULES_MAKE(linuxp0209)
 TUXBOX_RULES_MAKE(linuxp0210)
 TUXBOX_RULES_MAKE(linuxp0211)
+TUXBOX_RULES_MAKE(linuxp0212)
 
 if test "$enable_stm24" = "yes"; then
 	if test "$enable_p0207" == "yes"; then
@@ -709,6 +718,10 @@ if test "$enable_stm24" = "yes"; then
 		KERNELVERSION=${VERSION_linuxp0211}
 		KERNELSTMLABEL="_${VERSION_linuxp0211#*_}"
 		KERNELLABEL="211"
+	elif test "$enable_p0212" == "yes"; then
+		KERNELVERSION=${VERSION_linuxp0212}
+		KERNELSTMLABEL="_${VERSION_linuxp0212#*_}"
+		KERNELLABEL="212"
 	fi
 fi
 
@@ -1060,6 +1073,7 @@ Patchlevel P0207            : $enable_p0207
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0210            : $enable_p0210
 Patchlevel P0211            : $enable_p0211
+Patchlevel P0212            : $enable_p0212
 ccache                      : $enable_ccache
 target prefix               : $targetprefix
 boot prefix                 : $bootprefix
@@ -1089,7 +1103,7 @@ GraphicFw Dep               : $GRAPHICFW_DEP
 EXTERNALLCD                 : $enable_externallcd
 EXTERNALLCD_DEP             : $EXTERNALLCD_DEP
 ccache support              : $enable_ccache
-                              $ccacheinfo
+$ccacheinfo
 ])
 
 if test "$dircheck" = "fail"; then

@@ -56,7 +56,7 @@ UFS910PATCHES_24 = $(COMMONPATCHES_24) \
 		sata_stx7100_B4Team_fix_stm24$(PATCH_STR).patch \
 		linux-sh4-ufs910_setup_stm24$(PATCH_STR).patch \
 		linux-usbwait123_stm24.patch \
-		linux-sh4-ufs910_reboot_stm24.patch \
+		linux-sh4-ufs910_reboot_stm24$(PATCH_STR).patch \
 		linux-sh4-smsc911x_dma_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
 		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch
@@ -173,7 +173,7 @@ ADB_BOXPATCHES_24 = $(COMMONPATCHES_24) \
 		sata_32bit_fix_stm24$(PATCH_STR).patch \
 		linux-sh4-adb_box_setup_stm24$(PATCH_STR).patch \
 		linux-usbwait123_stm24.patch \
-		linux-sh4-ufs910_reboot_stm24.patch \
+		linux-sh4-ufs910_reboot_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
 		linux-sh4-pcm_noise_fix_stm24$(PATCH_STR).patch
 

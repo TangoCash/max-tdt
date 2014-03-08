@@ -159,7 +159,7 @@ echo "   1) STM 24 P0207"
 echo "   2) STM 24 P0209"
 echo "   3) STM 24 P0210"
 echo "   4) STM 24 P0211 (recommended)"
-echo "   5) STM 24 P0212)"
+echo "   5) STM 24 P0212"
 case $2 in
 	[1-5]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"

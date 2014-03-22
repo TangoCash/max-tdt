@@ -150,12 +150,6 @@ AC_ARG_ENABLE(mediafwgstreamer,
 AM_CONDITIONAL(ENABLE_MEDIAFWGSTREAMER,test "$enable_mediafwgstreamer" = "yes")
 AC_SUBST(MEDIAFWGSTREAMER)
 
-AC_ARG_ENABLE(graphicfwdirectfb,
-	AS_HELP_STRING(--enable-graphicfwdirectfb,    set up the CDK to use graphicfw directfb),
-	,[enable_graphicfwdirectfb=no])
-AM_CONDITIONAL(ENABLE_GRAPHICFWDIRECTFB,test "$enable_graphicfwdirectfb" = "yes")
-AC_SUBST(GRAPHICFWDIRECTFB)
-
 AC_ARG_ENABLE(externallcd,
 	AS_HELP_STRING(--enable-externallcd,    set up the CDK to use graphlcd),
 	,[enable_externallcd=no])
@@ -703,38 +697,45 @@ AC_SUBST(DISTCLEANUP)
 AC_SUBST(KERNELVERSION)
 AC_SUBST(KERNELSTMLABEL)
 AC_SUBST(KERNELLABEL)
-TUXBOX_RULES_MAKE(linuxp0207)
-TUXBOX_RULES_MAKE(linuxp0209)
-TUXBOX_RULES_MAKE(linuxp0210)
-TUXBOX_RULES_MAKE(linuxp0211)
-TUXBOX_RULES_MAKE(linuxp0212)
-TUXBOX_RULES_MAKE(linuxp0213)
+AC_SUBST(PATCH_STR)
 
 if test "$enable_stm24" = "yes"; then
 	if test "$enable_p0207" == "yes"; then
+		TUXBOX_RULES_MAKE(linuxp0207)
 		KERNELVERSION=${VERSION_linuxp0207}
 		KERNELSTMLABEL="_${VERSION_linuxp0207#*_}"
 		KERNELLABEL="207"
+		PATCH_STR="_0207"
 	elif test "$enable_p0209" == "yes"; then
+		TUXBOX_RULES_MAKE(linuxp0209)
 		KERNELVERSION=${VERSION_linuxp0209}
 		KERNELSTMLABEL="_${VERSION_linuxp0209#*_}"
 		KERNELLABEL="209"
+		PATCH_STR="_0209"
 	elif test "$enable_p0210" == "yes"; then
+		TUXBOX_RULES_MAKE(linuxp0210)
 		KERNELVERSION=${VERSION_linuxp0210}
 		KERNELSTMLABEL="_${VERSION_linuxp0210#*_}"
 		KERNELLABEL="210"
+		PATCH_STR="_0210"
 	elif test "$enable_p0211" == "yes"; then
+		TUXBOX_RULES_MAKE(linuxp0211)
 		KERNELVERSION=${VERSION_linuxp0211}
 		KERNELSTMLABEL="_${VERSION_linuxp0211#*_}"
 		KERNELLABEL="211"
+		PATCH_STR="_0211"
 	elif test "$enable_p0212" == "yes"; then
+		TUXBOX_RULES_MAKE(linuxp0212)
 		KERNELVERSION=${VERSION_linuxp0212}
 		KERNELSTMLABEL="_${VERSION_linuxp0212#*_}"
 		KERNELLABEL="212"
+		PATCH_STR="_0212"
 	elif test "$enable_p0213" == "yes"; then
+		TUXBOX_RULES_MAKE(linuxp0213)
 		KERNELVERSION=${VERSION_linuxp0213}
 		KERNELSTMLABEL="_${VERSION_linuxp0213#*_}"
 		KERNELLABEL="213"
+		PATCH_STR="_0213"
 	fi
 fi
 
@@ -759,17 +760,6 @@ else
 	MEDIAFW="eplayer3"
 	MEDIAFW_DEP="ffmpeg"
 fi
-
-AC_SUBST(GRAPHICFW)
-AC_SUBST(GRAPHICFW_DEP)
-if test "$enable_graphicfwdirectfb" == "yes"; then
-	GRAPHICFW="directfb"
-	GRAPHICFW_DEP="directfb"
-else
-	GRAPHICFW="framebuffer"
-	GRAPHICFW_DEP=""
-fi
-
 
 #
 # core
@@ -990,8 +980,8 @@ TUXBOX_RULES_MAKE(xupnpd)
 #
 # RPM stuff
 #
-configprefix=$prefix/config
 crossprefix=$prefix/devkit/sh4
+configprefix=$prefix/config
 devkitprefix=$prefix/devkit
 rpmdbprefix=${targetprefix}-rpmdb
 kernelprefix=$buildprefix
@@ -1005,8 +995,8 @@ AC_SUBST(kernelprefix)
 # localmacros
 #
 $INSTALL -d SOURCES SPECS BUILD SRPMS RPMS/{noarch,${host_arch},sh4}
-test -f config && rm config || true
-ln -sf $configprefix/rpm config || true
+##test -f config && rm config || true
+##ln -sf $configprefix/rpm config || true
 echo "%_topdir $buildprefix" >localmacros
 echo "%_specdir %_topdir/SPECS" >>localmacros
 echo "%_sourcedir %_topdir/SOURCES" >>localmacros
@@ -1111,9 +1101,6 @@ Multicom406                 : $enable_multicom406
 MediaFw Gstreamer           : $enable_mediafwgstreamer
 MediaFw                     : $MEDIAFW
 MediaFw Dep                 : $MEDIAFW_DEP
-GraphicFw DirectFB          : $enable_graphicfwdirectfb
-GraphicFw                   : $GRAPHICFW
-GraphicFw Dep               : $GRAPHICFW_DEP
 EXTERNALLCD                 : $enable_externallcd
 EXTERNALLCD_DEP             : $EXTERNALLCD_DEP
 ccache support              : $enable_ccache

@@ -5,10 +5,8 @@ if [ "$1" == -h ] || [ "$1" == --help ]; then
  echo "Parameter 2: kernel (1-6)"
  echo "Parameter 3: debug (y/N)"
  echo "Parameter 4: player (1-2)"
- echo "Parameter 5: Multicom (1-2)"
- echo "Parameter 6: Media Framework (1-3)"
- echo "Parameter 7: External LCD support (1-2)"
- echo "Parameter 8: Graphic Framework (1-2)"
+ echo "Parameter 5: Media Framework (1-3)"
+ echo "Parameter 6: External LCD support (1-2)"
  exit
 fi
 
@@ -216,7 +214,7 @@ case $4 in
 esac
 
 case "$REPLY" in
-	1) PLAYER="--enable-player191"
+	1) PLAYER="--enable-player191 --enable-multicom324"
 		cd ../driver/include/
 		if [ -L player2 ]; then
 			rm player2
@@ -225,8 +223,14 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
 		ln -s player2_191 player2
 		ln -s stmfb-3.1_stm24_0102 stmfb
+		ln -s ../multicom-3.2.4/include multicom
 		cd - &>/dev/null
 
 		cd ../driver/
@@ -235,6 +239,13 @@ case "$REPLY" in
 		fi
 		ln -s player2_191 player2
 		echo "export CONFIG_PLAYER_191=y" >> .config
+		cd - &>/dev/null
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+		ln -s multicom-3.2.4 multicom
+		echo "export CONFIG_MULTICOM324=y" >> .config
 		cd - &>/dev/null
 
 		cd ../driver/stgfb
@@ -244,7 +255,7 @@ case "$REPLY" in
 		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - &>/dev/null
 	;;
-	2) PLAYER="--enable-player191"
+	2) PLAYER="--enable-player191 --enable-multicom324"
 		cd ../driver/include/
 		if [ -L player2 ]; then
 			rm player2
@@ -253,16 +264,29 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
 		ln -s player2_191 player2
 		ln -s stmfb-3.1_stm24_0104 stmfb
+		ln -s ../multicom-3.2.4/include multicom
 		cd - &>/dev/null
 
 		cd ../driver/
 		if [ -L player2 ]; then
 			rm player2
 		fi
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
 		ln -s player2_191 player2
+		ln -s multicom-3.2.4 multicom
 		echo "export CONFIG_PLAYER_191=y" >> .config
+		echo "export CONFIG_MULTICOM324=y" >> .config
 		cd - &>/dev/null
 
 		cd ../driver/stgfb
@@ -277,65 +301,12 @@ esac
 
 ##############################################
 
-echo -e "\nMulticom:"
-echo "   1) Multicom 3.2.4 (Player191, recommended)"
-echo "   2) Multicom 4.0.6 (Player191) - not yet ready!"
-case $5 in
-	[1-2]) REPLY=$5
-	echo -e "\nSelected multicom: $REPLY\n"
-	;;
-	*)
-	read -p "Select multicom (1-2)? ";;
-esac
-
-case "$REPLY" in
-	1) MULTICOM="--enable-multicom324"
-	cd ../driver/include/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s ../multicom-3.2.4/include multicom
-	cd - &>/dev/null
-
-	cd ../driver/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s multicom-3.2.4 multicom
-	echo "export CONFIG_MULTICOM324=y" >> .config
-	cd - &>/dev/null
-	;;
-	2 ) MULTICOM="--enable-multicom406"
-	cd ../driver/include/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s ../multicom-4.0.6/include multicom
-	cd - &>/dev/null
-
-	cd ../driver/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s multicom-4.0.6 multicom
-	echo "export CONFIG_MULTICOM406=y" >> .config
-	cd - &>/dev/null
-	;;
-	*) MULTICOM="--enable-multicom324";;
-esac
-
-##############################################
-
 echo -e "\nMedia Framework:"
 echo "   1) eplayer3"
 echo "   2) gstreamer"
 echo "   3) use build-in (recommended)"
-case $6 in
-	[1-3]) REPLY=$6
+case $5 in
+	[1-3]) REPLY=$5
 	echo -e "\nSelected media framework: $REPLY\n"
 	;;
 	*)
@@ -354,8 +325,8 @@ esac
 echo -e "\nExternal LCD support:"
 echo "   1) No external LCD"
 echo "   2) graphlcd for external LCD"
-case $7 in
-	[1-2]) REPLY=$7
+case $6 in
+	[1-2]) REPLY=$6
 	echo -e "\nSelected LCD support: $REPLY\n"
 	;;
 	*)
@@ -370,31 +341,12 @@ esac
 
 ##############################################
 
-echo -e "\nGraphic Framework:"
-echo "   1) Framebuffer (recommended)"
-echo "   2) DirectFB (Recommended XBMC)"
-case $8 in
-	[1-2]) REPLY=$8
-	echo -e "\nSelected Graphic Framework: $REPLY\n"
-	;;
-	*)
-	read -p "Select Graphic Framework (1-2)? ";;
-esac
-
-case "$REPLY" in
-	1) GFW="";;
-	2) GFW="--enable-graphicfwdirectfb";;
-	*) GFW="";;
-esac
-
-##############################################
-
 # Check this option if you want to use the version of GCC.
 #CONFIGPARAM="$CONFIGPARAM --enable-gcc47"
 
 ##############################################
 
-CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
+CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD"
 
 ##############################################
 
@@ -421,5 +373,4 @@ echo "make yaud-neutrino-mp"
 echo "make yaud-neutrino-mp-next"
 echo "make yaud-neutrino-hd2-exp"
 echo "make yaud-enigma2-pli-nightly"
-echo "make yaud-xbmc-nightly"
 echo "----------------------------------------"

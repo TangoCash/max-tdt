@@ -58,9 +58,6 @@ include make/enigma2-plugins.mk
 # Include enigma2-pli-nightly gui targets
 include make/enigma2-pli-nightly.mk
 
-# Include xbmc-nightly gui targets
-include make/xbmc-nightly.mk
-
 # Include neutrino gui targets
 include make/neutrino.mk
 
@@ -83,10 +80,6 @@ include make/disttargets.mk
 include make/release.mk
 
 include make/release_neutrino.mk
-
-include make/release_neutrino_nightly.mk
-
-include make/release_xbmc.mk
 
 # Give the user rope to hang himself :-).  (Note: read from the
 # generated Makefile during make run, automake or configure does not

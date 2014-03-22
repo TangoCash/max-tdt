@@ -10,7 +10,7 @@ DEPMOD = $(hostprefix)/bin/depmod
 #
 COMMONPATCHES_24 = \
 		linux-sh4-linuxdvb_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209),linux-sh4-makefile_stm24.patch) \
+		$(if $(P0209),linux-sh4-makefile_stm24.patch) \
 		linux-sh4-sound_stm24$(PATCH_STR).patch \
 		linux-sh4-time_stm24$(PATCH_STR).patch \
 		linux-sh4-init_mm_stm24$(PATCH_STR).patch \
@@ -18,16 +18,12 @@ COMMONPATCHES_24 = \
 		linux-sh4-strcpy_stm24$(PATCH_STR).patch \
 		linux-sh4-ext23_as_ext4_stm24$(PATCH_STR).patch \
 		bpa2_procfs_stm24$(PATCH_STR).patch \
-		$(if $(P0207),xchg_fix_stm24$(PATCH_STR).patch) \
-		$(if $(P0207),mm_cache_update_stm24$(PATCH_STR).patch) \
-		$(if $(P0207),linux-sh4-ehci_stm24$(PATCH_STR).patch) \
 		linux-ftdi_sio.c_stm24$(PATCH_STR).patch \
 		linux-sh4-lzma-fix_stm24$(PATCH_STR).patch \
 		linux-tune_stm24.patch \
 		$(if $(P0209)$(P0210)$(P0211)$(P0212)$(P0213),linux-sh4-permit_gcc_command_line_sections_stm24.patch) \
 		$(if $(P0209)$(P0210)$(P0211)$(P0212)$(P0213),linux-sh4-mmap_stm24.patch) \
 		$(if $(P0209),linux-sh4-dwmac_stm24_0209.patch) \
-		$(if $(P0207),linux-sh4-sti7100_missing_clk_alias_stm24$(PATCH_STR).patch) \
 		$(if $(P0209),linux-sh4-directfb_stm24$(PATCH_STR).patch)
 
 TF7700PATCHES_24 = $(COMMONPATCHES_24) \
@@ -35,7 +31,7 @@ TF7700PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-usbwait123_stm24.patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209),linux-sh4-sata-v06_stm24$(PATCH_STR).patch)
+		$(if $(P0209),linux-sh4-sata-v06_stm24$(PATCH_STR).patch)
 
 UFS910PATCHES_24 = $(COMMONPATCHES_24) \
 		stx7100_fdma_fix_stm24$(PATCH_STR).patch \
@@ -79,7 +75,7 @@ HS7110PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-hs7110_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
+		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
 		linux-squashfs3.0_lzma_stm24.patch \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \
@@ -89,7 +85,7 @@ ATEMIO520PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-atemio520_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
+		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
 		linux-squashfs3.0_lzma_stm23.patch \
 		linux-squashfs-downgrade-stm24-patch-2.6.25 \
@@ -99,7 +95,7 @@ ATEMIO530PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-atemio530_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
+		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
 		linux-squashfs3.0_lzma_stm23.patch \
 		linux-squashfs-downgrade-stm24-patch-2.6.25 \
@@ -109,36 +105,32 @@ UFS922PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209)$(P0211)$(P0212)$(P0213),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		$(if $(P0209)$(P0211)$(P0212)$(P0213),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
 
 UFC960PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0207),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch) \
-		$(if $(P0209),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		$(if $(P0209)$(P0211)$(P0212)$(P0213),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
 
 HL101_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-hl101_setup_stm24$(PATCH_STR).patch \
 		linux-usbwait123_stm24.patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
-		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0207),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch
 
 VIP2_PATCHES_24  = $(COMMONPATCHES_24) \
 		linux-sh4-vip2_setup_stm24$(PATCH_STR).patch \
 		linux-usbwait123_stm24.patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
-		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0207),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch
 
 SPARK_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-lmb_stm24$(PATCH_STR).patch \
 		linux-sh4-spark_setup_stm24$(PATCH_STR).patch \
-		$(if $(P0207),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		$(if $(P0209),linux-sh4-linux_yaffs2_stm24_0209.patch) \
-		$(if $(P0207)$(P0209),linux-sh4-lirc_stm.patch) \
+		$(if $(P0209),linux-sh4-lirc_stm.patch) \
 		$(if $(P0210)$(P0211)$(P0212)$(P0213),linux-sh4-lirc_stm_stm24$(PATCH_STR).patch) \
 		$(if $(P0211)$(P0212)$(P0213),af901x-NXP-TDA18218.patch) \
 		dvb-as102.patch
@@ -153,7 +145,7 @@ FORTISPATCHES_24 = $(COMMONPATCHES_24) \
 		linux-usbwait123_stm24.patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0207)$(P0209),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		$(if $(P0209),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
 
 ADB_BOXPATCHES_24 = $(COMMONPATCHES_24) \
 		stx7100_fdma_fix_stm24$(PATCH_STR).patch \
@@ -230,9 +222,6 @@ $(DEPDIR)/kernel-headers: linux-kernel.do_prepare
 	touch $@
 
 KERNELHEADERS := linux-kernel-headers
-if ENABLE_P0207
-KERNEL_DIR = @DIR_linuxp0207@
-endif
 if ENABLE_P0209
 KERNEL_DIR = @DIR_linuxp0209@
 endif
@@ -281,9 +270,6 @@ endif !DEBUG
 #
 HOST_KERNEL := host-kernel
 
-if ENABLE_P0207
-HOST_KERNEL_VERSION = 2.6.32.28$(KERNELSTMLABEL)-$(KERNELLABEL)
-endif
 if ENABLE_P0209
 HOST_KERNEL_VERSION = 2.6.32.46$(KERNELSTMLABEL)-$(KERNELLABEL)
 endif

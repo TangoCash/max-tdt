@@ -25,6 +25,9 @@ else
 if ENABLE_P0212
 KERNEL_DIR = @DIR_linuxp0212@
 endif
+if ENABLE_P0213
+KERNEL_DIR = @DIR_linuxp0213@
+endif
 endif
 endif
 endif

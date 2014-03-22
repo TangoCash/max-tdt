@@ -2,7 +2,7 @@
 
 if [ "$1" == -h ] || [ "$1" == --help ]; then
  echo "Parameter 1: target system (1-31)"
- echo "Parameter 2: kernel (1-5)"
+ echo "Parameter 2: kernel (1-6)"
  echo "Parameter 3: debug (y/N)"
  echo "Parameter 4: player (1-2)"
  echo "Parameter 5: Multicom (1-2)"
@@ -159,13 +159,14 @@ echo "   1) STM 24 P0207"
 echo "   2) STM 24 P0209"
 echo "   3) STM 24 P0210"
 echo "   4) STM 24 P0211 (recommended)"
-echo "   5) STM 24 P0212"
+echo "   5) STM 24 P0212 (experimental)"
+echo "   6) STM 24 P0213 (experimental)"
 case $2 in
-	[1-5]) REPLY=$2
+	[1-6]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"
 	;;
 	*)
-	read -p "Select kernel (1-5)? ";;
+	read -p "Select kernel (1-6)? ";;
 esac
 
 case "$REPLY" in
@@ -174,6 +175,7 @@ case "$REPLY" in
 	3)  KERNEL="--enable-stm24 --enable-p0210";STMFB="stm24";;
 	4)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
 	5)  KERNEL="--enable-stm24 --enable-p0212";STMFB="stm24";;
+	6)  KERNEL="--enable-stm24 --enable-p0213";STMFB="stm24";;
 	*)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
 esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"

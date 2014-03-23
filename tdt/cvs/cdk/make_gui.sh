@@ -1,7 +1,7 @@
 #!/bin/bash
 # based on the original make.sh
 # Author: TangoCash
-# Last modified: 10.09.13
+# Last modified: 23.03.14
 setparameters() {
 CURDIR=`pwd`
 KATIDIR=${CURDIR%/cvs/cdk}
@@ -92,8 +92,8 @@ ${DIALOG} --menu "\n Select Target:\n " $height $width $listheight \
 27	"Atemio520" \
 28	"Kathrein UFS-913" \
 29	"Kathrein UFC-960" \
-28	"Vitamin HD5000" \
-29	"Atemio530" \
+30	"Vitamin HD5000" \
+31	"Atemio530" \
 2> ${tempfile}
 
 opt=${?}
@@ -157,17 +157,37 @@ case "$REPLY" in
 		esac
 		CONFIGPARAM="$CONFIGPARAM $MODEL"
 		clear
+		cd ./integrated_firmware
+		if [ -L fdma_STx7100_0.elf ]; then
+			rm fdma_STx7100_0.elf
+		fi
+		ln -s fdma2_7100-v3.1.elf fdma_STx7100_0.elf
+		cd - &>/dev/null
+		;;
+	1|5) # for UFS910 and TF7700 the old fdma version
+		cd ./integrated_firmware
+		if [ -L fdma_STx7100_0.elf ]; then
+			rm fdma_STx7100_0.elf
+		fi
+		ln -s fdma2_7100-v3.0.elf fdma_STx7100_0.elf
+		cd - &>/dev/null
 		;;
 	*)
+		cd ./integrated_firmware
+		if [ -L fdma_STx7100_0.elf ]; then
+			rm fdma_STx7100_0.elf
+		fi
+		ln -s fdma2_7100-v3.1.elf fdma_STx7100_0.elf
+		cd - &>/dev/null
+		;;
 esac
 
 ##############################################
 
 ${DIALOG} --menu "\n Select Kernel: \n " $height $width $listheight \
-1	"STM 24 P0207" \
-2	"STM 24 P0209" \
-3	"STM 24 P0210" \
-4	"STM 24 P0211" \
+1	"STM 24 P0209" \
+2	"STM 24 P0211 (recommended)" \
+3	"STM 24 P0213 (experimental)" \
 2> ${tempfile}
 
 opt=${?}
@@ -176,10 +196,9 @@ if [ $opt != 0 ]; then cleanup; exit; fi
 REPLY=`cat $tempfile`
 
 case "$REPLY" in
-	1)  KERNEL="--enable-stm24 --enable-p0207";STMFB="stm24";;
-	2)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
-	3)  KERNEL="--enable-stm24 --enable-p0210";STMFB="stm24";;
-	4)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
+	1)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
+	2)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
+	3)  KERNEL="--enable-stm24 --enable-p0213";STMFB="stm24";;
 	*)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
 esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
@@ -205,7 +224,7 @@ cd - &>/dev/null
 
 ${DIALOG} --menu "\n Select Player: \n " $height $width $listheight \
 1	"Player 191 (stmfb-3.1_stm24_0102)" \
-2	"Player 191 (stmfb-3.1_stm24_0104)" \
+2	"Player 191 (stmfb-3.1_stm24_0104, recommended)" \
 2> ${tempfile}
 
 opt=${?}
@@ -214,7 +233,7 @@ if [ $opt != 0 ]; then cleanup; exit; fi
 REPLY=`cat $tempfile`
 
 case "$REPLY" in
-	1) PLAYER="--enable-player191"
+	1) PLAYER="--enable-player191 --enable-multicom324"
 		cd ../driver/include/
 		if [ -L player2 ]; then
 			rm player2
@@ -223,8 +242,14 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
 		ln -s player2_191 player2
 		ln -s stmfb-3.1_stm24_0102 stmfb
+		ln -s ../multicom-3.2.4/include multicom
 		cd - &>/dev/null
 
 		cd ../driver/
@@ -233,6 +258,13 @@ case "$REPLY" in
 		fi
 		ln -s player2_191 player2
 		echo "export CONFIG_PLAYER_191=y" >> .config
+		cd - &>/dev/null
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+		ln -s multicom-3.2.4 multicom
+		echo "export CONFIG_MULTICOM324=y" >> .config
 		cd - &>/dev/null
 
 		cd ../driver/stgfb
@@ -242,7 +274,7 @@ case "$REPLY" in
 		ln -s stmfb-3.1_stm24_0102 stmfb
 		cd - &>/dev/null
 	;;
-	2) PLAYER="--enable-player191"
+	2) PLAYER="--enable-player191 --enable-multicom324"
 		cd ../driver/include/
 		if [ -L player2 ]; then
 			rm player2
@@ -251,16 +283,29 @@ case "$REPLY" in
 		if [ -L stmfb ]; then
 			rm stmfb
 		fi
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
 		ln -s player2_191 player2
 		ln -s stmfb-3.1_stm24_0104 stmfb
+		ln -s ../multicom-3.2.4/include multicom
 		cd - &>/dev/null
 
 		cd ../driver/
 		if [ -L player2 ]; then
 			rm player2
 		fi
+
+		if [ -L multicom ]; then
+			rm multicom
+		fi
+
 		ln -s player2_191 player2
+		ln -s multicom-3.2.4 multicom
 		echo "export CONFIG_PLAYER_191=y" >> .config
+		echo "export CONFIG_MULTICOM324=y" >> .config
 		cd - &>/dev/null
 
 		cd ../driver/stgfb
@@ -275,62 +320,10 @@ esac
 clear
 ##############################################
 
-${DIALOG} --menu "\n Multicom: \n " $height $width $listheight \
-1	"Multicom 3.2.4 (Player191)" \
-2	"Multicom 4.0.6 (Player191)" \
-2> ${tempfile}
-
-opt=${?}
-if [ $opt != 0 ]; then cleanup; exit; fi
-
-REPLY=`cat $tempfile`
-
-case "$REPLY" in
-	1) MULTICOM="--enable-multicom324"
-	cd ../driver/include/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s ../multicom-3.2.4/include multicom
-	cd - &>/dev/null
-
-	cd ../driver/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s multicom-3.2.4 multicom
-	echo "export CONFIG_MULTICOM324=y" >> .config
-	cd - &>/dev/null
-	;;
-	2 ) MULTICOM="--enable-multicom406"
-	cd ../driver/include/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s ../multicom-4.0.6/include multicom
-	cd - &>/dev/null
-
-	cd ../driver/
-	if [ -L multicom ]; then
-		rm multicom
-	fi
-
-	ln -s multicom-4.0.6 multicom
-	echo "export CONFIG_MULTICOM406=y" >> .config
-	cd - &>/dev/null
-	;;
-	*) MULTICOM="--enable-multicom324";;
-esac
-clear
-##############################################
-
 ${DIALOG} --menu "\n Select Media Framework: \n " $height $width $listheight \
 1	"eplayer3" \
 2	"gstreamer" \
-3	"use build-in" \
+3	"use build-in (NMP / NHD2)" \
 2> ${tempfile}
 
 opt=${?}
@@ -342,7 +335,7 @@ case "$REPLY" in
 	1) MEDIAFW="--enable-eplayer3";;
 	2) MEDIAFW="--enable-mediafwgstreamer";;
 	3) MEDIAFW="--enable-buildinplayer";;
-	*) MEDIAFW="--enable-eplayer3";;
+	*) MEDIAFW="--enable-buildinplayer";;
 esac
 clear
 
@@ -354,24 +347,7 @@ REPLY=${?}
 clear
 
 ##############################################
-
-${DIALOG} --menu "\n Select Graphic Framework: \n " $height $width $listheight \
-1	"Framebuffer" \
-2	"DirectFB (Recommended XBMC)" \
-2> ${tempfile}
-
-opt=${?}
-if [ $opt != 0 ]; then cleanup; exit; fi
-
-REPLY=`cat $tempfile`
-
-case "$REPLY" in
-	1) GFW="";;
-	2) GFW="--enable-graphicfwdirectfb";;
-	*) GFW="";;
-esac
-clear
-}
+} #closing bracket configmenu
 ##############################################
 doconfig() {
 # Check this option if you want to use the version of GCC.
@@ -379,7 +355,7 @@ doconfig() {
 
 ##############################################
 
-CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GFW"
+CONFIGPARAM="$CONFIGPARAM $PLAYER $MEDIAFW $EXTERNAL_LCD"
 
 #${DIALOG} --msgbox "$CONFIGPARAM" 0 0
 
@@ -424,7 +400,6 @@ ${DIALOG} --cancel-label "Exit" --menu \
 6	"Reconfigure Build Environment" \
 -	"---(not maintained)---" \
 97	"Build Neutrino (old)" \
-98	"Build XBMC (nightly)" \
 99	"Build Enigma2 (pli-nightly)" \
 2> ${tempfile}
 
@@ -435,10 +410,10 @@ REPLY=`cat $tempfile`
 
 case "$REPLY" in
 	1) MKTARGET="yaud-none lirc boot-elf remote firstboot"
-	   MKTARGET="$MKTARGET neutrino-mp"
-	   # selectbranch
+	   #MKTARGET="$MKTARGET neutrino-mp"
+	   selectbranch
 	   addons
-	   MKTARGET="$MKTARGET release_neutrino_nightly"
+	   MKTARGET="$MKTARGET release_neutrino"
 	   makeyaud;;
 	2) MKTARGET="yaud-neutrino-hd2-exp"
 	   makeyaud;;
@@ -451,8 +426,6 @@ case "$REPLY" in
 	6) configmenu
 	   doconfig;;
 	97) MKTARGET="yaud-neutrino"
-	    makeyaud;;
-	98) MKTARGET="yaud-xbmc-nightly"
 	    makeyaud;;
 	99) MKTARGET="yaud-enigma2-pli-nightly"
 	    makeyaud;;
@@ -491,15 +464,13 @@ fi
 selectbranch() {
 BRANCH=`${DIALOG} --radiolist "\n Select Neutrino-MP Branch: \n " $height $width $listheight \
 1	"Master" off \
-2	"Experimental" off \
-3	"Next" on \
+2	"Next" on \
 3>&1 1>&2 2>&3`
 
 for i in $BRANCH; do
    case "$i" in
       1 ) MKTARGET="$MKTARGET neutrino-mp";;
-      2 ) MKTARGET="$MKTARGET neutrino-mp-exp";;
-      3 ) MKTARGET="$MKTARGET neutrino-mp-exp-next";;
+      2 ) MKTARGET="$MKTARGET neutrino-mp-next";;
    esac
 done
 clear

@@ -153,7 +153,7 @@ case "$REPLY" in
 		ln -s fdma2_7100-v3.1.elf fdma_STx7100_0.elf
 		cd - &>/dev/null
 		;;
-	1) # UFS910 needs the old version
+	1|5) # for UFS910 and TF7700 the old fdma version
 		cd ./integrated_firmware
 		if [ -L fdma_STx7100_0.elf ]; then
 			rm fdma_STx7100_0.elf

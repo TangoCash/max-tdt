@@ -218,8 +218,7 @@ jfsutils;1.1.15;jfsutils-1.1.15;jfsutils-1.1.15.tar.gz;extract:jfsutils-1.1.15.t
 lm_sensors;2.9.2;lm_sensors-2.9.2;lm_sensors-2.9.2.tar.gz;extract:lm_sensors-2.9.2.tar.gz
 sdparm;1.07;sdparm-1.07;sdparm-1.07.tgz;extract:sdparm-1.07.tgz
 parted;3.0;parted-3.0;parted-3.0.tar.gz;extract:parted-3.0.tar.gz
-utillinux;2.23;util-linux-2.23;util-linux-2.23.tar.bz2;extract:util-linux-2.23.tar.bz2
-#utillinux;2.24;util-linux-2.24;util-linux-2.24.tar.bz2;extract:util-linux-2.24.tar.bz2
+utillinux;2.24;util-linux-2.24;util-linux-2.24.tar.bz2;extract:util-linux-2.24.tar.bz2
 xfsprogs;3.1.8;xfsprogs-3.1.8;xfsprogs-3.1.8.tar.gz;extract:xfsprogs-3.1.8.tar.gz
 
 #

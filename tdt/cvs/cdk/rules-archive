@@ -211,7 +211,7 @@ jfsutils-1.1.15.tar.gz;http://jfs.sourceforge.net/project/pub
 lm_sensors-2.9.2.tar.gz;http://dl.lm-sensors.org/lm-sensors/releases
 sdparm-1.07.tgz;http://sg.danny.cz/sg/p
 parted-3.0.tar.gz;http://ftp.gnu.org/pub/gnu/parted
-util-linux-2.23.tar.bz2;ftp://ftp.kernel.org/pub/linux/utils/util-linux/v2.23
+util-linux-2.24.tar.bz2;ftp://ftp.kernel.org/pub/linux/utils/util-linux/v2.24
 xfsprogs-3.1.8.tar.gz;http://ftp.gwdg.de/pub/linux/misc/xfs/xfs/cmd_tars
 
 #

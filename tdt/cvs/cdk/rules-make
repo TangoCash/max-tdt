@@ -58,7 +58,7 @@ fbset;2.1;fbset-2.1;fbset_2.1.orig.tar.gz:fbset_2.1-6.diff.gz:fbset_2.1-fb.modes
 pngquant;1.1;pngquant-1.1;pngquant-1.1-src.tgz;extract:pngquant-1.1-src.tgz
 mplayer;1.0;mplayer-export-*;mplayer-export-snapshot.tar.bz2;extract:mplayer-export-snapshot.tar.bz2
 mencoder;1.0;mplayer-export-*;mplayer-export-snapshot.tar.bz2;extract:mplayer-export-snapshot.tar.bz2
-opkg;0.1.8+svnr587;opkg-0.1.8+svnr587;opkg-0.1.8+svnr587.tar.gz;extract:opkg-0.1.8+svnr587.tar.gz;patch:opkg-0.1.8-dont-segfault.diff
+opkg;0.2.0;opkg-0.2.0;opkg-0.2.0.tar.gz;extract:opkg-0.2.0.tar.gz;patch:opkg-0.2.0-dont-segfault.patch
 sysstat;10.0.4;sysstat-10.0.4;sysstat-10.0.4.tar.gz;extract:sysstat-10.0.4.tar.gz
 imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:ImageMagick-6.7.7-7.tar.bz2
 shairport;1.0;shairport;shairport.git;extract:shairport.git

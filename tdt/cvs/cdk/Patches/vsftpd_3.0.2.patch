@@ -1,5 +1,5 @@
---- vsftpd-2.0.5/builddefs.h	2006-07-02 23:53:47.000000000 +0200
-+++ vsftpd-2.0.5/builddefs.h-new	2007-07-14 15:56:41.000000000 +0200
+--- vsftpd-3.0.2-org/builddefs.h
++++ vsftpd-3.0.2/builddefs.h
 @@ -2,7 +2,7 @@
  #define VSF_BUILDDEFS_H
  
@@ -9,21 +9,28 @@
  #undef VSF_BUILD_SSL
  
  #endif /* VSF_BUILDDEFS_H */
---- vsftpd-2.0.5/Makefile	2006-07-03 14:25:41.000000000 +0200
-+++ vsftpd-2.0.5/Makefile-new	2007-07-14 15:57:21.000000000 +0200
-@@ -5,7 +5,7 @@
+--- vsftpd-3.0.2-org/Makefile
++++ vsftpd-3.0.2/Makefile
+@@ -3,14 +3,11 @@
+ INSTALL	=	install
+ IFLAGS  = -idirafter dummyinc
  #CFLAGS = -g
- CFLAGS	=	-O2 -Wall -W -Wshadow #-pedantic -Werror -Wconversion
+-CFLAGS	=	-O2 -fPIE -fstack-protector --param=ssp-buffer-size=4 \
+-	-Wall -W -Wshadow -Werror -Wformat-security \
+-	-D_FORTIFY_SOURCE=2 \
+-	#-pedantic -Wconversion
++CFLAGS	=	-O2 -Wall -W -Wshadow #-pedantic -Werror -Wconversion
  
 -LIBS	=	`./vsf_findlibs.sh`
 +LIBS	=	-lcrypt -ldl -lnsl -lresolv -lutil
  LINK	=	-Wl,-s
+-LDFLAGS	=	-fPIE -pie -Wl,-z,relro -Wl,-z,now
++#LDFLAGS	=	-fPIE -pie -Wl,-z,relro -Wl,-z,now
  
  OBJS	=	main.o utility.o prelogin.o ftpcmdio.o postlogin.o privsock.o \
---- vsftpd-2.0.5/Makefile	2007-07-09 16:02:07.000000000 +0200
-+++ vsftpd-2.0.5/Makefile-new	2007-07-14 16:14:05.000000000 +0200
-@@ -24,21 +24,11 @@
- 	$(CC) -o vsftpd $(OBJS) $(LINK) $(LIBS) $(LDFLAGS)
+ 		tunables.o ftpdataio.o secbuf.o ls.o \
+@@ -29,21 +26,11 @@
+ 	$(CC) -o vsftpd $(OBJS) $(LINK) $(LDFLAGS) $(LIBS)
  
  install:
 -	if [ -x /usr/local/sbin ]; then \
@@ -49,9 +56,9 @@
  
  clean:
  	rm -f *.o *.swp vsftpd
---- vsftpd-2.3.4/parseconf.c	2010-03-27 23:20:56.903712923 +0100
-+++ vsftpd-2.3.4/parseconf.c	2010-03-27 23:20:38.691538456 +0100
-@@ -223,7 +223,6 @@
+--- vsftpd-3.0.2-org/parseconf.c
++++ vsftpd-3.0.2/parseconf.c
+@@ -227,7 +227,6 @@
       * race conditions.
       */
      if (vsf_sysutil_retval_is_error(retval) ||
@@ -59,3 +66,21 @@
          !vsf_sysutil_statbuf_is_regfile(p_statbuf))
      {
        die("config file not owned by correct user, or not a file");
+--- vsftpd-3.0.2-org/secutil.c
++++ vsftpd-3.0.2/secutil.c
+@@ -132,13 +132,13 @@
+   /* Misconfiguration check: don't ever chroot() to a directory writable by
+    * the current user.
+    */
+-  if ((options & VSF_SECUTIL_OPTION_CHROOT) &&
++/*  if ((options & VSF_SECUTIL_OPTION_CHROOT) &&
+       !(options & VSF_SECUTIL_OPTION_ALLOW_WRITEABLE_ROOT))
+   {
+     if (vsf_sysutil_write_access("/"))
+     {
+       die("vsftpd: refusing to run with writable root inside chroot()");
+     }
+-  }
++  }   */
+ }
+ 

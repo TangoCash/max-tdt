@@ -230,7 +230,7 @@ portmap;6.0.0;portmap-6.0.0;portmap_6.0.0.orig.tar.gz:portmap_6.0.diff:portmap_6
 nfs_utils;1.2.3;nfs-utils-1.2.3;nfs-utils-1.2.3.tar.bz2;extract:nfs-utils-1.2.3.tar.bz2;patch:nfs-utils-1.2.3.patch
 libevent;2.0.20-stable;libevent-2.0.20-stable;libevent-2.0.20-stable.tar.gz;extract:libevent-2.0.20-stable.tar.gz
 libnfsidmap;0.25;libnfsidmap-0.25;libnfsidmap-0.25.tar.gz;extract:libnfsidmap-0.25.tar.gz
-vsftpd;2.3.4;vsftpd-2.3.4;vsftpd-2.3.4.tar.gz:vsftpd_2.3.4.diff;extract:vsftpd-2.3.4.tar.gz;patch:vsftpd_2.3.4.diff
+vsftpd;3.0.2;vsftpd-3.0.2;vsftpd-3.0.2.tar.gz:vsftpd_3.0.2.patch;extract:vsftpd-3.0.2.tar.gz;patch:vsftpd_3.0.2.patch
 netkit_ftp;0.17;netkit-ftp-0.17;netkit-ftp-0.17.tar.gz:netkit-ftp.diff;extract:netkit-ftp-0.17.tar.gz;patch:netkit-ftp.diff
 ntp;4.2.6p5;ntp-4.2.6p5;ntp-4.2.6p5.tar.gz;extract:ntp-4.2.6p5.tar.gz;patch:ntp-4.2.6p5.patch
 samba;3.6.12;samba-3.6.12;samba-3.6.12.tar.gz:samba-3.6.12.patch;extract:samba-3.6.12.tar.gz;patch:samba-3.6.12.patch

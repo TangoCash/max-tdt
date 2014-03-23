@@ -74,6 +74,7 @@ libsigc;rewrite-pkgconfig:sigc++-1.2.pc;make:install:DESTDIR=TARGETS;rewrite-lib
 libmad;rewrite-pkgconfig:mad.pc;make:install:DESTDIR=TARGETS;install:-m644:mad.pc:TARGETS/usr/lib/pkgconfig;rewrite-libtool:TARGETS/usr/lib/libmad.la
 libid3tag;rewrite-pkgconfig:id3tag.pc;make:install:DESTDIR=TARGETS;install:-m644:id3tag.pc:TARGETS/usr/lib/pkgconfig;rewrite-libtool:TARGETS/usr/lib/libid3tag.la
 libvorbisidec;make:install:DESTDIR=TARGETS;install:-m644:vorbisidec.pc:TARGETS/usr/lib/pkgconfig;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/vorbisidec.pc;rewrite-libtool:TARGETS/usr/lib/libvorbisidec.la
+libvorbis;rewrite-pkgconfig:vorbis.pc:vorbisenc.pc:vorbisfile.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libvorbis.la:TARGETS/usr/lib/libvorbisenc.la:TARGETS/usr/lib/libvorbisfile.la
 glib2;rewrite-pkgconfig:glib-2.0.pc:gmodule-2.0.pc:gio-2.0.pc:gio-unix-2.0.pc:gmodule-export-2.0.pc:gmodule-no-export-2.0.pc:gobject-2.0.pc:gthread-2.0.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libglib-2.0.la;rewrite-libtool:TARGETS/usr/lib/libgmodule-2.0.la;rewrite-dependency:TARGETS/usr/lib/libgmodule-2.0.la;rewrite-libtool:TARGETS/usr/lib/libgio-2.0.la;rewrite-dependency:TARGETS/usr/lib/libgio-2.0.la;rewrite-libtool:TARGETS/usr/lib/libgobject-2.0.la;rewrite-dependency:TARGETS/usr/lib/libgobject-2.0.la;rewrite-libtool:TARGETS/usr/lib/libgthread-2.0.la;rewrite-dependency:TARGETS/usr/lib/libgthread-2.0.la
 libiconv;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libiconv.la
 libmng;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libmng.la;rewrite-dependency:TARGETS/usr/lib/libmng.la
@@ -110,7 +111,6 @@ libdvbsipp;rewrite-pkgconfig:libdvbsi++.pc;make:install:prefix=/usr:DESTDIR=TARG
 libpcre;rewrite-pkgconfig:libpcre.pc:libpcrecpp.pc:libpcreposix.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libpcre.la:TARGETS/usr/lib/libpcreposix.la
 libmpeg2;make:install:prefix=/usr:DESTDIR=TARGETS
 libsamplerate;make:install:prefix=/usr:DESTDIR=TARGETS
-libvorbis;rewrite-pkgconfig:vorbis.pc:vorbisenc.pc:vorbisfile.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libvorbis.la:TARGETS/usr/lib/libvorbisenc.la:TARGETS/usr/lib/libvorbisfile.la
 libmodplug;make:install:prefix=/usr:DESTDIR=TARGETS
 tiff;make:install:prefix=/usr:DESTDIR=TARGETS
 lzo;make:install:prefix=/usr:DESTDIR=TARGETS

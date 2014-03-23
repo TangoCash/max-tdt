@@ -265,6 +265,23 @@ $(DEPDIR)/libgif: bootstrap @DEPENDS_libgif@
 	touch $@
 
 #
+# libgif_e2
+#
+$(DEPDIR)/libgif_e2: bootstrap @DEPENDS_libgif_e2@
+	@PREPARE_libgif_e2@
+	cd @DIR_libgif_e2@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr \
+			--without-x && \
+		$(MAKE) && \
+		@INSTALL_libgif_e2@
+	@DISTCLEANUP_libgif_e2@
+	touch $@
+
+#
 # libcurl
 #
 $(DEPDIR)/libcurl: bootstrap @DEPENDS_libcurl@

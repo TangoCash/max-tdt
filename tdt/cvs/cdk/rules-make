@@ -80,6 +80,7 @@ libjpeg_turbo;1.2.1;libjpeg-turbo-1.2.1;libjpeg-turbo-1.2.1.tar.gz;extract:libjp
 libpng12;1.2.50;libpng-1.2.50;libpng-1.2.50.tar.bz2;extract:libpng-1.2.50.tar.bz2
 libpng;1.6.6;libpng-1.6.6;libpng-1.6.6.tar.gz;extract:libpng-1.6.6.tar.gz;patch:libpng-1.5.6-workaround_for_stmfb_alpha_error.patch
 libungif;4.1.4;libungif-4.1.4;libungif-4.1.4.tar.bz2;extract:libungif-4.1.4.tar.bz2
+libgif_e2;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
 libgif;5.0.4;giflib-5.0.4;giflib-5.0.4.tar.bz2;extract:giflib-5.0.4.tar.bz2
 libcurl;7.34.0;curl-7.34.0;curl-7.34.0.tar.bz2;extract:curl-7.34.0.tar.bz2;patch:libcurl-7.34.0.patch
 libfribidi;0.19.5;fribidi-0.19.5;fribidi-0.19.5.tar.bz2;extract:fribidi-0.19.5.tar.bz2;patch:fribidi-0.19.5.patch

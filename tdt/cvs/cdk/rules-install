@@ -68,6 +68,7 @@ libpng12;rewrite-pkgconfig:libpng12.pc;make:install:prefix=TARGETS/usr;rewrite-l
 libpng;rewrite-pkgconfig:libpng16.pc;make:install:prefix=TARGETS/usr;rewrite-libtool:TARGETS/usr/lib/libpng.la:TARGETS/usr/lib/libpng16.la
 libungif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libungif.la
 libgif;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgif.la
+libgif_e2;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgif.la
 libcurl;rewrite-pkgconfig:libcurl.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libcurl.la
 libfribidi;make:install:DESTDIR=TARGETS;rewrite-pkgconfig:TARGETS/usr/lib/pkgconfig/fribidi.pc;rewrite-libtool:TARGETS/usr/lib/libfribidi.la
 libsigc;rewrite-pkgconfig:sigc++-1.2.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libsigc-1.2.la;rewrite-dependency:TARGETS/usr/lib/libsigc-1.2.la

@@ -172,7 +172,6 @@ $(DEPDIR)/utillinux: bootstrap libz ncurses-dev @DEPENDS_utillinux@
 			--disable-libblkid \
 			--disable-libmount \
 			--disable-bash-completion \
-			--without-ncurses \
 			--disable-wall && \
 		$(MAKE) ARCH=sh4 && \
 		@INSTALL_utillinux@

@@ -9,7 +9,6 @@
 #
 # core
 #
-stlinux24-host-kernel-source-sh4-2.6.32.10_stm24_0201-201.src.rpm;ftp://ftp.stlinux.com/pub/stlinux/2.4/SRPMS
 squashfs3.0.tar.gz;http://heanet.dl.sourceforge.net/sourceforge/squashfs
 lzma442.tar.bz2;http://heanet.dl.sourceforge.net/sourceforge/sevenzip
 squashfs4.0.tar.gz;http://heanet.dl.sourceforge.net/sourceforge/squashfs

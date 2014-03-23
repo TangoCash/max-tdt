@@ -123,7 +123,7 @@ brofs;1.2;BroFS1.2;BroFS1.2.tgz;extract:BroFS1.2.tgz
 libalsa;1.0.25;alsa-lib-1.0.25;alsa-lib-1.0.25.tar.bz2;extract:alsa-lib-1.0.25.tar.bz2
 alsautils;1.0.25;alsa-utils-1.0.25;alsa-utils-1.0.25.tar.bz2;extract:alsa-utils-1.0.25.tar.bz2
 rtmpdump;2.4;rtmpdump-2.4;rtmpdump-2.4.tar.gz;extract:rtmpdump-2.4.tar.gz;move:rtmpdump:rtmpdump-2.4;patch:rtmpdump-2.4.patch
-libdvbsipp;0.3.6;libdvbsi++-0.3.6;libdvbsi++-0.3.6.tar.bz2;extract:libdvbsi++-0.3.6.tar.bz2;patch:libdvbsi++-0.3.6.patch
+libdvbsipp;0.3.7;libdvbsi++-0.3.7;libdvbsi++-0.3.7.tar.bz2;extract:libdvbsi++-0.3.7.tar.bz2;patch:libdvbsi++-0.3.7.patch
 libmpeg2;0.5.1;libmpeg2-0.5.1;libmpeg2-0.5.1.tar.gz;extract:libmpeg2-0.5.1.tar.gz
 libsamplerate;0.1.8;libsamplerate-0.1.8;libsamplerate-0.1.8.tar.gz;extract:libsamplerate-0.1.8.tar.gz
 libmodplug;0.8.8.4;libmodplug-0.8.8.4;libmodplug-0.8.8.4.tar.gz;extract:libmodplug-0.8.8.4.tar.gz

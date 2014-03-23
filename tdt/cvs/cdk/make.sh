@@ -174,10 +174,9 @@ esac
 ##############################################
 
 echo -e "\nKernel:"
-echo "   2) STM 24 P0209"
-echo "   4) STM 24 P0211 (recommended)"
-echo "   5) STM 24 P0212 (experimental)"
-echo "   6) STM 24 P0213 (experimental)"
+echo "   1) STM 24 P0209"
+echo "   2) STM 24 P0211 (recommended)"
+echo "   3) STM 24 P0213 (experimental)"
 case $2 in
 	[1-3]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"

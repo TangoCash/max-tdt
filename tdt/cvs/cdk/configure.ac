@@ -102,14 +102,6 @@ AC_ARG_ENABLE(p0211,
 AM_CONDITIONAL(ENABLE_P0211,test "$enable_p0211" = "yes")
 AC_SUBST(P0211)
 
-AC_ARG_ENABLE(p0212,
-	AS_HELP_STRING(--enable-p0212, set up the CDK to use the STLinux 2.4 with patchlevel 0212),
-	[case "${enableval}" in
-		yes) P0212=p0212 ;;
-	esac], [enable_p0212=no])
-AM_CONDITIONAL(ENABLE_P0212,test "$enable_p0212" = "yes")
-AC_SUBST(P0212)
-
 AC_ARG_ENABLE(p0213,
 	AS_HELP_STRING(--enable-p0213, set up the CDK to use the STLinux 2.4 with patchlevel 0213),
 	[case "${enableval}" in
@@ -696,12 +688,6 @@ if test "$enable_stm24" = "yes"; then
 		KERNELSTMLABEL="_${VERSION_linuxp0211#*_}"
 		KERNELLABEL="211"
 		PATCH_STR="_0211"
-	elif test "$enable_p0212" == "yes"; then
-		TUXBOX_RULES_MAKE(linuxp0212)
-		KERNELVERSION=${VERSION_linuxp0212}
-		KERNELSTMLABEL="_${VERSION_linuxp0212#*_}"
-		KERNELLABEL="212"
-		PATCH_STR="_0212"
 	elif test "$enable_p0213" == "yes"; then
 		TUXBOX_RULES_MAKE(linuxp0213)
 		KERNELVERSION=${VERSION_linuxp0213}
@@ -1046,7 +1032,6 @@ STLinux 2.4                 : $enable_stm24
 GCC 4.7.2                   : $enable_gcc47
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0211            : $enable_p0211
-Patchlevel P0212            : $enable_p0212
 Patchlevel P0213            : $enable_p0213
 ccache                      : $enable_ccache
 target prefix               : $targetprefix

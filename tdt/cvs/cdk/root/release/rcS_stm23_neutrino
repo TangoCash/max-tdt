@@ -32,15 +32,15 @@ if [ ! -e /var/etc/.firstboot ]; then
    mount -av -t nonfs,nonfs4,nosmbfs,nocifs,noncp,noncpfs,nocoda
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
    #used by fp_control! otherwise crash
    insmod $MODDIR/boxtype.ko
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -c
-   
+
    echo "init embxshell"
    insmod $MODDIR/embxshell.ko
    echo "init embxmailbox"
@@ -105,7 +105,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    #mount -t ext3 /dev/sda1 /hdd/movie
 
    /etc/init.d/portmap start
-   /etc/init.d/vsftpd start
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    #timefix

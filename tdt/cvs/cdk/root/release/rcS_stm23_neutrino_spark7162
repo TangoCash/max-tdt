@@ -25,8 +25,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-sti7105.ko
@@ -91,7 +91,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
 #   major=$(awk "\$2==\"sparkid\" {print \$1}" /proc/devices)
 #   rm -f /dev/sparkid
-#   mknod /dev/sparkid c $major 0 
+#   mknod /dev/sparkid c $major 0
 #   rm /f /dev/dvb/adapter0/ca1
 #   mknod /dev/dvb/adapter0/ca1 c 212 22
 
@@ -104,8 +104,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/autofs4.ko
    /usr/sbin/automount --ghost --timeout=5 /tmp/autofs file /etc/auto.usb
 
-   echo "starting vsftpd"
-   /etc/init.d/vsftpd start
+#   echo "starting vsftpd"
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    NFS=`grep -c nfs /proc/cmdline`

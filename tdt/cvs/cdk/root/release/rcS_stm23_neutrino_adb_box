@@ -43,14 +43,14 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-stx7100.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    echo "LOADING MODULES" >/dev/vfd
 
    echo "init embx"
@@ -81,7 +81,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 	insmod $MODDIR/stmvbi.ko
    fi
   insmod $MODDIR/pseudocard.ko
-   
+
     if [ $boxtype == 'bska' ]; then
          echo "init frontends bialy"
          insmod $MODDIR/fe-core.ko tuner=bialy ;
@@ -120,7 +120,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    /bin/evremote2 &
 
-   /etc/init.d/vsftpd start
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    #timefix

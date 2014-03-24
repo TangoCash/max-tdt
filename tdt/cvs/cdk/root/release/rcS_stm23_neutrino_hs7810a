@@ -27,14 +27,14 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-sti7111.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:15m:pal:yuv:yuv
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    echo "LOAD" > /dev/vfd
 
    if [ ! -e /lib/firmware/audio.elf ]; then
@@ -95,7 +95,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/smartcard.ko
 
    insmod $MODDIR/bpamem.ko
-   mknod /dev/bpamem c 153 0 
+   mknod /dev/bpamem c 153 0
 
    showiframe -p /var/boot/bootlogo.mvi &
    stfbcontrol a 0
@@ -111,7 +111,7 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    echo "starting telnetd"
    /usr/sbin/telnetd -l /bin/autologin
-   /etc/init.d/vsftpd start
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    NFS=`grep -c nfs /proc/cmdline`

@@ -25,7 +25,7 @@ insmod $MODDIR/e2_proc.ko
 
 if [ ! -e /var/etc/.firstboot ]; then
    echo "LOADING MODULES" > /dev/dbox/vfd
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
 
    echo "init AVS"
    insmod $MODDIR/avs.ko type=fake_avs
@@ -64,14 +64,14 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmsysfs.ko
    insmod $MODDIR/stm_monitor.ko
    insmod $MODDIR/stmdvb.ko
-   
+
    insmod $MODDIR/player2.ko
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
    insmod $MODDIR/silencegen.ko
    insmod $MODDIR/bpamem.ko
-   mknod /dev/bpamem c 153 0 
+   mknod /dev/bpamem c 153 0
 fi
 
 #showiframe -p /var/boot/bootlogo.mvi &
@@ -84,9 +84,9 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
-   /etc/init.d/vsftpd start
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
    mknod /dev/input/uinput c 10 223
    mkdir -p /var/run/lirc

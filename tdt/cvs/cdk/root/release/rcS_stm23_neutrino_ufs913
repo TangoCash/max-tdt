@@ -55,8 +55,8 @@ if [ ! -e /var/etc/.firstboot ]; then
 
    /sbin/ifconfig lo 127.0.0.1 up
 
- echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+# echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
  echo "init stmfb"
    insmod $MODDIR/stmcore-display-sti7105.ko
@@ -126,7 +126,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    #timefix
    date -s "200901011200"
 
-   /etc/init.d/vsftpd start
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    echo "LOADING Neutrino" > /dev/vfd

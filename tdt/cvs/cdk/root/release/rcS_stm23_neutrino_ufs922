@@ -23,8 +23,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-stx7109c3.ko
@@ -96,7 +96,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    #mount /dev/sda5 /hdd/
 
    /etc/init.d/portmap start
-   /etc/init.d/vsftpd start
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    #timefix

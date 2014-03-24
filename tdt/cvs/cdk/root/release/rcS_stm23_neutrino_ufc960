@@ -23,14 +23,14 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/mountall start
    /etc/init.d/hostname start
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
 
    echo "init stmfb"
    insmod $MODDIR/stmcore-display-stx7109c3.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:yuv:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -c
    fp_control -t "LOADING MODULES"
 
@@ -79,13 +79,13 @@ if [ ! -e /var/etc/.firstboot ]; then
    #stfbcontrol a 0
 
    insmod $MODDIR/bpamem.ko
-   mknod /dev/bpamem c 153 0 
+   mknod /dev/bpamem c 153 0
 
    echo "init frontpanel"
    insmod $MODDIR/boxtype.ko
    insmod $MODDIR/simu_button.ko
 
-   mknod /dev/rc c 147 1 
+   mknod /dev/rc c 147 1
 
    #params:
    #toggleFeedback 0 = false, 1 = true
@@ -100,7 +100,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    mount /dev/sda5 /hdd/
 
    /etc/init.d/portmap start
-   /etc/init.d/vsftpd start
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    #timefix e2

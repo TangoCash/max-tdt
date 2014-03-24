@@ -116,9 +116,9 @@ if [ ! -e /var/etc/.firstboot ]; then
    fp_control -t "LOADING neutrino"
    echo "LOADING neutrino"
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
-   /etc/init.d/vsftpd start
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    NFS=`grep -c nfs /proc/cmdline`

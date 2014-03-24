@@ -40,7 +40,7 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/stmcore-display-sti7111.ko
    insmod $MODDIR/stmfb.ko display0=1280x720-32@50:12m:pal:cvbs:yuv;# display1=720x576-16@50:1m:pal:cvbs;
 
-   echo "LOADING MODULES"   
+   echo "LOADING MODULES"
    fp_control -t "LOADING MODULES"
 
    if [ ! -e /lib/firmware/audio.elf ]; then
@@ -110,24 +110,24 @@ if [ ! -e /var/etc/.firstboot ]; then
    fp_control -t "LOADING neutrino"
    echo "LOADING neutrino"
 
-   echo "starting telnetd"
-   /usr/sbin/telnetd -l /bin/autologin
-   /etc/init.d/vsftpd start
+#   echo "starting telnetd"
+#   /usr/sbin/telnetd -l /bin/autologin
+#   /etc/init.d/vsftpd start
    /usr/sbin/inetd
 
    NFS=$(grep -c 'nfs' /proc/cmdline)
-   if [ "$NFS" -eq "1" ]; then 
-      echo "Booting from nfs, don't set network" 
-   else 
-      if [ -e /etc/network/interfaces ]; then 
-         ip addr flush eth0 
-         /etc/init.d/networking stop 
-         TEST=$(grep -c 'dhcp' /etc/network/interfaces) 
-         if [ "$TEST" -eq "1" ]; then 
+   if [ "$NFS" -eq "1" ]; then
+      echo "Booting from nfs, don't set network"
+   else
+      if [ -e /etc/network/interfaces ]; then
+         ip addr flush eth0
+         /etc/init.d/networking stop
+         TEST=$(grep -c 'dhcp' /etc/network/interfaces)
+         if [ "$TEST" -eq "1" ]; then
             echo dhcp
-            /etc/init.d/udhcpc start 
+            /etc/init.d/udhcpc start
          fi
-         /etc/init.d/networking start 
+         /etc/init.d/networking start
       fi
    fi
 

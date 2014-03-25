@@ -223,7 +223,7 @@ neutrino-mp-updateyaud: neutrino-mp-clean neutrino-mp
 #
 NEUTRINO_MP_NEXT_PATCHES =
 #NEUTRINO_MP_NEXT_PATCHES += $(PATCHES)/
-#NEUTRINO_MP_NEXT_PATCHES += $(PATCHES)/mp_ci_module_capmt.patch
+#NEUTRINO_MP_NEXT_PATCHES += $(PATCHES)/
 
 $(DEPDIR)/neutrino-mp-next.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-next
 	rm -rf $(appsdir)/neutrino-mp-next

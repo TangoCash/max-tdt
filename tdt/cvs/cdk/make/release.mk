@@ -593,13 +593,13 @@ release_base:
 	rm -rf $(prefix)/release || true
 	$(INSTALL_DIR) $(prefix)/release && \
 	$(INSTALL_DIR) $(prefix)/release/{bin,boot,dev,dev.static,etc,lib,media,mnt,proc,ram,root,sbin,share,sys,tmp,usr,var} && \
-	$(INSTALL_DIR) $(prefix)/release/etc/{enigma2,init.d,network,tuxbox} && \
+	$(INSTALL_DIR) $(prefix)/release/etc/{enigma2,init.d,network,tuxbox,tuxtxt} && \
 	$(INSTALL_DIR) $(prefix)/release/etc/network/{if-down.d,if-post-down.d,if-pre-up.d,if-up.d} && \
 	$(INSTALL_DIR) $(prefix)/release/lib/modules && \
 	$(INSTALL_DIR) $(prefix)/release/media/{dvd,hdd,net} && \
 	ln -s /media/hdd $(prefix)/release/hdd && \
 	$(INSTALL_DIR) $(prefix)/release/mnt/{hdd,nfs,usb} && \
-	$(INSTALL_DIR) $(prefix)/release/usr/{bin,lib,local,share,tuxtxt} && \
+	$(INSTALL_DIR) $(prefix)/release/usr/{bin,lib,local,share} && \
 	$(INSTALL_DIR) $(prefix)/release/usr/local/{bin,share} && \
 	ln -sf /etc $(prefix)/release/usr/local/etc && \
 	$(INSTALL_DIR) $(prefix)/release/usr/local/share/{enigma2,keymaps} && \
@@ -671,7 +671,7 @@ release_base:
 	cp $(buildprefix)/root/etc/tuxbox/satellites.xml $(prefix)/release/etc/tuxbox/ && \
 	cp $(buildprefix)/root/etc/tuxbox/cables.xml $(prefix)/release/etc/tuxbox/ && \
 	cp $(buildprefix)/root/etc/tuxbox/terrestrial.xml $(prefix)/release/etc/tuxbox/ && \
-	cp $(buildprefix)/root/etc/tuxbox/tuxtxt2.conf $(prefix)/release/usr/tuxtxt/ && \
+	cp $(buildprefix)/root/etc/tuxbox/tuxtxt2.conf $(prefix)/release/etc/tuxtxt/ && \
 	cp -aR $(buildprefix)/root/usr/share/udhcpc/* $(prefix)/release/usr/share/udhcpc/ && \
 	cp -aR $(buildprefix)/root/usr/share/zoneinfo/* $(prefix)/release/usr/share/zoneinfo/ && \
 	ln -sf /etc/timezone.xml $(prefix)/release/etc/tuxbox/timezone.xml && \

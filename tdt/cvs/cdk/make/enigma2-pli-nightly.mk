@@ -12,6 +12,10 @@ if ENABLE_EPLAYER3
 E_CONFIG_OPTS += --enable-libeplayer3
 endif
 
+if ENABLE_MEDIAFWGSTREAMER
+E_CONFIG_OPTS += --enable-mediafwgstreamer
+endif
+
 $(DEPDIR)/enigma2-pli-nightly.do_prepare:
 	REVISION=""; \
 	HEAD="master"; \

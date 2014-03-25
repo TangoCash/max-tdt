@@ -786,7 +786,7 @@ FFMPEG_CONFIGURE += --disable-encoders
 FFMPEG_CONFIGURE += --enable-encoder=aac --enable-encoder=h261 --enable-encoder=h263 --enable-encoder=h263p --enable-encoder=ljpeg
 FFMPEG_CONFIGURE += --enable-encoder=mjpeg --enable-encoder=mpeg1video --enable-encoder=mpeg2video --enable-encoder=png
 FFMPEG_CONFIGURE += --disable-decoders
-FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dvbsub --enable-decoder=flac --enable-decoder=h261 --enable-decoder=h263
+FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dvbsub --enable-decoder=dvdsub --enable-decoder=flac --enable-decoder=h261 --enable-decoder=h263
 FFMPEG_CONFIGURE += --enable-decoder=h263i --enable-decoder=h264 --enable-decoder=iff_byterun1 --enable-decoder=mjpeg
 FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=png
 FFMPEG_CONFIGURE += --enable-decoder=theora --enable-decoder=vorbis --enable-decoder=wmv3 --enable-decoder=pcm_s16le
@@ -1107,7 +1107,7 @@ $(DEPDIR)/libxml2: bootstrap @DEPENDS_libxml2@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
-			--with-python=$(hostprefix) \
+			--with-python=$(hostprefix)/bin \
 			--without-c14n \
 			--without-debug \
 			--without-mem-debug && \
@@ -1136,7 +1136,7 @@ $(DEPDIR)/libxslt: bootstrap libxml2 @DEPENDS_libxslt@
 			--with-libxml-prefix="$(crossprefix)" \
 			--with-libxml-include-prefix="$(targetprefix)/usr/include" \
 			--with-libxml-libs-prefix="$(targetprefix)/usr/lib" \
-			--with-python=$(hostprefix) \
+			--with-python=$(hostprefix)/bin \
 			--without-crypto \
 			--without-debug \
 			--without-mem-debug && \

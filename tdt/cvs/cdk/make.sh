@@ -5,7 +5,7 @@ if [ "$1" == -h ] || [ "$1" == --help ]; then
  echo "Parameter 2: kernel (1-3)"
  echo "Parameter 3: debug (y/N)"
  echo "Parameter 4: player (1-2)"
- echo "Parameter 5: Media Framework (1-3)"
+ echo "Parameter 5: Media Framework (1-4)"
  echo "Parameter 6: External LCD support (1-2)"
  exit
 fi
@@ -320,8 +320,9 @@ echo -e "\nMedia Framework:"
 echo "   1) eplayer3"
 echo "   2) gstreamer"
 echo "   3) use build-in (recommended)"
+echo "   4) gstreamer+eplayer3"
 case $5 in
-	[1-3]) REPLY=$5
+	[1-4]) REPLY=$5
 	echo -e "\nSelected media framework: $REPLY\n"
 	;;
 	*)
@@ -332,6 +333,7 @@ case "$REPLY" in
 	1) MEDIAFW="--enable-eplayer3";;
 	2) MEDIAFW="--enable-mediafwgstreamer";;
 	3) MEDIAFW="--enable-buildinplayer";;
+	4) MEDIAFW="--enable-eplayer3 --enable-mediafwgstreamer";;
 	*) MEDIAFW="--enable-eplayer3";;
 esac
 

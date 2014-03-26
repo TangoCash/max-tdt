@@ -3,6 +3,9 @@
 # Include yaud targets
 include make/yaud.mk
 
+# Include linux kernel targets
+include make/linux-kernel.mk
+
 # Set up the build environment
 include make/buildenv.mk
 
@@ -30,9 +33,6 @@ endif
 
 # Include adapted etc files and etc read-write files
 include make/root-etc.mk
-
-# Include linux kernel targets
-include make/linux-kernel.mk
 
 # Include busybox targets
 include make/busybox.mk

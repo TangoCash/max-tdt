@@ -223,15 +223,12 @@ $(DEPDIR)/kernel-headers: linux-kernel.do_prepare
 
 KERNELHEADERS := linux-kernel-headers
 if ENABLE_P0209
-KERNEL_DIR = @DIR_linuxp0209@
 KERNELHEADERS_VERSION := 2.6.32.46-47
 endif
 if ENABLE_P0211
-KERNEL_DIR = @DIR_linuxp0211@
 KERNELHEADERS_VERSION := 2.6.32.46-47
 endif
 if ENABLE_P0213
-KERNEL_DIR = @DIR_linuxp0213@
 KERNELHEADERS_VERSION := 2.6.32.46-47
 endif
 KERNELHEADERS_SPEC := stm-target-kernel-headers-kbuild.spec

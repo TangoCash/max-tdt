@@ -13,6 +13,19 @@ STM_SRC := $(STLINUX)
 STM_RELOCATE := /opt/STM/STLinux-2.4
 
 #
+# kernel dir
+#
+if ENABLE_P0209
+KERNEL_DIR = @DIR_linuxp0209@
+endif
+if ENABLE_P0211
+KERNEL_DIR = @DIR_linuxp0211@
+endif
+if ENABLE_P0213
+KERNEL_DIR = @DIR_linuxp0213@
+endif
+
+#
 # Python Version
 #
 PYTHON_VERSION = $(word 1,$(subst ., ,$(VERSION_python))).$(word 2,$(subst ., ,$(VERSION_python)))

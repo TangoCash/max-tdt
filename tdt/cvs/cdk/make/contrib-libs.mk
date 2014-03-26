@@ -375,6 +375,8 @@ $(DEPDIR)/libmad: bootstrap @DEPENDS_libmad@
 $(DEPDIR)/libid3tag: bootstrap @DEPENDS_libid3tag@
 	@PREPARE_libid3tag@
 	cd @DIR_libid3tag@ && \
+		touch NEWS AUTHORS ChangeLog && \
+		autoreconf -fi && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \

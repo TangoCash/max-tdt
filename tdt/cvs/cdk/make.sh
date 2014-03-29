@@ -252,14 +252,14 @@ case "$REPLY" in
 		if [ -L player2 ]; then
 			rm player2
 		fi
-		ln -s player2_191 player2
-		echo "export CONFIG_PLAYER_191=y" >> .config
-		cd - &>/dev/null
 
 		if [ -L multicom ]; then
 			rm multicom
 		fi
+
+		ln -s player2_191 player2
 		ln -s multicom-3.2.4 multicom
+		echo "export CONFIG_PLAYER_191=y" >> .config
 		echo "export CONFIG_MULTICOM324=y" >> .config
 		cd - &>/dev/null
 
@@ -311,7 +311,7 @@ case "$REPLY" in
 		ln -s stmfb-3.1_stm24_0104 stmfb
 		cd - &>/dev/null
 	;;
-	*) PLAYER="--enable-player191";;
+	*) PLAYER="--enable-player191 --enable-multicom324";;
 esac
 
 ##############################################

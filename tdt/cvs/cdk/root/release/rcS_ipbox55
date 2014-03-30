@@ -82,7 +82,11 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/vsftpd start
    /usr/sbin/inetd
    mkdir -p /var/run/lirc
-   /usr/bin/lircd -u
+   /usr/bin/lircd
+
+   insmod $MODDIR/simu_button.ko
+   /bin/evremote2 &
+
 
    if [ -e /etc/network/interfaces ]; then
      ip addr flush eth0

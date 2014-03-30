@@ -63,7 +63,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
-   insmod $MODDIR/silencegen.ko 
+   insmod $MODDIR/silencegen.ko
+   insmod $MODDIR/rmu.ko 
 fi
 
 showiframe -p /var/boot/bootlogo.mvi &
@@ -82,7 +83,11 @@ if [ ! -e /var/etc/.firstboot ]; then
    /etc/init.d/vsftpd start
    /usr/sbin/inetd
    mkdir -p /var/run/lirc
-   /usr/bin/lircd -u
+   /usr/bin/lircd
+
+   insmod $MODDIR/simu_button.ko
+   /bin/evremote2 &
+
 
    if [ -e /etc/network/interfaces ]; then
      ip addr flush eth0

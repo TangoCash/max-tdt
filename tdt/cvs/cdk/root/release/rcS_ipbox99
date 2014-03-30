@@ -63,7 +63,8 @@ if [ ! -e /var/etc/.firstboot ]; then
    insmod $MODDIR/sth264pp.ko
    insmod $MODDIR/stmalloc.ko
    insmod $MODDIR/platform.ko
-   insmod $MODDIR/silencegen.ko 
+   insmod $MODDIR/silencegen.ko
+   insmod $MODDIR/ipbox_fan.ko
 fi
 
 showiframe -p /var/boot/bootlogo.mvi &

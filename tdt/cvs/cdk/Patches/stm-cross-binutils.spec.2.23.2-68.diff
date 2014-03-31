@@ -1,14 +1,6 @@
---- stm-cross-binutils.spec.orig	2013-04-19 03:05:04.000000000 +0200
-+++ stm-cross-binutils.spec	2014-01-28 22:20:51.404807035 +0100
-@@ -27,6 +27,7 @@
- # SH4 patches
- Patch100: binutils-2.23.1-stm-130201.patch
- Patch101: binutils-2.22-dt-needed.patch
-+Patch102: stm-cross-binutils-2.23.2.patch
- 
- # ST200 patches
- Patch200: binutils-2.21.51-st200-7.03-6-0-0-B-111108.patch
-@@ -39,9 +40,7 @@
+--- stm-cross-binutils.spec.orig	2013-04-25 12:44:27.611319283 +0200
++++ stm-cross-binutils.spec	2013-04-25 12:44:27.591319289 +0200
+@@ -39,9 +39,7 @@
  BuildRequires: texinfo
  %endif
  BuildRequires: %{_stm_pkg_prefix}-host-autoconf
@@ -18,15 +10,7 @@
  BuildRequires: %{_stm_pkg_prefix}-host-rpmconfig
  
  Group: Development/Languages
-@@ -91,6 +90,7 @@
- 
- %if %target_cpu sh
- %patch100 -p1
-+%patch102 -p1
- %endif
- 
- %if %target_cpu st200
-@@ -116,6 +116,7 @@
+@@ -116,6 +114,7 @@
  %cross_configure \
         --enable-nls \
         --disable-multilib \
@@ -34,66 +18,3 @@
         --with-system-zlib \
  %if "%{_stm_target_fpu}" == "yes"
  %if %target_arch armv7 armv7_uclibc
-@@ -264,7 +265,7 @@
- - [Add patch: binutils 2.23.1-stm-130201]
- - [Delete patch: binutils-2.22-stm-130107]
- 
--* Tue Jan 16 2013 Christian Bruel <christian.bruel@st.com> 64
-+* Wed Jan 16 2013 Christian Bruel <christian.bruel@st.com> 64
- - [Add patch: binutils-2.22-unitialized.patch]. Shut-up -Wall LTO warning error.
- 
- * Mon Jan 07 2013 Christian Bruel <christian.bruel@st.com> 63
-@@ -362,7 +363,7 @@
-   http://cygwin.com/ml/binutils/2010-09/msg00409.html to fix bug
-   report SUPst00003374.
- 
--* Wed Jun 16 2011 Christian Bruel <christian.bruel@st.com> 52
-+* Thu Jun 16 2011 Christian Bruel <christian.bruel@st.com> 52
- - [Update: 2.21.51] Upgrade SH to last binutils 2.21.51.
- - [Add patch: binutils-2.21.51-stm-110614.patch]
- - [Delete patch: binutils-2.21.51-stm-110525.patch]
-@@ -431,7 +432,7 @@
- - [Add patch: binutils-2.20.51-stm-100611.patch]
- - [Remove patch: binutils-2.20.51-stm-100520.patch]
- 
--* Fri Jun 16 2010 Ram Dayal<ram.dayal@st.com> 43
-+* Wed Jun 16 2010 Ram Dayal<ram.dayal@st.com> 43
- - [Spec] Revert ARM version to 2.18.50.0.6, getting issues in glibc
-   with 2.19.51.0.1]
- - [Add patch: binutils-2.18.50.0.6-code_sourcery-2008q1-126.patchi]
-@@ -439,7 +440,7 @@
- - [Add patch: binutils-2.18.50.0.6-code_sourcery-relocs.patch]
- - [Remove patch: binutils-2.19.51.0.1-code_sourcery-2009q1-176-stm-2.3.patch]
- 
--* Fri Jun 01 2010 Ram Dayal<ram.dayal@st.com> 43
-+* Tue Jun 01 2010 Ram Dayal<ram.dayal@st.com> 43
- - [Spec] binutils updated to 2.19.51.0.1 version  
- - [Spec] Hard Floating support enabled for ARMv7(cortex-9)
- - [Spec] ARM cpu types changed from arm and cortex to
-@@ -447,7 +448,7 @@
- - [Remove patch: binutils-2.18.50.0.6-code_sourcery-2008q1-126.patch]
- - [Add patch: binutils-2.19.51.0.1-code_sourcery-2009q1-176-stm-2.3.patch]
- 
--* Tue May 20 2010 Christian Bruel <christian.bruel@st.com> 42
-+* Thu May 20 2010 Christian Bruel <christian.bruel@st.com> 42
- - [Update: 2.20.51] Upgrade to binutils 2.20.51 and STM developments 100520
- - [Add patch: binutils-2.20.51-stm-100520.patch]
- - [Remove patch: binutils-2.19.1-091123.patch]
-@@ -468,7 +469,7 @@
- * Mon Feb 08 2010 André Draszik <andre.draszik@st.com> 39
- - [Spec] remove bashisms
- 
--* Tue Nov 25 2009 Christian Bruel <christian.bruel@st.com> 38
-+* Wed Nov 25 2009 Christian Bruel <christian.bruel@st.com> 38
- - [Update: Upgrade SH version to STM 2.19.1-091123]
- - [Add patch: binutils-2.19.1-091123.patch]
- - [Remove patch: binutils-2.19.1-090818.patch]
-@@ -564,7 +565,7 @@
- * Thu Aug 28 2008 Kumar Bipin <kumar.bipin@st.com> 25
- - [Spec] Added Version:2.18.50.0.6 for arm.
- 
--* Tue Jul 23 2008 Carl Shaw <carl.shaw@st.com> 24
-+* Wed Jul 23 2008 Carl Shaw <carl.shaw@st.com> 24
- - [Update: 2.18.50.0.8] update to latest open source version for SH4 and ARM
- - [Add patch: binutils-2.18.50.0.8-st40r2-sh4-300.patch.gz]
-   Add SH4-300 support

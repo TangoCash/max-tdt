@@ -21,8 +21,8 @@ COMMONPATCHES_24 = \
 		linux-ftdi_sio.c_stm24$(PATCH_STR).patch \
 		linux-sh4-lzma-fix_stm24$(PATCH_STR).patch \
 		linux-tune_stm24.patch \
-		$(if $(P0209)$(P0211)$(P0213),linux-sh4-permit_gcc_command_line_sections_stm24.patch) \
-		$(if $(P0209)$(P0211)$(P0213),linux-sh4-mmap_stm24.patch) \
+		linux-sh4-permit_gcc_command_line_sections_stm24.patch \
+		linux-sh4-mmap_stm24.patch \
 		$(if $(P0209),linux-sh4-dwmac_stm24_0209.patch) \
 		$(if $(P0209),linux-sh4-directfb_stm24$(PATCH_STR).patch)
 
@@ -105,13 +105,13 @@ UFS922PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0209)$(P0211)$(P0213),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch
 
 UFC960PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-ufs922_setup_stm24$(PATCH_STR).patch \
 		linux-sh4-stmmac_stm24$(PATCH_STR).patch \
 		linux-sh4-i2c-st40-pio_stm24$(PATCH_STR).patch \
-		$(if $(P0209)$(P0211)$(P0213),linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch)
+		linux-sh4-fortis_hdbox_i2c_st40_stm24$(PATCH_STR).patch
 
 HL101_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-hl101_setup_stm24$(PATCH_STR).patch \
@@ -131,8 +131,8 @@ SPARK_PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-spark_setup_stm24$(PATCH_STR).patch \
 		$(if $(P0209),linux-sh4-linux_yaffs2_stm24_0209.patch) \
 		$(if $(P0209),linux-sh4-lirc_stm.patch) \
-		$(if $(P0211)$(P0213),linux-sh4-lirc_stm_stm24$(PATCH_STR).patch) \
-		$(if $(P0211)$(P0213),af901x-NXP-TDA18218.patch) \
+		$(if $(P0211)$(P0214),linux-sh4-lirc_stm_stm24$(PATCH_STR).patch) \
+		$(if $(P0211)$(P0214),af901x-NXP-TDA18218.patch) \
 		dvb-as102.patch
 
 SPARK7162_PATCHES_24 = $(COMMONPATCHES_24) \
@@ -228,7 +228,7 @@ endif
 if ENABLE_P0211
 KERNELHEADERS_VERSION := 2.6.32.46-47
 endif
-if ENABLE_P0213
+if ENABLE_P0214
 KERNELHEADERS_VERSION := 2.6.32.46-48
 endif
 KERNELHEADERS_SPEC := stm-target-kernel-headers-kbuild.spec
@@ -270,7 +270,7 @@ endif
 if ENABLE_P0211
 HOST_KERNEL_VERSION = 2.6.32.59$(KERNELSTMLABEL)-$(KERNELLABEL)
 endif
-if ENABLE_P0213
+if ENABLE_P0214
 HOST_KERNEL_VERSION = 2.6.32.61$(KERNELSTMLABEL)-$(KERNELLABEL)
 endif
 

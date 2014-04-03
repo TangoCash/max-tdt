@@ -176,7 +176,7 @@ esac
 echo -e "\nKernel:"
 echo "   1) STM 24 P0209"
 echo "   2) STM 24 P0211 (recommended)"
-echo "   3) STM 24 P0213 (experimental)"
+echo "   3) STM 24 P0214 (experimental)"
 case $2 in
 	[1-3]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"
@@ -188,7 +188,7 @@ esac
 case "$REPLY" in
 	1)  KERNEL="--enable-stm24 --enable-p0209";STMFB="stm24";;
 	2)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
-	3)  KERNEL="--enable-stm24 --enable-p0213";STMFB="stm24";;
+	3)  KERNEL="--enable-stm24 --enable-p0214";STMFB="stm24";;
 	*)  KERNEL="--enable-stm24 --enable-p0211";STMFB="stm24";;
 esac
 CONFIGPARAM="$CONFIGPARAM $KERNEL"
@@ -326,7 +326,7 @@ case $5 in
 	echo -e "\nSelected media framework: $REPLY\n"
 	;;
 	*)
-	read -p "Select media framework (1-3)? ";;
+	read -p "Select media framework (1-4)? ";;
 esac
 
 case "$REPLY" in

@@ -21,8 +21,8 @@ endif
 if ENABLE_P0211
 KERNEL_DIR = @DIR_linuxp0211@
 endif
-if ENABLE_P0213
-KERNEL_DIR = @DIR_linuxp0213@
+if ENABLE_P0214
+KERNEL_DIR = @DIR_linuxp0214@
 endif
 
 #

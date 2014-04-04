@@ -722,3 +722,26 @@ $(DEPDIR)/shairport: bootstrap openssl openssl-dev howl libalsa @DEPENDS_shairpo
 	@DISTCLEANUP_shairport@
 	touch $@
 
+#
+# wget
+#
+$(DEPDIR)/wget: bootstrap @DEPENDS_wget@
+	@PREPARE_wget@
+	cd @DIR_wget@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr \
+			--with-openssl \
+			--with-ssl=openssl \
+			--disable-ipv6 \
+			--disable-debug \
+			--disable-nls && \
+		$(MAKE) && \
+		@INSTALL_wget@
+	@DISTCLEANUP_wget@
+	touch $@
+
+
+

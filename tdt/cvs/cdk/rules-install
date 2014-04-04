@@ -48,6 +48,7 @@ opkg;rewrite-pkgconfig:libopkg.pc;make:install:DESTDIR=TARGETS;link:/usr/bin/opk
 sysstat;make:install:DESTDIR=TARGETS
 imagemagick;rewrite-pkgconfig:magick/ImageMagick.pc:magick/MagickCore.pc:wand/MagickWand.pc:wand/Wand.pc:Magick++/lib/ImageMagick++.pc:Magick++/lib/Magick++.pc;make:install:prefix=/usr:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libMagickCore.la:TARGETS/usr/lib/libMagickWand.la:TARGETS/usr/lib/libMagick++.la
 shairport;make:install:PREFIX=TARGETS/usr
+wget;make:install:DESTDIR=TARGETS
 
 #
 # contrib libs

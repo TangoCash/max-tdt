@@ -105,7 +105,7 @@ AC_SUBST(P0211)
 AC_ARG_ENABLE(p0214,
 	AS_HELP_STRING(--enable-p0214, set up the CDK to use the STLinux 2.4 with patchlevel 0214),
 	[case "${enableval}" in
-		yes) P0213=p0214 ;;
+		yes) P0214=p0214 ;;
 	esac], [enable_p0214=no])
 AM_CONDITIONAL(ENABLE_P0214,test "$enable_p0214" = "yes")
 AC_SUBST(P0214)

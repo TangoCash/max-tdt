@@ -108,7 +108,7 @@ AC_ARG_ENABLE(p0214,
 		yes) P0213=p0214 ;;
 	esac], [enable_p0214=no])
 AM_CONDITIONAL(ENABLE_P0214,test "$enable_p0214" = "yes")
-AC_SUBST(P0213)
+AC_SUBST(P0214)
 
 AC_ARG_WITH(cpu,
 	[  --with-cpu=MODEL    cpu model [[sh4]]],

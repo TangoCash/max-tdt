@@ -735,6 +735,7 @@ $(DEPDIR)/wget: bootstrap openssl openssl-dev @DEPENDS_wget@
 			--prefix=/usr \
 			--with-openssl \
 			--with-ssl=openssl \
+			--with-libssl-prefix=$(targetprefix) \
 			--disable-ipv6 \
 			--disable-debug \
 			--disable-nls && \

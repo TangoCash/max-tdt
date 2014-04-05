@@ -2336,4 +2336,3 @@ $(DEPDIR)/taglib: bootstrap @DEPENDS_taglib@
 		@INSTALL_taglib@
 	@DISTCLEANUP_taglib@
 	touch $@
-

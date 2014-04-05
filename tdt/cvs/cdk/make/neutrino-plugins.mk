@@ -56,5 +56,3 @@ neutrino-mp-plugins-clean:
 
 neutrino-mp-plugins-distclean:
 	rm -f $(DEPDIR)/neutrino-mp-plugins*
-
-

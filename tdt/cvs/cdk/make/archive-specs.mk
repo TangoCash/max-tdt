@@ -49,5 +49,3 @@ $(archivedir)/xupnpd.svn:
 	svn co http://tsdemuxer.googlecode.com/svn/trunk/xupnpd/src $(archivedir)/xupnpd.svn || \
 	false )
 	@touch $@
-
-

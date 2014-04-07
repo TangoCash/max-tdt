@@ -725,7 +725,7 @@ $(DEPDIR)/shairport: bootstrap openssl openssl-dev howl libalsa @DEPENDS_shairpo
 #
 # wget
 #
-$(DEPDIR)/wget: bootstrap @DEPENDS_wget@
+$(DEPDIR)/wget: bootstrap openssl openssl-dev @DEPENDS_wget@
 	@PREPARE_wget@
 	cd @DIR_wget@ && \
 		$(BUILDENV) \
@@ -735,6 +735,7 @@ $(DEPDIR)/wget: bootstrap @DEPENDS_wget@
 			--prefix=/usr \
 			--with-openssl \
 			--with-ssl=openssl \
+			--with-libssl-prefix=$(targetprefix) \
 			--disable-ipv6 \
 			--disable-debug \
 			--disable-nls && \
@@ -742,6 +743,3 @@ $(DEPDIR)/wget: bootstrap @DEPENDS_wget@
 		@INSTALL_wget@
 	@DISTCLEANUP_wget@
 	touch $@
-
-
-

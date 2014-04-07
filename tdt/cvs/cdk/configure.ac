@@ -724,6 +724,7 @@ fi
 #
 TUXBOX_RULES_MAKE(squashfs)
 TUXBOX_RULES_MAKE(ccache)
+TUXBOX_RULES_MAKE(texinfo)
 TUXBOX_RULES_MAKE(cramfs)
 TUXBOX_RULES_MAKE(host_libtool)
 TUXBOX_RULES_MAKE(host_pkgconfig)

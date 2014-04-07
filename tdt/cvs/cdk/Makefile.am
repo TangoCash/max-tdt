@@ -15,6 +15,9 @@ include make/bare-os.mk
 # Target for building and install own independ ccache for tuxbox-cdk
 include make/ccache.mk
 
+# Target for building and install own independ texinfo for duckbox-cdk
+include make/texinfo.mk
+
 # Include Archive targets (SPECS derived)
 include make/archive-specs.mk
 

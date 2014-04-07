@@ -11,6 +11,7 @@
 #
 #squashfs
 ccache;make:install:DESTDIR=HOST
+texinfo;make:install:DESTDIR=HOST
 cramfs;install:mkcramfs:HOST/bin
 ipkg_utils;make:install
 host_libtool;make:install

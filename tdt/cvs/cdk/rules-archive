@@ -26,6 +26,12 @@ autoconf-2.64.tar.gz;http://ftp.gnu.org/gnu/autoconf
 #
 ccache-3.1.9.tar.gz;http://samba.org/ftp/ccache
 
+
+#
+# texinfo
+#
+texinfo-4.13a.tar.gz;http://ftp.gnu.org/gnu/texinfo
+
 #
 # root
 #

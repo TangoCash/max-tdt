@@ -33,6 +33,11 @@ host_autoconf;2.64;autoconf-2.64;autoconf-2.64.tar.gz;extract:autoconf-2.64.tar.
 ccache;3.1.9;ccache-3.1.9;ccache-3.1.9.tar.gz;extract:ccache-3.1.9.tar.gz
 
 #
+# texinfo
+#
+texinfo;4.13a;texinfo-4.13;texinfo-4.13a.tar.gz;extract:texinfo-4.13a.tar.gz
+
+#
 # root
 #
 busybox;1.22.1;busybox-1.22.1;busybox-1.22.1.tar.bz2;extract:busybox-1.22.1.tar.bz2

@@ -206,7 +206,7 @@ graphlcd;base-touchcol;graphlcd-base-touchcol;graphlcd-base-touchcol.git:graphlc
 lcd4_linux;;lcd4linux;lcd4linux.svn;extract:lcd4linux.svn;patch:lcd4linux-dpf.patch;patch:lcd4linux-spf.patch
 libusb;1.0.9;libusb-1.0.9;libusb-1.0.9.tar.bz2;extract:libusb-1.0.9.tar.bz2;patch:libusb-1.0.9.patch
 libusbcompat;0.1.5;libusb-compat-0.1.5;libusb-compat-0.1.5.tar.bz2;extract:libusb-compat-0.1.5.tar.bz2
-libgd2;2.0.35;gd-2.0.35;gd-2.0.35.tar.gz;extract:gd-2.0.35.tar.gz
+libgd2;2.1.0;libgd-2.1.0;libgd-2.1.0.tar.gz;extract:libgd-2.1.0.tar.gz
 #libdpfax;ax;dpf-ax;dpf-ax.svn:libdpfax.diff;extract:dpf-ax.svn;patch:libdpfax.diff
 libdpfax;ax;dpf-ax;dpf-ax.svn;extract:dpf-ax.svn
 libdpf;0.12;dpflib-0.12;dpflib-0.12.tar.gz;extract:dpflib-0.12.tar.gz

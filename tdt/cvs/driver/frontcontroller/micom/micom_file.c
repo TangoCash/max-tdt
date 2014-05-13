@@ -824,7 +824,7 @@ int micomInitialize(void)
     memset(buffer, 0, 8);
     buffer[0] = 0x1;
 
-    micomWriteCommand((char)VFDDISPLAYWRITEONOFF, buffer, 7, 0);
+    micomWriteCommand(0x5, buffer, 7, 0);
     res = micomWriteCommand(0x3, buffer, 7, 0);
 
     memset(buffer, 0, 8);

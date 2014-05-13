@@ -651,6 +651,7 @@ int micomWriteCommand(char command, char* buffer, int len, int needAck)
     for (i = 0; i < len; i++)
     {
 	      dprintk(201, "Put: %c\n", buffer[i]);
+	udelay(1);
 #ifdef DIRECT_ASC
           serial_putc (buffer[i]);
 #else
@@ -823,6 +824,7 @@ int micomInitialize(void)
     memset(buffer, 0, 8);
     buffer[0] = 0x1;
 
+    micomWriteCommand((char)VFDDISPLAYWRITEONOFF, buffer, 7, 0);
     res = micomWriteCommand(0x3, buffer, 7, 0);
 
     memset(buffer, 0, 8);
@@ -1488,7 +1490,7 @@ static int MICOMdev_ioctl(struct inode *Inode, struct file *File, unsigned int c
             res = micomWriteString(data->data, data->length);
         } else
         {
-            //not suppoerted
+            //not supported
         }
 
         mode = 0;
@@ -1497,9 +1499,6 @@ static int MICOMdev_ioctl(struct inode *Inode, struct file *File, unsigned int c
     case VFDDISPLAYWRITEONOFF:
         /* ->alles abschalten ? VFD_Display_Write_On_Off */
         printk("VFDDISPLAYWRITEONOFF ->not yet implemented\n");
-#if defined(UFS912) || defined(UFS913)
-        micomInitialize();
-#endif
         break;
     case 0x5305:
 	break;

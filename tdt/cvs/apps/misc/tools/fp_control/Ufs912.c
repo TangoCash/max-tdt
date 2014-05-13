@@ -551,13 +551,15 @@ static int Exit(Context_t* context)
 
 static int Clear(Context_t* context)
 {
-   struct micom_ioctl_data vData;
+   int i;
+   setText(context, "                ");
 
-   if (ioctl(context->fd, VFDDISPLAYWRITEONOFF, &vData) < 0)
-   {
-      perror("Clear: ");
-      return -1;
-   }
+   for (i = 2; i <= 5 ; i++)
+      setLed(context, i, 0);
+
+   for (i = 1; i <= 16 ; i++)
+      setIcon(context, i, 0);
+
    return 0;
 }
 

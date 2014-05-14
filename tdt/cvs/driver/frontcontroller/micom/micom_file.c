@@ -824,7 +824,6 @@ int micomInitialize(void)
     memset(buffer, 0, 8);
     buffer[0] = 0x1;
 
-    micomWriteCommand(0x5, buffer, 7, 0);
     res = micomWriteCommand(0x3, buffer, 7, 0);
 
     memset(buffer, 0, 8);
@@ -1179,19 +1178,19 @@ int micom_init_func(void)
     printk("Kathrein UFS912/913 VFD/MICOM module initializing\n");
     micomInitialize();
 #endif
-    udelay(10);
+    msleep(10);
     micomSetBrightness(1);
 
-    udelay(10);
+    msleep(10);
     micomSetLedBrightness(0x50);
 
-    udelay(10);
+    msleep(10);
 #if VFD_LENGTH < 16
     micomWriteString(" T D T  ", strlen(" T D T  "));
 #else
     micomWriteString(" Team Ducktales ", strlen(" Team Ducktales "));
 #endif
-    udelay(10);
+    msleep(10);
 
 #if defined(UFS922) || defined(UFC960)
     for (vLoop = ICON_MIN + 1; vLoop < ICON_MAX; vLoop++)

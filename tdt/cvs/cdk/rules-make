@@ -209,7 +209,7 @@ libusbcompat;0.1.5;libusb-compat-0.1.5;libusb-compat-0.1.5.tar.bz2;extract:libus
 libgd2;2.1.0;libgd-2.1.0;libgd-2.1.0.tar.gz;extract:libgd-2.1.0.tar.gz
 #libdpfax;ax;dpf-ax;dpf-ax.svn:libdpfax.diff;extract:dpf-ax.svn;patch:libdpfax.diff
 libdpfax;ax;dpf-ax;dpf-ax.svn;extract:dpf-ax.svn
-libdpf;0.12;dpflib-0.12;dpflib-0.12.tar.gz;extract:dpflib-0.12.tar.gz
+#libdpf;0.12;dpflib-0.12;dpflib-0.12.tar.gz;extract:dpflib-0.12.tar.gz
 
 #
 # ide apps

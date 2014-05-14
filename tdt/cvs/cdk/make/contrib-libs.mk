@@ -1624,7 +1624,7 @@ $(DEPDIR)/graphlcd: bootstrap libfreetype libusb @DEPENDS_graphlcd@
 #
 # LCD4LINUX
 #--with-python
-$(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb libdpf @DEPENDS_lcd4_linux@
+$(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb @DEPENDS_lcd4_linux@
 	@PREPARE_lcd4_linux@
 	touch $@
 
@@ -1673,17 +1673,17 @@ $(DEPDIR)/libdpfax: bootstrap libusbcompat @DEPENDS_libdpfax@
 #
 # DPFAX
 #
-$(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
-	@PREPARE_libdpf@
-	cd @DIR_libdpf@ && \
-	$(BUILDENV) \
-		$(MAKE) && \
-		cp dpf.h $(targetprefix)/usr/include/ && \
-		cp sglib.h $(targetprefix)/usr/include/ && \
-		cp usbuser.h $(targetprefix)/usr/include/ && \
-		cp libdpf.a $(targetprefix)/usr/lib/
-	@DISTCLEANUP_libdpf@
-	touch $@
+#$(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
+#	@PREPARE_libdpf@
+#	cd @DIR_libdpf@ && \
+#	$(BUILDENV) \
+#		$(MAKE) && \
+#		cp dpf.h $(targetprefix)/usr/include/ && \
+#		cp sglib.h $(targetprefix)/usr/include/ && \
+#		cp usbuser.h $(targetprefix)/usr/include/ && \
+#		cp libdpf.a $(targetprefix)/usr/lib/
+#	@DISTCLEANUP_libdpf@
+#	touch $@
 
 #
 #

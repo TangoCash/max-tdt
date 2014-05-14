@@ -40,7 +40,7 @@ $(archivedir)/stlinux24-target-%.src.rpm:
 
 $(archivedir)/lcd4linux.svn:
 	false || mkdir -p $(archivedir) && ( \
-	svn co -r$(LCD4LINUX_SVN) https://ssl.bulix.org/svn/lcd4linux/trunk $(archivedir)/lcd4linux.svn || \
+	svn co https://ssl.bulix.org/svn/lcd4linux/trunk $(archivedir)/lcd4linux.svn || \
 	false )
 	@touch $@
 

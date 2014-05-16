@@ -334,7 +334,9 @@ $(DEPDIR)/linux-kernel: bootstrap $(DEPDIR)/linux-kernel.do_compile
 	rm $(prefix)/$*cdkroot/lib/modules/$(KERNELVERSION)/source || true
 	touch $@
 
-linux-kernel-distclean: $(KERNELHEADERS)-distclean
+linux-kernel-distclean:
+	rm $(prefix)/$*cdkroot-rpmdb/*
+	$(KERNELHEADERS)-distclean
 
 $(DEPDIR)/driver: $(driverdir)/Makefile glibc-dev linux-kernel.do_compile
 	$(if $(PLAYER191),cp $(driverdir)/stgfb/stmfb/linux/drivers/video/stmfb.h $(targetprefix)/usr/include/linux)
@@ -374,4 +376,3 @@ linux-kernel.%:
 	@echo ""
 	diff $(KERNEL_DIR)/.config.old $(KERNEL_DIR)/.config
 	@echo ""
-

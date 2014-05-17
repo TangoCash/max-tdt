@@ -336,7 +336,10 @@ $(DEPDIR)/linux-kernel: bootstrap $(DEPDIR)/linux-kernel.do_compile
 
 linux-kernel-distclean:
 	rm $(prefix)/$*cdkroot-rpmdb/*
-	$(KERNELHEADERS)-distclean
+#	$(KERNELHEADERS)-distclean
+	rm -f $(DEPDIR)/linux-kernel
+	rm -f $(DEPDIR)/linux-kernel.do_compile
+	rm -f $(DEPDIR)/linux-kernel.do_prepare
 
 $(DEPDIR)/driver: $(driverdir)/Makefile glibc-dev linux-kernel.do_compile
 	$(if $(PLAYER191),cp $(driverdir)/stgfb/stmfb/linux/drivers/video/stmfb.h $(targetprefix)/usr/include/linux)

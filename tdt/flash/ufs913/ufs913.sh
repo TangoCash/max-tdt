@@ -115,8 +115,8 @@ echo ""
 echo ""
 echo ""
 echo "-----------------------------------------------------------------------"
-echo "Flashimage created:"
-ls -o $OUTDIR | awk -F " " '{print $7}'
+echo "Flashimage created."
+#ls -o $OUTDIR | awk -F " " '{print $7}'
 
 echo "-----------------------------------------------------------------------"
 echo "To flash the created image copy the *.img file to"

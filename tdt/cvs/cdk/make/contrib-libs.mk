@@ -1646,7 +1646,7 @@ $(DEPDIR)/lcd4_linux.do_compile: $(DEPDIR)/lcd4_linux.do_prepare
 			--oldincludedir=$(targetprefix)/usr/include \
 			--prefix=/usr \
 			--with-drivers='DPF,SamsungSPF' \
-			--with-plugins='all,!dbus,!mpris_dbus,!asterisk,!isdn,!pop3,!ppp,!seti,!huawei,!imon,!kvv,!sample,!w1retap,!wireless,!xmms,!gps,!mpd,!mysql,!qnaplog' \
+			--with-plugins='all,!apm,!asterisk,!dbus,!dvb,!gps,!hddtemp,!huawei,!imon,!isdn,!kvv,!mpd,!mpris_dbus,!mysql,!pop3,!ppp,!python,!qnaplog,!raspi,!sample,!seti,!w1retap,!wireless,!xmms' \
 			--without-ncurses && \
 		$(MAKE) all
 	touch $@

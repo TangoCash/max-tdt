@@ -203,7 +203,7 @@ hotplug_e2;1.0;hotplug-e2-helper;hotplug-e2-helper.git;extract:hotplug-e2-helper
 # EXTERNAL_LCD
 #
 graphlcd;base-touchcol;graphlcd-base-touchcol;graphlcd-base-touchcol.git:graphlcd.patch;extract:graphlcd-base-touchcol.git;patch:graphlcd.patch
-lcd4_linux;;lcd4linux;lcd4linux.svn;extract:lcd4linux.svn;patch:lcd4linux-dpf.patch;patch:lcd4linux-spf.patch
+lcd4_linux;;lcd4linux;lcd4linux.svn;extract:lcd4linux.svn;patch:lcd4linux.patch;patch:lcd4linux-dpf.patch;patch:lcd4linux-spf.patch
 libusb;1.0.9;libusb-1.0.9;libusb-1.0.9.tar.bz2;extract:libusb-1.0.9.tar.bz2;patch:libusb-1.0.9.patch
 libusbcompat;0.1.5;libusb-compat-0.1.5;libusb-compat-0.1.5.tar.bz2;extract:libusb-compat-0.1.5.tar.bz2
 libgd2;2.1.0;libgd-2.1.0;libgd-2.1.0.tar.gz;extract:libgd-2.1.0.tar.gz

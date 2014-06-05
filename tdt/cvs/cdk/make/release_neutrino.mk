@@ -950,6 +950,7 @@ endif
 	if [ -e $(targetprefix)/usr/bin/xupnpd ]; then \
 		cp -f $(targetprefix)/usr/bin/xupnpd $(prefix)/release_neutrino/usr/bin; \
 		cp -aR $(targetprefix)/usr/share/xupnpd $(prefix)/release_neutrino/usr/share; \
+		find $(prefix)/release_neutrino/ -name '.svn' -exec rm -fr {} +>/dev/null; \
 	fi
 #
 # Neutrino HD2 Workaround Build in Player

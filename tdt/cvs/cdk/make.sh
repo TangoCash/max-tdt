@@ -2,7 +2,7 @@
 
 if [ "$1" == -h ] || [ "$1" == --help ]; then
  echo "Parameter 1: target system (1-31)"
- echo "Parameter 2: kernel (1-3)"
+ echo "Parameter 2: kernel (1-4)"
  echo "Parameter 3: debug (y/N)"
  echo "Parameter 4: player (1-2)"
  echo "Parameter 5: Media Framework (1-4)"

@@ -588,7 +588,8 @@ release_neutrino_base:
 	cp -dp $(targetprefix)/sbin/blkid $(prefix)/release_neutrino/sbin/ && \
 	cp -p $(targetprefix)/usr/bin/ffmpeg $(prefix)/release_neutrino/sbin/ && \
 	ln -sf ../../bin/busybox $(prefix)/release_neutrino/usr/bin/ether-wake && \
-	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release_neutrino/sbin/
+	cp -dp $(targetprefix)/sbin/mkfs $(prefix)/release_neutrino/sbin/ && \
+	cp -dp $(targetprefix)/sbin/hd-idle $(prefix)/release_neutrino/sbin/
 if !ENABLE_UFS910
 if !ENABLE_UFS922
 	cp -dp $(targetprefix)/sbin/jfs_fsck $(prefix)/release_neutrino/sbin/ && \

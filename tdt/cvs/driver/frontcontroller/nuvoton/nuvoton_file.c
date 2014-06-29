@@ -1299,6 +1299,9 @@ static int NUVOTONdev_ioctl(struct inode *Inode, struct file *File, unsigned int
         /* ->alles abschalten ? VFD_Display_Write_On_Off */
         printk("VFDDISPLAYWRITEONOFF ->not yet implemented\n");
         break;
+    case 0x5305:
+	mode = 0;
+	break;
     case 0x5401:
 	mode = 0;
 	break;

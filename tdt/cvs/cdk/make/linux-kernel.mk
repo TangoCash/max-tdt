@@ -19,7 +19,6 @@ COMMONPATCHES_24 = \
 		linux-sh4-ext23_as_ext4_stm24$(PATCH_STR).patch \
 		bpa2_procfs_stm24$(PATCH_STR).patch \
 		linux-ftdi_sio.c_stm24$(PATCH_STR).patch \
-		linux-sh4-lzma-fix_stm24$(PATCH_STR).patch \
 		linux-tune_stm24.patch \
 		linux-sh4-permit_gcc_command_line_sections_stm24.patch \
 		linux-sh4-mmap_stm24.patch \
@@ -77,6 +76,7 @@ HS7110PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-hs7110_setup_stm24$(PATCH_STR).patch \
 		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
+		linux-sh4-lzma-fix_stm24$(PATCH_STR).patch \
 		linux-squashfs3.0_lzma_stm24.patch \
 		linux-squashfs-downgrade-stm24-2.6.25.patch \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
@@ -87,6 +87,7 @@ ATEMIO520PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-atemio520_setup_stm24$(PATCH_STR).patch \
 		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
+		linux-sh4-lzma-fix_stm24$(PATCH_STR).patch \
 		linux-squashfs3.0_lzma_stm23.patch \
 		linux-squashfs-downgrade-stm24-patch-2.6.25 \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch
@@ -97,6 +98,7 @@ ATEMIO530PATCHES_24 = $(COMMONPATCHES_24) \
 		linux-sh4-atemio530_setup_stm24$(PATCH_STR).patch \
 		$(if $(P0209)$(P0211),linux-sh4-i2c-stm-downgrade_stm24$(PATCH_STR).patch) \
 		linux-squashfs-downgrade-stm24$(PATCH_STR)-to-stm23.patch \
+		linux-sh4-lzma-fix_stm24$(PATCH_STR).patch \
 		linux-squashfs3.0_lzma_stm23.patch \
 		linux-squashfs-downgrade-stm24-patch-2.6.25 \
 		linux-squashfs-downgrade-stm24-rm_d_alloc_anon.patch

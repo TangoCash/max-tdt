@@ -1,0 +1,46 @@
+--- libpng-1.6.10/pngrtran.c.org
++++ libpng-1.6.10/pngrtran.c
+@@ -4694,6 +4694,34 @@
+  * and is very touchy.  If you add a transformation, take care to
+  * decide how it fits in with the other transformations here.
+  */
++
++void /* PRIVATE */
++png_do_remove_color_if_full_alpha(png_row_infop row_info, png_bytep row)
++{
++   png_uint_32 row_width;
++   png_debug(1, "in png_do_read_invert_alpha");
++   row_width = row_info->width;
++   if (row_info->color_type == PNG_COLOR_TYPE_RGB_ALPHA)
++   {
++      if (row_info->bit_depth == 8)
++      {
++         png_bytep sp = row + row_info->rowbytes;
++         png_bytep dp = sp;
++         png_uint_32 i;
++         float f;
++
++         for (i = 0; i < row_width; i++)
++         {
++               --dp;
++            f = ((png_byte)*(--sp))/255.0; //a
++            *(--dp) = ((png_byte)*(--sp))*f; //r
++            *(--dp) = ((png_byte)*(--sp))*f; //g
++            *(--dp) = ((png_byte)*(--sp))*f; //b
++         }
++      }
++   }
++}
++
+ void /* PRIVATE */
+ png_do_read_transformations(png_structrp png_ptr, png_row_infop row_info)
+ {
+@@ -4724,6 +4752,8 @@
+       png_error(png_ptr, "Uninitialized row");
+    }
+ 
++   png_do_remove_color_if_full_alpha(row_info, png_ptr->row_buf + 1);
++
+ #ifdef PNG_READ_EXPAND_SUPPORTED
+    if (png_ptr->transformations & PNG_EXPAND)
+    {

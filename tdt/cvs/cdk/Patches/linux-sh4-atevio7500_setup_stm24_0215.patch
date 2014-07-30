@@ -1,11 +1,11 @@
-*** a/arch/sh/kernel/setup.c	2011-01-05 10:45:31.000000000 +0100
---- b/setup.c	2011-01-22 12:22:31.340928000 +0100
+*** a/arch/sh/kernel/setup.c.orig	2011-01-05 10:45:31.000000000 +0100
+--- b/arch/sh/kernel/setup.c	2011-01-22 12:22:31.340928000 +0100
 ***************
-*** 388,393 ****
---- 388,421 ----
+*** 389,393 ****
+--- 389,421 ----
   #endif
   #endif
-  
+ 
 + 	{
 + 	char org_command_line[] = "console=ttyAS0,115200 root=/dev/mtdblock3";
 + 	char tdt_command_line[] = "console=ttyAS0,115200 root=/dev/mtdblock4 rw rootfstype=jffs2 init=/bin/devinit coprocessor_mem=4m@0x40000000,4m@0x40400000 printk=1 stmmaceth=ethaddr:";

@@ -37,12 +37,12 @@ diff -Nur linux-sh4-2.6.32.28_stm24_0207_orig/drivers/ata/sata_stm.c linux-sh4/d
  	return IRQ_RETVAL(handled);
  }
  
-@@ -1229,6 +1231,9 @@
- 	hpriv->device_state = devm_stm_device_init(dev,
- 		sata_private_info->device_config);
+@@ -1231,6 +1233,9 @@
+ 	if (!hpriv->device_state)
+ 		return -EBUSY;
  
 +	if (!hpriv->device_state)
-+		return -EBUSY; 
++		return -EBUSY;
 +
  	mem_res = platform_get_resource(pdev,IORESOURCE_MEM,0);
  	phys_base = mem_res->start;

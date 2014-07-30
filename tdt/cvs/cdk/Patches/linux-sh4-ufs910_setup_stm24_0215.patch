@@ -107,13 +107,13 @@
 +    },
 +    {
 +	.name = "ROOT - SQUASHFS",
-+	.size = 0x00B40000,
++	.size = 0x00AE0000,
 +	.offset = 0x001D0000
 +    },
 +    {
 +	.name = "Var - JFFS2",
-+	.size = 0x002F0000,
-+	.offset = 0x00D10000
++	.size = 0x00350000,
++	.offset = 0x00CB0000
 +    },
 +    {
 +	.name = "BootConfiguration",
@@ -228,7 +228,7 @@
  		},
  	},
  	[1] = {
-@@ -344,7 +342,7 @@
+@@ -345,7 +343,7 @@
  	BUG_ON(stx7100_ssc_configured[ssc]);
  	stx7100_ssc_configured[ssc] = 1;
  

@@ -173,8 +173,8 @@
  static int stmmac_phy_irqs[PHY_MAX_ADDR] = {
  	[STMMAC_PHY_ADDR] = IRL0_IRQ,
  };
-@@ -120,7 +192,7 @@
- 			.out1_enabled = 1, });
+@@ -106,7 +222,7 @@
+ 	stx7100_configure_sata();
  
  	stx7100_configure_ssc_i2c(0, NULL);
 -	stx7100_configure_ssc_spi(1, NULL);

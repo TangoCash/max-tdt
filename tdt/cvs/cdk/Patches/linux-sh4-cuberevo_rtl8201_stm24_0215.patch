@@ -1,9 +1,9 @@
 diff -urN linux-2.6.17.14/drivers/net/phy/Kconfig linux-dgs/drivers/net/phy/Kconfig
---- linux-2.6.17.14/drivers/net/phy/Kconfig	2009-09-08 10:05:37.000000000 +0200
-+++ linux-dgs/drivers/net/phy/Kconfig	2009-09-08 11:42:08.000000000 +0200
-@@ -70,6 +70,27 @@
-           Say Y if you want it compiled into the kernel. To compile this
-           driver as a module, choose M here.
+--- linux-sh4/drivers/net/phy/Kconfig	2009-09-08 10:05:37.000000000 +0200
++++ linux-sh4/drivers/net/phy/Kconfig	2009-09-08 11:42:08.000000000 +0200
+@@ -72,6 +72,27 @@
+ 	---help---
+ 	  Supports the Realtek 821x PHY.
  
 +choice
 +        depends on STE10XP

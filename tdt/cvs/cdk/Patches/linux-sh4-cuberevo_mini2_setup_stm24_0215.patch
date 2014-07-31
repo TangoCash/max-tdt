@@ -30,7 +30,7 @@
  		},
  	},
  	[2] = {
-@@ -344,7 +344,7 @@
+@@ -345,7 +345,7 @@
  	BUG_ON(stx7100_ssc_configured[ssc]);
  	stx7100_ssc_configured[ssc] = 1;
  
@@ -378,7 +378,7 @@
  			ARRAY_SIZE(mb442_devices));
 --- linux-sh4/drivers/serial/stm-asc.c	2011-08-16 18:57:59.000000000 +0200
 +++ b/stm-asc.c	2011-09-29 18:32:31.495178472 +0200
-@@ -574,7 +574,7 @@
+@@ -576,7 +576,7 @@
  	struct platform_device *pdev = to_platform_device(port->dev);
  	int size = pdev->resource[0].end - pdev->resource[0].start + 1;
  
@@ -451,7 +451,7 @@
  #endif /* _SH_SETUP_H */
 --- linux-sh4/arch/sh/kernel/setup.c	2011-08-16 18:57:58.000000000 +0200
 +++ b/kernel/setup.c	2011-10-01 10:03:59.030452949 +0200
-@@ -96,6 +96,9 @@
+@@ -97,6 +97,9 @@
  unsigned long memory_end = 0;
  EXPORT_SYMBOL(memory_end);
  
@@ -461,7 +461,7 @@
  static struct resource mem_resources[MAX_NUMNODES];
  
  int l1i_cache_shape, l1d_cache_shape, l2_cache_shape;
-@@ -419,6 +422,34 @@
+@@ -420,6 +423,34 @@
  #endif
  #endif
  
@@ -496,7 +496,7 @@
  	/* Save unparsed command line copy for /proc/cmdline */
  	memcpy(boot_command_line, command_line, COMMAND_LINE_SIZE);
  	*cmdline_p = command_line;
-@@ -429,6 +460,9 @@
+@@ -430,6 +461,9 @@
  
  	sh_mv_setup();
  
@@ -516,7 +516,7 @@
  #include "stmmac.h"
  
  #undef STMMAC_DEBUG
-@@ -958,14 +958,35 @@
+@@ -972,14 +972,35 @@
  	return hw_cap;
  }
  

@@ -19,7 +19,7 @@
  	$(RM) -rf elfshared
 --- a/configure
 +++ b/configure
-@@ -5038,7 +5038,7 @@ if test "${ac_cv_lib_blkid_blkid_get_cac
+@@ -5112,7 +5112,7 @@ if test "${ac_cv_lib_blkid_blkid_get_cac
    $as_echo_n "(cached) " >&6
  else
    ac_check_lib_save_LIBS=$LIBS
@@ -30,7 +30,7 @@
  
 --- a/misc/Makefile.in
 +++ b/misc/Makefile.in
-@@ -146,10 +146,10 @@ partinfo: partinfo.o
+@@ -148,10 +148,10 @@ partinfo: partinfo.o
  	$(E) "	LD $@"
  	$(Q) $(CC) $(ALL_LDFLAGS) -o partinfo partinfo.o
  
@@ -43,7 +43,7 @@
  
  tune2fs: $(TUNE2FS_OBJS) $(DEPLIBS) $(DEPLIBS_E2P) $(DEPLIBBLKID) \
  		$(DEPLIBUUID) $(DEPLIBQUOTA) $(LIBEXT2FS)
-@@ -289,9 +289,9 @@ dumpe2fs.profiled: $(PROFILED_DUMPE2FS_O
+@@ -291,9 +291,9 @@
  		$(PROFILED_DUMPE2FS_OBJS) $(PROFILED_LIBS) \
  		$(PROFILED_LIBE2P) $(PROFILED_LIBUUID) $(LIBINTL)
  
@@ -53,7 +53,7 @@
 -	$(Q) $(CC) $(ALL_LDFLAGS) -o fsck $(FSCK_OBJS) $(LIBBLKID) $(LIBINTL)
 +	$(Q) $(CC) $(ALL_LDFLAGS) -o fsck $(FSCK_OBJS) $(LIBBLKID) $(LIBUUID) $(LIBINTL)
  
- fsck.profiled: $(PROFILED_FSCK_OBJS) $(PROFILED_DEPLIBBLKID)
+ fsck.profiled: $(FSCK_OBJS) $(PROFILED_DEPLIBBLKID)
  	$(E) "	LD $@"
 --- a/lib/et/Makefile.in
 +++ b/lib/et/Makefile.in
@@ -68,3 +68,25 @@
  ELF_IMAGE = libcom_err
  ELF_MYDIR = et
  ELF_INSTALL_DIR = $(root_libdir)
+--- a/lib/blkid/blkidP.h.org	2014-06-03 14:48:56.935461927 +0200
++++ b/lib/blkid/blkidP.h	2014-06-03 14:48:39.271374620 +0200
+@@ -104,7 +104,7 @@
+ extern char *blkid_strdup(const char *s);
+ extern char *blkid_strndup(const char *s, const int length);
+ 
+-#define BLKID_CACHE_FILE "/etc/blkid.tab"
++#define BLKID_CACHE_FILE "/dev/blkid.tab"
+ 
+ #define BLKID_ERR_IO	 5
+ #define BLKID_ERR_PROC	 9
+--- a/misc/blkid.c.org	2014-06-03 14:55:46.741493667 +0200
++++ b/misc/blkid.c	2014-06-03 14:55:31.097416090 +0200
+@@ -53,7 +53,7 @@
+ 	fprintf(out,
+ 		"usage:\t%s [-c <file>] [-ghlLv] [-o format] "
+ 		"[-s <tag>] [-t <token>]\n    [-w <file>] [dev ...]\n"
+-		"\t-c\tcache file (default: /etc/blkid.tab, /dev/null = none)\n"
++		"\t-c\tcache file (default: /dev/blkid.tab, /dev/null = none)\n"
+ 		"\t-h\tprint this usage message and exit\n"
+ 		"\t-g\tgarbage collect the blkid cache\n"
+ 		"\t-s\tshow specified tag(s) (default show all tags)\n"

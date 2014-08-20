@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -2885,6 +2885,7 @@ CURL_VERIFY_RUNTIMELIBS
+@@ -2904,6 +2904,7 @@
  
  AC_CHECK_SIZEOF(size_t)
  AC_CHECK_SIZEOF(long)
@@ -10,7 +10,7 @@
  CURL_CONFIGURE_LONG
 --- a/Makefile.am
 +++ b/Makefile.am
-@@ -66,7 +66,7 @@ CLEANFILES = $(VC6LIBDSP) $(VC8LIBPRJ)
+@@ -129,7 +129,7 @@
  bin_SCRIPTS = curl-config
  
  SUBDIRS = lib src include
@@ -21,12 +21,12 @@
  pkgconfig_DATA = libcurl.pc
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -493,7 +493,7 @@ EXTRA_DIST = CHANGES COPYING maketgz Mak
- CLEANFILES = $(VC6LIBDSP) $(VC8LIBPRJ)
+@@ -574,7 +508,7 @@
+ 
  bin_SCRIPTS = curl-config
  SUBDIRS = lib src include
 -DIST_SUBDIRS = $(SUBDIRS) tests packages docs
 +DIST_SUBDIRS = $(SUBDIRS) packages
  pkgconfigdir = $(libdir)/pkgconfig
  pkgconfig_DATA = libcurl.pc
- CSOURCES = file.c timeval.c base64.c hostip.c progress.c formdata.c	\
+ LIB_VTLS_CFILES = vtls/openssl.c vtls/gtls.c vtls/vtls.c vtls/nss.c	\

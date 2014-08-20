@@ -14,7 +14,7 @@ $(targetprefix)/var/etc/.version:
 #
 #
 NEUTRINO_DEPS  = bootstrap openssl libcurl libid3tag libmad libvorbisidec libpng libjpeg libgif libfreetype
-NEUTRINO_DEPS += ffmpeg liblua libdvbsipp libopenthreads libusb libalsa
+NEUTRINO_DEPS += ffmpeg liblua libdvbsipp libsigc libopenthreads libusb libalsa
 NEUTRINO_DEPS += $(EXTERNALLCD_DEP) $(MEDIAFW_DEP)
 
 N_CFLAGS   = -Wall -W -Wshadow -pipe -Os -fno-strict-aliasing

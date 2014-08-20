@@ -91,7 +91,7 @@ libgif_e2;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
 libgif;5.0.4;giflib-5.0.4;giflib-5.0.4.tar.bz2;extract:giflib-5.0.4.tar.bz2
 libcurl;7.34.0;curl-7.34.0;curl-7.34.0.tar.bz2;extract:curl-7.34.0.tar.bz2;patch:libcurl-7.34.0.patch
 libfribidi;0.19.5;fribidi-0.19.5;fribidi-0.19.5.tar.bz2;extract:fribidi-0.19.5.tar.bz2;patch:fribidi-0.19.5.patch
-libsigc;1.2.5;libsigc++-1.2.5;libsigc++-1.2.5.tar.gz;extract:libsigc++-1.2.5.tar.gz
+libsigc;2.3.2;libsigc++-2.3.2;libsigc++-2.3.2.tar.xz;extract:libsigc++-2.3.2.tar.xz
 libmad;0.15.1b;libmad-0.15.1b;libmad-0.15.1b.tar.gz:libmad.patch;extract:libmad-0.15.1b.tar.gz;patch:libmad.patch
 libid3tag;0.15.1b;libid3tag-0.15.1b;libid3tag-0.15.1b.tar.gz:libid3tag.patch;extract:libid3tag-0.15.1b.tar.gz;patch:libid3tag.patch
 libvorbisidec;1.0.2+svn18153;libvorbisidec-1.0.2+svn18153;libvorbisidec_1.0.2+svn18153.orig.tar.gz:tremor.patch;extract:libvorbisidec_1.0.2+svn18153.orig.tar.gz;patch:tremor.patch

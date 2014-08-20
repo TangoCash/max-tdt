@@ -332,7 +332,7 @@ $(DEPDIR)/libfribidi: bootstrap @DEPENDS_libfribidi@
 #
 # libsigc
 #
-$(DEPDIR)/libsigc: bootstrap libstdc++-dev @DEPENDS_libsigc@
+$(DEPDIR)/libsigc: bootstrap @DEPENDS_libsigc@
 	@PREPARE_libsigc@
 	cd @DIR_libsigc@ && \
 		$(BUILDENV) \
@@ -340,7 +340,8 @@ $(DEPDIR)/libsigc: bootstrap libstdc++-dev @DEPENDS_libsigc@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
-			--disable-checks && \
+			--enable-shared \
+			--disable-documentation && \
 		$(MAKE) all && \
 		@INSTALL_libsigc@
 	@DISTCLEANUP_libsigc@

@@ -1,3 +1,14 @@
+--- a/configure.in
++++ b/configure.in
+@@ -1303,7 +1303,7 @@ if test $cross_compiling = no; then
+    BUILD_CFLAGS="$CFLAGS $CPPFLAGS $INCLUDES -DHAVE_CONFIG_H"
+    BUILD_LDFLAGS="$LDFLAGS"
+ else
+-   BUILD_CFLAGS=
++   BUILD_CFLAGS="$CFLAGS $CPPFLAGS $INCLUDES -DHAVE_CONFIG_H"
+    BUILD_LDFLAGS=
+ fi
+ AC_SUBST(BUILD_CFLAGS)
 --- a/lib/Makefile.elf-lib
 +++ b/lib/Makefile.elf-lib
 @@ -50,8 +50,6 @@ install-shlibs install:: $(ELF_LIB) installdirs-elf-lib $(DEP_INSTALL_SYMLINK)
@@ -17,20 +28,9 @@
  
  clean::
  	$(RM) -rf elfshared
---- a/configure
-+++ b/configure
-@@ -5112,7 +5112,7 @@ if test "${ac_cv_lib_blkid_blkid_get_cac
-   $as_echo_n "(cached) " >&6
- else
-   ac_check_lib_save_LIBS=$LIBS
--LIBS="-lblkid $LIBBLKID $LIBS"
-+LIBS="-lblkid $LIBBLKID $LIBUUID $LIBS"
- cat confdefs.h - <<_ACEOF >conftest.$ac_ext
- /* end confdefs.h.  */
- 
 --- a/misc/Makefile.in
 +++ b/misc/Makefile.in
-@@ -148,10 +148,10 @@ partinfo: partinfo.o
+@@ -149,10 +149,10 @@
  	$(E) "	LD $@"
  	$(Q) $(CC) $(ALL_LDFLAGS) -o partinfo partinfo.o
  
@@ -38,20 +38,21 @@
 +e2initrd_helper: e2initrd_helper.o $(DEPLIBS) $(DEPLIBBLKID) $(DEPLIBUUID) $(LIBEXT2FS)
  	$(E) "	LD $@"
  	$(Q) $(CC) $(ALL_LDFLAGS) -o e2initrd_helper e2initrd_helper.o $(LIBS) \
--		$(LIBBLKID) $(LIBEXT2FS) $(LIBINTL)
-+		$(LIBBLKID) $(LIBUUID) $(LIBEXT2FS) $(LIBINTL)
+-		$(LIBBLKID) $(LIBEXT2FS) $(LIBINTL) $(SYSLIBS)
++		$(LIBBLKID) $(LIBUUID) $(LIBEXT2FS) $(LIBINTL) $(SYSLIBS)
  
  tune2fs: $(TUNE2FS_OBJS) $(DEPLIBS) $(DEPLIBS_E2P) $(DEPLIBBLKID) \
  		$(DEPLIBUUID) $(DEPLIBQUOTA) $(LIBEXT2FS)
-@@ -291,9 +291,9 @@
+@@ -302,10 +302,10 @@
  		$(PROFILED_DUMPE2FS_OBJS) $(PROFILED_LIBS) \
- 		$(PROFILED_LIBE2P) $(PROFILED_LIBUUID) $(LIBINTL)
+ 		$(PROFILED_LIBE2P) $(PROFILED_LIBUUID) $(LIBINTL) $(SYSLIBS)
  
 -fsck: $(FSCK_OBJS) $(DEPLIBBLKID)
 +fsck: $(FSCK_OBJS) $(DEPLIBBLKID) $(DEPLIBUUID)
  	$(E) "	LD $@"
--	$(Q) $(CC) $(ALL_LDFLAGS) -o fsck $(FSCK_OBJS) $(LIBBLKID) $(LIBINTL)
-+	$(Q) $(CC) $(ALL_LDFLAGS) -o fsck $(FSCK_OBJS) $(LIBBLKID) $(LIBUUID) $(LIBINTL)
+ 	$(Q) $(CC) $(ALL_LDFLAGS) -o fsck $(FSCK_OBJS) $(LIBBLKID) \
+-		$(LIBINTL) $(SYSLIBS)
++		$(LIBUUID) $(LIBINTL) $(SYSLIBS)
  
  fsck.profiled: $(FSCK_OBJS) $(PROFILED_DEPLIBBLKID)
  	$(E) "	LD $@"

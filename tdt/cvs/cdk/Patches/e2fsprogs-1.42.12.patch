@@ -1,6 +1,6 @@
 --- a/configure.in
 +++ b/configure.in
-@@ -1303,7 +1303,7 @@ if test $cross_compiling = no; then
+@@ -1307,7 +1307,7 @@ if test $cross_compiling = no; then
     BUILD_CFLAGS="$CFLAGS $CPPFLAGS $INCLUDES -DHAVE_CONFIG_H"
     BUILD_LDFLAGS="$LDFLAGS"
  else
@@ -30,7 +30,7 @@
  	$(RM) -rf elfshared
 --- a/misc/Makefile.in
 +++ b/misc/Makefile.in
-@@ -149,10 +149,10 @@
+@@ -150,10 +150,10 @@
  	$(E) "	LD $@"
  	$(Q) $(CC) $(ALL_LDFLAGS) -o partinfo partinfo.o
  
@@ -43,7 +43,7 @@
  
  tune2fs: $(TUNE2FS_OBJS) $(DEPLIBS) $(DEPLIBS_E2P) $(DEPLIBBLKID) \
  		$(DEPLIBUUID) $(DEPLIBQUOTA) $(LIBEXT2FS)
-@@ -302,10 +302,10 @@
+@@ -303,10 +303,10 @@
  		$(PROFILED_DUMPE2FS_OBJS) $(PROFILED_LIBS) \
  		$(PROFILED_LIBE2P) $(PROFILED_LIBUUID) $(LIBINTL) $(SYSLIBS)
  

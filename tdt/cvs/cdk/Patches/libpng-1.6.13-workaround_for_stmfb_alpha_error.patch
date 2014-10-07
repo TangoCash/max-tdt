@@ -1,5 +1,5 @@
---- libpng-1.6.10/pngrtran.c.org
-+++ libpng-1.6.10/pngrtran.c
+--- libpng-1.6.13/pngrtran.c.org
++++ libpng-1.6.13/pngrtran.c
 @@ -4694,6 +4694,34 @@
   * and is very touchy.  If you add a transformation, take care to
   * decide how it fits in with the other transformations here.

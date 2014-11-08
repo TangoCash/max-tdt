@@ -88,7 +88,7 @@ libpng12;1.2.50;libpng-1.2.50;libpng-1.2.50.tar.bz2;extract:libpng-1.2.50.tar.bz
 libpng;1.6.14;libpng-1.6.14;libpng-1.6.14.tar.gz;extract:libpng-1.6.14.tar.gz;patch:libpng-1.6-workaround_for_stmfb_alpha_error.patch
 libungif;4.1.4;libungif-4.1.4;libungif-4.1.4.tar.bz2;extract:libungif-4.1.4.tar.bz2
 libgif_e2;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
-libgif;5.0.4;giflib-5.0.4;giflib-5.0.4.tar.bz2;extract:giflib-5.0.4.tar.bz2
+libgif;5.0.6;giflib-5.0.6;giflib-5.0.6.tar.bz2;extract:giflib-5.0.6.tar.bz2
 libcurl;7.39.0;curl-7.39.0;curl-7.39.0.tar.bz2;extract:curl-7.39.0.tar.bz2;patch:libcurl-7.39.0.patch
 libfribidi;0.19.6;fribidi-0.19.6;fribidi-0.19.6.tar.bz2;extract:fribidi-0.19.6.tar.bz2;patch:libfribidi-0.19.6.patch
 libsigc;2.4.0;libsigc++-2.4.0;libsigc++-2.4.0.tar.xz;extract:libsigc++-2.4.0.tar.xz

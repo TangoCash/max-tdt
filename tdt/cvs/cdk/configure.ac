@@ -915,7 +915,6 @@ TUXBOX_RULES_MAKE(libusb)
 TUXBOX_RULES_MAKE(libusbcompat)
 TUXBOX_RULES_MAKE(libgd2)
 TUXBOX_RULES_MAKE(libdpfax)
-TUXBOX_RULES_MAKE(libdpf)
 
 #
 # ide apps

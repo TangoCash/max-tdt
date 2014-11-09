@@ -174,7 +174,6 @@ libusb;rewrite-pkgconfig:libusb-1.0.pc;make:install:DESTDIR=TARGETS;rewrite-libt
 libusbcompat;rewrite-pkgconfig:libusb.pc;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libusb.la
 libgd2;make:install:DESTDIR=TARGETS;rewrite-libtool:TARGETS/usr/lib/libgd.la
 libdpfax;make:install:DESTDIR=TARGETS
-#libdpf;make:install:DESTDIR=TARGETS
 
 #
 # ide apps

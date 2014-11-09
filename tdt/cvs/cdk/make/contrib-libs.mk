@@ -1672,22 +1672,6 @@ $(DEPDIR)/libdpfax: bootstrap libusbcompat @DEPENDS_libdpfax@
 	touch $@
 
 #
-# DPFAX
-#
-#$(DEPDIR)/libdpf: bootstrap libusbcompat @DEPENDS_libdpf@
-#	@PREPARE_libdpf@
-#	cd @DIR_libdpf@ && \
-#	$(BUILDENV) \
-#		$(MAKE) && \
-#		cp dpf.h $(targetprefix)/usr/include/ && \
-#		cp sglib.h $(targetprefix)/usr/include/ && \
-#		cp usbuser.h $(targetprefix)/usr/include/ && \
-#		cp libdpf.a $(targetprefix)/usr/lib/
-#	@DISTCLEANUP_libdpf@
-#	touch $@
-
-#
-#
 # libgd2
 #
 $(DEPDIR)/libgd2: bootstrap libpng libjpeg libiconv libfreetype @DEPENDS_libgd2@

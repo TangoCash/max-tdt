@@ -1,0 +1,21 @@
+--- flac-1.3.0/src/Makefile.am.orig	2013-05-27 10:08:57.222577431 +0200
++++ flac-1.3.0/src/Makefile.am	2014-04-29 16:32:12.673686724 +0200
+@@ -16,10 +16,6 @@
+ #  restrictive of those mentioned above.  See the file COPYING.Xiph in this
+ #  distribution.
+ 
+-if FLaC__HAS_XMMS
+-XMMS_DIRS = plugin_common plugin_xmms
+-endif
+-
+ if FLaC__WITH_CPPLIBS
+ CPPLIBS_DIRS = libFLAC++ test_libFLAC++
+ endif
+@@ -30,7 +26,6 @@
+ 	flac \
+ 	metaflac \
+ 	monkeys_audio_utilities \
+-	$(XMMS_DIRS) \
+ 	test_grabbag \
+ 	test_libs_common \
+ 	test_libFLAC \

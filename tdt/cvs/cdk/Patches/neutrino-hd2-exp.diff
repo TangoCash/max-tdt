@@ -1,7 +1,7 @@
 diff -NEbur '--exclude-from=diff-exclude' nhd2-exp.org/src/Makefile.am nhd2-exp/src/Makefile.am
 --- nhd2-exp.org/src/Makefile.am	2014-02-03 20:57:41.869957726 +0100
 +++ nhd2-exp/src/Makefile.am	2014-02-03 21:10:23.017925716 +0100
-@@ -99,7 +99,7 @@
+@@ -96,7 +96,7 @@
  
  # graph lcd
  if ENABLE_GRAPHLCD

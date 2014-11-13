@@ -368,7 +368,8 @@ CROSS_BINUTILS = cross-sh4-binutils
 CROSS_BINUTILS_DEV = cross-sh4-binutils-dev
 if GCC47
 CROSS_BINUTILS_VERSION = 2.23.2-68
-CROSS_BINUTILS_PATCHES = stm-cross-binutils-2.23.2.patch
+CROSS_BINUTILS_PATCHES = 
+#stm-cross-binutils-2.23.2.patch
 else
 CROSS_BINUTILS_VERSION = 2.22-64
 CROSS_BINUTILS_PATCHES = 
@@ -502,7 +503,8 @@ CROSS_PROTOIZE = cross-sh4-protoize
 CROSS_LIBGCC = cross-sh4-libgcc
 if GCC47
 CROSS_GCC_VERSION = 4.7.3-124
-CROSS_GCC_PATCHES = stm-cross-$(GCC).$(CROSS_GCC_VERSION).diff
+CROSS_GCC_PATCHES = 
+#stm-cross-$(GCC).$(CROSS_GCC_VERSION).diff
 else
 CROSS_GCC_VERSION = 4.6.3-111
 CROSS_GCC_PATCHES =

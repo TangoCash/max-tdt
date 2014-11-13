@@ -1078,7 +1078,18 @@ $(DEPDIR)/libflac: bootstrap @DEPENDS_libflac@
 			--build=$(build) \
 			--host=$(target) \
 			--prefix=/usr \
+			--disable-sse \
+			--disable-asm-optimizations \
+			--disable-doxygen-docs \
+			--disable-exhaustive-tests \
+			--disable-thorough-tests \
+			--disable-3dnow \
+			--disable-debug \
+			--disable-valgrind-testing \
+			--disable-dependency-tracking \
 			--disable-ogg \
+			--disable-xmms-plugin \
+			--disable-thorough-tests \
 			--disable-altivec && \
 		$(MAKE) && \
 		@INSTALL_libflac@

@@ -8,9 +8,7 @@ $(DEPDIR)/busybox: bootstrap @DEPENDS_busybox@ $(buildprefix)/Patches/busybox.co
 		patch -p1 < ../Patches/busybox-1.22.1-ash.patch && \
 		patch -p1 < ../Patches/busybox-1.22.1-date.patch && \
 		patch -p1 < ../Patches/busybox-1.22.1-iplink.patch && \
-		patch -p1 < ../Patches/busybox-1.22.1-lzop.patch && \
 		patch -p1 < ../Patches/busybox-1.22.1-nc.patch && \
-		patch -p1 < ../Patches/busybox-1.22.1-zcat-no-ext.patch && \
 		$(INSTALL) -m644 $(lastword $^) .config && \
 		sed -i -e 's#^CONFIG_PREFIX.*#CONFIG_PREFIX="$(targetprefix)"#' .config
 	cd @DIR_busybox@ && \

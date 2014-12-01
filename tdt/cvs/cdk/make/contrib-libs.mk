@@ -303,6 +303,12 @@ $(DEPDIR)/libcurl: bootstrap @DEPENDS_libcurl@
 			--disable-imap \
 			--disable-pop3 \
 			--disable-smtp \
+			--disable-ldap \
+			--disable-ldaps \
+			--disable-telnet \
+			--disable-tftp \
+			--disable-gopher \
+			--disable-ipv6 \
 			--without-ssl \
 			--with-random && \
 		$(MAKE) all && \

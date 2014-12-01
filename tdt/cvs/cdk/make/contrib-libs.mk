@@ -782,7 +782,7 @@ $(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
 # ffmpeg
 #
 FFMPEG_CONFIGURE  = --disable-static --enable-shared --enable-small --disable-runtime-cpudetect
-FFMPEG_CONFIGURE += --disable-ffserver --disable-ffplay --disable-ffprobe
+FFMPEG_CONFIGURE += --disable-ffserver --disable-ffplay --disable-ffprobe --disable-iconv
 FFMPEG_CONFIGURE += --disable-doc --disable-htmlpages --disable-manpages --disable-podpages --disable-txtpages
 FFMPEG_CONFIGURE += --disable-asm --disable-altivec --disable-amd3dnow --disable-amd3dnowext --disable-mmx --disable-mmxext
 FFMPEG_CONFIGURE += --disable-sse --disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4 --disable-sse42 --disable-avx --disable-fma4

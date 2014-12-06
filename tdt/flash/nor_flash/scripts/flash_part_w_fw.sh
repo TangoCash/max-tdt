@@ -66,7 +66,7 @@ case "$HOST" in
 		SIZE_KERNEL=0x1A0000
 		SIZE_ROOT=0xB40000
 		SIZE_VAR=0x2E0000
-		ERASE_SIZE=0x10000
+		ERASE_SIZE=0x20000
 	;;
 	fortis) echo "Creating flash image for $HOST..."
 		SIZE_KERNEL=0x200000

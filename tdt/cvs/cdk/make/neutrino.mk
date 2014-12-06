@@ -13,9 +13,11 @@ $(targetprefix)/var/etc/.version:
 #
 #
 #
-NEUTRINO_DEPS  = bootstrap openssl libcurl libid3tag libmad libvorbisidec libpng libjpeg libgif libfreetype
+NEUTRINO_DEPS  = bootstrap openssl libcurl libpng libjpeg libgif libfreetype
 NEUTRINO_DEPS += ffmpeg liblua libdvbsipp libsigc libopenthreads libusb libalsa
 NEUTRINO_DEPS += $(EXTERNALLCD_DEP) $(MEDIAFW_DEP)
+
+NEUTRINO_DEPS2 = libid3tag libmad libvorbisidec
 
 N_CFLAGS   = -Wall -W -Wshadow -pipe -Os -fno-strict-aliasing
 #-rdynamic
@@ -148,7 +150,7 @@ libstb-hal-next-distclean:
 #
 # NEUTRINO MP
 #
-$(DEPDIR)/neutrino-mp.do_prepare: | $(NEUTRINO_DEPS) libstb-hal
+$(DEPDIR)/neutrino-mp.do_prepare: | $(NEUTRINO_DEPS) $(NEUTRINO_DEPS2) libstb-hal
 	rm -rf $(appsdir)/neutrino-mp
 	rm -rf $(appsdir)/neutrino-mp.org
 	[ -d "$(archivedir)/neutrino-mp.git" ] && \
@@ -300,7 +302,7 @@ neutrino-mp-next-distclean:
 NEUTRINO_HD2_PATCHES =
 NEUTRINO_HD2_PATCHES+= $(PATCHES)/neutrino-hd2-exp.diff
 
-$(DEPDIR)/neutrino-hd2-exp.do_prepare: | $(NEUTRINO_DEPS) libflac
+$(DEPDIR)/neutrino-hd2-exp.do_prepare: | $(NEUTRINO_DEPS) $(NEUTRINO_DEPS2) libflac
 	rm -rf $(appsdir)/nhd2-exp
 	rm -rf $(appsdir)/nhd2-exp.org
 	[ -d "$(archivedir)/neutrino-hd2-exp.svn" ] && \

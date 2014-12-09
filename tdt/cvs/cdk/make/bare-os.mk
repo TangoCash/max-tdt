@@ -120,7 +120,7 @@ $(DEPDIR)/$(GMP): $(GMP_RPM)
 # MPFR
 #
 MPFR := mpfr
-MPFR_VERSION := 3.1.2-9
+MPFR_VERSION := 3.1.2-10
 MPFR_SPEC := stm-target-$(MPFR).spec
 MPFR_SPEC_PATCH :=
 MPFR_PATCHES :=

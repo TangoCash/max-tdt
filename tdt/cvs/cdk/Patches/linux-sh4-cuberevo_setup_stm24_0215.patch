@@ -9,26 +9,6 @@
  
  # Give the various platforms the opportunity to set default image types
  defaultimage-$(CONFIG_SUPERH32)			:= zImage
---- a/drivers/stm/clocks/clock-stx7100.c.orig	2014-06-10 21:11:09.000000000 +0200
-+++ b/drivers/stm/clocks/clock-stx7100.c	2014-12-08 11:42:53.340693152 +0100
-@@ -47,7 +47,7 @@
- 	ndiv = (data >>  8) & 0xff;
- 	pdiv = (data >> 16) & 0x7;
- 	freq = (((2 * (CONFIG_SH_EXTERNAL_CLOCK / 1000) * ndiv) / mdiv) /
--		(1 << pdiv)) * 1000;
-+		(1 << pdiv)) * 1000 - 3000;
- 
- 	return freq;
- }
-@@ -371,7 +371,7 @@
- 
- static clk_t audio_clk_clocks[] = {
- /* Clockgen C (AUDIO) */
--_CLK_F(CLKC_REF, 30000000),
-+_CLK_F(CLKC_REF, 27000000),
- _CLK_P(CLKC_FS0_CH1, &clkgenc, 0, 0, &audio_clk_clocks[CLKC_REF]),
- _CLK_P(CLKC_FS0_CH2, &clkgenc, 0, 0, &audio_clk_clocks[CLKC_REF]),
- _CLK_P(CLKC_FS0_CH3, &clkgenc, 0, 0, &audio_clk_clocks[CLKC_REF]),
 --- a/drivers/stm/stx7100_comms.c	2011-08-16 18:58:00.000000000 +0200
 +++ b/stx7100_comms.c	2011-09-21 20:11:09.330974528 +0200
 @@ -238,14 +238,14 @@

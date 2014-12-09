@@ -566,7 +566,7 @@ $(DEPDIR)/$(CROSS_PROTOIZE): $(CROSS_PROTOIZE_RPM)
 $(DEPDIR)/filesystem: bootstrap-cross
 	$(INSTALL) -d $(targetprefix)/{bin,boot,dev,dev.static,etc,lib,mnt,opt,proc,root,sbin,sys,tmp,usr,var}
 	$(INSTALL) -d $(targetprefix)/etc/{default,init.d,mdev,opt,rc.d,samba}
-	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc3.d,rcS.d}
+	$(INSTALL) -d $(targetprefix)/etc/rc.d/{rc0.d,rc1.d,rc2.d,rc3.d,rc4.d,rc5.d,rc6.d,rcS.d}
 	ln -s ../init.d $(targetprefix)/etc/rc.d/init.d
 	$(INSTALL) -d $(targetprefix)/etc/samba/private
 	$(INSTALL) -d $(targetprefix)/lib/lsb

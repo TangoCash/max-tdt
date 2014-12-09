@@ -146,7 +146,7 @@ $(DEPDIR)/$(MPFR): $(MPFR_RPM)
 # MPC
 #
 MPC := mpc
-MPC_VERSION := 1.0.1-5
+MPC_VERSION := 1.0.2-6
 MPC_SPEC := stm-target-$(MPC).spec
 MPC_SPEC_PATCH := 
 MPC_PATCHES := 

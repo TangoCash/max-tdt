@@ -1,0 +1,54 @@
+--- stm-target-gcc.spec.orig	2013-04-25 12:50:02.979333190 +0200
++++ stm-target-gcc.spec	2013-05-13 14:03:07.402287108 +0200
+@@ -7,6 +7,7 @@
+ Source0: ftp://gcc.gnu.org/pub/gcc/releases/gcc-%{version}/gcc-%{version}.tar.bz2
+ Source1: gcc-protoize.1
+ 
++Patch0: stm-target-gcc.%{version}-%{release}.diff
+ Patch1: gcc-4.2.4-multilibpath.patch
+ Patch3: gcc-4.5.0-autoconf.patch
+ 
+@@ -57,6 +58,9 @@
+ BuildRequires: %{_stm_pkg_prefix}-%{_stm_target_arch}-gmp
+ BuildRequires: %{_stm_pkg_prefix}-%{_stm_target_arch}-mpc
+ 
++# Quick and dirty workaround. RPM complains about unpackaged files.
++%define _unpackaged_files_terminate_build 0
++
+ %description
+ This is the GNU C compiler, a fairly portable optimizing compiler which
+ supports multiple languages.  This package includes support for C, and
+@@ -160,6 +164,7 @@
+ 
+ %prep
+ %setup -n gcc-%{version} -q
++%patch0 -p1
+ 
+ %if %target_cpu arm
+ rm -f .gitignore
+@@ -236,9 +241,6 @@
+ %target_autoreconf
+ 
+ # need to bootstrap with the same data size that target.
+-export CC_FOR_BUILD="gcc -m32"
+-export CXX_FOR_BUILD="g++ -m32"
+-
+ export CFLAGS="-O2"
+ export CXXFLAGS="-O2"
+ 
+@@ -252,7 +254,6 @@
+ 	--enable-nls \
+ 	--enable-c99 \
+ 	--enable-long-long \
+-	--with-system-zlib \
+ 	--enable-shared \
+ %if "%{_stm_target_arch}" != "armv7" && "%{_stm_target_arch}" != "armv7_uclibc"
+ 	--disable-libgomp \
+@@ -374,6 +375,7 @@
+ rm -r %{buildroot}%{_gccdir}/install-tools
+ rm -r %{buildroot}%{_stm_cross_target_dir}%{_stm_target_libexec_dir}/gcc/%{_stm_target_config}/%{version}/install-tools
+ rm -rf %{buildroot}%{_stm_cross_target_dir}%{_stm_target_libexec_dir}/gcc/%{_stm_target_config}/%{version}/plugin/gengtype
++rm -rf %{buildroot}%{_gccdir}/include/ssl
+ %unfixincludes %{buildroot}%{_gccdir}
+ 
+ %find_lang gcc

@@ -808,6 +808,7 @@ endif
 	rm -f $(prefix)/release_neutrino/lib/libanl*
 	rm -f $(prefix)/release_neutrino/usr/lib/libanl*
 	rm -rf $(prefix)/release_neutrino/lib/m4-nofpu/
+	rm -rf $(prefix)/release_neutrino/usr/lib/m4-nofpu/
 	rm -f $(prefix)/release_neutrino/usr/lib/libcurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libncurses.so
 	rm -f $(prefix)/release_neutrino/usr/lib/libopkg*

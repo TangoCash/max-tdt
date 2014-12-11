@@ -30,6 +30,11 @@ AC_ARG_ENABLE(gcc47,
 	,[enable_gcc47=no])
 AM_CONDITIONAL(GCC47,test "$enable_gcc47" = "yes")
 
+AC_ARG_ENABLE(gcc48,
+	AS_HELP_STRING(--enable-gcc48, compile image stm24 using gcc 4.8),
+	,[enable_gcc48=no])
+AM_CONDITIONAL(GCC48,test "$enable_gcc48" = "yes")
+
 if test -z "$CFLAGS" ; then
 	CFLAGS="-g -O2"
 fi
@@ -1046,6 +1051,7 @@ kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
 STLinux 2.4                 : $enable_stm24
 GCC 4.7.3                   : $enable_gcc47
+GCC 4.8.3                   : $enable_gcc48
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0211            : $enable_p0211
 Patchlevel P0214            : $enable_p0214

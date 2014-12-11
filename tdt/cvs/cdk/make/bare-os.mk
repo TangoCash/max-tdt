@@ -27,7 +27,11 @@ $(DEPDIR)/$(TZDATA): $(TZDATA_RPM)
 #
 GLIBC := glibc
 GLIBC_DEV := glibc-dev
+if GCC48
+GLIBC_VERSION := 2.14.1-51
+else
 GLIBC_VERSION := 2.10.2-43
+endif
 GLIBC_RAWVERSION := $(firstword $(subst -, ,$(GLIBC_VERSION)))
 GLIBC_SPEC := stm-target-$(GLIBC).spec
 GLIBC_SPEC_PATCH :=
@@ -61,10 +65,14 @@ $(DEPDIR)/$(GLIBC_DEV): $(DEPDIR)/$(GLIBC) $(GLIBC_DEV_RPM)
 #
 BINUTILS := binutils
 BINUTILS_DEV := binutils-dev
+if GCC48
+BINUTILS_VERSION = 2.24.51.0.3-80
+else
 if GCC47
 BINUTILS_VERSION = 2.23.2-72
 else
 BINUTILS_VERSION = 2.22-68
+endif
 endif
 BINUTILS_SPEC := stm-target-$(BINUTILS).spec
 BINUTILS_SPEC_PATCH := $(BINUTILS_SPEC).$(BINUTILS_VERSION).diff
@@ -199,10 +207,14 @@ LIBSTDC := libstdc++
 LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
 GCC := gcc
+if GCC48
+GCC_VERSION := 4.8.3-146
+else
 if GCC47
 GCC_VERSION := 4.7.3-129
 else
 GCC_VERSION := 4.6.3-115
+endif
 endif
 GCC_SPEC := stm-target-$(GCC).spec
 GCC_SPEC_PATCH := $(GCC_SPEC).$(GCC_VERSION).diff

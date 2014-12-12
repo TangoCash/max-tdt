@@ -360,13 +360,13 @@ esac
 
 ##############################################
 
-# Check this option if you want to use the version of GCC.
-#CONFIGPARAM="$CONFIGPARAM --enable-gcc47"
-#CONFIGPARAM="$CONFIGPARAM --enable-gcc48"
+CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD"
 
 ##############################################
 
-CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD"
+# Check this option if you want to use the version of GCC.
+#CONFIGPARAM="$CONFIGPARAM --enable-gcc47"
+#CONFIGPARAM="$CONFIGPARAM --enable-gcc48"
 
 ##############################################
 

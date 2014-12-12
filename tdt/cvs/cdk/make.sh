@@ -1,12 +1,13 @@
 #!/bin/bash
 
 if [ "$1" == -h ] || [ "$1" == --help ]; then
- echo "Parameter 1: target system (1-31)"
- echo "Parameter 2: kernel (1-4)"
- echo "Parameter 3: debug (y/N)"
- echo "Parameter 4: player (1-2)"
+ echo "Parameter 1: Target system (1-31)"
+ echo "Parameter 2: Kernel (1-4)"
+ echo "Parameter 3: Debug (y/N)"
+ echo "Parameter 4: Player (1-2)"
  echo "Parameter 5: Media Framework (1-4)"
  echo "Parameter 6: External LCD support (1-2)"
+ echo "Parameter 7: GCC Version (1-3)"
  exit
 fi
 
@@ -360,13 +361,28 @@ esac
 
 ##############################################
 
-CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD"
+echo -e "\nGCC Version:"
+echo "   1) GCC 4.6.3 (recommended)"
+echo "   2) GCC 4.7.3 (experimental)"
+echo "   3) GCC 4.8.3 (experimental)"
+case $7 in
+	[1-3]) REPLY=$7
+	echo -e "\nSelected GCC Version: $REPLY\n"
+	;;
+	*)
+	read -p "Select GCC Version (1-3)? ";;
+esac
+
+case "$REPLY" in
+	1) GCC_VER="";;
+	2) GCC_VER="--enable-gcc47";;
+	3) GCC_VER="--enable-gcc48";;
+	*) GCC_VER="";;
+esac
 
 ##############################################
 
-# Check this option if you want to use the version of GCC.
-#CONFIGPARAM="$CONFIGPARAM --enable-gcc47"
-#CONFIGPARAM="$CONFIGPARAM --enable-gcc48"
+CONFIGPARAM="$CONFIGPARAM $PLAYER $MULTICOM $MEDIAFW $EXTERNAL_LCD $GCC_VER"
 
 ##############################################
 

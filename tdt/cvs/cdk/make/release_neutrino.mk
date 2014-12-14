@@ -729,11 +729,6 @@ endif
 	cp -aR $(targetprefix)/usr/share/fonts/{neutrino,DejaVuLGCSansMono-Bold}.ttf $(prefix)/release_neutrino/usr/share/fonts
 	ln -s /usr/share/fonts/DejaVuLGCSansMono-Bold.ttf $(prefix)/release_neutrino/usr/share/fonts/tuxtxt.ttf
 
-# Neutrino HD2
-	if [ -e $(targetprefix)/usr/share/fonts/micron.ttf ]; then \
-		cp -aR $(targetprefix)/usr/share/fonts/micron.ttf $(prefix)/release_neutrino/usr/share/fonts/; \
-	fi
-
 #
 # neutrino
 #
@@ -965,6 +960,7 @@ endif
 	if [ -e $(targetprefix)/usr/local/bin/eplayer3 ]; then \
 		cp -f $(targetprefix)/usr/local/bin/eplayer3 $(prefix)/release_neutrino/bin/; \
 		cp -f $(targetprefix)/usr/local/bin/meta $(prefix)/release_neutrino/bin/; \
+		cp -aR $(targetprefix)/usr/share/fonts/micron.ttf $(prefix)/release_neutrino/usr/share/fonts/; \
 	fi
 
 #

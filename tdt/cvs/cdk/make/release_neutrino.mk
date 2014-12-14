@@ -731,7 +731,7 @@ endif
 
 # Neutrino HD2
 	if [ -e $(targetprefix)/usr/share/fonts/micron.ttf ]; then \
-		cp -aR $(targetprefix)/usr/share/fonts/micron.ttf $(prefix)/release_neutrino/usr/share/fonts
+		cp -aR $(targetprefix)/usr/share/fonts/micron.ttf $(prefix)/release_neutrino/usr/share/fonts/; \
 	fi
 
 #

@@ -60,10 +60,6 @@ neutrino-mp-plugins-distclean:
 #
 # NHD2 plugins
 #
-yaud-neutrino-hd2-exp-plugins: yaud-none lirc \
-		boot-elf neutrino-hd2-exp neutrino-mp-plugins release_neutrino
-	@TUXBOX_YAUD_CUSTOMIZE@
-
 NEUTRINO_HD2_PLUGINS_PATCHES =
 
 $(DEPDIR)/nhd2-plugins.do_prepare:

@@ -87,7 +87,7 @@ $(appsdir)/nhd2-plugins/config.status: bootstrap
 			--prefix= \
 			--with-target=cdk \
 			--with-boxtype=$(BOXTYPE) \
-			--with-plugindir=/var/tuxbox/plugins \
+			--with-plugindir=/var/plugins \
 			--with-libdir=/usr/lib \
 			--with-datadir=/usr/share/tuxbox \
 			--with-fontdir=/usr/share/fonts \
@@ -102,7 +102,7 @@ $(DEPDIR)/nhd2-plugins.do_compile: $(appsdir)/nhd2-plugins/config.status
 	touch $@
 
 $(DEPDIR)/nhd2-plugins: nhd2-plugins.do_prepare nhd2-plugins.do_compile
-	rm -rf $(targetprefix)/var/tuxbox/plugins/*
+	rm -rf $(targetprefix)/var/plugins/*
 	$(MAKE) -C $(appsdir)/nhd2-plugins install DESTDIR=$(targetprefix)
 #	touch $@
 

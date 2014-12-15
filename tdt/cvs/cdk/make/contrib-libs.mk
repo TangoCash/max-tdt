@@ -1666,21 +1666,16 @@ $(DEPDIR)/lcd4_linux.do_prepare: bootstrap libusbcompat libgd2 libusb @DEPENDS_l
 	touch $@
 
 $(DEPDIR)/lcd4_linux.do_compile: $(DEPDIR)/lcd4_linux.do_prepare
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_lcd4_linux@ && \
-	cp $(hostprefix)/share/libtool/config/ltmain.sh . && \
 		aclocal && \
 		libtoolize -f -c && \
 		autoheader && \
-		automake --foreign && \
+		automake --add-missing --copy --foreign && \
 		autoconf && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \
 			--host=$(target) \
-			--libdir=$(targetprefix)/usr/lib \
-			--includedir=$(targetprefix)/usr/include \
-			--oldincludedir=$(targetprefix)/usr/include \
 			--prefix=/usr \
 			--with-drivers='DPF,SamsungSPF' \
 			--with-plugins='all,!apm,!asterisk,!dbus,!dvb,!gps,!hddtemp,!huawei,!imon,!isdn,!kvv,!mpd,!mpris_dbus,!mysql,!pop3,!ppp,!python,!qnaplog,!raspi,!sample,!seti,!w1retap,!wireless,!xmms' \
@@ -1710,13 +1705,9 @@ $(DEPDIR)/libdpfax: bootstrap libusbcompat @DEPENDS_libdpfax@
 #
 # libgd2
 #
-$(DEPDIR)/libgd2: bootstrap libpng libjpeg libiconv libfreetype @DEPENDS_libgd2@
+$(DEPDIR)/libgd2: bootstrap libpng libjpeg libfreetype @DEPENDS_libgd2@
 	@PREPARE_libgd2@
-	export PATH=$(hostprefix)/bin:$(PATH) && \
 	cd @DIR_libgd2@ && \
-		chmod +w configure && \
-		libtoolize -f -c && \
-		autoreconf --force --install -I$(hostprefix)/share/aclocal && \
 		$(BUILDENV) \
 		./configure \
 			--build=$(build) \

@@ -351,6 +351,10 @@ $(DEPDIR)/libsigc: bootstrap @DEPENDS_libsigc@
 			--disable-documentation && \
 		$(MAKE) all && \
 		@INSTALL_libsigc@
+		if [ -d $(targetprefix)/usr/include/sigc++-2.0/sigc++ ] ; then \
+			ln -sf ./sigc++-2.0/sigc++ $(targetprefix)/usr/include/sigc++; \
+		fi;
+		mv $(targetprefix)/usr/lib/sigc++-2.0/include/sigc++config.h $(targetprefix)/usr/include
 	@DISTCLEANUP_libsigc@
 	touch $@
 

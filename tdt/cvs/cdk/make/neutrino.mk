@@ -412,3 +412,151 @@ neutrino-clean neutrino-distclean:
 	rm -f $(DEPDIR)/neutrino.do_prepare
 	cd $(appsdir)/neutrino && \
 		$(MAKE) distclean
+
+################################################################################
+#
+# libstb-hal-github
+#
+NEUTRINO_MP_LIBSTB_GH_PATCHES =
+
+$(DEPDIR)/libstb-hal-github.do_prepare:
+	rm -rf $(appsdir)/libstb-hal-github
+	rm -rf $(appsdir)/libstb-hal-github.org
+	[ -d "$(archivedir)/libstb-hal-github.git" ] && \
+	(cd $(archivedir)/libstb-hal-github.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal-github.git" ] || \
+	git clone https://github.com/MaxWiesel/libstb-hal.git $(archivedir)/libstb-hal-github.git; \
+	cp -ra $(archivedir)/libstb-hal-github.git $(appsdir)/libstb-hal-github;\
+	cp -ra $(appsdir)/libstb-hal-github $(appsdir)/libstb-hal-github.org
+	for i in $(NEUTRINO_MP_LIBSTB_GH_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		cd $(appsdir)/libstb-hal-github && patch -p1 -i $$i; \
+	done;
+	touch $@
+
+$(DEPDIR)/libstb-hal-github.config.status: | $(NEUTRINO_DEPS)
+	cd $(appsdir)/libstb-hal-github && \
+		$(appsdir)/libstb-hal-github/autogen.sh && \
+		$(BUILDENV) \
+		$(appsdir)/libstb-hal-github/configure \
+			--host=$(target) \
+			--build=$(build) \
+			--prefix= \
+			--with-target=cdk \
+			--with-boxtype=$(BOXTYPE) \
+			PKG_CONFIG=$(hostprefix)/bin/$(target)-pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
+
+$(DEPDIR)/libstb-hal-github.do_compile: libstb-hal-github.config.status
+	cd $(appsdir)/libstb-hal-github && \
+		$(MAKE) -C $(appsdir)/libstb-hal-github
+	touch $@
+
+$(DEPDIR)/libstb-hal-github: libstb-hal-github.do_prepare libstb-hal-github.do_compile
+	$(MAKE) -C $(appsdir)/libstb-hal-github install DESTDIR=$(targetprefix)
+	touch $@
+
+libstb-hal-github-clean:
+	rm -f $(DEPDIR)/libstb-hal-github
+	cd $(appsdir)/libstb-hal-github && \
+		$(MAKE) -C $(appsdir)/libstb-hal-github distclean
+
+libstb-hal-github-distclean:
+	rm -rf $(appsdir)/libstb-hal-github
+	rm -f $(DEPDIR)/libstb-hal-github*
+
+################################################################################
+#
+# neutrino-mp-github-next-cst
+#
+yaud-neutrino-mp-github-next-cst: yaud-none lirc \
+		boot-elf neutrino-mp-github-next-cst release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-mp-github-next-cst-plugins: yaud-none lirc \
+		boot-elf neutrino-mp-github-next-cst neutrino-mp-plugins release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+NEUTRINO_MP_GH_NEXT_CST_PATCHES =
+
+$(DEPDIR)/neutrino-mp-github-next-cst.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-github
+	rm -rf $(appsdir)/neutrino-mp-github-next-cst
+	rm -rf $(appsdir)/neutrino-mp-github-next-cst.org
+	[ -d "$(archivedir)/neutrino-mp-github-next-cst.git" ] && \
+	(cd $(archivedir)/neutrino-mp-github-next-cst.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp-github-next-cst.git" ] || \
+	git clone https://github.com/MaxWiesel/neutrino-mp-cst-next.git $(archivedir)/neutrino-mp-github-next-cst.git; \
+	cp -ra $(archivedir)/neutrino-mp-github-next-cst.git $(appsdir)/neutrino-mp-github-next-cst; \
+	cp -ra $(appsdir)/neutrino-mp-github-next-cst $(appsdir)/neutrino-mp-github-next-cst.org
+	for i in $(NEUTRINO_MP_GH_NEXT_CST_PATCHES); do \
+		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \
+		cd $(appsdir)/neutrino-mp-github-next-cst && patch -p1 -i $$i; \
+	done;
+	touch $@
+
+$(DEPDIR)/neutrino-mp-github-next-cst.config.status:
+	cd $(appsdir)/neutrino-mp-github-next-cst && \
+		$(appsdir)/neutrino-mp-github-next-cst/autogen.sh && \
+		$(BUILDENV) \
+		$(appsdir)/neutrino-mp-github-next-cst/configure \
+			--build=$(build) \
+			--host=$(target) \
+			$(N_CONFIG_OPTS) \
+			--with-boxtype=$(BOXTYPE) \
+			--enable-upnp \
+			--enable-ffmpegdec \
+			--enable-giflib \
+			--with-tremor \
+			--with-libdir=/usr/lib \
+			--with-datadir=/usr/share/tuxbox \
+			--with-fontdir=/usr/share/fonts \
+			--with-configdir=/var/tuxbox/config \
+			--with-gamesdir=/var/tuxbox/games \
+			--with-plugindir=/var/plugins \
+			--with-stb-hal-includes=$(appsdir)/libstb-hal-github/include \
+			--with-stb-hal-build=$(appsdir)/libstb-hal-github \
+			PKG_CONFIG=$(hostprefix)/bin/pkg-config \
+			PKG_CONFIG_PATH=$(targetprefix)/usr/lib/pkgconfig \
+			CFLAGS="$(N_CFLAGS)" CXXFLAGS="$(N_CFLAGS)" CPPFLAGS="$(N_CPPFLAGS)"
+
+$(appsdir)/neutrino-mp-github-next-cst/src/gui/version.h:
+	@rm -f $@; \
+	echo '#define BUILT_DATE "'`date`'"' > $@
+	@if test -d $(appsdir)/libstb-hal-github ; then \
+		pushd $(appsdir)/libstb-hal-github ; \
+		HAL_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(appsdir)/neutrino-mp-github-next-cst ; \
+		NMP_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		pushd $(buildprefix) ; \
+		DDT_REV=$$(git log | grep "^commit" | wc -l) ; \
+		popd ; \
+		echo '#define VCS "DDT-rev'$$DDT_REV'_HAL-rev'$$HAL_REV'_NMP-rev'$$NMP_REV'"' >> $@ ; \
+	fi
+
+$(DEPDIR)/neutrino-mp-github-next-cst.do_compile: neutrino-mp-github-next-cst.config.status $(appsdir)/neutrino-mp-github-next-cst/src/gui/version.h
+	cd $(appsdir)/neutrino-mp-github-next-cst && \
+		$(MAKE) -C $(appsdir)/neutrino-mp-github-next-cst all
+	touch $@
+
+$(DEPDIR)/neutrino-mp-github-next-cst: neutrino-mp-github-next-cst.do_prepare neutrino-mp-github-next-cst.do_compile
+	$(MAKE) -C $(appsdir)/neutrino-mp-github-next-cst install DESTDIR=$(targetprefix) && \
+	rm -f $(targetprefix)/var/etc/.version
+	make $(targetprefix)/var/etc/.version
+	$(target)-strip $(targetprefix)/usr/local/bin/neutrino
+	$(target)-strip $(targetprefix)/usr/local/bin/pzapit
+	$(target)-strip $(targetprefix)/usr/local/bin/sectionsdcontrol
+	$(target)-strip $(targetprefix)/usr/local/sbin/udpstreampes
+	touch $@
+
+neutrino-mp-github-next-cst-clean:
+	rm -f $(DEPDIR)/neutrino-mp-github-next-cst
+	rm -f $(appsdir)/neutrino-mp-github-next-cst/src/gui/version.h
+	cd $(appsdir)/neutrino-mp-github-next-cst && \
+		$(MAKE) -C $(appsdir)/neutrino-mp-github-next-cst distclean
+
+neutrino-mp-github-next-cst-distclean:
+	rm -rf $(appsdir)/neutrino-mp-github-next-cst
+	rm -f $(DEPDIR)/neutrino-mp-github-next-cst*

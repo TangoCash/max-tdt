@@ -803,7 +803,7 @@ FFMPEG_CONFIGURE += --enable-encoder=aac --enable-encoder=h261 --enable-encoder=
 FFMPEG_CONFIGURE += --enable-encoder=mjpeg --enable-encoder=mpeg1video --enable-encoder=mpeg2video --enable-encoder=png
 FFMPEG_CONFIGURE += --disable-decoders
 FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dca --enable-decoder=dvbsub --enable-decoder=dvdsub --enable-decoder=flac
-FFMPEG_CONFIGURE += --enable-decoder=h261 --enable-decoder=h263 --enable-decoder=h263i --enable-decoder=h264 --enable-decoder=mjpeg
+FFMPEG_CONFIGURE += --enable-decoder=h261 --enable-decoder=h263 --enable-decoder=h263i --enable-decoder=h263p --enable-decoder=h264 --enable-decoder=mjpeg
 FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=pcm_s16le --enable-decoder=pcm_s16be
 FFMPEG_CONFIGURE += --enable-decoder=pcm_s16le_planar --enable-decoder=pcm_s16be_planar --enable-decoder=pgssub --enable-decoder=png --enable-decoder=srt
 FFMPEG_CONFIGURE += --enable-decoder=subrip --enable-decoder=subviewer --enable-decoder=subviewer1 --enable-decoder=text

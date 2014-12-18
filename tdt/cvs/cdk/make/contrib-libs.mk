@@ -804,17 +804,17 @@ FFMPEG_CONFIGURE += --enable-encoder=mjpeg --enable-encoder=mpeg1video --enable-
 FFMPEG_CONFIGURE += --disable-decoders
 FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dca --enable-decoder=dvbsub --enable-decoder=dvdsub --enable-decoder=flac
 FFMPEG_CONFIGURE += --enable-decoder=h261 --enable-decoder=h263 --enable-decoder=h263i --enable-decoder=h263p --enable-decoder=h264 --enable-decoder=mjpeg
-FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=pcm_s16le --enable-decoder=pcm_s16be
+FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=msmpeg4v1 --enable-decoder=msmpeg4v2
+FFMPEG_CONFIGURE += --enable-decoder=msmpeg4v3 --enable-decoder=pcm_s16le --enable-decoder=pcm_s16be
 FFMPEG_CONFIGURE += --enable-decoder=pcm_s16le_planar --enable-decoder=pcm_s16be_planar --enable-decoder=pgssub --enable-decoder=png --enable-decoder=srt
 FFMPEG_CONFIGURE += --enable-decoder=subrip --enable-decoder=subviewer --enable-decoder=subviewer1 --enable-decoder=text
 FFMPEG_CONFIGURE += --enable-decoder=theora --enable-decoder=vorbis --enable-decoder=wmv3 --enable-decoder=xsub
 FFMPEG_CONFIGURE += --disable-demuxers
-FFMPEG_CONFIGURE += --enable-demuxer=h261 --enable-demuxer=h263 --enable-demuxer=h264
 FFMPEG_CONFIGURE += --enable-demuxer=aac --enable-demuxer=ac3 --enable-demuxer=avi --enable-demuxer=dts --enable-demuxer=flac
-FFMPEG_CONFIGURE += --enable-demuxer=flv --enable-demuxer=hls --enable-demuxer=image* --enable-demuxer=matroska
-FFMPEG_CONFIGURE += --enable-demuxer=mjpeg --enable-demuxer=mov --enable-demuxer=mp3 --enable-demuxer=mpegts --enable-demuxer=mpegtsraw
-FFMPEG_CONFIGURE += --enable-demuxer=mpegps --enable-demuxer=mpegvideo --enable-demuxer=ogg --enable-demuxer=pcm_s16be --enable-demuxer=pcm_s16le
-FFMPEG_CONFIGURE += --enable-demuxer=rm --enable-demuxer=rtsp --enable-demuxer=srt --enable-demuxer=vc1 --enable-demuxer=wav
+FFMPEG_CONFIGURE += --enable-demuxer=flv --enable-demuxer=h261 --enable-demuxer=h263 --enable-demuxer=h264 --enable-demuxer=hls --enable-demuxer=image*
+FFMPEG_CONFIGURE += --enable-demuxer=matroska --enable-demuxer=mjpeg --enable-demuxer=mov --enable-demuxer=mp3 --enable-demuxer=mpegts
+FFMPEG_CONFIGURE += --enable-demuxer=mpegtsraw --enable-demuxer=mpegps --enable-demuxer=mpegvideo --enable-demuxer=ogg --enable-demuxer=pcm_s16be
+FFMPEG_CONFIGURE += --enable-demuxer=pcm_s16le --enable-demuxer=rm --enable-demuxer=rtsp --enable-demuxer=srt --enable-demuxer=vc1 --enable-demuxer=wav
 FFMPEG_CONFIGURE += --disable-protocols
 FFMPEG_CONFIGURE += --enable-protocol=file --enable-protocol=http --enable-protocol=mmsh --enable-protocol=mmst --enable-protocol=rtmp
 FFMPEG_CONFIGURE += --enable-protocol=rtmpe --enable-protocol=rtmps --enable-protocol=rtmpt --enable-protocol=rtmpte --enable-protocol=rtmpts

@@ -809,8 +809,9 @@ FFMPEG_CONFIGURE += --enable-decoder=pcm_s16le_planar --enable-decoder=pcm_s16be
 FFMPEG_CONFIGURE += --enable-decoder=subrip --enable-decoder=subviewer --enable-decoder=subviewer1 --enable-decoder=text
 FFMPEG_CONFIGURE += --enable-decoder=theora --enable-decoder=vorbis --enable-decoder=wmv3 --enable-decoder=xsub
 FFMPEG_CONFIGURE += --disable-demuxers
+FFMPEG_CONFIGURE += --enable-demuxer=h261 --enable-demuxer=h263 --enable-demuxer=h264
 FFMPEG_CONFIGURE += --enable-demuxer=aac --enable-demuxer=ac3 --enable-demuxer=avi --enable-demuxer=dts --enable-demuxer=flac
-FFMPEG_CONFIGURE += --enable-demuxer=flv --enable-demuxer=hds --enable-demuxer=hls --enable-demuxer=image* --enable-demuxer=matroska
+FFMPEG_CONFIGURE += --enable-demuxer=flv --enable-demuxer=hls --enable-demuxer=image* --enable-demuxer=matroska
 FFMPEG_CONFIGURE += --enable-demuxer=mjpeg --enable-demuxer=mov --enable-demuxer=mp3 --enable-demuxer=mpegts --enable-demuxer=mpegtsraw
 FFMPEG_CONFIGURE += --enable-demuxer=mpegps --enable-demuxer=mpegvideo --enable-demuxer=ogg --enable-demuxer=pcm_s16be --enable-demuxer=pcm_s16le
 FFMPEG_CONFIGURE += --enable-demuxer=rm --enable-demuxer=rtsp --enable-demuxer=srt --enable-demuxer=vc1 --enable-demuxer=wav

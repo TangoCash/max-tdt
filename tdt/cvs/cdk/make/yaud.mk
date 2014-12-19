@@ -107,6 +107,14 @@ yaud-neutrino-mp-next-all: yaud-none lirc \
 		boot-elf remote firstboot neutrino-mp-next neutrino-mp-plugins shairport release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@
 
+yaud-neutrino-mp-github-next-cst: yaud-none lirc \
+		boot-elf remote firstboot neutrino-mp-github-next-cst release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
+yaud-neutrino-mp-github-next-cst-plugins: yaud-none lirc \
+		boot-elf remote firstboot neutrino-mp-github-next-cst neutrino-mp-plugins release_neutrino
+	@TUXBOX_YAUD_CUSTOMIZE@
+
 yaud-neutrino-hd2-exp: yaud-none lirc \
 		boot-elf remote firstboot neutrino-hd2-exp release_neutrino
 	@TUXBOX_YAUD_CUSTOMIZE@

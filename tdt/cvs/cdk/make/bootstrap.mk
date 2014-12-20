@@ -508,7 +508,7 @@ CROSS_G++ = cross-sh4-g++
 CROSS_PROTOIZE = cross-sh4-protoize
 CROSS_LIBGCC = cross-sh4-libgcc
 if GCC48
-CROSS_GCC_VERSION = 4.8.3-137
+CROSS_GCC_VERSION = 4.8.3-138
 CROSS_GCC_PATCHES = 
 #stm-cross-$(GCC).$(CROSS_GCC_VERSION).diff
 else

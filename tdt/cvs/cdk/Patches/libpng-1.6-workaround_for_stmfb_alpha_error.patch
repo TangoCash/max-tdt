@@ -1,6 +1,6 @@
---- libpng-1.6.13/pngrtran.c.org
-+++ libpng-1.6.13/pngrtran.c
-@@ -4694,6 +4694,34 @@
+--- libpng/pngrtran.c.orig	2014-12-22 04:08:07.000000000 +0100
++++ libpng/pngrtran.c		2015-01-03 11:50:50.929717289 +0100
+@@ -4697,6 +4697,34 @@
   * and is very touchy.  If you add a transformation, take care to
   * decide how it fits in with the other transformations here.
   */
@@ -35,12 +35,12 @@
  void /* PRIVATE */
  png_do_read_transformations(png_structrp png_ptr, png_row_infop row_info)
  {
-@@ -4724,6 +4752,8 @@
+@@ -4727,6 +4755,8 @@
        png_error(png_ptr, "Uninitialized row");
     }
  
 +   png_do_remove_color_if_full_alpha(row_info, png_ptr->row_buf + 1);
 +
  #ifdef PNG_READ_EXPAND_SUPPORTED
-    if (png_ptr->transformations & PNG_EXPAND)
+    if ((png_ptr->transformations & PNG_EXPAND) != 0)
     {

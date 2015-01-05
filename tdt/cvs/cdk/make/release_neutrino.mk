@@ -779,6 +779,11 @@ endif
 	[ -e $(targetprefix)/usr/local/bin/restore.sh ] && cp -aR $(targetprefix)/usr/local/bin/restore.sh $(prefix)/release_neutrino/bin || true
 
 #
+# wput
+#
+	[ -e $(targetprefix)/usr/bin/wput ] && cp -aR $(targetprefix)/usr/bin/wput $(prefix)/release_neutrino/usr/bin/ || true
+
+#
 # Delete unnecessary files
 #
 	rm -rf $(prefix)/release_neutrino/lib/autofs

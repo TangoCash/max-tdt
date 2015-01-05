@@ -743,3 +743,25 @@ $(DEPDIR)/wget: bootstrap openssl openssl-dev @DEPENDS_wget@
 		@INSTALL_wget@
 	@DISTCLEANUP_wget@
 	touch $@
+
+#
+# wput
+#
+$(DEPDIR)/wput: bootstrap openssl openssl-dev @DEPENDS_wput@
+	@PREPARE_wput@
+	cd @DIR_wput@ && \
+		$(BUILDENV) \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--prefix=/usr \
+			--with-openssl \
+			--with-ssl=openssl \
+			--with-libssl-prefix=$(targetprefix) \
+			--disable-ipv6 \
+			--disable-debug \
+			--disable-nls && \
+		$(MAKE) && \
+		$(INSTALL) -m 755 wput $(targetprefix)/usr/bin
+	@DISTCLEANUP_wput@
+	touch $@

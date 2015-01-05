@@ -781,6 +781,7 @@ TUXBOX_RULES_MAKE(sysstat)
 TUXBOX_RULES_MAKE(imagemagick)
 TUXBOX_RULES_MAKE(shairport)
 TUXBOX_RULES_MAKE(wget)
+TUXBOX_RULES_MAKE(wput)
 
 #
 # contrib libs

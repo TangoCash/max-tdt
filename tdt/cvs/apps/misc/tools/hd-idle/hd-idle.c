@@ -45,6 +45,14 @@
  * ---------------
  *
  * $Log: hd-idle.c,v $
+ * Revision 1.7  2014/04/06 19:53:51  cjmueller
+ * Version 1.05
+ * ------------
+ *
+ * Bugs:
+ * - Allow SCSI device names with more than one character (e.g. sdaa) in case
+ *   there are more than 26 SCSI targets.
+ *
  * Revision 1.6  2010/12/05 19:25:51  cjmueller
  * Version 1.03
  * ------------
@@ -262,12 +270,15 @@ int main(int argc, char *argv[])
                  tmp.name, &tmp.reads, &tmp.writes) == 3) {
         DISKSTATS *ds;
         time_t now = time(NULL);
+        const char *s;
 
-        /* make sure this is a SCSI disk (sd[a-z]) */
-        if (tmp.name[0] != 's' ||
-            tmp.name[1] != 'd' ||
-            !isalpha(tmp.name[2]) ||
-            tmp.name[3] != '\0') {
+        /* make sure this is a SCSI disk (sd[a-z]+) without partition number */
+        if (tmp.name[0] != 's' || tmp.name[1] != 'd') {
+          continue;
+        }
+        for (s = tmp.name + 2; isalpha(*s); s++);
+        if (*s != '\0') {
+          /* ignore disk partitions */ 
           continue;
         }
 

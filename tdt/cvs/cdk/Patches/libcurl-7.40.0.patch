@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -2874,6 +2874,7 @@
+@@ -2885,6 +2885,7 @@
  
  AC_CHECK_SIZEOF(size_t)
  AC_CHECK_SIZEOF(long)
@@ -21,7 +21,7 @@
  pkgconfig_DATA = libcurl.pc
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -575,7 +509,7 @@
+@@ -577,7 +577,7 @@
  
  bin_SCRIPTS = curl-config
  SUBDIRS = lib src include
@@ -29,4 +29,4 @@
 +DIST_SUBDIRS = $(SUBDIRS) packages
  pkgconfigdir = $(libdir)/pkgconfig
  pkgconfig_DATA = libcurl.pc
- LIB_VTLS_CFILES = vtls/openssl.c vtls/gtls.c vtls/vtls.c vtls/nss.c	\
+ LIB_VTLS_CFILES = vtls/openssl.c vtls/gtls.c vtls/vtls.c vtls/nss.c     \

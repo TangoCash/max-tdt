@@ -226,7 +226,7 @@ autofs-4.1.4.tar.gz;http://kernel.org/pub/linux/daemons/autofs/v4
 autofs-5.0.7.tar.gz;http://kernel.org/pub/linux/daemons/autofs/v5
 portmap_6.0.0.orig.tar.gz;http://ftp.de.debian.org/debian/pool/main/p/portmap
 portmap_6.0.0-2.diff.gz ;http://debian.osuosl.org/debian/pool/main/p/portmap
-nfs-utils-1.2.3.tar.bz2;http://downloads.sourceforge.net/project/nfs/nfs-utils/1.2.3
+nfs-utils-1.3.1.tar.bz2;http://downloads.sourceforge.net/project/nfs/nfs-utils/1.3.1
 libevent-2.0.20-stable.tar.gz;http://downloads.sourceforge.net/project/levent/libevent/libevent-2.0
 libnfsidmap-0.25.tar.gz;http://www.citi.umich.edu/projects/nfsv4/linux/libnfsidmap
 vsftpd-3.0.2.tar.gz;https://security.appspot.com/downloads

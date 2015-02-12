@@ -1052,7 +1052,7 @@ kernelversion               : $KERNELVERSION
 localversion                : $KERNELSTMLABEL
 STLinux 2.4                 : $enable_stm24
 GCC 4.7.3                   : $enable_gcc47
-GCC 4.8.3                   : $enable_gcc48
+GCC 4.8.4                   : $enable_gcc48
 Patchlevel P0209            : $enable_p0209
 Patchlevel P0211            : $enable_p0211
 Patchlevel P0214            : $enable_p0214

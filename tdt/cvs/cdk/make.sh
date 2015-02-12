@@ -364,7 +364,7 @@ esac
 echo -e "\nGCC Version:"
 echo "   1) GCC 4.6.3 (recommended)"
 echo "   2) GCC 4.7.3 (experimental)"
-echo "   3) GCC 4.8.3 (experimental)"
+echo "   3) GCC 4.8.4 (experimental)"
 case $7 in
 	[1-3]) REPLY=$7
 	echo -e "\nSelected GCC Version: $REPLY\n"

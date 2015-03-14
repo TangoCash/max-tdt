@@ -21,17 +21,6 @@
      print_str("compiler_ident", CC_IDENT);
      print_str("configuration", FFMPEG_CONFIGURATION);
      writer_print_section_footer(w);
---- a/libavcodec/aacps.c.orig	2014-11-14 22:47:14.000000000 +0100
-+++ b/libavcodec/aacps.c	2015-03-13 13:35:49.872125888 +0100
-@@ -622,7 +622,7 @@
-     par[ 1] = (par[ 0] + par[ 1]) * 0.5f;
- }
- 
--static void decorrelation(PSContext *ps, float (*out)[32][2], const float (*s)[32][2], int is34)
-+static void __attribute__((optimize(0))) decorrelation(PSContext *ps, float (*out)[32][2], const float (*s)[32][2], int is34)
- {
-     LOCAL_ALIGNED_16(float, power, [34], [PS_QMF_TIME_SLOTS]);
-     LOCAL_ALIGNED_16(float, transient_gain, [34], [PS_QMF_TIME_SLOTS]);
 --- a/libavformat/mpegts.c	2013-05-10 02:16:06.000000000 +0200
 +++ b/libavformat/mpegts.c	2013-05-12 02:18:55.870388894 +0200
 @@ -1365,11 +1365,24 @@

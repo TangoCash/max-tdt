@@ -836,6 +836,8 @@ $(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
 			$(FFMPEG_CONFIGURE) \
 			--enable-cross-compile \
 			--cross-prefix=$(target)- \
+			--extra-cflags="-I$(targetprefix)/usr/include -ffunction-sections -fdata-sections" \
+			--extra-ldflags="-L$(targetprefix)/usr/lib -Wl,--gc-sections,-lrt" \
 			--target-os=linux \
 			--arch=sh4 \
 			--prefix=/usr && \

@@ -102,12 +102,11 @@ libstb-hal-distclean:
 $(DEPDIR)/libstb-hal-next.do_prepare:
 	rm -rf $(appsdir)/libstb-hal-next
 	rm -rf $(appsdir)/libstb-hal-next.org
-	[ -d "$(archivedir)/libstb-hal.git" ] && \
-	(cd $(archivedir)/libstb-hal.git; git pull; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/libstb-hal.git" ] || \
-	git clone git://gitorious.org/neutrino-hd/max10s-libstb-hal.git $(archivedir)/libstb-hal.git; \
-	cp -ra $(archivedir)/libstb-hal.git $(appsdir)/libstb-hal-next;\
-	(cd $(appsdir)/libstb-hal-next; git checkout next; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal-next.git" ] && \
+	(cd $(archivedir)/libstb-hal-next.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/libstb-hal-next.git" ] || \
+	git clone https://github.com/Duckbox-Developers/libstb-hal-next.git $(archivedir)/libstb-hal-next.git; \
+	cp -ra $(archivedir)/libstb-hal-next.git $(appsdir)/libstb-hal-next;\
 	cp -ra $(appsdir)/libstb-hal-next $(appsdir)/libstb-hal-next.org
 	touch $@
 
@@ -230,12 +229,11 @@ NEUTRINO_MP_NEXT_PATCHES =
 $(DEPDIR)/neutrino-mp-next.do_prepare: | $(NEUTRINO_DEPS) libstb-hal-next
 	rm -rf $(appsdir)/neutrino-mp-next
 	rm -rf $(appsdir)/neutrino-mp-next.org
-	[ -d "$(archivedir)/neutrino-mp.git" ] && \
-	(cd $(archivedir)/neutrino-mp.git; git pull; cd "$(buildprefix)";); \
-	[ -d "$(archivedir)/neutrino-mp.git" ] || \
-	git clone git://gitorious.org/neutrino-mp/max10s-neutrino-mp.git $(archivedir)/neutrino-mp.git; \
-	cp -ra $(archivedir)/neutrino-mp.git $(appsdir)/neutrino-mp-next; \
-	(cd $(appsdir)/neutrino-mp-next; git checkout next; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp-next.git" ] && \
+	(cd $(archivedir)/neutrino-mp-next.git; git pull; cd "$(buildprefix)";); \
+	[ -d "$(archivedir)/neutrino-mp-next.git" ] || \
+	git clone https://github.com/Duckbox-Developers/neutrino-mp-next.git $(archivedir)/neutrino-mp-next.git; \
+	cp -ra $(archivedir)/neutrino-mp-next.git $(appsdir)/neutrino-mp-next; \
 	cp -ra $(appsdir)/neutrino-mp-next $(appsdir)/neutrino-mp-next.org
 	for i in $(NEUTRINO_MP_NEXT_PATCHES); do \
 		echo "==> Applying Patch: $(subst $(PATCHES)/,'',$$i)"; \

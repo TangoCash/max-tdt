@@ -41,7 +41,7 @@ texinfo;4.13a;texinfo-4.13;texinfo-4.13a.tar.gz;extract:texinfo-4.13a.tar.gz
 #
 # root
 #
-busybox;1.23.1;busybox-1.23.1;busybox-1.23.1.tar.bz2;extract:busybox-1.23.1.tar.bz2
+busybox;1.23.2;busybox-1.23.2;busybox-1.23.2.tar.bz2;extract:busybox-1.23.2.tar.bz2
 lsb;3.2-20;lsb-3.2;lsb_3.2-20.tar.gz;extract:lsb_3.2-20.tar.gz
 ipkg;0.99.163;ipkg-0.99.163;ipkg-0.99.163.tar.gz;extract:ipkg-0.99.163.tar.gz
 module_init_tools;3.16;module-init-tools-3.16;module-init-tools-3.16.tar.bz2;extract:module-init-tools-3.16.tar.bz2;patch:module-init-tools-no-man.patch

@@ -208,7 +208,7 @@ LIBSTDC_DEV := libstdc++-dev
 LIBGCC := libgcc
 GCC := gcc
 if GCC48
-GCC_VERSION := 4.8.4-148
+GCC_VERSION := 4.8.4-149
 else
 if GCC47
 GCC_VERSION := 4.7.3-129

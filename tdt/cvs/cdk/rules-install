@@ -209,6 +209,6 @@ wireless_tools;make:install:INSTALL_MAN=TARGETS/usr/share/man:PREFIX=TARGETS/usr
 wpa_supplicant;make:install:DESTDIR=TARGETS
 ethtool;make:install:DESTDIR=TARGETS
 xupnpd;make:install:DESTDIR=TARGETS
-
+openvpn;make:install:DESTDIR=TARGET
 
 >>?;rules-install-local

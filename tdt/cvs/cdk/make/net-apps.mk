@@ -266,3 +266,22 @@ $(DEPDIR)/xupnpd: bootstrap @DEPENDS_xupnpd@
 		@INSTALL_xupnpd@
 	@DISTCLEANUP_xupnpd@
 	touch $@
+
+#
+# openvpn
+#
+$(DEPDIR)/openvpn: bootstrap openssl openssl-dev @DEPENDS_openvpn@
+	@PREPARE_openvpn@
+	cd @DIR_openvpn@ && \
+		./configure \
+			--build=$(build) \
+			--host=$(target) \
+			--target=$(target) \
+			--prefix=/usr \
+			--disable-lzo \
+			--disable-plugins \
+		&& \
+		$(MAKE) && \
+		@INSTALL_openvpn@
+	@DISTCLEANUP_openvpn@
+	touch $@

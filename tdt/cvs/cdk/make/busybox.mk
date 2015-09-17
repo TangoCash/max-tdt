@@ -5,6 +5,8 @@ $(DEPDIR)/busybox: bootstrap @DEPENDS_busybox@ $(buildprefix)/Patches/busybox.co
 	@PREPARE_busybox@
 	cd @DIR_busybox@ && \
 		patch -p1 < ../Patches/busybox-unicode.patch && \
+		patch -p1 < ../Patches/busybox-1.23.2-ifupdown.patch && \
+		patch -p1 < ../Patches/busybox-1.23.2-extra.patch && \
 		$(INSTALL) -m644 $(lastword $^) .config && \
 		sed -i -e 's#^CONFIG_PREFIX.*#CONFIG_PREFIX="$(targetprefix)"#' .config
 	cd @DIR_busybox@ && \

@@ -279,7 +279,7 @@ $(DEPDIR)/openvpn: bootstrap openssl openssl-dev @DEPENDS_openvpn@
 			--target=$(target) \
 			--prefix=/usr \
 			--disable-lzo \
-			--disable-plugin-auth-pam \
+			--disable-plugins \
 			--enable-password-save \
 		&& \
 		$(MAKE) all && \

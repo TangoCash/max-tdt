@@ -797,7 +797,7 @@ FFMPEG_CONFIGURE += --disable-yasm --disable-mips32r2 --disable-mipsdspr1 --disa
 FFMPEG_CONFIGURE += --disable-dxva2 --disable-vaapi --disable-vdpau
 FFMPEG_CONFIGURE += --disable-muxers
 FFMPEG_CONFIGURE += --enable-muxer=flac --enable-muxer=mp3 --enable-muxer=h261 --enable-muxer=h263 --enable-muxer=h264
-FFMPEG_CONFIGURE += --enable-muxer=image2 --enable-muxer=mpeg1video --enable-muxer=mpeg2video --enable-muxer=ogg
+FFMPEG_CONFIGURE += --enable-muxer=image2 --enable-muxer=mpeg1video --enable-muxer=mpeg2video --enable-muxer=mpegts --enable-muxer=ogg
 FFMPEG_CONFIGURE += --disable-parsers
 FFMPEG_CONFIGURE += --enable-parser=aac --enable-parser=aac_latm --enable-parser=ac3 --enable-parser=dca --enable-parser=dvbsub
 FFMPEG_CONFIGURE += --enable-parser=dvdsub --enable-parser=flac --enable-parser=h264 --enable-parser=mjpeg --enable-parser=mpeg4video

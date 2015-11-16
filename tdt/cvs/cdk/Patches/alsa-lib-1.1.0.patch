@@ -1,0 +1,10 @@
+--- a/src/topology/parser.c.org	2015-11-09 08:39:18.000000000 +0100
++++ b/src/topology/parser.c	2015-11-16 22:27:21.815378921 +0100
+@@ -18,6 +18,7 @@
+ 
+ #include "list.h"
+ #include "tplg_local.h"
++#include <sys/stat.h>
+ 
+ /*
+  * Parse compound

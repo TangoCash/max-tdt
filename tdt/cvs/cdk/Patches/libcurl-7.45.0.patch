@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3001,6 +3001,7 @@
+@@ -3011,6 +3011,7 @@
  
  AC_CHECK_SIZEOF(size_t)
  AC_CHECK_SIZEOF(long)
@@ -21,7 +21,7 @@
  pkgconfig_DATA = libcurl.pc
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -598,7 +598,7 @@
+@@ -599,7 +599,7 @@
  
  bin_SCRIPTS = curl-config
  SUBDIRS = lib src include

@@ -1,5 +1,5 @@
---- vsftpd-3.0.2-org/builddefs.h
-+++ vsftpd-3.0.2/builddefs.h
+--- vsftpd-3.0.3-org/builddefs.h
++++ vsftpd-3.0.3/builddefs.h
 @@ -2,7 +2,7 @@
  #define VSF_BUILDDEFS_H
  
@@ -9,8 +9,8 @@
  #undef VSF_BUILD_SSL
  
  #endif /* VSF_BUILDDEFS_H */
---- vsftpd-3.0.2-org/Makefile
-+++ vsftpd-3.0.2/Makefile
+--- vsftpd-3.0.3-org/Makefile
++++ vsftpd-3.0.3/Makefile
 @@ -3,14 +3,11 @@
  INSTALL	=	install
  IFLAGS  = -idirafter dummyinc
@@ -56,8 +56,8 @@
  
  clean:
  	rm -f *.o *.swp vsftpd
---- vsftpd-3.0.2-org/parseconf.c
-+++ vsftpd-3.0.2/parseconf.c
+--- vsftpd-3.0.3-org/parseconf.c
++++ vsftpd-3.0.3/parseconf.c
 @@ -227,7 +227,6 @@
       * race conditions.
       */
@@ -66,8 +66,8 @@
          !vsf_sysutil_statbuf_is_regfile(p_statbuf))
      {
        die("config file not owned by correct user, or not a file");
---- vsftpd-3.0.2-org/secutil.c
-+++ vsftpd-3.0.2/secutil.c
+--- vsftpd-3.0.3-org/secutil.c
++++ vsftpd-3.0.3/secutil.c
 @@ -132,13 +132,13 @@
    /* Misconfiguration check: don't ever chroot() to a directory writable by
     * the current user.

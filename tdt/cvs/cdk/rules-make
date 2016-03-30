@@ -74,7 +74,7 @@ wput;0.6.2;wput-0.6.2;wput-0.6.2.tgz;extract:wput-0.6.2.tgz
 #
 # contrib libs
 #
-liblua;5.2.3;lua-5.2.3;lua-5.2.3.tar.gz;extract:lua-5.2.3.tar.gz;patch:liblua-5.2.3-luaposix-31.patch
+liblua;5.2.4;lua-5.2.3;lua-5.2.4.tar.gz;extract:lua-5.2.4.tar.gz;patch:liblua-5.2.4-luaposix-31.patch
 libao;1.1.0;libao-1.1.0;libao-1.1.0.tar.gz;extract:libao-1.1.0.tar.gz
 howl;1.0.0;howl-1.0.0;howl-1.0.0.tar.gz;extract:howl-1.0.0.tar.gz
 libopenthreads;1.00;openthreads;;

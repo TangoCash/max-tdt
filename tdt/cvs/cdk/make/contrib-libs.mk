@@ -1657,7 +1657,7 @@ $(DEPDIR)/gst_plugins_dvbmediasink: bootstrap gstreamer gst_plugins_base gst_plu
 $(DEPDIR)/graphlcd: bootstrap libfreetype libusb @DEPENDS_graphlcd@
 	@PREPARE_graphlcd@
 	[ -d "$(archivedir)/graphlcd-base-touchcol.git" ] && \
-	(cd $(archivedir)/graphlcd-base-touchcol.git; git pull ; git checkout touchcol; cd "$(buildprefix)";); \
+	(cd $(archivedir)/graphlcd-base-touchcol.git; git pull ; git checkout 1e01a8963f9ab95ba40ddb44a6c166b8e546053d; cd "$(buildprefix)";); \
 	cd @DIR_graphlcd@ && \
 		$(BUILDENV) \
 		$(MAKE) all DESTDIR=$(targetprefix)/usr && \

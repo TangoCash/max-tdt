@@ -198,7 +198,8 @@ libdreamdvd.git;git://github.com/mirakels/libdreamdvd
 #
 # EXTERNAL_LCD
 #
-graphlcd-base-touchcol.git;git://projects.vdr-developer.org/graphlcd-base.git;touchcol
+#graphlcd-base-touchcol.git;git://projects.vdr-developer.org/graphlcd-base.git;touchcol
+graphlcd-base-touchcol.git;git://projects.vdr-developer.org/graphlcd-base.git;1e01a8963f9ab95ba40ddb44a6c166b8e546053d
 libusb-1.0.9.tar.bz2;http://downloads.sourceforge.net/project/libusb/libusb-1.0/libusb-1.0.9
 libusb-compat-0.1.5.tar.bz2;http://downloads.sourceforge.net/project/libusb/libusb-compat-0.1/libusb-compat-0.1.5
 libgd-2.1.0.tar.gz;http://bitbucket.org/libgd/gd-libgd/downloads/

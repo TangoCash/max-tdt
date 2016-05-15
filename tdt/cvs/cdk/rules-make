@@ -248,6 +248,6 @@ wpa_supplicant;0.7.3;wpa_supplicant-0.7.3;wpa_supplicant-0.7.3.tar.gz;extract:wp
 #wpa_supplicant;1.0;wpa_supplicant-1.0;wpa_supplicant-1.0.tar.gz;extract:wpa_supplicant-1.0.tar.gz
 ethtool;6;ethtool-6;ethtool-6.tar.gz;extract:ethtool-6.tar.gz
 xupnpd;1.0;xupnpd;xupnpd.svn;extract:xupnpd.svn;patch:xupnpd.patch
-openvpn;2.3.10;openvpn-2.3.10;openvpn-2.3.10.tar.xz;extract:openvpn-2.3.10.tar.xz
+openvpn;2.3.11;openvpn-2.3.11;openvpn-2.3.11.tar.xz;extract:openvpn-2.3.11.tar.xz
 
 >>?;rules-make-local

@@ -86,7 +86,7 @@ lirc;0.9.0;lirc-0.9.0;lirc-0.9.0.tar.gz:lirc-0.9.0-try_first_last_remote.diff;ex
 libjpeg;8d;jpeg-8d;jpegsrc.v8d.tar.gz:jpeg.diff;extract:jpegsrc.v8d.tar.gz;patch:jpeg.diff
 libjpeg_turbo;1.2.1;libjpeg-turbo-1.2.1;libjpeg-turbo-1.2.1.tar.gz;extract:libjpeg-turbo-1.2.1.tar.gz
 libpng12;1.2.50;libpng-1.2.50;libpng-1.2.50.tar.bz2;extract:libpng-1.2.50.tar.bz2
-libpng;1.6.21;libpng-1.6.21;libpng-1.6.21.tar.gz;extract:libpng-1.6.21.tar.gz;patch:libpng-1.6-workaround_for_stmfb_alpha_error.patch
+libpng;1.6.23;libpng-1.6.23;libpng-1.6.23.tar.gz;extract:libpng-1.6.23.tar.gz;patch:libpng-1.6-workaround_for_stmfb_alpha_error.patch
 libungif;4.1.4;libungif-4.1.4;libungif-4.1.4.tar.bz2;extract:libungif-4.1.4.tar.bz2
 libgif_e2;4.1.6;giflib-4.1.6;giflib-4.1.6.tar.bz2;extract:giflib-4.1.6.tar.bz2
 libgif;5.0.6;giflib-5.0.6;giflib-5.0.6.tar.bz2;extract:giflib-5.0.6.tar.bz2

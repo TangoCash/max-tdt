@@ -68,7 +68,7 @@ opkg;0.2.0;opkg-0.2.0;opkg-0.2.0.tar.gz;extract:opkg-0.2.0.tar.gz;patch:opkg-0.2
 sysstat;10.0.4;sysstat-10.0.4;sysstat-10.0.4.tar.gz;extract:sysstat-10.0.4.tar.gz
 imagemagick;6.7.7-7;ImageMagick-6.7.7-7;ImageMagick-6.7.7-7.tar.bz2;extract:ImageMagick-6.7.7-7.tar.bz2
 shairport;1.0;shairport;shairport.git;extract:shairport.git
-wget;1.17.1;wget-1.17.1;wget-1.17.1.tar.gz;extract:wget-1.17.1.tar.gz
+wget;1.18;wget-1.18;wget-1.18.tar.gz;extract:wget-1.18.tar.gz
 wput;0.6.2;wput-0.6.2;wput-0.6.2.tgz;extract:wput-0.6.2.tgz
 
 #

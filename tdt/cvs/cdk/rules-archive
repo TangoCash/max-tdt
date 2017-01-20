@@ -88,7 +88,7 @@ libpng-1.6.26.tar.gz;http://sourceforge.net/projects/libpng/files/libpng16/1.6.2
 libungif-4.1.4.tar.bz2;http://heanet.dl.sourceforge.net/sourceforge/giflib
 giflib-4.1.6.tar.bz2;http://heanet.dl.sourceforge.net/sourceforge/giflib
 giflib-5.0.6.tar.bz2;http://downloads.sourceforge.net/project/giflib
-curl-7.51.0.tar.bz2;http://curl.haxx.se/download
+curl-7.52.1.tar.bz2;http://curl.haxx.se/download
 libvorbisidec_1.0.2+svn18153.orig.tar.gz;http://ftp.debian.org/debian/pool/main/libv/libvorbisidec
 libvorbis-1.3.3.tar.gz;http://downloads.xiph.org/releases/vorbis
 fribidi-0.19.7.tar.bz2;http://fribidi.org/download

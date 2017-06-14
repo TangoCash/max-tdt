@@ -21,7 +21,7 @@
  pkgconfig_DATA = libcurl.pc
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -616,7 +616,7 @@
+@@ -623,7 +623,7 @@
  
  bin_SCRIPTS = curl-config
  SUBDIRS = lib docs src include

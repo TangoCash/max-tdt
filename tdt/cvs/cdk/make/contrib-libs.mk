@@ -786,7 +786,7 @@ $(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
 #
 # ffmpeg
 #
-FFMPEG_CONFIGURE  = --disable-static --enable-shared --enable-small --disable-runtime-cpudetect
+FFMPEG_CONFIGURE  = --disable-debug --enable-pthreads --disable-static --enable-shared --enable-small --enable-stripping --disable-runtime-cpudetect
 FFMPEG_CONFIGURE += --disable-ffserver --disable-ffplay --disable-ffprobe --disable-iconv --disable-postproc
 FFMPEG_CONFIGURE += --disable-doc --disable-htmlpages --disable-manpages --disable-podpages --disable-txtpages
 FFMPEG_CONFIGURE += --disable-asm --disable-altivec --disable-amd3dnow --disable-amd3dnowext --disable-mmx --disable-mmxext
@@ -825,8 +825,7 @@ FFMPEG_CONFIGURE += --enable-protocol=rtmpe --enable-protocol=rtmps --enable-pro
 FFMPEG_CONFIGURE += --disable-filters
 FFMPEG_CONFIGURE += --enable-filter=scale
 FFMPEG_CONFIGURE += --disable-bsfs --disable-indevs --disable-outdevs
-FFMPEG_CONFIGURE += --enable-bzlib --enable-zlib --disable-static --enable-shared --enable-small --enable-stripping
-FFMPEG_CONFIGURE += --disable-debug --disable-runtime-cpudetect --enable-pthreads
+FFMPEG_CONFIGURE += --enable-bzlib --enable-zlib
 
 $(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@

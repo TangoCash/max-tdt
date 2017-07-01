@@ -180,11 +180,8 @@ static int bpamem_ioctl(struct inode *inode, struct file *filp, unsigned int ioc
 	dev = MINOR(inode->i_rdev);
 	switch (ioctl_num) 
 	{
-		case BPAMEMIO_ALLOCMEM:
-			filp->f_pos = -42;
-			return bpamemio_allocmem((BPAMemAllocMemData *)ioctl_param);
+		case BPAMEMIO_ALLOCMEM:   return bpamemio_allocmem((BPAMemAllocMemData *)ioctl_param);
 		case BPAMEMIO_MAPMEM:     return bpamemio_mapmem((BPAMemMapMemData *)ioctl_param);
-
 		case BPAMEMIO_FREEMEM:    return bpamemio_deallocmem(dev);
 		case BPAMEMIO_UNMAPMEM:   return bpamemio_unmapmem(dev);
 	};
@@ -198,11 +195,7 @@ static int bpamem_open(struct inode *inode, struct file *filp)
 
 static int bpamem_release (struct inode *inode, struct file *filp)
 {
-	unsigned int dev;
-	if (filp->f_pos == -42)
-		return 0;
-	dev = MINOR(inode->i_rdev);
-	return bpamemio_deallocmem(dev);
+	return 0;
 }
 
 

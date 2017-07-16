@@ -820,14 +820,14 @@ FFMPEG_CONFIGURE += --enable-demuxer=matroska --enable-demuxer=mjpeg --enable-de
 FFMPEG_CONFIGURE += --enable-demuxer=mpegtsraw --enable-demuxer=mpegps --enable-demuxer=mpegvideo --enable-demuxer=ogg --enable-demuxer=pcm_s16be
 FFMPEG_CONFIGURE += --enable-demuxer=pcm_s16le --enable-demuxer=rm --enable-demuxer=rtsp --enable-demuxer=srt --enable-demuxer=vc1 --enable-demuxer=wav
 FFMPEG_CONFIGURE += --disable-protocols
-FFMPEG_CONFIGURE += --enable-protocol=file --enable-protocol=http --enable-protocol=mmsh --enable-protocol=mmst --enable-protocol=rtmp
-FFMPEG_CONFIGURE += --enable-protocol=rtmpe --enable-protocol=rtmps --enable-protocol=rtmpt --enable-protocol=rtmpte --enable-protocol=rtmpts
+FFMPEG_CONFIGURE += --enable-protocol=file --enable-protocol=http --enable-protocol=https --enable-openssl --enable-protocol=mmsh --enable-protocol=mmst
+FFMPEG_CONFIGURE += --enable-protocol=rtmp --enable-protocol=rtmpe --enable-protocol=rtmps --enable-protocol=rtmpt --enable-protocol=rtmpte --enable-protocol=rtmpts
 FFMPEG_CONFIGURE += --disable-filters
 FFMPEG_CONFIGURE += --enable-filter=scale
 FFMPEG_CONFIGURE += --disable-bsfs --disable-indevs --disable-outdevs
 FFMPEG_CONFIGURE += --enable-bzlib --enable-zlib
 
-$(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
+$(DEPDIR)/ffmpeg: bootstrap libass openssl @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@ && \
 		$(BUILDENV) \
@@ -845,7 +845,7 @@ $(DEPDIR)/ffmpeg: bootstrap libass @DEPENDS_ffmpeg@
 	@DISTCLEANUP_ffmpeg@
 	touch $@
 
-$(DEPDIR)/ffmpeg_old: bootstrap libass rtmpdump @DEPENDS_ffmpeg_old@
+$(DEPDIR)/ffmpeg_old: bootstrap libass openssl rtmpdump @DEPENDS_ffmpeg_old@
 	@PREPARE_ffmpeg_old@
 	cd @DIR_ffmpeg_old@; \
 		$(BUILDENV) \

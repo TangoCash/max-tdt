@@ -1,6 +1,6 @@
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3149,6 +3149,7 @@
+@@ -3156,6 +3156,7 @@
  
  AC_CHECK_SIZEOF(size_t)
  AC_CHECK_SIZEOF(long)
@@ -13,19 +13,19 @@
 @@ -155,7 +155,7 @@
  bin_SCRIPTS = curl-config
  
- SUBDIRS = lib docs src include
--DIST_SUBDIRS = $(SUBDIRS) tests packages scripts
+ SUBDIRS = lib src
+-DIST_SUBDIRS = $(SUBDIRS) tests packages scripts include docs
 +DIST_SUBDIRS = $(SUBDIRS) packages
  
  pkgconfigdir = $(libdir)/pkgconfig
  pkgconfig_DATA = libcurl.pc
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -623,7 +623,7 @@
+@@ -625,7 +625,7 @@
  
  bin_SCRIPTS = curl-config
- SUBDIRS = lib docs src include
--DIST_SUBDIRS = $(SUBDIRS) tests packages scripts
+ SUBDIRS = lib src
+-DIST_SUBDIRS = $(SUBDIRS) tests packages scripts include docs
 +DIST_SUBDIRS = $(SUBDIRS) packages
  pkgconfigdir = $(libdir)/pkgconfig
  pkgconfig_DATA = libcurl.pc

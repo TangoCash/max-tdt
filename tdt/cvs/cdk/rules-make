@@ -79,7 +79,7 @@ libao;1.1.0;libao-1.1.0;libao-1.1.0.tar.gz;extract:libao-1.1.0.tar.gz
 howl;1.0.0;howl-1.0.0;howl-1.0.0.tar.gz;extract:howl-1.0.0.tar.gz
 libopenthreads;1.00;openthreads;;
 libboost;boost-1.53.0;boost_1_53_0;boost_1_53_0.tar.bz2;extract:boost_1_53_0.tar.bz2;patch:libboost.diff
-libz;1.2.8;zlib-1.2.8;zlib-1.2.8.tar.gz;extract:zlib-1.2.8.tar.gz;patch:zlib-1.2.8.patch
+libz;1.2.11;zlib-1.2.11;zlib-1.2.11.tar.gz;extract:zlib-1.2.11.tar.gz;patch:zlib-1.2.11.patch
 libreadline;6.2;readline-6.2;readline-6.2.tar.gz;extract:readline-6.2.tar.gz
 libfreetype;2.5.0.1;freetype-2.5.0.1;freetype-2.5.0.1.tar.bz2;extract:freetype-2.5.0.1.tar.bz2;patch:freetype-2.5.0.1.patch
 lirc;0.9.0;lirc-0.9.0;lirc-0.9.0.tar.gz:lirc-0.9.0-try_first_last_remote.diff;extract:lirc-0.9.0.tar.gz;patch:lirc-0.9.0-try_first_last_remote.diff

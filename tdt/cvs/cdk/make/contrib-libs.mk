@@ -1877,7 +1877,7 @@ $(DEPDIR)/libopenthreads: bootstrap @DEPENDS_libopenthreads@
 	[ -d "$(archivedir)/cst-public-libraries-openthreads.git" ] && \
 	(cd $(archivedir)/cst-public-libraries-openthreads.git; git pull ; cd "$(buildprefix)";); \
 	[ -d "$(archivedir)/cst-public-libraries-openthreads.git" ] || \
-	git clone --recursive git://c00lstreamtech.de/cst-public-libraries-openthreads.git $(archivedir)/cst-public-libraries-openthreads.git; \
+	git clone --recursive git://github.com/coolstreamtech/cst-public-libraries-openthreads.git $(archivedir)/cst-public-libraries-openthreads.git; \
 	cp -ra $(archivedir)/cst-public-libraries-openthreads.git $(buildprefix)/openthreads; \
 	cd $(buildprefix)/openthreads && patch -p1 < "$(buildprefix)/Patches/libopenthreads.patch"
 	cd @DIR_libopenthreads@ && \

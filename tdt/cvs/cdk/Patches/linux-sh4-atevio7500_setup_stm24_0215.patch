@@ -160,7 +160,7 @@
  
  	return 0;
  }
-@@ -122,127 +95,76 @@
+@@ -122,127 +95,80 @@
  	.phy_mask = 0,
  };
  
@@ -168,37 +168,41 @@
 -	&mb680_leds,
 +static struct mtd_partition mb680_physmap_flash_partitions[] = {
 +	{
-+		.name = "U-BOOT",
-+		.size = 0x00040000,
++		.name   = "U-BOOT",		// real mtd0
++		.size   = 0x00040000,
 +		.offset = 0x00000000
 +	}, {
-+		.name = "Kernel",
-+		.size = 0x00300000,
++		.name   = "Kernel",		// real mtd3
++		.size   = 0x00300000,
 +		.offset = 0x00100000
 +	}, {
-+		.name = "FW",
-+		.size = 0x006E0000,
++		.name   = "FW",			// real mtd5
++		.size   = 0x006E0000,
 +		.offset = 0x00B20000
 +	}, {
-+		.name = "VAR",
-+		.size = 0x00BC0000,
++		.name   = "VAR",		// real mtd6
++		.size   = 0x00BC0000,
 +		.offset = 0x01220000
 +	}, {
-+		.name = "ROOT",
-+		.size = 0x001E00000,
++		.name   = "ROOT",		// real mtd7
++		.size   = 0x001E00000,
 +		.offset = 0x02200000
 +	}, {
-+		.name = "SWAP (VOLATILE)",
-+		.size = 0x006E0000,
++		.name   = "SWAP (VOLATILE)",	// real mtd4
++		.size   = 0x006E0000,
 +		.offset = 0x00420000
 +	}, {
-+		.name = "U-BOOT ENV",
-+		.size = 0x00020000,
++		.name   = "U-BOOT ENV",		// real mtd1
++		.size   = 0x00020000,
 +		.offset = 0x00040000
 +	}, {
-+		.name = "Full",
-+		.size = MTDPART_SIZ_FULL,
++		.name   = "Full",		// real mtd8
++		.size   = MTDPART_SIZ_FULL,
 +		.offset = 0x00100000
++	}, {
++		.name   = "MINI",		// real mtd2
++		.size   = 0x000A0000,
++		.offset = 0x00060000
 +	}
  };
  

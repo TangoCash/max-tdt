@@ -786,53 +786,193 @@ $(DEPDIR)/libdreamdvd: bootstrap @DEPENDS_libdreamdvd@
 #
 # ffmpeg
 #
-FFMPEG_CONFIGURE  = --disable-debug --enable-pthreads --disable-static --enable-shared --enable-small --enable-stripping --disable-runtime-cpudetect
-FFMPEG_CONFIGURE += --disable-ffserver --disable-ffplay --disable-ffprobe --disable-iconv --disable-postproc
-FFMPEG_CONFIGURE += --disable-doc --disable-htmlpages --disable-manpages --disable-podpages --disable-txtpages
-FFMPEG_CONFIGURE += --disable-asm --disable-altivec --disable-amd3dnow --disable-amd3dnowext --disable-mmx --disable-mmxext
-FFMPEG_CONFIGURE += --disable-sse --disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4 --disable-sse42 --disable-avx --disable-fma4
-FFMPEG_CONFIGURE += --disable-armv5te --disable-armv6 --disable-armv6t2 --disable-vfp --disable-neon --disable-inline-asm
-FFMPEG_CONFIGURE += --disable-vis
-FFMPEG_CONFIGURE += --disable-yasm --disable-mips32r2 --disable-mipsdspr1 --disable-mipsdspr2 --disable-mipsfpu --disable-fast-unaligned
-FFMPEG_CONFIGURE += --disable-dxva2 --disable-vaapi --disable-vdpau
-FFMPEG_CONFIGURE += --disable-muxers
-FFMPEG_CONFIGURE += --enable-muxer=flac --enable-muxer=mp3 --enable-muxer=h261 --enable-muxer=h263 --enable-muxer=h264
-FFMPEG_CONFIGURE += --enable-muxer=image2 --enable-muxer=mpeg1video --enable-muxer=mpeg2video --enable-muxer=mpegts --enable-muxer=ogg
-FFMPEG_CONFIGURE += --disable-parsers
-FFMPEG_CONFIGURE += --enable-parser=aac --enable-parser=aac_latm --enable-parser=ac3 --enable-parser=dca --enable-parser=dvbsub
-FFMPEG_CONFIGURE += --enable-parser=dvdsub --enable-parser=flac --enable-parser=h264 --enable-parser=mjpeg --enable-parser=mpeg4video
-FFMPEG_CONFIGURE += --enable-parser=mpegvideo --enable-parser=mpegaudio --enable-parser=vc1 --enable-parser=vorbis
-FFMPEG_CONFIGURE += --disable-encoders
-FFMPEG_CONFIGURE += --enable-encoder=aac --enable-encoder=h261 --enable-encoder=h263 --enable-encoder=h263p --enable-encoder=ljpeg
-FFMPEG_CONFIGURE += --enable-encoder=mjpeg --enable-encoder=mpeg1video --enable-encoder=mpeg2video --enable-encoder=png
-FFMPEG_CONFIGURE += --disable-decoders
-FFMPEG_CONFIGURE += --enable-decoder=aac --enable-decoder=dca --enable-decoder=dvbsub --enable-decoder=dvdsub --enable-decoder=flac
-FFMPEG_CONFIGURE += --enable-decoder=h261 --enable-decoder=h263 --enable-decoder=h263i --enable-decoder=h263p --enable-decoder=h264 --enable-decoder=mjpeg
-FFMPEG_CONFIGURE += --enable-decoder=mp3 --enable-decoder=mpeg1video --enable-decoder=mpeg2video --enable-decoder=msmpeg4v1 --enable-decoder=msmpeg4v2
-FFMPEG_CONFIGURE += --enable-decoder=msmpeg4v3 --enable-decoder=pcm_s16le --enable-decoder=pcm_s16be --enable-decoder=pcm_s16le_planar
-FFMPEG_CONFIGURE += --enable-decoder=pcm_s16be_planar --enable-decoder=pgssub --enable-decoder=png --enable-decoder=qdm2 --enable-decoder=srt
-FFMPEG_CONFIGURE += --enable-decoder=subrip --enable-decoder=subviewer --enable-decoder=subviewer1 --enable-decoder=svq1 --enable-decoder=svq3
-FFMPEG_CONFIGURE += --enable-decoder=text --enable-decoder=theora --enable-decoder=vorbis --enable-decoder=wmv3 --enable-decoder=xsub
-FFMPEG_CONFIGURE += --disable-demuxers
-FFMPEG_CONFIGURE += --enable-demuxer=aac --enable-demuxer=ac3 --enable-demuxer=avi --enable-demuxer=dts --enable-demuxer=flac
-FFMPEG_CONFIGURE += --enable-demuxer=flv --enable-demuxer=h261 --enable-demuxer=h263 --enable-demuxer=h264 --enable-demuxer=hls --enable-demuxer=image*
-FFMPEG_CONFIGURE += --enable-demuxer=matroska --enable-demuxer=mjpeg --enable-demuxer=mov --enable-demuxer=mp3 --enable-demuxer=mpegts
-FFMPEG_CONFIGURE += --enable-demuxer=mpegtsraw --enable-demuxer=mpegps --enable-demuxer=mpegvideo --enable-demuxer=ogg --enable-demuxer=pcm_s16be
-FFMPEG_CONFIGURE += --enable-demuxer=pcm_s16le --enable-demuxer=rm --enable-demuxer=rtsp --enable-demuxer=srt --enable-demuxer=vc1 --enable-demuxer=wav
-FFMPEG_CONFIGURE += --disable-protocols
-FFMPEG_CONFIGURE += --enable-protocol=file --enable-protocol=http --enable-protocol=https --enable-openssl --enable-protocol=mmsh --enable-protocol=mmst
-FFMPEG_CONFIGURE += --enable-protocol=rtmp --enable-protocol=rtmpe --enable-protocol=rtmps --enable-protocol=rtmpt --enable-protocol=rtmpte --enable-protocol=rtmpts
-FFMPEG_CONFIGURE += --disable-filters
-FFMPEG_CONFIGURE += --enable-filter=scale
-FFMPEG_CONFIGURE += --disable-bsfs --disable-indevs --disable-outdevs
-FFMPEG_CONFIGURE += --enable-bzlib --enable-zlib
+#FFMPEG_CONFIGURE_OLD_DEMUXER = --enable-demuxer=h261 --enable-demuxer=h263 --enable-demuxer=h264
+#FFMPEG_CONFIGURE_OLD_DECODER = --enable-decoder=h263p --enable-decoder=qdm2 --enable-decoder=svq1 --enable-decoder=svq3
 
 $(DEPDIR)/ffmpeg: bootstrap libass openssl @DEPENDS_ffmpeg@
 	@PREPARE_ffmpeg@
 	cd @DIR_ffmpeg@ && \
 		$(BUILDENV) \
 		./configure \
-			$(FFMPEG_CONFIGURE) \
+			--disable-asm \
+			--disable-vis \
+			--disable-mipsdspr1 \
+			--enable-pthreads \
+			\
+			--disable-ffserver \
+			--disable-ffplay \
+			--disable-ffprobe \
+			\
+			--disable-doc \
+			--disable-htmlpages \
+			--disable-manpages \
+			--disable-podpages \
+			--disable-txtpages \
+			\
+			--disable-altivec \
+			--disable-amd3dnow \
+			--disable-amd3dnowext \
+			--disable-mmx \
+			--disable-mmxext \
+			--disable-sse \
+			--disable-sse2 \
+			--disable-sse3 \
+			--disable-ssse3 \
+			--disable-sse4 \
+			--disable-sse42 \
+			--disable-avx \
+			--disable-fma4 \
+			--disable-vfp \
+			--disable-neon \
+			--disable-inline-asm \
+			--disable-yasm \
+			--disable-mips32r2 \
+			--disable-mipsdspr2 \
+			--disable-mipsfpu \
+			--disable-fast-unaligned \
+			\
+			--disable-dxva2 \
+			--disable-vaapi \
+			--disable-vdpau \
+			\
+			--disable-muxers \
+			--enable-muxer=flac \
+			--enable-muxer=mp3 \
+			--enable-muxer=h261 \
+			--enable-muxer=h263 \
+			--enable-muxer=h264 \
+			--enable-muxer=image2 \
+			--enable-muxer=mpeg1video \
+			--enable-muxer=mpeg2video \
+			--enable-muxer=mpegts \
+			--enable-muxer=ogg \
+			\
+			--disable-parsers \
+			--enable-parser=aac \
+			--enable-parser=aac_latm \
+			--enable-parser=ac3 \
+			--enable-parser=dca \
+			--enable-parser=dvbsub \
+			--enable-parser=dvdsub \
+			--enable-parser=flac \
+			--enable-parser=h264 \
+			--enable-parser=mjpeg \
+			--enable-parser=mpeg4video \
+			--enable-parser=mpegvideo \
+			--enable-parser=mpegaudio \
+			--enable-parser=vc1 \
+			--enable-parser=vorbis \
+			\
+			--disable-encoders \
+			--enable-encoder=aac \
+			--enable-encoder=h261 \
+			--enable-encoder=h263 \
+			--enable-encoder=h263p \
+			--enable-encoder=ljpeg \
+			--enable-encoder=mjpeg \
+			--enable-encoder=mpeg1video \
+			--enable-encoder=mpeg2video \
+			--enable-encoder=png \
+			\
+			--disable-decoders \
+			--enable-decoder=aac \
+			--enable-decoder=aac_latm \
+			--enable-decoder=dca \
+			--enable-decoder=dvbsub \
+			--enable-decoder=dvdsub \
+			--enable-decoder=flac \
+			--enable-decoder=h261 \
+			--enable-decoder=h263 \
+			--enable-decoder=h263i \
+			--enable-decoder=h264 \
+			--enable-decoder=mjpeg \
+			--enable-decoder=mp3 \
+			--enable-decoder=movtext \
+			--enable-decoder=mpeg1video \
+			--enable-decoder=mpeg2video \
+			--enable-decoder=msmpeg4v1 \
+			--enable-decoder=msmpeg4v2 \
+			--enable-decoder=msmpeg4v3 \
+			--enable-decoder=pcm_s16le \
+			--enable-decoder=pcm_s16be \
+			--enable-decoder=pcm_s16le_planar \
+			--enable-decoder=pcm_s16be_planar \
+			--enable-decoder=pgssub \
+			--enable-decoder=png \
+			--enable-decoder=srt \
+			--enable-decoder=subrip \
+			--enable-decoder=subviewer \
+			--enable-decoder=subviewer1 \
+			--enable-decoder=text \
+			--enable-decoder=theora \
+			--enable-decoder=vorbis \
+			--enable-decoder=wmv3 \
+			--enable-decoder=xsub \
+			\
+			--disable-demuxers \
+			--enable-demuxer=aac \
+			--enable-demuxer=ac3 \
+			--enable-demuxer=avi \
+			--enable-demuxer=dts \
+			--enable-demuxer=flac \
+			--enable-demuxer=flv \
+			--enable-demuxer=hls \
+			--enable-demuxer=image2 \
+			--enable-demuxer=image2pipe \
+			--enable-demuxer=matroska \
+			--enable-demuxer=mjpeg \
+			--enable-demuxer=mov \
+			--enable-demuxer=mp3 \
+			--enable-demuxer=mpegts \
+			--enable-demuxer=mpegtsraw \
+			--enable-demuxer=mpegps \
+			--enable-demuxer=mpegvideo \
+			--enable-demuxer=ogg \
+			--enable-demuxer=pcm_s16be \
+			--enable-demuxer=pcm_s16le \
+			--enable-demuxer=rm \
+			--enable-demuxer=rtp \
+			--enable-demuxer=rtsp \
+			--enable-demuxer=srt \
+			--enable-demuxer=vc1 \
+			--enable-demuxer=wav \
+			\
+			--disable-protocol=cache \
+			--disable-protocol=concat \
+			--disable-protocol=crypto \
+			--disable-protocol=data \
+			--disable-protocol=ftp \
+			--disable-protocol=gopher \
+			--disable-protocol=hls \
+			--disable-protocol=httpproxy \
+			--disable-protocol=md5 \
+			--disable-protocol=pipe \
+			--disable-protocol=sctp \
+			--disable-protocol=srtp \
+			\
+			--disable-filters \
+			--enable-filter=scale \
+			\
+			--disable-postproc \
+			--enable-bsfs \
+			--disable-indevs \
+			--disable-outdevs \
+			--enable-bzlib \
+			--enable-zlib \
+			\
+			--disable-armv5te \
+			--disable-armv6 \
+			--disable-armv6t2 \
+			--disable-iconv \
+			\
+			--disable-static \
+			--enable-openssl \
+			--enable-network \
+			--enable-shared \
+			--enable-small \
+			--enable-stripping \
+			--disable-debug \
+			--disable-runtime-cpudetect \
 			--enable-cross-compile \
 			--cross-prefix=$(target)- \
 			--extra-cflags="-I$(targetprefix)/usr/include -ffunction-sections -fdata-sections" \

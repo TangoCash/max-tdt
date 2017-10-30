@@ -121,6 +121,7 @@ $(DEPDIR)/openrdate: bootstrap @DEPENDS_openrdate@ $(OPENRDATE_ADAPTED_ETC_FILES
 #
 # e2fsprogs
 #
+# old 1.42.13: --disable-quota
 $(DEPDIR)/e2fsprogs: bootstrap utillinux @DEPENDS_e2fsprogs@
 	@PREPARE_e2fsprogs@
 	cd @DIR_e2fsprogs@ && \
@@ -135,10 +136,19 @@ $(DEPDIR)/e2fsprogs: bootstrap utillinux @DEPENDS_e2fsprogs@
 			--prefix=/usr \
 			--libdir=/usr/lib \
 			--disable-rpath \
-			--disable-quota \
 			--disable-testio-debug \
 			--disable-defrag \
 			--disable-nls \
+			--disable-jbd-debug \
+			--disable-blkid-debug \
+			--disable-backtrace \
+			--disable-debugfs \
+			--disable-imager \
+			--disable-resizer \
+			--disable-mmp \
+			--disable-tdb \
+			--disable-bmap-stats \
+			--disable-fuse2fs \
 			--enable-elf-shlibs \
 			--enable-verbose-makecmds \
 			--enable-symlink-install \

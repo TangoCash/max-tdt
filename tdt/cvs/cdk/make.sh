@@ -176,9 +176,9 @@ esac
 
 echo -e "\nKernel:"
 echo "   1) STM 24 P0209"
-echo "   2) STM 24 P0211 (recommended)"
+echo "   2) STM 24 P0211"
 echo "   3) STM 24 P0214 (experimental)"
-echo "   4) STM 24 P0215 (experimental)"
+echo "   4) STM 24 P0215 (recommended)"
 case $2 in
 	[1-4]) REPLY=$2
 	echo -e "\nSelected kernel: $REPLY\n"
@@ -362,9 +362,9 @@ esac
 ##############################################
 
 echo -e "\nGCC Version:"
-echo "   1) GCC 4.6.3 (recommended)"
+echo "   1) GCC 4.6.3"
 echo "   2) GCC 4.7.3 (experimental)"
-echo "   3) GCC 4.8.4 (experimental)"
+echo "   3) GCC 4.8.4 (recommended)"
 case $7 in
 	[1-3]) REPLY=$7
 	echo -e "\nSelected GCC Version: $REPLY\n"

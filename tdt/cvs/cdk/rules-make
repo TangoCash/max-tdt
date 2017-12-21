@@ -233,7 +233,7 @@ xfsprogs;3.1.8;xfsprogs-3.1.8;xfsprogs-3.1.8.tar.gz;extract:xfsprogs-3.1.8.tar.g
 # net apps
 #
 portmap;6.0.0;portmap-6.0.0;portmap_6.0.0.orig.tar.gz:portmap_6.0.diff:portmap_6.0.0-2.diff.gz;extract:portmap_6.0.0.orig.tar.gz;patch:portmap_6.0.diff
-nfs_utils;2.2.1;nfs-utils-2.2.1;nfs-utils-2.2.1.tar.bz2;extract:nfs-utils-2.2.1.tar.bz2;patch:nfs-utils-2.2.1.patch
+nfs_utils;2.3.1;nfs-utils-2.3.1;nfs-utils-2.3.1.tar.bz2;extract:nfs-utils-2.3.1.tar.bz2;patch:nfs-utils-2.3.1.patch
 libevent;2.0.20-stable;libevent-2.0.20-stable;libevent-2.0.20-stable.tar.gz;extract:libevent-2.0.20-stable.tar.gz
 libnfsidmap;0.25;libnfsidmap-0.25;libnfsidmap-0.25.tar.gz;extract:libnfsidmap-0.25.tar.gz
 vsftpd;3.0.3;vsftpd-3.0.3;vsftpd-3.0.3.tar.gz:vsftpd_3.0.3.patch;extract:vsftpd-3.0.3.tar.gz;patch:vsftpd_3.0.3.patch
